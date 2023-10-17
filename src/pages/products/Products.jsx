@@ -5,19 +5,19 @@ import Courses from "./courses/Courses";
 import { Outlet } from "react-router-dom";
 import SearchInput from "../../components/SearchInput";
 
-export default function Products() {
-	const tabs = [
-		{
-			title: "All Products",
-			path: "all",
-			content: <AllProducts />,
-		},
-		{ title: "Courses", path: "courses", content: <Courses /> },
-		{ title: "Coaching", path: "coaching", content: "Coaching" },
-		{ title: "Community", path: "community", content: "Community" },
-		{ title: "Codcasts", path: "codcasts", content: "Podcasts" },
-	];
+const tabs = [
+	{
+		title: "All Products",
+		path: "all",
+		content: <AllProducts />,
+	},
+	{ title: "Courses", path: "courses", content: <Courses /> },
+	{ title: "Coaching", path: "coaching", content: "Coaching" },
+	{ title: "Community", path: "community", content: "Community" },
+	{ title: "Codcasts", path: "codcasts", content: "Podcasts" },
+];
 
+export default function Products() {
 	const handleSubmit = () => {};
 
 	return (
