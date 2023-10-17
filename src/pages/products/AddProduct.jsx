@@ -47,7 +47,7 @@ export default function AddProduct() {
   }, []);
 
   return (
-    <div className="absolute h-full w-full flex items-center justify-center z-50">
+    <div className="absolute inset-0 w-full flex items-center justify-center z-50">
       <div className="absolute inset-0 bg-gray-700 opacity-70"></div>
       <div className="bg-white shadow-md p-8 rounded-lg z-10 w-2/5">
         <h2 className="text-2xl font-semibold mb-4">New product</h2>
