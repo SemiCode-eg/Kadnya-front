@@ -21,14 +21,12 @@ export default function Products() {
 	const handleSubmit = () => {};
 
 	return (
-		<div className="flex flex-col justify-center items-center w-full">
-			<div className="ml-5 w-4/6">
+		<div className="flex flex-col justify-center items-center w-10/12 mx-auto gap-8">
+			<div className=" w-full ml-1">
 				<h1 className="font-bold text-2xl">Products</h1>
 			</div>
-			<Card
-				className="mt-6 ml-5 p-8 w-4/6 h-full text-center
-                flex justify-center border rounded-md shadow-none "
-			>
+
+			<Card className="w-full text-center flex justify-center border rounded-md shadow-none ">
 				<CardBody>
 					<SearchInput onSubmit={handleSubmit} />
 					<MiniSide tabs={tabs} Outlet={Outlet} />
