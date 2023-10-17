@@ -1,15 +1,12 @@
+import { Outlet } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Sidebar from './components/sidebar/Sidebar';
 import Navbar from './components/navbar/Navbar';
 import Customize from './pages/website/customize/Customize';
-import Website from './pages/website/Website';
-import Products from './pages/products/Products';
-import AddProduct from './pages/products/AddProduct';
 
-function App() {
+function RootLayout() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
-  const [addForm, seAddForm] = useState(false);
 
   const location = useLocation();
 
@@ -45,7 +42,6 @@ function App() {
         <>
           {/* <div></div> */}
           <>
-            {addForm === true && <AddProduct />}
             <div
               className={`w-full md:w-3/12 lg:w-2/12 sm:relative sm:top-0 
             absolute top-16 h-screen bg-gray-100 duration-300 ease-linear z-40 ${
@@ -70,8 +66,7 @@ function App() {
                 toggleSidebar={toggleSidebar}
                 isSidebarOpen={isSidebarOpen}
               />
-              <Website />
-              <Products showForm={() => seAddForm(!addForm)} />
+              <Outlet />
             </div>
           </>
         </>
@@ -80,8 +75,4 @@ function App() {
   );
 }
 
-export default App;
-
-{
-  /* {location.pathname === "/website" && <Website />} */
-}
+export default RootLayout;
