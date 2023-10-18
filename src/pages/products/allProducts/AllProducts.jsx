@@ -2,6 +2,7 @@ import { useState } from 'react';
 import ProductCard from '../../../components/productCard/ProductCard';
 import { Presentation } from '@phosphor-icons/react';
 import AddProduct from '../AddProduct';
+import MainButton from '../../../components/MainButton/MainButton';
 
 export default function AllProducts() {
   const [showForm, setShowForm] = useState(false);
@@ -47,16 +48,11 @@ export default function AllProducts() {
           </p>
         </div>
         <div className="flex items-end justify-end w-full mb-6">
-          <button
-            className={`flex gap-2 items-center text-white
-                  outline-none transition-all duration-150 ease-in
-                  rounded-lg text-md font-semibold px-8 py-3 mr-2
-                  bg-sky-950 hover:bg-teal-200 hover:text-sky-950`}
-            onClick={() => setShowForm((prev) => !prev)}
-          >
-            <Presentation size={25} weight="bold" />
-            Add Product
-          </button>
+          <MainButton
+            text="Add Product"
+            handleClick={() => setShowForm((prev) => !prev)}
+            icon={<Presentation size={25} weight="bold" />}
+          />
         </div>
       </div>
 
