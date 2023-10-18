@@ -2,6 +2,7 @@ import ProductCard from '../../../components/productCard/ProductCard';
 
 const CoursesData = [
   {
+    id: 1,
     image:
       'https://t3.ftcdn.net/jpg/00/92/53/56/240_F_92535664_IvFsQeHjBzfE6sD4VHdO8u5OHUSc6yHF.jpg',
     title: 'Dummy Product 1',
@@ -10,6 +11,7 @@ const CoursesData = [
     subscribersCount: 1200,
   },
   {
+    id: 2,
     image:
       'https://t3.ftcdn.net/jpg/00/92/53/56/240_F_92535664_IvFsQeHjBzfE6sD4VHdO8u5OHUSc6yHF.jpg',
     title: 'Dummy Product 2',
@@ -18,6 +20,7 @@ const CoursesData = [
     subscribersCount: 800,
   },
   {
+    id: 3,
     image:
       'https://t3.ftcdn.net/jpg/00/92/53/56/240_F_92535664_IvFsQeHjBzfE6sD4VHdO8u5OHUSc6yHF.jpg',
     title: 'Dummy Product 3',
@@ -26,6 +29,7 @@ const CoursesData = [
     subscribersCount: 1500,
   },
   {
+    id: 4,
     image:
       'https://t3.ftcdn.net/jpg/00/92/53/56/240_F_92535664_IvFsQeHjBzfE6sD4VHdO8u5OHUSc6yHF.jpg',
     title: 'Dummy Product 3',
@@ -34,6 +38,7 @@ const CoursesData = [
     subscribersCount: 1500,
   },
   {
+    id: 5,
     image:
       'https://t3.ftcdn.net/jpg/00/92/53/56/240_F_92535664_IvFsQeHjBzfE6sD4VHdO8u5OHUSc6yHF.jpg',
     title: 'Dummy Product 3',
@@ -42,6 +47,7 @@ const CoursesData = [
     subscribersCount: 1500,
   },
   {
+    id: 6,
     image:
       'https://t3.ftcdn.net/jpg/00/92/53/56/240_F_92535664_IvFsQeHjBzfE6sD4VHdO8u5OHUSc6yHF.jpg',
     title: 'Dummy Product 3',
@@ -54,14 +60,15 @@ const CoursesData = [
 export default function Courses() {
   return (
     <div className="grid grid-cols-1 gap-6 w-full">
-      {CoursesData.map((course, index) => (
+      {CoursesData.map((course) => (
         <ProductCard
-          key={index}
+          key={course.id}
           image={course.image}
           title={course.title}
           category={course.category}
           date={course.date}
           subscribersCount={course.subscribersCount}
+          id={course.id}
         />
       ))}
     </div>

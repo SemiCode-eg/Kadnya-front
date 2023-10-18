@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
-import { CalendarBlank, Users } from "@phosphor-icons/react";
+import { CalendarBlank, Users } from '@phosphor-icons/react';
+import { Link } from 'react-router-dom';
 
 export default function ProductCard({
   image,
@@ -7,14 +8,14 @@ export default function ProductCard({
   category,
   date,
   subscribersCount,
-  onClick,
+  id,
 }) {
   return (
-    <div
+    <Link
       className="bg-white rounded-lg border border-gray-300 p-4 
     flex cursor-pointer hover:bg-teal-100 hover:border-gray-200
     duration-200 ease-in-out"
-      onClick={onClick}
+      to={`/course/${id}/outline`}
     >
       <div className="w-1/4">
         {image ? (
@@ -38,8 +39,10 @@ export default function ProductCard({
           </p>
         </div>
         <div className="mt-4 w-2/5 text-left">
-          <p className="text-sm text-sky-950 text-opacity-50
-                      flex gap-2 font-medium items-center">
+          <p
+            className="text-sm text-sky-950 text-opacity-50
+                      flex gap-2 font-medium items-center"
+          >
             <CalendarBlank size={24} weight="bold" />
             {date}
           </p>
@@ -52,6 +55,6 @@ export default function ProductCard({
           </p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
