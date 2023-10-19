@@ -66,9 +66,7 @@ function RootLayout() {
 								toggleSidebar={toggleSidebar}
 								isSidebarOpen={isSidebarOpen}
 							/>
-							<main>
-								<Outlet />
-							</main>
+							<Outlet />
 						</div>
 					</>
 				</>
