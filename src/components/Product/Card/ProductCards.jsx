@@ -1,4 +1,4 @@
-import ProductCard from "../productCard/ProductCard";
+import ProductCard from "./ProductCard";
 
 /* eslint-disable react/prop-types */
 export default function ProductCards({ data = [] }) {

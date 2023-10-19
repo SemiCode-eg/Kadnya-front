@@ -1,7 +1,7 @@
 import { Presentation } from "@phosphor-icons/react";
-import ProductsHead from "../../../components/ProductsHead";
-import ProductCards from "../../../components/ProductCards";
 import { useState } from "react";
+import ProductsHead from "../../../components/Product/ProductsHead";
+import ProductCards from "../../../components/Product/Card/ProductCards";
 
 export default function Courses() {
 	const [courses, setCourses] = useState(coursesData);
