@@ -1,50 +1,28 @@
-import { useState } from "react";
-import ProductCard from "../../../components/productCard/ProductCard";
 import { Presentation } from "@phosphor-icons/react";
 import AddProduct from "../AddProduct";
+import ProductsHead from "../../../components/ProductsHead";
+import ProductCards from "../../../components/ProductCards";
+import { useState } from "react";
 
 export default function AllProducts() {
-	const [showForm, setShowForm] = useState(false);
+	const [products, setProducts] = useState(productsData);
+
+	const handleProducts = (setStateCallback) => {
+		setProducts(setStateCallback);
+	};
 
 	return (
 		<>
-			{showForm === true && <AddProduct />}
-			<div className="flex">
-				<div className="flex items-center justify-start w-full mb-3">
-					<p
-						className={`flex gap-2 items-center text-sky-950
-                  outline-none transition-all duration-150 ease-in
-                  rounded-lg text-lg font-semibold py-3 mr-2`}
-					>
-						<span className="font-bold">5</span> Products
-					</p>
-				</div>
-				<div className="flex items-end justify-end w-full mb-6">
-					<button
-						className={`flex gap-2 items-center text-white
-                  outline-none transition-all duration-150 ease-in
-                  rounded-lg text-md font-semibold px-8 py-3 mr-2
-                  bg-sky-950 hover:bg-teal-200 hover:text-sky-950`}
-						onClick={() => setShowForm((prev) => !prev)}
-					>
-						<Presentation size={25} weight="bold" />
-						Add Product
-					</button>
-				</div>
-			</div>
+			<ProductsHead
+				Form={AddProduct}
+				ButtonIcon={Presentation}
+				buttonText="Add Product"
+				countTitle="Products"
+				productCount={products.length}
+				handleProducts={handleProducts}
+			/>
 
-			<div className="grid grid-cols-1 gap-6 w-full">
-				{productsData.map((product, index) => (
-					<ProductCard
-						key={index}
-						image={product.image}
-						title={product.title}
-						category={product.category}
-						date={product.date}
-						subscribersCount={product.subscribersCount}
-					/>
-				))}
-			</div>
+			<ProductCards data={products} />
 		</>
 	);
 }
