@@ -3,7 +3,7 @@ import ProductCard from "./ProductCard";
 /* eslint-disable react/prop-types */
 export default function ProductCards({ data = [] }) {
 	return (
-		<ul className="grid grid-cols-1 gap-6 w-full">
+		<ul className="flex flex-col gap-6 pr-5 w-full h-[45dvh] overflow-y-scroll">
 			{data.map((item, index) => (
 				<ProductCard
 					key={index}

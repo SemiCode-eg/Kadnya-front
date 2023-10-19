@@ -24,8 +24,8 @@ export default function Products() {
 		<main className="flex flex-col justify-center items-center w-10/12 mx-auto gap-8">
 			<h1 className="font-bold text-2xl w-full ml-1">Products</h1>
 
-			<Card className="w-full text-center flex justify-center border rounded-md shadow-none ">
-				<CardBody>
+			<Card className="w-full text-center flex justify-center border rounded-md shadow-none">
+				<CardBody className="flex flex-col gap-3">
 					<SearchInput onSubmit={handleSubmit} />
 					<MiniSide tabs={tabs} Outlet={Outlet} />
 				</CardBody>
