@@ -4,7 +4,11 @@ import { NavLink, useLocation } from 'react-router-dom';
 
 export default function MiniSide({ tabs, Outlet }) {
   const location = useLocation();
-  const path = location.pathname.replace(/^\/products\//, '');
+  const parts = location.pathname.split('/');
+
+  function getLastPartOfPath() {
+    return parts[parts.length - 1];
+  }
 
   return (
     <div
@@ -20,19 +24,21 @@ export default function MiniSide({ tabs, Outlet }) {
               <NavLink
                 key={index}
                 to={tab.path}
-                className={({
-                  isActive,
-                }) => `cursor-pointer px-3 py-2 flex justify-between
+                className={({ isActive }) => {
+                  return `cursor-pointer px-3 py-2 flex justify-between
                 font-medium rounded-r-lg w-40 transition-all duration-300 ease-in
                 hover:bg-gradient-to-r hover:from-violet-200 hover:to-teal-300 ${
                   isActive
                     ? `bg-gradient-to-r from-violet-200 to-teal-300 
                      text-sky-950`
                     : ``
-                }`}
+                }`;
+                }}
               >
                 {tab.title}
-                {path === tab.path && <CaretRight size={22} weight="bold" />}
+                {getLastPartOfPath() === tab.path && (
+                  <CaretRight size={22} weight="bold" />
+                )}
               </NavLink>
             ))}
           </ul>

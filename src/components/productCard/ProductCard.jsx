@@ -15,7 +15,7 @@ export default function ProductCard({
       className="bg-white rounded-lg border border-gray-300 p-4 
     flex cursor-pointer hover:bg-teal-100 hover:border-gray-200
     duration-200 ease-in-out"
-      to={`/course/${id}/outline`}
+      to={`/courses/${id}/outline`}
     >
       <div className="w-1/4">
         {image ? (
