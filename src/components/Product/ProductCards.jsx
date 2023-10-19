@@ -1,4 +1,4 @@
-import ProductCard from "./productCard/ProductCard";
+import ProductCard from "../productCard/ProductCard";
 
 /* eslint-disable react/prop-types */
 export default function ProductCards({ data = [] }) {
@@ -7,6 +7,7 @@ export default function ProductCards({ data = [] }) {
 			{data.map((item, index) => (
 				<ProductCard
 					key={index}
+					id={index}
 					image={item.image}
 					title={item.title}
 					category={item.category}

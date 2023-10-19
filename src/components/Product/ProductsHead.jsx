@@ -1,6 +1,6 @@
 import { Presentation } from "@phosphor-icons/react";
 import { useState } from "react";
-import SortSelect from "./SortSelect";
+import SortSelect from "../SortSelect";
 import { Typography } from "@mui/material";
 
 /* eslint-disable react/prop-types */
