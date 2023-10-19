@@ -21,10 +21,8 @@ export default function Products() {
 	const handleSubmit = () => {};
 
 	return (
-		<div className="flex flex-col justify-center items-center w-10/12 mx-auto gap-8">
-			<div className=" w-full ml-1">
-				<h1 className="font-bold text-2xl">Products</h1>
-			</div>
+		<main className="flex flex-col justify-center items-center w-10/12 mx-auto gap-8">
+			<h1 className="font-bold text-2xl w-full ml-1">Products</h1>
 
 			<Card className="w-full text-center flex justify-center border rounded-md shadow-none ">
 				<CardBody>
@@ -32,6 +30,6 @@ export default function Products() {
 					<MiniSide tabs={tabs} Outlet={Outlet} />
 				</CardBody>
 			</Card>
-		</div>
+		</main>
 	);
 }
