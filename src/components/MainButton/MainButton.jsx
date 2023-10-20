@@ -7,19 +7,24 @@ function MainButton({
   text = 'Button',
   handleClick,
   icon,
-  width = 'auto',
   className = 'text-white bg-sky-950 hover:bg-teal-200 hover:text-sky-950',
+  reverse = false,
 }) {
   const customclass = btnClasses + ' ' + className;
 
   return (
-    <button
-      className={customclass}
-      onClick={handleClick}
-      style={{ width: width }}
-    >
-      {icon}
-      {text}
+    <button className={customclass} onClick={handleClick}>
+      {reverse ? (
+        <>
+          {text}
+          {icon}
+        </>
+      ) : (
+        <>
+          {icon}
+          {text}
+        </>
+      )}
     </button>
   );
 }
