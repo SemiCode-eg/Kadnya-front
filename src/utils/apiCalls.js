@@ -1,4 +1,4 @@
-const URL = process.env.REACT_APP_API_URL;
+const URL = "https://educify.vercel.app/swagger/";
 
 export async function getSingleCourse(id) {
   try {
