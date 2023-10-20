@@ -19,7 +19,14 @@ function SingleCourse() {
   return (
     <CustomCard>
       <CourseHeader />
-      <MiniSide tabs={tabs} Outlet={Outlet} />
+      <div
+        className='flex gap-5 mt-5 h-[33rem]'
+      >
+        <MiniSide tabs={tabs} />
+        <div className="w-full h-full overflow-auto">
+          <Outlet />
+        </div>
+      </div>
     </CustomCard>
   );
 }
