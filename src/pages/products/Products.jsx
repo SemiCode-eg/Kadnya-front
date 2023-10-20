@@ -1,9 +1,4 @@
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  Typography,
-} from '@material-tailwind/react';
+import { Typography } from '@material-tailwind/react';
 import MiniSide from '../../components/miniSide/MiniSide';
 import AllProducts from './allProducts/AllProducts';
 import Courses from './courses/Courses';

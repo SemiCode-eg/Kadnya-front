@@ -1,36 +1,16 @@
 import { Typography } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
+import { ArrowLeft } from '@phosphor-icons/react';
 
 function CourseHeader() {
   return (
     <Typography variant="h5" color="blue-gray" className="mb-2">
       <div className="flex items-center gap-[9px]">
-        <Link to={-1}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="66"
-            height="66"
-            viewBox="0 0 66 66"
-            fill="none"
-          >
-            <path
-              d="M33 6.1875C27.697 6.1875 22.5131 7.76003 18.1038 10.7062C13.6945 13.6524 10.2579 17.84 8.22849 22.7393C6.19912 27.6386 5.66814 33.0297 6.70271 38.2309C7.73727 43.432 10.2909 48.2095 14.0407 51.9593C17.7905 55.7091 22.568 58.2627 27.7692 59.2973C32.9703 60.3319 38.3614 59.8009 43.2607 57.7715C48.1601 55.7421 52.3476 52.3055 55.2938 47.8962C58.24 43.4869 59.8125 38.303 59.8125 33C59.8043 25.8914 56.9768 19.0763 51.9502 14.0498C46.9237 9.02323 40.1086 6.19572 33 6.1875ZM43.3125 35.0625H27.6665L32.8953 40.2913C33.0871 40.4827 33.2393 40.71 33.3432 40.9603C33.4472 41.2106 33.5007 41.479 33.5009 41.75C33.501 42.021 33.4477 42.2894 33.3441 42.5398C33.2404 42.7902 33.0885 43.0177 32.8968 43.2093C32.7052 43.4009 32.4777 43.5529 32.2273 43.6566C31.9769 43.7602 31.7085 43.8135 31.4375 43.8133C31.1665 43.8132 30.8981 43.7596 30.6479 43.6557C30.3976 43.5518 30.1702 43.3996 29.9788 43.2078L21.2318 34.4608C20.845 34.073 20.6279 33.5477 20.6279 33C20.6279 32.4523 20.845 31.927 21.2318 31.5392L29.9788 22.7922C30.3657 22.4062 30.89 22.1895 31.4366 22.1898C31.9831 22.1901 32.5072 22.4073 32.8937 22.7938C33.2802 23.1803 33.4975 23.7044 33.4977 24.2509C33.498 24.7975 33.2813 25.3219 32.8953 25.7087L27.6665 30.9375H43.3125C43.8595 30.9375 44.3841 31.1548 44.7709 31.5416C45.1577 31.9284 45.375 32.453 45.375 33C45.375 33.547 45.1577 34.0716 44.7709 34.4584C44.3841 34.8452 43.8595 35.0625 43.3125 35.0625Z"
-              fill="url(#paint0_linear_1299_3129)"
-            />
-            <defs>
-              <linearGradient
-                id="paint0_linear_1299_3129"
-                x1="18.9774"
-                y1="-10.8281"
-                x2="65.9892"
-                y2="3.13726"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#624AF2" stopOpacity="0.42" />
-                <stop offset="1" stopColor="#28ACA6" stopOpacity="0.51" />
-              </linearGradient>
-            </defs>
-          </svg>
+        <Link
+          to={-1}
+          className="w-[50px] h-[50px] text-white rounded-full flex items-center justify-center duration-100 ease-out bg-gradient-to-r from-violet-300 to-teal-300 hover:from-transparent hover:to-transparent hover:text-sky-950 hover:border-[2px] hover:border-teal-300"
+        >
+          <ArrowLeft size={35} />
         </Link>
         <p className="text-sky-950 text-[31px]">Course</p>
       </div>

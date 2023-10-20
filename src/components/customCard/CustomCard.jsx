@@ -6,7 +6,7 @@ function CustomCard({ children, titleComponent }) {
     <div className="flex flex-col justify-center items-center w-full">
       {titleComponent && titleComponent}
       <Card
-        className="mt-6 ml-5 p-8 w-4/6 h-full text-center
+        className="mt-6 ml-5 p-8 w-5/6 h-full text-center
             flex justify-center border rounded-md shadow"
       >
         <CardBody>{children}</CardBody>
