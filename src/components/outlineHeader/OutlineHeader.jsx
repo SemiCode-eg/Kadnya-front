@@ -11,6 +11,42 @@ import MainButton from '../MainButton/MainButton';
 import { Menu } from '@mui/material';
 import { useState } from 'react';
 import MenuItems from '../SettingMenu/MenuItems';
+import styled from '@emotion/styled';
+
+const MUIMenu = styled(Menu)(() => ({
+  '& .MuiList-root': {
+    padding: '0',
+  },
+  '& .MuiPaper-root': {
+    width: '200px',
+    marginTop: '2px',
+    borderRadius: '10px',
+  },
+  '& .MuiMenuItem-root': {
+    padding: '15px',
+    color: '#fff',
+    fontSize: '20px',
+    '&:nth-child(1)': {
+      background:
+        'linear-gradient(180deg, rgba(40,172,166,1) 38%, rgba(82,163,194,1) 93%)',
+    },
+    '&:nth-child(2)': {
+      background:
+        'linear-gradient(180deg, rgba(82,163,194,1) 38%, rgba(109,156,209,1) 93%)',
+    },
+    '&:nth-child(3)': {
+      background:
+        'linear-gradient(180deg, rgba(109,156,209,1) 35%, rgba(140,157,225,1) 93%)',
+    },
+    '&:nth-child(4)': {
+      background:
+        'linear-gradient(180deg, rgba(140,157,225,1) 30%, rgba(182,175,247,1) 85%)',
+    },
+    "&:hover": {
+      opacity: "0.9"
+    }
+  },
+}));
 
 function OutlineHeader() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -67,10 +103,12 @@ function OutlineHeader() {
               </>
             }
             reverse={true}
-            className="text-white bg-sky-950 hover:bg-teal-200 hover:text-sky-950"
+            className={`text-white hover:bg-teal-200 hover:text-sky-950 ${
+              anchorEl === null ? 'bg-sky-950' : 'bg-gradient-to-b from-[#28ACA6] to-[#28ACA6]'
+            }`}
             handleClick={handleClickListItem}
           />
-          <Menu
+          <MUIMenu
             id="add-menu"
             anchorEl={anchorEl}
             open={open}
@@ -90,8 +128,9 @@ function OutlineHeader() {
             <MenuItems
               items={addMenuItems}
               handlerFunction={handleMenuItemClick}
+              iconClasses="text-white"
             />
-          </Menu>
+          </MUIMenu>
         </div>
       </div>
     </div>
