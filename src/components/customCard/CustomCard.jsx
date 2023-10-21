@@ -3,15 +3,12 @@ import { Card, CardBody } from '@material-tailwind/react';
 
 function CustomCard({ children, titleComponent }) {
   return (
-    <div className="flex flex-col justify-center items-center w-full">
+    <main className="flex flex-col justify-center items-center w-10/12 mx-auto gap-8">
       {titleComponent && titleComponent}
-      <Card
-        className="mt-6 ml-5 p-8 w-5/6 h-full text-center
-            flex justify-center border rounded-md shadow"
-      >
-        <CardBody>{children}</CardBody>
+      <Card className="w-full text-center flex justify-center border rounded-md shadow-none p-5">
+        <CardBody className="flex flex-col gap-3">{children}</CardBody>
       </Card>
-    </div>
+    </main>
   );
 }
 
