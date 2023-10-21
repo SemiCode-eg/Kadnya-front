@@ -7,10 +7,12 @@ import { Typography } from "@mui/material";
 export default function ProductsHead({
 	countTitle = "",
 	productCount = 0,
-	handleProducts = () => {},
 	Form = () => <form></form>,
 	ButtonIcon = Presentation,
 	buttonText = "",
+	sortOptions = [],
+	sortKey = "",
+	handleSort = () => {},
 }) {
 	const [showForm, setShowForm] = useState(false);
 
@@ -20,23 +22,6 @@ export default function ProductsHead({
 
 	const handleFormHide = () => {
 		setShowForm(false);
-	};
-
-	// Not Working just save the logic
-	const handleSort = (criteria) => {
-		switch (criteria) {
-			case "NEWSET":
-				handleProducts((products) => products.sort());
-				break;
-			case "OLDEST":
-				handleProducts((products) => products.sort());
-				break;
-			case "BY_SUBSCRIBERES":
-				handleProducts((products) => products.sort());
-				break;
-			default:
-				handleProducts((products) => products);
-		}
 	};
 
 	return (
@@ -61,16 +46,13 @@ export default function ProductsHead({
 						<ButtonIcon size={25} weight="bold" />
 						{buttonText}
 					</button>
-					<SortSelect options={sortOptions} onSelect={handleSort} />
+					<SortSelect
+						options={sortOptions}
+						sortKey={sortKey}
+						onSelect={handleSort}
+					/>
 				</div>
 			</section>
 		</>
 	);
 }
-
-const sortOptions = [
-	{ value: "DEFAULT", label: "Default" },
-	{ value: "NEWEST", label: "Newest" },
-	{ value: "OLDEST", label: "Oldest" },
-	{ value: "BY_SUBSCRIBERES", label: "By Subscribers" },
-];

@@ -1,15 +1,48 @@
 import { Presentation } from "@phosphor-icons/react";
 import AddProduct from "../AddProduct";
-import { useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import ProductsHead from "../../../components/Product/ProductsHead";
 import ProductCards from "../../../components/Product/Card/ProductCards";
 
-export default function AllProducts() {
-	const [products, setProducts] = useState(productsData);
+const PRODUCT_PER_PAGE = 2;
 
-	const handleProducts = (setStateCallback) => {
-		setProducts(setStateCallback);
+export default function AllProducts() {
+	const [products, setProducts] = useState([]);
+	const [sortKey, setSortKey] = useState(sortOptions[0].value);
+	const [page, setPage] = useState(1);
+
+	useEffect(() => {
+		setProducts(productsData);
+	}, []);
+
+	const handleSortSelect = (event) => {
+		const newSortKey = event.target.value;
+		setSortKey(newSortKey);
 	};
+
+	const handleSort = useCallback(
+		(a, b) => {
+			switch (sortKey) {
+				case "NEWSET":
+					break;
+				case "OLDEST":
+					break;
+				case "BY_SUBSCRIBERES":
+					break;
+				default:
+			}
+		},
+		[sortKey]
+	);
+
+	const handlePage = (_, newPage) => {
+		setPage(newPage);
+	};
+
+	const preparedProducts = useMemo(
+		() => [...products].sort(handleSort).slice(),
+		[products, handleSort]
+	);
 
 	return (
 		<>
@@ -18,14 +51,28 @@ export default function AllProducts() {
 				ButtonIcon={Presentation}
 				buttonText="Add Product"
 				countTitle="Products"
-				productCount={products.length}
-				handleProducts={handleProducts}
+				productCount={preparedProducts.length}
+				sortKey={sortKey}
+				handleSort={handleSortSelect}
+				sortOptions={sortOptions}
 			/>
 
-			<ProductCards data={products} />
+			<ProductCards
+				data={preparedProducts}
+				page={page}
+				onPagination={handlePage}
+				productPerPage={PRODUCT_PER_PAGE}
+			/>
 		</>
 	);
 }
+
+const sortOptions = [
+	{ value: "DEFAULT", label: "Default" },
+	{ value: "NEWEST", label: "Newest" },
+	{ value: "OLDEST", label: "Oldest" },
+	{ value: "BY_SUBSCRIBERES", label: "By Subscribers" },
+];
 
 const productsData = [
 	{
