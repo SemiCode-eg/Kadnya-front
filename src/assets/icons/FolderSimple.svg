@@ -1,0 +1,11 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="FolderSimple">
+<path id="Vector" d="M35 13.75V31.3889C35 31.6836 34.8829 31.9662 34.6746 32.1746C34.4662 32.3829 34.1836 32.5 33.8889 32.5H6.25C5.91848 32.5 5.60054 32.3683 5.36612 32.1339C5.1317 31.8995 5 31.5815 5 31.25V10C5 9.66848 5.1317 9.35054 5.36612 9.11612C5.60054 8.8817 5.91848 8.75 6.25 8.75H14.5833C14.8538 8.75 15.117 8.83772 15.3333 9L19.6667 12.25C19.883 12.4123 20.1462 12.5 20.4167 12.5H33.75C34.0815 12.5 34.3995 12.6317 34.6339 12.8661C34.8683 13.1005 35 13.4185 35 13.75Z" stroke="url(#paint0_linear_1338_3484)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_1338_3484" x1="12.1552" y1="1.21394" x2="37.2439" y2="10.6281" gradientUnits="userSpaceOnUse">
+<stop stop-color="#624AF2" stop-opacity="0.42"/>
+<stop offset="1" stop-color="#28ACA6" stop-opacity="0.51"/>
+</linearGradient>
+</defs>
+</svg>

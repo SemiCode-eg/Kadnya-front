@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-export default function SearchInput({ onSubmit = () => {} }) {
+export default function SearchInput({ placeholder = "Search Mockups, Logos...", onSubmit = () => {} }) {
 	return (
 		<form onSubmit={onSubmit}>
 			<label
@@ -38,7 +38,7 @@ export default function SearchInput({ onSubmit = () => {} }) {
                     border-gray-300 placeholder-gray-400 
                     text-gray-900 focus:border-sky-950 outline-none
                     transition-all duration-200 ease-in"
-					placeholder="Search Mockups, Logos..."
+					placeholder={placeholder}
 					required
 				/>
 

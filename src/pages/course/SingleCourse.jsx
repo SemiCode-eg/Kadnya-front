@@ -34,7 +34,7 @@ function SingleCourse() {
             <MiniSide tabs={tabs} />
           </div>
         </div>
-        <div className="w-full h-full overflow-auto">
+        <div className="w-full flex flex-col">
           <OutlineHeader />
           <Outlet />
         </div>
