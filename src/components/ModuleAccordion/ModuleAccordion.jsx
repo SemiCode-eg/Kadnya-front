@@ -21,6 +21,7 @@ function ModuleAccordion({
   Icon,
   SummaryStyles = {},
   paperStyles = {},
+  iconclasses = '',
 }) {
   const [isClicked, setIsClicked] = useState(false);
 
@@ -38,9 +39,9 @@ function ModuleAccordion({
             {isClicked ? (
               <img src={FolderIcon} alt="folder" className="w-[30px]" />
             ) : (
-              <Icon size={30} />
+              <Icon size={30} className={iconclasses} />
             )}
-            <p className="font-semibold">{title}</p>
+            <p className="font-[500]">{title}</p>
           </div>
           <div className="flex items-center gap-2">
             <button onClick={handleEditBtn}>

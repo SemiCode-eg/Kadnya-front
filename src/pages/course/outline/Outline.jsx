@@ -28,10 +28,9 @@ function Outline() {
           paperStyles={{
             boxShadow: '0px 0px 0px',
             marginTop: '5px',
-            '::before': {
-              color: '#000',
-            },
+            fontWeight: 'normal',
           }}
+          iconclasses="text-slate-400"
         >
           <ModuleLesson text="Lesson" />
         </ModuleAccordion>
