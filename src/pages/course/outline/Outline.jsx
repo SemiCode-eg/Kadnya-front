@@ -2,8 +2,12 @@ import { FolderDashed, FolderSimple } from '@phosphor-icons/react';
 import ModuleAccordion from '../../../components/ModuleAccordion/ModuleAccordion';
 import SearchInput from '../../../components/SearchInput';
 import ModuleLesson from '../../../components/ModuleAccordion/ModuleLesson';
+import useCourse from '../../../hooks/use-course';
 
 function Outline() {
+  const { courseData, errorMsg } = useCourse();
+  console.log(courseData, errorMsg);
+
   return (
     <div className="mt-5 rounded-[10px] border-[1.5px] py-[16px] px-[28px] overflow-auto h-full">
       <SearchInput placeholder="Find module or lesson" />
