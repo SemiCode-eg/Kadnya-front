@@ -6,13 +6,15 @@ import Products from './pages/products/Products.jsx';
 import Website from './pages/website/Website.jsx';
 import Courses from './pages/products/courses/Courses';
 import AllProducts from './pages/products/allProducts/AllProducts';
+import SingleCourse from './pages/course/SingleCourse';
+import Outline from './pages/course/outline/Outline';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
     children: [
-      { index: true, element: <Products /> },
+      { index: true, element: <Products /> }, // Temporary, it will be dashboard component
       {
         path: 'products',
         element: <Products />,
@@ -22,6 +24,11 @@ const router = createBrowserRouter([
         ],
       },
       { path: 'website', element: <Website /> },
+      {
+        path: 'products/courses/:id',
+        element: <SingleCourse />,
+        children: [{ path: 'outline', element: <Outline /> }],
+      },
     ],
   },
 ]);
