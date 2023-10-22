@@ -3,12 +3,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
-import {
-  CaretDown,
-  FolderSimple,
-  PencilSimple,
-  Plus,
-} from '@phosphor-icons/react';
+import { CaretDown, PencilSimple, Plus } from '@phosphor-icons/react';
 import FolderIcon from '../../assets/icons/FolderSimple.svg';
 import { useState } from 'react';
 import { styled } from '@mui/material';
@@ -18,23 +13,32 @@ const MUIAccordionDetails = styled(AccordionDetails)(() => ({
   backgroundColor: '#F9FAFB',
 }));
 
-function ModuleAccordion({ children, title, handleEditBtn, HandleAddBtn }) {
+function ModuleAccordion({
+  children,
+  title,
+  handleEditBtn,
+  HandleAddBtn,
+  Icon,
+  SummaryStyles = {},
+  paperStyles = {},
+}) {
   const [isClicked, setIsClicked] = useState(false);
 
   return (
-    <Accordion>
+    <Accordion style={paperStyles}>
       <AccordionSummary
         expandIcon={<CaretDown size={25} weight="bold" />}
         aria-controls="panel1a-content"
         id="panel1a-header"
         onClick={() => setIsClicked((prev) => !prev)}
+        style={SummaryStyles}
       >
         <div className="flex justify-between flex-1 mr-2">
           <div className="flex items-end gap-2">
             {isClicked ? (
               <img src={FolderIcon} alt="folder" className="w-[30px]" />
             ) : (
-              <FolderSimple size={30} />
+              <Icon size={30} />
             )}
             <p className="font-semibold">{title}</p>
           </div>
