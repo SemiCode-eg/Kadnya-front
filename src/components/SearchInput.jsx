@@ -1,5 +1,10 @@
+import MainButton from "./MainButton/MainButton";
+
 /* eslint-disable react/prop-types */
-export default function SearchInput({ placeholder = "Search Mockups, Logos...", onSubmit = () => {} }) {
+export default function SearchInput({
+	placeholder = "Search Mockups, Logos...",
+	onSubmit = () => {},
+}) {
 	return (
 		<form onSubmit={onSubmit}>
 			<label
@@ -42,17 +47,11 @@ export default function SearchInput({ placeholder = "Search Mockups, Logos...", 
 					required
 				/>
 
-				<button
+				<MainButton
+					text="Search"
 					type="submit"
-					className={`text-white font-semibold
-                  absolute right-2.5 bottom-2
-                  bg-sky-950 outline-none
-                  transition-all duration-150 ease-in
-                  rounded-lg px-5 py-2 text-base
-                  hover:bg-none hover:bg-teal-200 hover:text-sky-950`}
-				>
-					Search
-				</button>
+					className="absolute right-2.5 bottom-2 !px-5 !py-2"
+				/>
 			</div>
 		</form>
 	);
