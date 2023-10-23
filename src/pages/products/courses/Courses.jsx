@@ -3,7 +3,7 @@ import { useCallback, useMemo, useState } from "react";
 import ProductsHead from "../../../components/Product/ProductsHead";
 import ProductCards from "../../../components/Product/Card/ProductCards";
 import useCourse from "../../../hooks/use-courses";
-import AddCouseForm from "../../../components/Forms/AddCouseForm";
+import AddCouseForm from "../../../components/Forms/AddCourseForm";
 
 const COURSE_PER_PAGE = 4;
 
