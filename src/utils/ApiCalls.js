@@ -19,9 +19,18 @@ export const getCourses = async () => {
   }
 };
 
+export const getModule = async (courseID) => {
+  try {
+    const response = await api.get(`courses/${courseID}/modules`);
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const sendModule = async (moduleData) => {
   try {
-		console.log(moduleData.imageAsset)
     const formData = new FormData();
     formData.append('title', moduleData.title);
     formData.append('description', moduleData.description);
@@ -30,12 +39,24 @@ export const sendModule = async (moduleData) => {
 
     const response = await api.post('modules/create', formData);
 
-    const data = await response.json();
-
-		console.log(data);
-    return data;
+    return response.data;
   } catch (error) {
-		console.log(error)
+    return error;
+  }
+};
+
+export const sendSubmodule = async (moduleData) => {
+  try {
+    const formData = new FormData();
+    formData.append('title', moduleData.title);
+    formData.append('description', moduleData.description);
+    formData.append('module', moduleData.module);
+    // formData.append('image', moduleData.imageAsset);
+
+    const response = await api.post('submodules/create', formData);
+
+    return response.data;
+  } catch (error) {
     return error;
   }
 };

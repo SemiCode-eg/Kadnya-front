@@ -5,8 +5,8 @@ import ModuleLesson from '../../../components/ModuleAccordion/ModuleLesson';
 import useCourse from '../../../hooks/use-course';
 
 function Outline() {
-  const { courseData, errorMsg } = useCourse();
-  console.log(courseData, errorMsg);
+  const { courseData, errorMsg, loading } = useCourse();
+  console.log(courseData, errorMsg, loading);
 
   return (
     <div className="mt-5 rounded-[10px] border-[1.5px] py-[16px] px-[28px] overflow-auto h-full">
