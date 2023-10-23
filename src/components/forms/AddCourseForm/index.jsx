@@ -76,6 +76,7 @@ export default function AddCouseForm({ open, onClose }) {
 
 	return (
 		<CustomModal
+			title="Add Course"
 			open={open}
 			onClose={onClose}
 			onGoBack={handleGoBack}
