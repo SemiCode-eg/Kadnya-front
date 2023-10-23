@@ -21,19 +21,13 @@ function Outline() {
         <ModuleAccordion
           title="Blank module"
           Icon={FolderDashed}
-          SummaryStyles={{
-            backgroundColor: '#F9FAFB',
-            padding: '0px',
-          }}
-          paperStyles={{
-            boxShadow: '0px 0px 0px',
-            marginTop: '5px',
-            fontWeight: 'normal',
-          }}
+          summaryClasses="!p-0 !bg-[#F9FAFB]"
+          paperClasses="!shadow-none before:!opacity-0"
           iconclasses="text-slate-400"
         >
           <ModuleLesson text="Lesson" />
         </ModuleAccordion>
+        <ModuleLesson text="Lesson" />
       </ModuleAccordion>
     </div>
   );
