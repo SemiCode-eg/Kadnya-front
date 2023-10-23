@@ -5,30 +5,42 @@ import ModuleLesson from '../../../components/ModuleAccordion/ModuleLesson';
 import useCourse from '../../../hooks/use-course';
 
 function Outline() {
-  const { courseData, errorMsg } = useCourse();
-  console.log(courseData, errorMsg);
+  const { courseData, errorMsg, loading } = useCourse();
+  console.log(courseData, errorMsg, loading);
 
   return (
     <div className="mt-5 rounded-[10px] border-[1.5px] py-[16px] px-[28px] overflow-auto h-full">
       <SearchInput placeholder="Find module or lesson" />
       <div className="my-8">
         <p className="text-sky-950 text-[20px] font-semibold text-start">
-          4 Modules
+          {courseData?.modules?.length} Modules
         </p>
       </div>
-      <ModuleAccordion title="Blank module" Icon={FolderSimple}>
-        <ModuleLesson text="Lesson" />
+      {courseData.modules?.map((module) => (
         <ModuleAccordion
-          title="Blank module"
-          Icon={FolderDashed}
-          summaryClasses="!p-0 !bg-[#F9FAFB]"
-          paperClasses="!shadow-none before:!opacity-0"
-          iconclasses="text-slate-400"
+          title={module.title}
+          key={module.id}
+          Icon={FolderSimple}
         >
-          <ModuleLesson text="Lesson" />
+          {module.lessons.map((lesson) => (
+            <ModuleLesson text={lesson.title} key={lesson.id} />
+          ))}
+          {module.submodules?.map((submodule) => (
+            <ModuleAccordion
+              key={submodule.id}
+              title={submodule.title}
+              Icon={FolderDashed}
+              summaryClasses="!p-0 !bg-[#F9FAFB]"
+              paperClasses="!shadow-none"
+              iconclasses="text-slate-400"
+            >
+              {submodule.lessons?.map((lesson) => (
+                <ModuleLesson text={lesson.title} key={lesson.id} />
+              ))}
+            </ModuleAccordion>
+          ))}
         </ModuleAccordion>
-        <ModuleLesson text="Lesson" />
-      </ModuleAccordion>
+      ))}
     </div>
   );
 }

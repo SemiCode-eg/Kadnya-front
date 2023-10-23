@@ -12,6 +12,9 @@ import { Menu } from '@mui/material';
 import { useState } from 'react';
 import MenuItems from '../SettingMenu/MenuItems';
 import styled from '@emotion/styled';
+import AddModule from '../../pages/course/addForms/addModule';
+import AddSubModule from '../../pages/course/addForms/AddSubModule';
+import AddLesson from '../../pages/course/addForms/AddLesson';
 
 const MUIMenu = styled(Menu)(() => ({
   '& .MuiList-root': {
@@ -26,30 +29,35 @@ const MUIMenu = styled(Menu)(() => ({
     padding: '15px',
     color: '#fff',
     fontSize: '20px',
-    '&:nth-child(1)': {
+    [`&#${addMenuItems[0].text}`]: {
       background:
         'linear-gradient(180deg, rgba(40,172,166,1) 38%, rgba(82,163,194,1) 93%)',
     },
-    '&:nth-child(2)': {
+    [`&#${addMenuItems[1].text}`]: {
       background:
         'linear-gradient(180deg, rgba(82,163,194,1) 38%, rgba(109,156,209,1) 93%)',
     },
-    '&:nth-child(3)': {
+    [`&#${addMenuItems[2].text}`]: {
       background:
         'linear-gradient(180deg, rgba(109,156,209,1) 35%, rgba(140,157,225,1) 93%)',
     },
-    '&:nth-child(4)': {
+    [`&#${addMenuItems[3].text}`]: {
       background:
         'linear-gradient(180deg, rgba(140,157,225,1) 30%, rgba(182,175,247,1) 85%)',
     },
-    "&:hover": {
-      opacity: "0.9"
-    }
+    '&:hover': {
+      opacity: '0.9',
+    },
   },
 }));
 
 function OutlineHeader() {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [openModuleForm, setOpenModuleForm] = useState(false);
+  const [opensubModuleForm, setOpensubModuleForm] = useState(false);
+  const [openLessonForm, setOpenLessonForm] = useState(false);
+  // const [openQuizForm, setOpenQuizForm] = useState(false);
+
   const open = Boolean(anchorEl);
   const handleClickListItem = (event) => {
     setAnchorEl(event.currentTarget);
@@ -57,17 +65,17 @@ function OutlineHeader() {
 
   const handleMenuItemClick = (event) => {
     switch (event.target.id) {
-      case addMenuItems[0].text:
-        console.log('module');
+      case addMenuItems[0].text: // Module
+        setOpenModuleForm(true);
         break;
-      case addMenuItems[1].text:
-        console.log('Submodule');
+      case addMenuItems[1].text: // Submodule
+        setOpensubModuleForm(true);
         break;
-      case addMenuItems[2].text:
-        console.log('lesson');
+      case addMenuItems[2].text: // Lesson
+        setOpenLessonForm(true);
         break;
-      case addMenuItems[3].text:
-        console.log('quiz');
+      case addMenuItems[3].text: // Quiz
+        // setOpenQuizForm(true);
         break;
       default:
         break;
@@ -79,61 +87,96 @@ function OutlineHeader() {
     setAnchorEl(null);
   };
 
-  return (
-    <div className="mb-2 flex gap-5 flex-col lg:flex-row">
-      <div className="flex justify-between gap-[35px] flex-1 flex-col lg:flex-row flex-wrap">
-        <div className="flex items-center gap-[20px]">
-          <img
-            src={imageSquare}
-            alt="course image"
-            className="w-full max-w-[94px] h-auto bg-white rounded-[10px] border-[1.5px] border-neutral-400 shadow-1"
-          />
+  const previewedForm = () => {
+    if (openModuleForm) {
+      return (
+        <AddModule
+          open={openModuleForm}
+          onClose={() => setOpenModuleForm(false)}
+          title="New Module"
+        />
+      );
+    } else if (opensubModuleForm) {
+      return (
+        <AddSubModule
+          open={opensubModuleForm}
+          onClose={() => setOpensubModuleForm(false)}
+          title="New Submodule"
+        />
+      );
+    } else if (openLessonForm) {
+      return (
+        <AddLesson
+          open={openLessonForm}
+          onClose={() => setOpenLessonForm(false)}
+          title="New Lesson"
+        />
+      );
+    } else {
+      // return <AddQuiz />
+    }
+  };
 
-          <p className="text-gray-950 capitalize text-[20px]">name</p>
-        </div>
-        <div className="flex items-center gap-[20px] flex-1 justify-end">
-          <div className="rounded-full w-[40px] h-[40px] flex items-center justify-center border-[1px] border-black/10 cursor-pointer">
-            <DotsThree size={40} weight="bold" />
-          </div>
-          <MainButton
-            text="Add Content"
-            icon={
-              <>
-                <Stack size={30} weight="fill" />
-              </>
-            }
-            reverse={true}
-            className={`text-white hover:bg-teal-200 hover:text-sky-950 ${
-              anchorEl === null ? 'bg-sky-950' : 'bg-gradient-to-b from-[#28ACA6] to-[#28ACA6]'
-            }`}
-            handleClick={handleClickListItem}
-          />
-          <MUIMenu
-            id="add-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              'aria-labelledby': 'setting-menu-button',
-            }}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
-            }}
-          >
-            <MenuItems
-              items={addMenuItems}
-              handlerFunction={handleMenuItemClick}
-              iconClasses="text-white"
+  return (
+    <>
+      {previewedForm()}
+      <div className="mb-2 flex gap-5 flex-col lg:flex-row">
+        <div className="flex justify-between gap-[35px] flex-1 flex-col lg:flex-row flex-wrap">
+          <div className="flex items-center gap-[20px]">
+            <img
+              src={imageSquare}
+              alt="course image"
+              className="w-full max-w-[94px] h-auto bg-white rounded-[10px] border-[1.5px] border-neutral-400 shadow-1"
             />
-          </MUIMenu>
+
+            <p className="text-gray-950 capitalize text-[20px]">name</p>
+          </div>
+          <div className="flex items-center gap-[20px] flex-1 justify-end">
+            <div className="rounded-full w-[40px] h-[40px] flex items-center justify-center border-[1px] border-black/10 cursor-pointer">
+              <DotsThree size={40} weight="bold" />
+            </div>
+            <MainButton
+              text="Add Content"
+              icon={
+                <>
+                  <Stack size={30} weight="fill" />
+                </>
+              }
+              reverse={true}
+              className={`text-white hover:bg-teal-200 hover:text-sky-950 ${
+                anchorEl === null
+                  ? 'bg-sky-950'
+                  : 'bg-gradient-to-b from-[#28ACA6] to-[#28ACA6]'
+              }`}
+              handleClick={handleClickListItem}
+            />
+            <MUIMenu
+              id="add-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                'aria-labelledby': 'setting-menu-button',
+              }}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
+            >
+              <MenuItems
+                items={addMenuItems}
+                handlerFunction={handleMenuItemClick}
+                iconClasses="text-white"
+              />
+            </MUIMenu>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
