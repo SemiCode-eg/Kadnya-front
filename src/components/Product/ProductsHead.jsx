@@ -2,15 +2,18 @@ import { Presentation } from "@phosphor-icons/react";
 import { useState } from "react";
 import SortSelect from "../SortSelect";
 import { Typography } from "@mui/material";
+import MainButton from "../MainButton/MainButton";
 
 /* eslint-disable react/prop-types */
 export default function ProductsHead({
 	countTitle = "",
 	productCount = 0,
-	handleProducts = () => {},
 	Form = () => <form></form>,
 	ButtonIcon = Presentation,
 	buttonText = "",
+	sortOptions = [],
+	sortKey = "",
+	handleSort = () => {},
 }) {
 	const [showForm, setShowForm] = useState(false);
 
@@ -20,23 +23,6 @@ export default function ProductsHead({
 
 	const handleFormHide = () => {
 		setShowForm(false);
-	};
-
-	// Not Working just save the logic
-	const handleSort = (criteria) => {
-		switch (criteria) {
-			case "NEWSET":
-				handleProducts((products) => products.sort());
-				break;
-			case "OLDEST":
-				handleProducts((products) => products.sort());
-				break;
-			case "BY_SUBSCRIBERES":
-				handleProducts((products) => products.sort());
-				break;
-			default:
-				handleProducts((products) => products);
-		}
 	};
 
 	return (
@@ -51,26 +37,18 @@ export default function ProductsHead({
 				></h3>
 
 				<div className="flex gap-3 items-center">
-					<button
-						className={`flex gap-2 items-center text-white
-                  outline-none transition-all duration-150 ease-in
-                  rounded-lg text-md font-semibold px-8 py-3
-                  bg-sky-950 hover:bg-teal-200 hover:text-sky-950`}
-						onClick={handleFormShow}
-					>
-						<ButtonIcon size={25} weight="bold" />
-						{buttonText}
-					</button>
-					<SortSelect options={sortOptions} onSelect={handleSort} />
+					<MainButton
+						text={buttonText}
+						handleClick={handleFormShow}
+						icon={<ButtonIcon size={25} weight="bold" />}
+					/>
+					<SortSelect
+						options={sortOptions}
+						sortKey={sortKey}
+						onSelect={handleSort}
+					/>
 				</div>
 			</section>
 		</>
 	);
 }
-
-const sortOptions = [
-	{ value: "DEFAULT", label: "Default" },
-	{ value: "NEWEST", label: "Newest" },
-	{ value: "OLDEST", label: "Oldest" },
-	{ value: "BY_SUBSCRIBERES", label: "By Subscribers" },
-];

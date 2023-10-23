@@ -16,6 +16,7 @@ function ImageSelectBtn({ handleChange }) {
         text="Select Image"
         className="text-teal-500 text-[17px] font-[500] border-[1px] border-teal-500 duration-150 hover:text-white hover:bg-teal-500"
         handleClick={handleClick}
+        isPrimary={false}
       />
       <input
         id="image"
