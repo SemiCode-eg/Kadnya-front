@@ -6,12 +6,6 @@ import Typography from '@mui/material/Typography';
 import { CaretDown, PencilSimple, Plus } from '@phosphor-icons/react';
 import FolderIcon from '../../assets/icons/FolderSimple.svg';
 import { useState } from 'react';
-import { styled } from '@mui/material';
-
-const MUIAccordionDetails = styled(AccordionDetails)(() => ({
-  borderTop: '1px solid #DDD',
-  backgroundColor: '#F9FAFB',
-}));
 
 function ModuleAccordion({
   children,
@@ -19,20 +13,20 @@ function ModuleAccordion({
   handleEditBtn,
   HandleAddBtn,
   Icon,
-  SummaryStyles = {},
-  paperStyles = {},
+  summaryClasses = '',
+  paperClasses = '',
   iconclasses = '',
 }) {
   const [isClicked, setIsClicked] = useState(false);
 
   return (
-    <Accordion style={paperStyles}>
+    <Accordion className={paperClasses}>
       <AccordionSummary
         expandIcon={<CaretDown size={25} weight="bold" />}
         aria-controls="panel1a-content"
         id="panel1a-header"
         onClick={() => setIsClicked((prev) => !prev)}
-        style={SummaryStyles}
+        className={summaryClasses}
       >
         <div className="flex justify-between flex-1 mr-2">
           <div className="flex items-end gap-2">
@@ -53,9 +47,9 @@ function ModuleAccordion({
           </div>
         </div>
       </AccordionSummary>
-      <MUIAccordionDetails>
+      <AccordionDetails className="!bg-gray-50 !border-t-[0.5px] !border-t-[#DDD]">
         <Typography>{children}</Typography>
-      </MUIAccordionDetails>
+      </AccordionDetails>
     </Accordion>
   );
 }
