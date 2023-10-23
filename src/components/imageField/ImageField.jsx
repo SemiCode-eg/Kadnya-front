@@ -76,7 +76,7 @@ function ImageField({ isVertical = true, setImageAsset = () => {} }) {
       ) : (
         <div className="rounded-[5px] border-[1px] border-zinc-100 flex justify-center items-center h-auto max-h-[332px] w-full">
           <div className="bg-white flex justify-center items-center">
-            <img src={ImageSquare} className="w-[98px] opacity-80" />
+            <img src={ImageSquareColored} className="w-[98px] opacity-80" />
           </div>
         </div>
       )}
