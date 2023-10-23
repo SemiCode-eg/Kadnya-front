@@ -2,6 +2,7 @@ import { Presentation } from "@phosphor-icons/react";
 import { useState } from "react";
 import SortSelect from "../SortSelect";
 import { Typography } from "@mui/material";
+import MainButton from "../MainButton/MainButton";
 
 /* eslint-disable react/prop-types */
 export default function ProductsHead({
@@ -36,16 +37,11 @@ export default function ProductsHead({
 				></h3>
 
 				<div className="flex gap-3 items-center">
-					<button
-						className={`flex gap-2 items-center text-white
-                  outline-none transition-all duration-150 ease-in
-                  rounded-lg text-md font-semibold px-8 py-3
-                  bg-sky-950 hover:bg-teal-200 hover:text-sky-950`}
-						onClick={handleFormShow}
-					>
-						<ButtonIcon size={25} weight="bold" />
-						{buttonText}
-					</button>
+					<MainButton
+						text={buttonText}
+						handleClick={handleFormShow}
+						icon={<ButtonIcon size={25} weight="bold" />}
+					/>
 					<SortSelect
 						options={sortOptions}
 						sortKey={sortKey}
