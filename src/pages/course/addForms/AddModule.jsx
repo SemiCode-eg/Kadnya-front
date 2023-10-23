@@ -45,6 +45,7 @@ function AddModule({ courseID = 1, open, onClose }) {
 
   return (
     <CustomModal
+      title="New Module"
       open={open}
       onClose={onClose}
       fullWidth

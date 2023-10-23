@@ -59,7 +59,7 @@ function AddSubmodule({ open, onClose }) {
   };
 
   return (
-    <CustomModal open={open} onClose={onClose} fullWidth maxWidth="md">
+    <CustomModal title="New Submodel" open={open} onClose={onClose} fullWidth maxWidth="md">
       <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-[7px] items-start w-full">
           <FormLabel className="!text-black !font-[400] !text-xl">
