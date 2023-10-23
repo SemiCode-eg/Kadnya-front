@@ -13,7 +13,15 @@ const Transition = forwardRef(function Transition(props, ref) {
 });
 
 /* eslint-disable react/prop-types */
-export default function CustomModal({ children, open, onClose, onGoBack }) {
+export default function CustomModal({
+	open,
+	onClose,
+	onGoBack,
+	fullWidth,
+	maxWidth,
+	children,
+	step,
+}) {
 	return (
 		<Dialog
 			open={open}
@@ -23,19 +31,19 @@ export default function CustomModal({ children, open, onClose, onGoBack }) {
 			classes={{
 				container: "relative",
 				paper:
-					"after:bg-gradient-to-br after:from-indigo-500 after:to-pink-500 after:absolute after:inset-0 after:-z-10 z-1 relative",
+					"!rounded-3xl py-1 after:bg-gradient-to-br after:from-indigo-500 after:to-pink-500 after:absolute after:inset-0 after:-z-10 z-1 relative ",
 			}}
-			fullWidth
+			fullWidth={fullWidth}
+			maxWidth={maxWidth}
 		>
-			{!!onGoBack && (
+			{!!onGoBack && step > 1 && (
 				<IconButton
 					aria-label="back"
 					onClick={onGoBack}
 					sx={{
 						position: "absolute",
-						left: 8,
-						top: 8,
-						color: (theme) => theme.palette.grey[500],
+						left: 15,
+						top: 10,
 					}}
 				>
 					<CaretLeft size={32} />
@@ -43,7 +51,7 @@ export default function CustomModal({ children, open, onClose, onGoBack }) {
 			)}
 			<DialogTitle
 				id="dialog-title"
-				className={`${!!onGoBack && " text-center w-full"}`}
+				className={`${!!onGoBack && " text-center w-full"} !text-2xl`}
 			>
 				Add Course
 			</DialogTitle>
@@ -52,9 +60,8 @@ export default function CustomModal({ children, open, onClose, onGoBack }) {
 				onClick={onClose}
 				sx={{
 					position: "absolute",
-					right: 8,
-					top: 8,
-					color: (theme) => theme.palette.grey[500],
+					right: 15,
+					top: 10,
 				}}
 			>
 				<X size={32} />
