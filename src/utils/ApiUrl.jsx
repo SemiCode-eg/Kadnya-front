@@ -9,8 +9,8 @@ const api = axios.create({
 });
 
 api.interceptors.request.use(
-	(config) => {
-		const token = "8db78c4e7cc2b362c3636ef5b577bb31dffbca6e";
+  (config) => {
+    const token = "8db78c4e7cc2b362c3636ef5b577bb31dffbca6e";
 
 		if (token) {
 			config.headers.Authorization = `Token ${token}`;
