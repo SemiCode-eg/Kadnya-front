@@ -14,6 +14,7 @@ const Transition = forwardRef(function Transition(props, ref) {
 
 /* eslint-disable react/prop-types */
 export default function CustomModal({
+	title,
 	open,
 	onClose,
 	onGoBack,
@@ -53,7 +54,7 @@ export default function CustomModal({
 				id="dialog-title"
 				className={`${!!onGoBack && " text-center w-full"} !text-2xl`}
 			>
-				Add Course
+				{title}
 			</DialogTitle>
 			<IconButton
 				aria-label="close"
