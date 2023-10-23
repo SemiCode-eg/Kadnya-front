@@ -15,31 +15,28 @@ export default function ProductsHead({
 	sortKey = "",
 	handleSort = () => {},
 }) {
-	const [showForm, setShowForm] = useState(false);
+	const [OpenForm, setOpenForm] = useState(false);
 
-	const handleFormShow = () => {
-		setShowForm(true);
+	const handleFormOpen = () => {
+		setOpenForm(true);
 	};
 
-	const handleFormHide = () => {
-		setShowForm(false);
+	const handleFormClose = () => {
+		setOpenForm(false);
 	};
 
 	return (
 		<>
-			{showForm === true && <Form onHideForm={handleFormHide} />}
+			<Form open={OpenForm} onClose={handleFormClose} />
 			<section className="flex items-center justify-between px-3 py-4">
 				<Typography variant="h5" component="h3">
 					<span className="font-bold">{productCount}</span> {countTitle}
 				</Typography>
-				<h3
-					className={`flex gap-2 items-center text-sky-950 outline-none transition-all duration-150 ease-in text-lg font-semibold`}
-				></h3>
 
 				<div className="flex gap-3 items-center">
 					<MainButton
 						text={buttonText}
-						handleClick={handleFormShow}
+						handleClick={handleFormOpen}
 						icon={<ButtonIcon size={25} weight="bold" />}
 					/>
 					<SortSelect
