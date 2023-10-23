@@ -1,17 +1,32 @@
 /* eslint-disable react/prop-types */
 import { FormLabel } from '@mui/material';
 import MainButton from '../../../components/MainButton/MainButton';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import TextField from '../../../components/Forms/TextField';
 import SortSelect from '../../../components/SortSelect';
 import CustomModal from '../../../components/CustomModal';
+import useModules from '../../../hooks/use-modules';
 
-function AddLesson({ courseID, open, onClose }) {
+function AddLesson({ open, onClose }) {
   const [title, setTitle] = useState('');
   const [titleErrorMsg, setTitleErrorMsg] = useState('');
+  const [sortKey, setSortKey] = useState(1);
+  const [modules, setModules] = useState([]);
 
+  const { modulesData, errorMsg, loading } = useModules();
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (modulesData) {
+      const updatedModules = modulesData.map((module) => ({
+        value: module.id,
+        label: module.title,
+      }));
+      setModules(updatedModules);
+    }
+  }, [modulesData]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -21,11 +36,9 @@ function AddLesson({ courseID, open, onClose }) {
       return;
     }
 
-    // const moduleData = {
+    // const LessonData = {
     //   title,
-    //   description,
-    //   imageAsset,
-    //   courseID,
+    //   module: id,
     // };
 
     // sendModule(moduleData);
@@ -49,7 +62,13 @@ function AddLesson({ courseID, open, onClose }) {
           <div className="text-red-500">{titleErrorMsg}</div>
         </div>
         <div>
-          <SortSelect label="Select Top-level Module" className="!w-full " />
+        <SortSelect
+            label="Select Top-level Module"
+            className="!w-full"
+            options={modules}
+            sortKey={sortKey}
+            onSelect={(e) => setSortKey(e.target.value)}
+          />
         </div>
         <div className="self-end flex mt-5">
           <MainButton
