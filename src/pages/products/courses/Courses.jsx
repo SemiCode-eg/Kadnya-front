@@ -1,18 +1,16 @@
 import { Presentation } from "@phosphor-icons/react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import ProductsHead from "../../../components/Product/ProductsHead";
 import ProductCards from "../../../components/Product/Card/ProductCards";
+import useCourse from "../../../hooks/use-courses";
 
 const COURSE_PER_PAGE = 4;
 
 export default function Courses() {
-	const [courses, setCourses] = useState(coursesData);
+	// const { coursesData: courses, errorMsg } = useCourse();
+	const courses = coursesData;
 	const [sortKey, setSortKey] = useState(sortOptions[0].value);
 	const [page, setPage] = useState(1);
-
-	useEffect(() => {
-		setCourses(coursesData);
-	}, []);
 
 	const handleSortSelect = (event) => {
 		const newSortKey = event.target.value;
@@ -48,8 +46,8 @@ export default function Courses() {
 			<ProductsHead
 				// Form={AddProduct}
 				ButtonIcon={Presentation}
-				buttonText="Add Product"
-				countTitle="Products"
+				buttonText="Add Course"
+				countTitle="Courses"
 				productCount={preparedProducts.length}
 				sortKey={sortKey}
 				handleSort={handleSortSelect}
