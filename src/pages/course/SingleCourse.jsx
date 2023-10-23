@@ -4,6 +4,8 @@ import CustomCard from '../../components/customCard/CustomCard';
 import MiniSide from '../../components/miniSide/MiniSide';
 import { ArrowLeft } from '@phosphor-icons/react';
 import OutlineHeader from '../../components/outlineHeader/OutlineHeader';
+import AddSubmodule from './addForms/AddSubmodule';
+import AddLesson from './addForms/AddLesson';
 
 const tabs = [
   {
@@ -19,7 +21,8 @@ const tabs = [
 function SingleCourse() {
   return (
     <CustomCard>
-      <div className="flex gap-5 mt-5 h-[33rem]">
+      <AddLesson />
+      {/* <div className="flex gap-5 mt-5 h-[33rem]">
         <div className="flex flex-col gap-[60px]">
           <div className="flex items-center gap-[9px]">
             <Link
@@ -38,7 +41,7 @@ function SingleCourse() {
           <OutlineHeader />
           <Outlet />
         </div>
-      </div>
+      </div> */}
     </CustomCard>
   );
 }
