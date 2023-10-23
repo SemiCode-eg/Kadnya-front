@@ -3,6 +3,7 @@ import { useCallback, useMemo, useState } from "react";
 import ProductsHead from "../../../components/Product/ProductsHead";
 import ProductCards from "../../../components/Product/Card/ProductCards";
 import useCourse from "../../../hooks/use-courses";
+import AddCouseForm from "../../../components/Forms/AddCouseForm";
 
 const COURSE_PER_PAGE = 4;
 
@@ -44,7 +45,7 @@ export default function Courses() {
 	return (
 		<>
 			<ProductsHead
-				// Form={AddProduct}
+				Form={AddCouseForm}
 				ButtonIcon={Presentation}
 				buttonText="Add Course"
 				countTitle="Courses"
