@@ -22,8 +22,12 @@ function Outline() {
         {courseData?.modules?.map((module) => (
           <ModuleAccordion
             title={module.title}
+            description={module.description}
+            image={module.image}
             key={module.id}
             Icon={FolderSimple}
+            moduleID={module.id}
+            modules={[module]}
           >
             {module.lessons?.length > 0 ? (
               module.lessons?.map((lesson, i) => (
@@ -40,10 +44,16 @@ function Outline() {
               <ModuleAccordion
                 key={submodule.id}
                 title={submodule.title}
+                description={submodule.description}
+                image={submodule.image}
                 Icon={FolderDashed}
                 summaryClasses="!p-0 !bg-[#F9FAFB]"
                 paperClasses="!shadow-none"
                 iconclasses="text-slate-400"
+                moduleID={submodule.id}
+                modules={[module]}
+                submodule={[submodule]}
+                isSubmodule={true}
               >
                 {submodule.lessons?.length > 0 ? (
                   submodule.lessons?.map((lesson, i) => (

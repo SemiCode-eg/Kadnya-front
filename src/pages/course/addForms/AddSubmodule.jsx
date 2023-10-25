@@ -16,7 +16,6 @@ function AddSubmodule({ open, onClose, modules }) {
   const [description, setDescription] = useState('');
   const [descriptionErrorMsg, setDescriptionErrorMsg] = useState('');
   const [imageAsset, setImageAsset] = useState(null);
-  const [sortKey, setSortKey] = useState(1);
 
   const { id } = useParams();
 
@@ -26,6 +25,8 @@ function AddSubmodule({ open, onClose, modules }) {
       label: module.title,
     }));
   };
+
+  const [sortKey, setSortKey] = useState(setModulesSelectOption()[0].value);
 
   const handleSubmit = (e) => {
     e.preventDefault();
