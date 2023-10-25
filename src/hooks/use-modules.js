@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getModule } from '../utils/ApiCalls';
+import { getModules } from '../utils/ApiCalls';
 
 const useModules = () => {
   const [modulesData, setModulesData] = useState([]);
@@ -9,7 +9,7 @@ const useModules = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    getModule(id).then((data) => {
+    getModules(id).then((data) => {
       setLoading(true);
       if (data.status === 404) {
         setErrorMsg(data.message);

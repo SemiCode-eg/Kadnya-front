@@ -6,25 +6,32 @@ import useCourse from '../../../hooks/use-course';
 
 function Outline() {
   const { courseData, errorMsg, loading } = useCourse();
-  console.log(courseData, errorMsg, loading);
 
   return (
     <div className="mt-5 rounded-[10px] border-[1.5px] py-[16px] px-[28px] overflow-auto h-full">
       <SearchInput placeholder="Find module or lesson" />
       <div className="my-8">
         <p className="text-sky-950 text-[20px] font-semibold text-start">
-          {courseData?.modules?.length} Modules
+          {courseData?.modules?.length ? courseData.modules?.length : 0} Modules
         </p>
       </div>
-      {courseData.modules?.map((module) => (
+      {courseData?.modules?.map((module) => (
         <ModuleAccordion
           title={module.title}
           key={module.id}
           Icon={FolderSimple}
         >
-          {module.lessons.map((lesson) => (
-            <ModuleLesson text={lesson.title} key={lesson.id} />
-          ))}
+          {module.lessons?.length > 0 ? (
+            module.lessons?.map((lesson, i) => (
+              <ModuleLesson
+                text={lesson.title}
+                key={lesson.id}
+                addBorder={i !== 0}
+              />
+            ))
+          ) : (
+            <p>There is no lessons in this module!</p>
+          )}
           {module.submodules?.map((submodule) => (
             <ModuleAccordion
               key={submodule.id}
@@ -34,9 +41,17 @@ function Outline() {
               paperClasses="!shadow-none"
               iconclasses="text-slate-400"
             >
-              {submodule.lessons?.map((lesson) => (
-                <ModuleLesson text={lesson.title} key={lesson.id} />
-              ))}
+              {submodule.lessons?.length > 0 ? (
+                submodule.lessons?.map((lesson, i) => (
+                  <ModuleLesson
+                    text={lesson.title}
+                    key={lesson.id}
+                    addBorder={i !== 0}
+                  />
+                ))
+              ) : (
+                <p>There is no lessons in this submodule!</p>
+              )}
             </ModuleAccordion>
           ))}
         </ModuleAccordion>
