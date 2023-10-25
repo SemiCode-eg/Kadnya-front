@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   DotsThree,
   Stack,
@@ -13,7 +14,7 @@ import { useState } from 'react';
 import MenuItems from '../SettingMenu/MenuItems';
 import styled from '@emotion/styled';
 import AddModule from '../../pages/course/addForms/addModule';
-import AddSubModule from '../../pages/course/addForms/AddSubModule';
+import AddSubmodule from '../../pages/course/addForms/AddSubmodule';
 import AddLesson from '../../pages/course/addForms/AddLesson';
 
 const MUIMenu = styled(Menu)(() => ({
@@ -51,12 +52,12 @@ const MUIMenu = styled(Menu)(() => ({
   },
 }));
 
-function OutlineHeader() {
+function OutlineHeader({ courseData }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [openModuleForm, setOpenModuleForm] = useState(false);
   const [opensubModuleForm, setOpensubModuleForm] = useState(false);
   const [openLessonForm, setOpenLessonForm] = useState(false);
-  // const [openQuizForm, setOpenQuizForm] = useState(false);
+  const [openQuizForm, setOpenQuizForm] = useState(false);
 
   const open = Boolean(anchorEl);
   const handleClickListItem = (event) => {
@@ -75,7 +76,7 @@ function OutlineHeader() {
         setOpenLessonForm(true);
         break;
       case addMenuItems[3].text: // Quiz
-        // setOpenQuizForm(true);
+        setOpenQuizForm(true);
         break;
       default:
         break;
@@ -98,10 +99,11 @@ function OutlineHeader() {
       );
     } else if (opensubModuleForm) {
       return (
-        <AddSubModule
+        <AddSubmodule
           open={opensubModuleForm}
           onClose={() => setOpensubModuleForm(false)}
           title="New Submodule"
+          modules={courseData?.modules}
         />
       );
     } else if (openLessonForm) {
@@ -110,9 +112,10 @@ function OutlineHeader() {
           open={openLessonForm}
           onClose={() => setOpenLessonForm(false)}
           title="New Lesson"
+          modules={courseData?.modules}
         />
       );
-    } else {
+    } else if (openQuizForm) {
       // return <AddQuiz />
     }
   };

@@ -5,21 +5,28 @@ import { useState } from 'react';
 import TextField from '../../../components/Forms/TextField';
 import SortSelect from '../../../components/SortSelect';
 import CustomModal from '../../../components/CustomModal';
-import useModules from '../../../hooks/use-modules';
 import useModule from '../../../hooks/use-module';
 import { sendModuleLesson, sendSubmoduleLesson } from '../../../utils/ApiCalls';
 
-function AddLesson({ open, onClose }) {
+function AddLesson({ open, onClose, modules, submodules = [] }) {
   const [title, setTitle] = useState('');
   const [titleErrorMsg, setTitleErrorMsg] = useState('');
-  const [modulesSortKey, setModulesSortKey] = useState(1);
-  const [submodulesSortKey, setSubmodulesSortKey] = useState('NONE');
+  const [submodulesSortKey, setSubmodulesSortKey] = useState(
+    submodules.length > 0 ? submodules[0].value : 'NONE'
+  );
 
-  const {
-    modulesData,
-    errorMsg: modulesErrorMsg,
-    loading: modulesLoading,
-  } = useModules();
+  console.log("add lesson");
+
+  const setModulesSelectOption = () => {
+    return modules?.map((module) => ({
+      value: module.id,
+      label: module.title,
+    }));
+  };
+
+  const [modulesSortKey, setModulesSortKey] = useState(
+    setModulesSelectOption()[0].value
+  );
 
   const {
     moduleData,
@@ -27,18 +34,15 @@ function AddLesson({ open, onClose }) {
     loading: moduleLoading,
   } = useModule(modulesSortKey);
 
-  const setModulesSelectOption = () => {
-    return modulesData?.map((module) => ({
-      value: module.id,
-      label: module.title,
-    }));
-  };
-
   const setSubmodulesSelectOption = () => {
-    return moduleData?.submodules?.map((submodule) => ({
-      value: submodule.id,
-      label: submodule.title,
-    }));
+    return submodules.length === 0
+      ? []
+      : submodules.length > 0
+      ? submodules
+      : moduleData?.submodules?.map((submodule) => ({
+          value: submodule.id,
+          label: submodule.title,
+        }));
   };
 
   function handleSubmit(e) {
@@ -55,9 +59,17 @@ function AddLesson({ open, onClose }) {
     };
 
     if (submodulesSortKey !== 'NONE') {
-      sendSubmoduleLesson(lessonData);
+      sendSubmoduleLesson(lessonData)
+        .then(() => {
+          onClose();
+        })
+        .catch((err) => console.log(err));
     } else {
-      sendModuleLesson(lessonData);
+      sendModuleLesson(lessonData)
+        .then(() => {
+          onClose();
+        })
+        .catch((err) => console.log(err));
     }
   }
 
@@ -94,14 +106,18 @@ function AddLesson({ open, onClose }) {
           />
         </div>
         <div>
-          {moduleData?.submodules?.length > 0 && (
+          {setSubmodulesSelectOption().length > 0 && (
             <SortSelect
               label="Select Submodule"
               className="!w-full"
-              options={[
-                { value: 'NONE', label: 'None' },
-                ...setSubmodulesSelectOption(),
-              ]}
+              options={
+                submodules.length > 0
+                  ? [...setSubmodulesSelectOption()]
+                  : [
+                      { value: 'NONE', label: 'None' },
+                      ...setSubmodulesSelectOption(),
+                    ]
+              }
               sortKey={submodulesSortKey}
               onSelect={(e) => setSubmodulesSortKey(e.target.value)}
             />
