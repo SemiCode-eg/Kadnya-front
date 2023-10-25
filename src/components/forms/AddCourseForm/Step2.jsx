@@ -44,8 +44,8 @@ export default function Step2({
 								}}
 								className={`!rounded-sm text-lg ${
 									pricingType !== "FREE"
-										? "bg-transparent !text-teal-500 hover:bg-teal-500 hover:!text-white"
-										: "hover:bg-teal-500 hover:!text-white"
+										? "bg-transparent !text-teal-500 hover:!bg-teal-500 hover:!text-white"
+										: "hover:!text-white hover:!bg-teal-500"
 								}`}
 							/>
 							<MainButton
@@ -58,8 +58,8 @@ export default function Step2({
 								}}
 								className={`!rounded-sm text-lg ${
 									pricingType !== "PAID"
-										? "bg-transparent !text-teal-500 hover:bg-teal-500 hover:!text-white"
-										: "hover:bg-teal-500 hover:!text-white"
+										? "bg-transparent !text-teal-500 hover:!bg-teal-500 hover:!text-white"
+										: "hover:!text-white hover:!bg-teal-500"
 								}`}
 							/>
 						</div>
