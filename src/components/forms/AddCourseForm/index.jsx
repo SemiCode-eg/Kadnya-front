@@ -3,6 +3,8 @@ import CustomModal from "../../CustomModal";
 import MainButton from "../../MainButton/MainButton";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
+import AddCoursePreview from "./Preview";
+import axios from "axios";
 
 function formReducer(state, action) {
 	switch (action.type) {
@@ -26,16 +28,25 @@ function formReducer(state, action) {
 				...state,
 				pricingType: action.payload,
 			};
+		case "setError":
+			return {
+				...state,
+				error: action.payload,
+			};
 	}
 }
 
 const maxStep = 2;
+const titleInputErrMsg = "Title mustn't be empty";
+const descInputErrMsg = "Description mustn't be empty";
+const imgInputErrMsg = "Add course image";
 
 const formInitialState = {
 	title: "",
 	description: "",
 	image: null,
 	pricingType: "FREE",
+	error: "",
 };
 
 /* eslint-disable react/prop-types */
@@ -45,6 +56,7 @@ export default function AddCouseForm({ open, onClose }) {
 		formReducer,
 		formInitialState
 	);
+	const [loading, setLoading] = useState(false);
 
 	const handleGoBack = () => {
 		setStep((step) => --step);
@@ -70,8 +82,21 @@ export default function AddCouseForm({ open, onClose }) {
 		setStep((step) => ++step);
 	};
 
-	const handleSubmit = (event) => {
+	const handleSubmit = async (event) => {
 		event.preventDefault();
+
+		const { title, description, image, pricingType } = formData;
+		if (!title) return dispatchFormData("setError", titleInputErrMsg);
+		if (!description) return dispatchFormData("setError", descInputErrMsg);
+		if (!image) return dispatchFormData("setError", imgInputErrMsg);
+
+		setLoading(true);
+		const res = await axios("/courses/create", {
+			title,
+			description,
+			price: 0,
+		});
+		setLoading(false);
 	};
 
 	return (
@@ -103,7 +128,10 @@ export default function AddCouseForm({ open, onClose }) {
 					onChangePricingType={handlePricingType}
 				/>
 
-				<p className="text-2xl text-center">Preview</p>
+				<AddCoursePreview
+					title={formData.title}
+					description={formData.description}
+				/>
 
 				<MainButton
 					text={step === maxStep ? "Finish" : "Continue"}
