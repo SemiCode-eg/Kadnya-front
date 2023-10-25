@@ -5,21 +5,14 @@ import { useState } from 'react';
 import TextField from '../../../components/Forms/TextField';
 import SortSelect from '../../../components/SortSelect';
 import CustomModal from '../../../components/CustomModal';
-import useModules from '../../../hooks/use-modules';
 import useModule from '../../../hooks/use-module';
 import { sendModuleLesson, sendSubmoduleLesson } from '../../../utils/ApiCalls';
 
-function AddLesson({ open, onClose }) {
+function AddLesson({ open, onClose, modules }) {
   const [title, setTitle] = useState('');
   const [titleErrorMsg, setTitleErrorMsg] = useState('');
   const [modulesSortKey, setModulesSortKey] = useState(1);
   const [submodulesSortKey, setSubmodulesSortKey] = useState('NONE');
-
-  const {
-    modulesData,
-    errorMsg: modulesErrorMsg,
-    loading: modulesLoading,
-  } = useModules();
 
   const {
     moduleData,
@@ -28,7 +21,7 @@ function AddLesson({ open, onClose }) {
   } = useModule(modulesSortKey);
 
   const setModulesSelectOption = () => {
-    return modulesData?.map((module) => ({
+    return modules?.map((module) => ({
       value: module.id,
       label: module.title,
     }));

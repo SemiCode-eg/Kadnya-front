@@ -3,7 +3,6 @@ import Outline from './outline/Outline';
 import CustomCard from '../../components/customCard/CustomCard';
 import MiniSide from '../../components/miniSide/MiniSide';
 import { ArrowLeft } from '@phosphor-icons/react';
-import OutlineHeader from '../../components/outlineHeader/OutlineHeader';
 
 const tabs = [
   {
@@ -35,7 +34,6 @@ function SingleCourse() {
           </div>
         </div>
         <div className="w-full flex flex-col">
-          <OutlineHeader />
           <Outlet />
         </div>
       </div>
