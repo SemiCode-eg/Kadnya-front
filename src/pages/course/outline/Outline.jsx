@@ -21,9 +21,17 @@ function Outline() {
           key={module.id}
           Icon={FolderSimple}
         >
-          {module.lessons.map((lesson) => (
-            <ModuleLesson text={lesson.title} key={lesson.id} />
-          ))}
+          {module.lessons?.length > 0 ? (
+            module.lessons?.map((lesson, i) => (
+              <ModuleLesson
+                text={lesson.title}
+                key={lesson.id}
+                addBorder={i !== 0}
+              />
+            ))
+          ) : (
+            <p>There is no lessons in this module!</p>
+          )}
           {module.submodules?.map((submodule) => (
             <ModuleAccordion
               key={submodule.id}
@@ -33,9 +41,17 @@ function Outline() {
               paperClasses="!shadow-none"
               iconclasses="text-slate-400"
             >
-              {submodule.lessons?.map((lesson) => (
-                <ModuleLesson text={lesson.title} key={lesson.id} />
-              ))}
+              {submodule.lessons?.length > 0 ? (
+                submodule.lessons?.map((lesson, i) => (
+                  <ModuleLesson
+                    text={lesson.title}
+                    key={lesson.id}
+                    addBorder={i !== 0}
+                  />
+                ))
+              ) : (
+                <p>There is no lessons in this submodule!</p>
+              )}
             </ModuleAccordion>
           ))}
         </ModuleAccordion>
