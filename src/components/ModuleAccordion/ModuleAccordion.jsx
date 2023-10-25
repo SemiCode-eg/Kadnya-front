@@ -84,7 +84,7 @@ function ModuleAccordion({
           modules={modules}
         />
       );
-    } else {
+    } else if (isAddLesson){
       return (
         <AddLesson
           open={isAddLesson}

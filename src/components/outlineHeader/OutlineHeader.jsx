@@ -57,7 +57,7 @@ function OutlineHeader({ courseData }) {
   const [openModuleForm, setOpenModuleForm] = useState(false);
   const [opensubModuleForm, setOpensubModuleForm] = useState(false);
   const [openLessonForm, setOpenLessonForm] = useState(false);
-  // const [openQuizForm, setOpenQuizForm] = useState(false);
+  const [openQuizForm, setOpenQuizForm] = useState(false);
 
   const open = Boolean(anchorEl);
   const handleClickListItem = (event) => {
@@ -76,7 +76,7 @@ function OutlineHeader({ courseData }) {
         setOpenLessonForm(true);
         break;
       case addMenuItems[3].text: // Quiz
-        // setOpenQuizForm(true);
+        setOpenQuizForm(true);
         break;
       default:
         break;
@@ -115,7 +115,7 @@ function OutlineHeader({ courseData }) {
           modules={courseData?.modules}
         />
       );
-    } else {
+    } else if (openQuizForm) {
       // return <AddQuiz />
     }
   };

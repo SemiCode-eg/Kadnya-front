@@ -8,12 +8,14 @@ import CustomModal from '../../../components/CustomModal';
 import useModule from '../../../hooks/use-module';
 import { sendModuleLesson, sendSubmoduleLesson } from '../../../utils/ApiCalls';
 
-function AddLesson({ open, onClose, modules, submodules }) {
+function AddLesson({ open, onClose, modules, submodules = [] }) {
   const [title, setTitle] = useState('');
   const [titleErrorMsg, setTitleErrorMsg] = useState('');
   const [submodulesSortKey, setSubmodulesSortKey] = useState(
     submodules.length > 0 ? submodules[0].value : 'NONE'
   );
+
+  console.log("add lesson");
 
   const setModulesSelectOption = () => {
     return modules?.map((module) => ({

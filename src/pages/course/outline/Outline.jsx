@@ -4,9 +4,11 @@ import SearchInput from '../../../components/SearchInput';
 import ModuleLesson from '../../../components/ModuleAccordion/ModuleLesson';
 import useCourse from '../../../hooks/use-course';
 import OutlineHeader from '../../../components/outlineHeader/OutlineHeader';
+import { useParams } from 'react-router-dom';
 
 function Outline() {
-  const { courseData, errorMsg, loading } = useCourse();
+  const { id } = useParams();
+  const { courseData, errorMsg, loading } = useCourse(id);
 
   return (
     <>

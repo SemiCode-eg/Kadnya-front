@@ -1,12 +1,10 @@
-import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getsingleCourse } from '../utils/ApiCalls';
 
-const useCourse = () => {
+const useCourse = (id) => {
   const [courseData, setCourseData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
-  const { id } = useParams();
 
   useEffect(() => {
     getsingleCourse(id).then((data) => {
