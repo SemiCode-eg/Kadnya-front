@@ -37,7 +37,11 @@ function AddModule({ courseID = 1, open, onClose }) {
       courseID,
     };
 
-    sendModule(moduleData);
+    sendModule(moduleData)
+      .then(() => {
+        onClose();
+      })
+      .catch((err) => console.log(err));
   }
 
   return (

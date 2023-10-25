@@ -48,7 +48,11 @@ function AddSubmodule({ open, onClose, modules }) {
       module: sortKey,
     };
 
-    sendSubmodule(submoduleData);
+    sendSubmodule(submoduleData)
+      .then(() => {
+        onClose();
+      })
+      .catch((err) => console.log(err));
   };
 
   return (

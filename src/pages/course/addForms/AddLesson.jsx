@@ -48,9 +48,17 @@ function AddLesson({ open, onClose, modules }) {
     };
 
     if (submodulesSortKey !== 'NONE') {
-      sendSubmoduleLesson(lessonData);
+      sendSubmoduleLesson(lessonData)
+        .then(() => {
+          onClose();
+        })
+        .catch((err) => console.log(err));
     } else {
-      sendModuleLesson(lessonData);
+      sendModuleLesson(lessonData)
+        .then(() => {
+          onClose();
+        })
+        .catch((err) => console.log(err));
     }
   }
 
