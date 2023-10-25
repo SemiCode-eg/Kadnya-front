@@ -29,9 +29,9 @@ export const getModules = async (courseID) => {
   }
 };
 
-export const getSubmodules = async (submoduleID) => {
+export const getSingleModule = async (moduleID) => {
   try {
-    const response = await api.get(`submodules/${submoduleID}`);
+    const response = await api.get(`modules/${moduleID}`);
 
     return response;
   } catch (error) {
@@ -75,7 +75,6 @@ export const sendModuleLesson = async (lessonData) => {
   try {
     const formData = new FormData();
     formData.append('title', lessonData.title);
-    formData.append('description', lessonData.description);
     formData.append('module', lessonData.module);
     // formData.append('image', lessonData.imageAsset);
 
@@ -91,8 +90,7 @@ export const sendSubmoduleLesson = async (lessonData) => {
   try {
     const formData = new FormData();
     formData.append('title', lessonData.title);
-    formData.append('description', lessonData.description);
-    formData.append('module', lessonData.module);
+    formData.append('submodule', lessonData.module);
     // formData.append('image', lessonData.imageAsset);
 
     const response = await api.post('submodulelessons/create', formData);

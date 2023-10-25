@@ -4,7 +4,6 @@ import ImageField from '../../../components/imageField/ImageField';
 import { useState } from 'react';
 import { sendModule } from '../../../utils/ApiCalls';
 import MainButton from '../../../components/MainButton/MainButton';
-import { useNavigate } from 'react-router-dom';
 import TextField from '../../../components/Forms/TextField';
 import TextAriaField from '../../../components/Forms/TextAriaField';
 import CustomModal from '../../../components/CustomModal';
@@ -17,8 +16,6 @@ function AddModule({ courseID = 1, open, onClose }) {
   const [descriptionErrorMsg, setDescriptionErrorMsg] = useState('');
 
   const [imageAsset, setImageAsset] = useState(null);
-
-  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -86,7 +83,7 @@ function AddModule({ courseID = 1, open, onClose }) {
           <MainButton
             text="Cancel"
             className="text-teal-500 text-[17px] font-[500] border-[1px] border-teal-500 duration-150 hover:text-white hover:bg-teal-500"
-            handleClick={() => navigate(-1)}
+            handleClick={onClose}
             isPrimary={false}
           />
           <MainButton text="Create Module" isForm={true} type="submit" />

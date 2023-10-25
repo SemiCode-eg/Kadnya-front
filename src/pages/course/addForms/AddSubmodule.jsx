@@ -3,7 +3,7 @@ import { FormLabel } from '@mui/material';
 import TextAriaField from '../../../components/Forms/TextAriaField';
 import ImageField from '../../../components/imageField/ImageField';
 import MainButton from '../../../components/MainButton/MainButton';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import TextField from '../../../components/Forms/TextField';
 import SortSelect from '../../../components/SortSelect';
@@ -21,7 +21,6 @@ function AddSubmodule({ open, onClose }) {
   const [modules, setModules] = useState([]);
 
   const { modulesData, errorMsg, loading } = useModules();
-  const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
@@ -59,7 +58,13 @@ function AddSubmodule({ open, onClose }) {
   };
 
   return (
-    <CustomModal title="New Submodel" open={open} onClose={onClose} fullWidth maxWidth="md">
+    <CustomModal
+      title="New Submodel"
+      open={open}
+      onClose={onClose}
+      fullWidth
+      maxWidth="md"
+    >
       <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-[7px] items-start w-full">
           <FormLabel className="!text-black !font-[400] !text-xl">
@@ -104,7 +109,7 @@ function AddSubmodule({ open, onClose }) {
           <MainButton
             text="Cancel"
             className="text-teal-500 text-[17px] font-[500] border-[1px] border-teal-500 duration-150 hover:text-white hover:bg-teal-500"
-            handleClick={() => navigate(-1)}
+            handleClick={onClose}
             isPrimary={false}
           />
           <MainButton text="Create Module" isForm={true} type="submit" />
