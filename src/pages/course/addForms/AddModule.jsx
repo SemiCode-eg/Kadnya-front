@@ -2,7 +2,11 @@
 import { FormLabel } from '@mui/material';
 import ImageField from '../../../components/imageField/ImageField';
 import { useState } from 'react';
-import { sendModule, updateModule } from '../../../utils/ApiCalls';
+import {
+  sendModule,
+  updateModule,
+  updateSubmodule,
+} from '../../../utils/ApiCalls';
 import MainButton from '../../../components/MainButton/MainButton';
 import TextField from '../../../components/Forms/TextField';
 import TextAriaField from '../../../components/Forms/TextAriaField';
@@ -19,6 +23,8 @@ function AddModule({
   isEdit = false,
   popupTitle = 'New Module',
   submitBtnTitle = 'Create Module',
+  isSubmodule = false,
+  parentModuleID,
 }) {
   const [title, setTitle] = useState(moduleTitle);
   const [titleErrorMsg, setTitleErrorMsg] = useState('');
@@ -51,11 +57,19 @@ function AddModule({
     };
 
     if (isEdit) {
-      updateModule(moduleData, moduleID)
-        .then(() => {
-          onClose();
-        })
-        .catch((err) => console.log(err));
+      if (isSubmodule) {
+        updateSubmodule({ ...moduleData, module: parentModuleID }, moduleID)
+          .then(() => {
+            onClose();
+          })
+          .catch((err) => console.log(err));
+      } else {
+        updateModule(moduleData, moduleID)
+          .then(() => {
+            onClose();
+          })
+          .catch((err) => console.log(err));
+      }
     } else {
       sendModule(moduleData)
         .then(() => {

@@ -87,6 +87,23 @@ export const sendSubmodule = async (submoduleData) => {
   }
 };
 
+export const updateSubmodule = async (moduleData, submoduleID) => {
+  try {
+    const formData = new FormData();
+    formData.append('title', moduleData.title);
+    formData.append('description', moduleData.description);
+    formData.append('course', moduleData.courseID);
+    formData.append('module', moduleData.module);
+    // formData.append('image', moduleData.imageAsset);
+
+    const response = await api.put(`submodules/${submoduleID}/`, formData);
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const sendModuleLesson = async (lessonData) => {
   try {
     const formData = new FormData();

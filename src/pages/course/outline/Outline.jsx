@@ -56,6 +56,7 @@ function Outline() {
                 modules={[module]}
                 submodule={[submodule]}
                 isSubmodule={true}
+                parentModuleID={module?.id}
               >
                 {submodule.lessons?.length > 0 ? (
                   submodule.lessons?.map((lesson, i) => (

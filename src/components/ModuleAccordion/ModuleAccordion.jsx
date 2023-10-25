@@ -25,6 +25,7 @@ function ModuleAccordion({
   modules,
   isSubmodule = false,
   submodule = [],
+  parentModuleID,
 }) {
   const [isClicked, setIsClicked] = useState(false);
   const [isEditModule, setIsEditModule] = useState(false);
@@ -74,6 +75,8 @@ function ModuleAccordion({
           onClose={() => setIsEditModule(false)}
           popupTitle="Edit Module"
           submitBtnTitle="Update Module"
+          isSubmodule={isSubmodule}
+          parentModuleID={parentModuleID}
         />
       );
     } else if (isAddSubmodule) {
@@ -84,7 +87,7 @@ function ModuleAccordion({
           modules={modules}
         />
       );
-    } else if (isAddLesson){
+    } else if (isAddLesson) {
       return (
         <AddLesson
           open={isAddLesson}
