@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getCourses } from "../utils/ApiCalls";
 
 const useCourse = () => {
-	const [coursesData, setCoursesData] = useState([]);
+	const [courses, setCourses] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [errorMsg, setErrorMsg] = useState("");
 
@@ -12,14 +12,14 @@ const useCourse = () => {
 
 			const response = await getCourses();
 			if (response.status === 404) setErrorMsg(response.message);
-			else setCoursesData(response.data);
+			else setCourses(response.data);
 
 			setLoading(false);
 		};
 		handleCourses();
 	}, []);
 
-	return { coursesData, loading, errorMsg };
+	return { courses, loading, errorMsg };
 };
 
 export default useCourse;
