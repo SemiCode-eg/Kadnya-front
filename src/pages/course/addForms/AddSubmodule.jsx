@@ -58,7 +58,7 @@ function AddSubmodule({ open, onClose, modules }) {
 
   return (
     <CustomModal
-      title="New Submodel"
+      title="New Submodule"
       open={open}
       onClose={onClose}
       fullWidth
