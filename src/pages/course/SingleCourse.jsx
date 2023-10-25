@@ -18,7 +18,7 @@ const tabs = [
 function SingleCourse() {
   return (
     <CustomCard>
-      <div className="flex lg:flex-row flex-col lg:gap-5 gap-10 mt-5 h-[33rem]">
+      <div className="flex lg:flex-row flex-col lg:gap-5 gap-10 mt-5">
         <div className="flex lg:flex-col flex-row lg:justify-normal items-center justify-between gap-[60px]">
           <div className="flex items-center gap-[9px]">
             <Link

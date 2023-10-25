@@ -80,7 +80,7 @@ export default function Sidebar({ isSidebarOpen, closeSidebar }) {
   };
 
   return (
-    <div className="flex h-screen bg-gray-50 border-r border-gray-200">
+    <div className="flex h-screen md:w-3/12 lg:w-2/12 fixed w-full bg-gray-50 border-r border-gray-200">
       {/* Sidebar */}
       <nav
         className={`flex flex-col w-full bg-gray-50 ${
