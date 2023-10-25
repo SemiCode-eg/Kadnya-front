@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { CaretRight } from '@phosphor-icons/react';
 import { NavLink, useLocation } from 'react-router-dom';
+import SmallMiniSideLinks from '../smallMiniSideLinks/SmallMiniSideLinks';
 
 export default function MiniSide({ tabs }) {
   const location = useLocation();
@@ -11,9 +12,9 @@ export default function MiniSide({ tabs }) {
   }
 
   return (
-    <div className="miniSide mr-5 border-r-2 pr-4 h-full">
+    <div className="miniSide lg:mr-5 lg:border-r-2 lg:pr-4 h-full">
       <div className="miniSide-content">
-        <ul className={'flex gap-3 flex-col'}>
+        <ul className="lg:flex gap-3 flex-col hidden">
           {tabs.map((tab, index) => (
             <NavLink
               key={index}
@@ -36,6 +37,7 @@ export default function MiniSide({ tabs }) {
             </NavLink>
           ))}
         </ul>
+        <SmallMiniSideLinks tabs={tabs} />
       </div>
     </div>
   );
