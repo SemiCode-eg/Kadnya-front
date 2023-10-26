@@ -31,8 +31,7 @@ export default function CustomModal({
 			TransitionComponent={Transition}
 			classes={{
 				container: "relative",
-				paper:
-					"!rounded-3xl py-1 after:bg-gradient-to-br after:from-indigo-500 after:to-pink-500 after:absolute after:inset-0 after:-z-10 z-1 relative ",
+				paper: "!rounded-3xl py-1",
 			}}
 			fullWidth={fullWidth}
 			maxWidth={maxWidth}

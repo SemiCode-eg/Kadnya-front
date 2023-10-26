@@ -11,16 +11,15 @@ export default function ProductCards({
 	return (
 		<>
 			<ul className="flex flex-col gap-6 pr-5 w-full h-[40dvh] overflow-y-scroll">
-				{data.map((item, index) => (
+				{data.map((item) => (
 					<ProductCard
-						key={index}
-						id={index}
+						key={item.id}
+						id={item.id}
 						image={item.image}
 						title={item.title}
-						category={item.category}
-						date={item.date}
-						subscribersCount={item.subscribersCount}
-						className=""
+						category={item.category.name}
+						date={item.ReleaseDate}
+						subscribersCount={item.clients.length}
 					/>
 				))}
 			</ul>
@@ -30,7 +29,7 @@ export default function ProductCards({
 				page={page}
 				onChange={onPagination}
 				classes={{
-					root: "absolute -bottom-11 right-0",
+					root: "absolute -bottom-12 right-0",
 				}}
 			/>
 		</>
