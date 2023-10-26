@@ -17,7 +17,7 @@ export default function ProductCards({
 						id={item.id}
 						image={item.image}
 						title={item.title}
-						category={item.category}
+						category={item.category.name}
 						date={item.ReleaseDate}
 						subscribersCount={item.clients.length}
 					/>
