@@ -12,13 +12,14 @@ export const getsingleCourse = async (id) => {
 export const getCourses = async () => {
 	try {
 		const response = await api.get("courses");
+		console.log(response);
 		return response;
 	} catch (error) {
 		return error;
 	}
 };
 
-export const getModule = async (courseID) => {
+export const getModules = async (courseID) => {
 	try {
 		const response = await api.get(`courses/${courseID}/modules`);
 
@@ -54,13 +55,29 @@ export const sendModule = async (moduleData) => {
 	}
 };
 
-export const sendSubmodule = async (moduleData) => {
+export const updateModule = async (moduleData, moduleID) => {
 	try {
 		const formData = new FormData();
 		formData.append("title", moduleData.title);
 		formData.append("description", moduleData.description);
-		formData.append("module", moduleData.module);
+		formData.append("course", moduleData.courseID);
 		// formData.append('image', moduleData.imageAsset);
+
+		const response = await api.put(`modules/${moduleID}/`, formData);
+
+		return response.data;
+	} catch (error) {
+		return error;
+	}
+};
+
+export const sendSubmodule = async (submoduleData) => {
+	try {
+		const formData = new FormData();
+		formData.append("title", submoduleData.title);
+		formData.append("description", submoduleData.description);
+		formData.append("module", submoduleData.module);
+		// formData.append('image', submoduleData.imageAsset);
 
 		const response = await api.post("submodules/create", formData);
 
