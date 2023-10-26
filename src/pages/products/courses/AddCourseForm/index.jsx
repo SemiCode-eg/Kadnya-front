@@ -71,7 +71,7 @@ export default function AddCouseForm({ open, onClose }) {
 	};
 
 	const handleImage = (image) => {
-		dispatchFormData({ type: "setDescription", payload: image });
+		dispatchFormData({ type: "setImage", payload: image });
 	};
 
 	const handlePricingType = (value) => {
