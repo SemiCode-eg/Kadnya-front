@@ -5,6 +5,7 @@ import MenuItems from "./MenuItems";
 /* eslint-disable react/prop-types */
 export default function SettingMenu({
 	anchorElement = null,
+	buttonIcon = <DotsThreeOutlineVertical size={28} />,
 	handleOpenMenu = () => {},
 	handleCloseMenu = () => {},
 	menuItems = [],
@@ -20,7 +21,7 @@ export default function SettingMenu({
 				aria-expanded={open ? "true" : undefined}
 				onClick={handleOpenMenu}
 			>
-				<DotsThreeOutlineVertical size={28} />
+				{buttonIcon}
 			</IconButton>
 			<Menu
 				id="setting-menu"
