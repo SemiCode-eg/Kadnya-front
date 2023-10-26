@@ -8,14 +8,18 @@ import CustomModal from '../../../components/CustomModal';
 import useModule from '../../../hooks/use-module';
 import { sendModuleLesson, sendSubmoduleLesson } from '../../../utils/ApiCalls';
 
-function AddLesson({ open, onClose, modules, submodules = [] }) {
+function AddLesson({
+  open,
+  onClose,
+  modules,
+  submodules = [],
+  isMainBtn = true,
+}) {
   const [title, setTitle] = useState('');
   const [titleErrorMsg, setTitleErrorMsg] = useState('');
   const [submodulesSortKey, setSubmodulesSortKey] = useState(
     submodules.length > 0 ? submodules[0].value : 'NONE'
   );
-
-  console.log("add lesson");
 
   const setModulesSelectOption = () => {
     return modules?.map((module) => ({
@@ -35,14 +39,14 @@ function AddLesson({ open, onClose, modules, submodules = [] }) {
   } = useModule(modulesSortKey);
 
   const setSubmodulesSelectOption = () => {
-    return submodules.length === 0
-      ? []
-      : submodules.length > 0
-      ? submodules
-      : moduleData?.submodules?.map((submodule) => ({
-          value: submodule.id,
-          label: submodule.title,
-        }));
+    if (!isMainBtn) {
+      return submodules.length === 0 ? [] : submodules;
+    } else {
+      return moduleData?.submodules?.map((submodule) => ({
+        value: submodule.id,
+        label: submodule.title,
+      }));
+    }
   };
 
   function handleSubmit(e) {
@@ -106,7 +110,7 @@ function AddLesson({ open, onClose, modules, submodules = [] }) {
           />
         </div>
         <div>
-          {setSubmodulesSelectOption().length > 0 && (
+          {setSubmodulesSelectOption()?.length > 0 && (
             <SortSelect
               label="Select Submodule"
               className="!w-full"
