@@ -10,6 +10,7 @@ import SingleCourse from "./pages/course/SingleCourse";
 import Outline from "./pages/course/outline/Outline";
 import EditLesson from "./pages/course/editLesson/EditLesson";
 import CertificateTab from "./pages/course/CertificateTab";
+import SittingTab from "./pages/course/SittingsTab";
 
 const router = createBrowserRouter([
 	{
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
 				children: [
 					{ path: "outline", element: <Outline /> },
 					{ path: "certificate", element: <CertificateTab /> },
+					{ path: "sittings", element: <SittingTab /> },
 				],
 			},
 			{

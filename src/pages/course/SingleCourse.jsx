@@ -4,6 +4,7 @@ import CustomCard from "../../components/customCard/CustomCard";
 import MiniSide from "../../components/miniSide/MiniSide";
 import GoBackBtn from "../../components/goBackBtn/GoBackBtn";
 import CertificateTab from "./CertificateTab";
+import SittingTab from "./SittingsTab";
 
 const tabs = [
 	{
@@ -12,8 +13,8 @@ const tabs = [
 		content: <Outline />,
 	},
 	{ title: "Questions", path: "questions", content: "Questions" },
-	{ title: "Sittings", path: "sittings", content: "Sittings" },
 	{ title: "Certificate", path: "certificate", content: <CertificateTab /> },
+	{ title: "Sittings", path: "sittings", content: <SittingTab /> },
 	{ title: "Results", path: "results", content: "Results" },
 ];
 
