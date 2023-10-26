@@ -7,7 +7,7 @@ export default function CardMain({ title, category }) {
 			<Typography variant="h6">{title}</Typography>
 			<p
 				className="bg-gradient-to-r from-violet-200 to-teal-300
-            text-sky-950 text-opacity-80 w-24 px-2 py-1.5
+            text-sky-950 text-opacity-80 px-2 py-1.5
             rounded-md font-semibold mt-1"
 			>
 				{category}

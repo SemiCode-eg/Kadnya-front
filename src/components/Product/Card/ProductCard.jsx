@@ -44,7 +44,7 @@ export default function ProductCard({
 					<CardImage image={image} />
 				</div>
 				<div className="flex gap-4 items-center w-3/4">
-					<div className="w-2/5 text-left">
+					<div className="flex flex-col items-start w-2/5 text-left">
 						<CardMain title={title} category={category} />
 					</div>
 
