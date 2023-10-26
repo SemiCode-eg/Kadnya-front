@@ -31,7 +31,7 @@ const router = createBrowserRouter([
         children: [{ path: 'outline', element: <Outline /> }],
       },
       {
-        path: 'products/courses/:id/edit-lesson/:lissonID',
+        path: 'products/courses/:id/edit-lesson/:lessonID',
         element: <EditLesson />,
       },
     ],

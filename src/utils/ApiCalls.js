@@ -38,6 +38,16 @@ export const getSingleModule = async (moduleID) => {
 	}
 };
 
+export const getSingleLesson = async (lessonID) => {
+	try {
+		const response = await api.get(`lessons/${lessonID}`);
+
+		return response;
+	} catch (error) {
+		return error;
+	}
+};
+
 export const sendModule = async (moduleData) => {
 	try {
 		const formData = new FormData();
