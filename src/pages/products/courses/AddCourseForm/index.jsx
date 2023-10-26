@@ -85,17 +85,22 @@ export default function AddCouseForm({ open, onClose }) {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 
-		const { title, description, image, pricingType } = formData;
-		if (!title) return dispatchFormData("setError", titleInputErrMsg);
-		if (!description) return dispatchFormData("setError", descInputErrMsg);
-		if (!image) return dispatchFormData("setError", imgInputErrMsg);
+		if (!formData.title)
+			return dispatchFormData({ type: "setError", payload: titleInputErrMsg });
+		if (!formData.description)
+			return dispatchFormData({ type: "setError", patload: descInputErrMsg });
+		if (!formData.image)
+			return dispatchFormData({ type: "setError", payload: imgInputErrMsg });
 
 		setLoading(true);
 		const res = await axios("/courses/create", {
-			title,
-			description,
+			title: formData.title,
+			description: formData.description,
 			price: 0,
+			image: "",
 		});
+
+		console.log(res);
 		setLoading(false);
 	};
 
