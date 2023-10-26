@@ -4,6 +4,7 @@ import ProductsHead from "../../../components/Product/ProductsHead";
 import ProductCards from "../../../components/Product/Card/ProductCards";
 import useCourse from "../../../hooks/use-courses";
 import AddCouseForm from "./AddCourseForm";
+import HandleErrorLoad from "../../../components/HandeErrorLoad";
 
 const COURSE_PER_PAGE = 4;
 
@@ -45,7 +46,7 @@ export default function Courses() {
 	);
 
 	return (
-		<>
+		<HandleErrorLoad loading={loading} errorMsg={errorMsg}>
 			<ProductsHead
 				Form={AddCouseForm}
 				ButtonIcon={Presentation}
@@ -63,7 +64,7 @@ export default function Courses() {
 				onPagination={handlePage}
 				productPerPage={COURSE_PER_PAGE}
 			/>
-		</>
+		</HandleErrorLoad>
 	);
 }
 
