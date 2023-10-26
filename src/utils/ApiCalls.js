@@ -135,7 +135,7 @@ export const sendSubmoduleLesson = async (lessonData) => {
 
 export const updateCourse = async (id, data) => {
 	try {
-		const response = await api.patch(`courses/${id}`, data);
+		const response = await api.patch(`courses/${id}/update`, data);
 
 		return response;
 	} catch (error) {
