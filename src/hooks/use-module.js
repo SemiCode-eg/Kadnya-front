@@ -1,24 +1,24 @@
 import { useEffect, useState } from 'react';
-import { getsingleCourse } from '../utils/ApiCalls';
+import { getSingleModule } from '../utils/ApiCalls';
 
-const useCourse = (id) => {
-  const [courseData, setCourseData] = useState([]);
+const useModule = (id) => {
+  const [moduleData, setModuleData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
-    getsingleCourse(id).then((data) => {
+    getSingleModule(id).then((data) => {
       setLoading(true);
       if (data.status === 404) {
         setErrorMsg(data.message);
       } else {
-        setCourseData(data.data);
+        setModuleData(data.data);
       }
       setLoading(false);
     });
   }, [id]);
 
-  return { courseData, errorMsg,loading };
+  return { moduleData, errorMsg, loading };
 };
 
-export default useCourse;
+export default useModule;

@@ -2,23 +2,39 @@
 import { FormLabel } from '@mui/material';
 import ImageField from '../../../components/imageField/ImageField';
 import { useState } from 'react';
-import { sendModule } from '../../../utils/ApiCalls';
+import {
+  sendModule,
+  updateModule,
+  updateSubmodule,
+} from '../../../utils/ApiCalls';
 import MainButton from '../../../components/MainButton/MainButton';
-import { useNavigate } from 'react-router-dom';
 import TextField from '../../../components/Forms/TextField';
 import TextAriaField from '../../../components/Forms/TextAriaField';
 import CustomModal from '../../../components/CustomModal';
+import { useParams } from 'react-router-dom';
 
-function AddModule({ courseID = 1, open, onClose }) {
-  const [title, setTitle] = useState('');
+function AddModule({
+  open,
+  onClose,
+  moduleID,
+  moduleTitle = '',
+  moduleDescription = '',
+  moduleImage = null,
+  isEdit = false,
+  popupTitle = 'New Module',
+  submitBtnTitle = 'Create Module',
+  isSubmodule = false,
+  parentModuleID,
+}) {
+  const [title, setTitle] = useState(moduleTitle);
   const [titleErrorMsg, setTitleErrorMsg] = useState('');
 
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState(moduleDescription);
   const [descriptionErrorMsg, setDescriptionErrorMsg] = useState('');
 
-  const [imageAsset, setImageAsset] = useState(null);
+  const [imageAsset, setImageAsset] = useState(moduleImage);
 
-  const navigate = useNavigate();
+  const { id } = useParams();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -37,15 +53,35 @@ function AddModule({ courseID = 1, open, onClose }) {
       title,
       description,
       imageAsset,
-      courseID,
+      courseID: id,
     };
 
-    sendModule(moduleData);
+    if (isEdit) {
+      if (isSubmodule) {
+        updateSubmodule({ ...moduleData, module: parentModuleID }, moduleID)
+          .then(() => {
+            onClose();
+          })
+          .catch((err) => console.log(err));
+      } else {
+        updateModule(moduleData, moduleID)
+          .then(() => {
+            onClose();
+          })
+          .catch((err) => console.log(err));
+      }
+    } else {
+      sendModule(moduleData)
+        .then(() => {
+          onClose();
+        })
+        .catch((err) => console.log(err));
+    }
   }
 
   return (
     <CustomModal
-      title="New Module"
+      title={popupTitle}
       open={open}
       onClose={onClose}
       fullWidth
@@ -86,10 +122,10 @@ function AddModule({ courseID = 1, open, onClose }) {
           <MainButton
             text="Cancel"
             className="text-teal-500 text-[17px] font-[500] border-[1px] border-teal-500 duration-150 hover:text-white hover:bg-teal-500"
-            handleClick={() => navigate(-1)}
+            handleClick={onClose}
             isPrimary={false}
           />
-          <MainButton text="Create Module" isForm={true} type="submit" />
+          <MainButton text={submitBtnTitle} isForm={true} type="submit" />
         </div>
       </form>
     </CustomModal>

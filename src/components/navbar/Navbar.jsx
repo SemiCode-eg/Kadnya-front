@@ -10,7 +10,7 @@ export default function Navbar({ toggleSidebar, isSidebarOpen }) {
   return (
     <>
       {/* Content */}
-      <div className="flex flex-col flex-grow">
+      <div className="flex flex-col flex-grow z-50 sticky top-0">
         <Disclosure
           as="nav"
           className="bg-gray-50 border-b border-gray-200 p-4 sm:pr-14"

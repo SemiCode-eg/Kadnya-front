@@ -1,9 +1,13 @@
 /* eslint-disable react/prop-types */
 import { Note, PencilSimple } from '@phosphor-icons/react';
 
-function ModuleLesson({ text }) {
+function ModuleLesson({ text, addBorder }) {
   return (
-    <div className="flex justify-between flex-1 mr-2">
+    <div
+      className={`flex justify-between flex-1 mr-2 py-2.5 ${
+        addBorder ? 'border-t border-t-gray-300/80' : 'pt-0'
+      }`}
+    >
       <div className="flex items-end gap-2">
         <Note size={30} className="text-slate-400" />
         <p className="font-light">{text}</p>
