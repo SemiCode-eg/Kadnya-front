@@ -86,6 +86,7 @@ function AddSubmodule({ open, onClose, modules }) {
             options={setModulesSelectOption()}
             sortKey={sortKey}
             onSelect={(e) => setSortKey(e.target.value)}
+            selectClasses="!rounded-xl"
           />
         </div>
         <div className="flex flex-col gap-[7px] items-start w-full">

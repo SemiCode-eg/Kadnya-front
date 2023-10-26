@@ -107,6 +107,7 @@ function AddLesson({
             options={setModulesSelectOption()}
             sortKey={modulesSortKey}
             onSelect={(e) => setModulesSortKey(e.target.value)}
+            selectClasses="!rounded-xl"
           />
         </div>
         <div>
@@ -124,6 +125,7 @@ function AddLesson({
               }
               sortKey={submodulesSortKey}
               onSelect={(e) => setSubmodulesSortKey(e.target.value)}
+              selectClasses="!rounded-xl"
             />
           )}
         </div>
