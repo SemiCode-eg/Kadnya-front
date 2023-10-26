@@ -94,6 +94,7 @@ function ModuleAccordion({
           onClose={() => setIsAddLesson(false)}
           modules={modules}
           submodules={RefactoredSubmodule(submodule)}
+          isMainBtn={false}
         />
       );
     }

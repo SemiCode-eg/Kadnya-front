@@ -113,6 +113,7 @@ function OutlineHeader({ courseData }) {
           onClose={() => setOpenLessonForm(false)}
           title="New Lesson"
           modules={courseData?.modules}
+          isMainBtn={true}
         />
       );
     } else if (openQuizForm) {
