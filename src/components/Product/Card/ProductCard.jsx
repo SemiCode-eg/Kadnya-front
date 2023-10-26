@@ -37,7 +37,7 @@ export default function ProductCard({
 	return (
 		<li>
 			<Link
-				to={`${pathname}/${id}`}
+				to={`${pathname}/${id}/outline`}
 				className="bg-white rounded-lg border border-gray-300 p-4 flex gap-5 cursor-pointer hover:bg-teal-100 hover:border-gray-200 duration-200 ease-in-out"
 			>
 				<div className="w-1/4">
