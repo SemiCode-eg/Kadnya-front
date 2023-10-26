@@ -6,6 +6,7 @@ import { Typography } from "@mui/material";
 import SittingsForm from "./SittingsForm";
 import { useReducer, useState } from "react";
 import { updateCourse } from "../../../utils/ApiCalls";
+import HandleErrorLoad from "../../../components/HandeErrorLoad";
 
 const initailFormData = {
 	title: "",
@@ -102,7 +103,7 @@ export default function SittingTab() {
 	};
 
 	return (
-		<>
+		<HandleErrorLoad loading={loading || postLoading} errorMsg={errorMsg}>
 			<OutlineHeader courseData={courseData} />
 			<Container>
 				<Typography variant="h5" component="h2" textAlign="start">
@@ -126,6 +127,6 @@ export default function SittingTab() {
 					/>
 				</div>
 			</Container>
-		</>
+		</HandleErrorLoad>
 	);
 }

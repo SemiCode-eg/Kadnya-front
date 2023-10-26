@@ -11,6 +11,7 @@ import {
 	initailFormData,
 	reducerKeys,
 } from "./formDataReducer";
+import HandleErrorLoad from "../../../components/HandeErrorLoad";
 
 export default function CertificateTab() {
 	const { id } = useParams();
@@ -88,7 +89,7 @@ export default function CertificateTab() {
 	};
 
 	return (
-		<>
+		<HandleErrorLoad loading={loading} errorMsg={errorMsg}>
 			<OutlineHeader courseData={courseData} />
 			<Container>
 				<form onSubmit={handleSubmit} className="flex flex-col sm:gap-0 gap-6">
@@ -121,6 +122,6 @@ export default function CertificateTab() {
 					</div>
 				</form>
 			</Container>
-		</>
+		</HandleErrorLoad>
 	);
 }
