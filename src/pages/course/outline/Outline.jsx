@@ -30,7 +30,7 @@ function Outline() {
             Icon={FolderSimple}
             moduleID={module.id}
             modules={[module]}
-            paperClasses="!my-0.5 !shadow-none"
+            paperClasses="!my-1 !shadow !rounded-lg before:!opacity-0 after:!opacity-0"
           >
             {module.lessons?.length > 0 ? (
               module.lessons?.map((lesson, i) => (
