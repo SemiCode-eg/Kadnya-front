@@ -8,6 +8,7 @@ import Courses from './pages/products/courses/Courses';
 import AllProducts from './pages/products/allProducts/AllProducts';
 import SingleCourse from './pages/course/SingleCourse';
 import Outline from './pages/course/outline/Outline';
+import EditLesson from './pages/course/editLesson/EditLesson';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
         path: 'products/courses/:id',
         element: <SingleCourse />,
         children: [{ path: 'outline', element: <Outline /> }],
+      },
+      {
+        path: 'products/courses/:id/edit-lesson/:lissonID',
+        element: <EditLesson />,
       },
     ],
   },
