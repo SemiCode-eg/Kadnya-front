@@ -3,7 +3,7 @@ import { useCallback, useMemo, useState } from "react";
 import ProductsHead from "../../../components/Product/ProductsHead";
 import ProductCards from "../../../components/Product/Card/ProductCards";
 import useCourse from "../../../hooks/use-courses";
-import AddCouseForm from "../../../components/Forms/AddCourseForm";
+import AddCouseForm from "./AddCourseForm";
 
 const COURSE_PER_PAGE = 4;
 
@@ -11,7 +11,7 @@ export default function Courses() {
 	const { courses, errorMsg, loading } = useCourse();
 	const [sortKey, setSortKey] = useState(sortOptions[0].value);
 	const [page, setPage] = useState(1);
-	
+
 	const handleSortSelect = (event) => {
 		const newSortKey = event.target.value;
 		setSortKey(newSortKey);

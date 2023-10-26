@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
-import TextField from "../TextField";
-import TextAriaField from "../TextAriaField";
+import TextField from "../../../../components/Forms/TextField";
+import TextAriaField from "../../../../components/Forms/TextAriaField";
 
 /* eslint-disable react/prop-types */
 export default function Step1({
