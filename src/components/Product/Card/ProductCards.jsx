@@ -10,7 +10,7 @@ export default function ProductCards({
 }) {
 	return (
 		<>
-			<ul className="flex flex-col gap-6 pr-5 w-full h-[40dvh] overflow-y-scroll">
+			<ul className="flex flex-col gap-6 sm:pr-5 w-full h-[40dvh] overflow-y-scroll overflow-x-hidden">
 				{data.map((item) => (
 					<ProductCard
 						key={item.id}
@@ -23,13 +23,12 @@ export default function ProductCards({
 					/>
 				))}
 			</ul>
-
 			<Pagination
 				count={Math.ceil(data.length / productPerPage)}
 				page={page}
 				onChange={onPagination}
 				classes={{
-					root: "absolute -bottom-12 right-0",
+					root: "absolute -bottom-16 right-0",
 				}}
 			/>
 		</>

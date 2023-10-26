@@ -11,7 +11,7 @@ export default function Courses() {
 	const { courses, errorMsg, loading } = useCourse();
 	const [sortKey, setSortKey] = useState(sortOptions[0].value);
 	const [page, setPage] = useState(1);
-	console.log(courses, loading);
+	
 	const handleSortSelect = (event) => {
 		const newSortKey = event.target.value;
 		setSortKey(newSortKey);
