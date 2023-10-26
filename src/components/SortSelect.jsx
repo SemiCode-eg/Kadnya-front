@@ -5,7 +5,8 @@ export default function SortSelect({
 	onSelect = () => {},
 	sortKey = "",
 	label = "Sort",
-	className= ""
+	className= "",
+	selectClasses
 }) {
 	return (
 		<FormControl className={className}>
@@ -16,6 +17,7 @@ export default function SortSelect({
 				value={sortKey}
 				label="Sort"
 				onChange={onSelect}
+				className={selectClasses}
 			>
 				{options.map((option) => (
 					<MenuItem key={option.value} value={option.value}>
