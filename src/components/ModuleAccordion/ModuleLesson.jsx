@@ -1,7 +1,10 @@
 /* eslint-disable react/prop-types */
 import { Note, PencilSimple } from '@phosphor-icons/react';
+import { Link, useParams } from 'react-router-dom';
 
-function ModuleLesson({ text, addBorder }) {
+function ModuleLesson({ text, addBorder, lessonID }) {
+  const { id } = useParams();
+
   return (
     <div
       className={`flex justify-between flex-1 mr-2 py-2.5 ${
@@ -13,9 +16,9 @@ function ModuleLesson({ text, addBorder }) {
         <p className="font-light">{text}</p>
       </div>
       <div className="flex items-center gap-2">
-        <button>
+        <Link to={`/products/courses/${id}/edit-lesson/${lessonID}`}>
           <PencilSimple size={20} weight="bold" />
-        </button>
+        </Link>
       </div>
     </div>
   );
