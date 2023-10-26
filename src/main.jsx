@@ -28,10 +28,11 @@ const router = createBrowserRouter([
       {
         path: 'products/courses/:id',
         element: <SingleCourse />,
-        children: [
-          { path: 'outline', element: <Outline /> },
-          { path: 'edit-lesson/:id', element: <EditLesson /> },
-        ],
+        children: [{ path: 'outline', element: <Outline /> }],
+      },
+      {
+        path: 'products/courses/:id/edit-lesson/:lissonID',
+        element: <EditLesson />,
       },
     ],
   },
