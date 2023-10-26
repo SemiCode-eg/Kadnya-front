@@ -111,7 +111,7 @@ export default function AddCouseForm({ open, onClose }) {
 		>
 			<form
 				onSubmit={handleSubmit}
-				className="flex flex-col gap-6 items-center px-28"
+				className="flex flex-col gap-6 items-center sm:px-28"
 			>
 				<Step1
 					step={step}
@@ -135,7 +135,7 @@ export default function AddCouseForm({ open, onClose }) {
 
 				<MainButton
 					text={step === maxStep ? "Finish" : "Continue"}
-					className="!px-28"
+					className="sm:!px-28 !px-16"
 					handleClick={step === maxStep ? handleSubmit : handleContinue}
 				/>
 			</form>

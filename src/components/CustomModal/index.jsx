@@ -5,6 +5,8 @@ import {
 	DialogTitle,
 	IconButton,
 	Slide,
+	useMediaQuery,
+	useTheme,
 } from "@mui/material";
 import { CaretLeft, X } from "@phosphor-icons/react";
 
@@ -23,6 +25,9 @@ export default function CustomModal({
 	children,
 	step,
 }) {
+	const theme = useTheme();
+	const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+
 	return (
 		<Dialog
 			open={open}
@@ -34,6 +39,7 @@ export default function CustomModal({
 				paper: "!rounded-3xl py-1",
 			}}
 			fullWidth={fullWidth}
+			fullScreen={fullScreen}
 			maxWidth={maxWidth}
 		>
 			{!!onGoBack && step > 1 && (

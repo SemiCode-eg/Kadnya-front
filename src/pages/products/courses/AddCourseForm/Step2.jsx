@@ -36,13 +36,13 @@ export default function Step2({
 						<div className="flex gap-3">
 							<MainButton
 								text="Free"
-								icon={<ReceiptX size={32} />}
+								icon={<ReceiptX size={30} />}
 								isForm
 								isPrimary={false}
 								handleClick={() => {
 									onChangePricingType("FREE");
 								}}
-								className={`!rounded-sm text-lg ${
+								className={`!rounded-sm text-lg sm:px-8 sm:py-3 !px-5 ${
 									pricingType !== "FREE"
 										? "bg-transparent !text-teal-500 hover:!bg-teal-500 hover:!text-white"
 										: "hover:!text-white hover:!bg-teal-500"
@@ -50,13 +50,13 @@ export default function Step2({
 							/>
 							<MainButton
 								text="Paid"
-								icon={<Receipt size={32} />}
+								icon={<Receipt size={30} />}
 								isForm
 								isPrimary={false}
 								handleClick={() => {
 									onChangePricingType("PAID");
 								}}
-								className={`!rounded-sm text-lg ${
+								className={`!rounded-sm text-lg sm:px-8 sm:py-3 !px-5 ${
 									pricingType !== "PAID"
 										? "bg-transparent !text-teal-500 hover:!bg-teal-500 hover:!text-white"
 										: "hover:!text-white hover:!bg-teal-500"
