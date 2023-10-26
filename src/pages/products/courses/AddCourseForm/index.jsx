@@ -1,10 +1,10 @@
 import { useReducer, useState } from "react";
-import CustomModal from "../../CustomModal";
-import MainButton from "../../MainButton/MainButton";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import AddCoursePreview from "./Preview";
 import axios from "axios";
+import CustomModal from "../../../../components/CustomModal";
+import MainButton from "../../../../components/MainButton/MainButton";
 
 function formReducer(state, action) {
 	switch (action.type) {
