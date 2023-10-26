@@ -8,7 +8,7 @@ export default function CardMain({ title, category }) {
 			<p
 				className="bg-gradient-to-r from-violet-200 to-teal-300
             text-sky-950 text-opacity-80 px-2 py-1.5
-            rounded-md font-semibold mt-1"
+            rounded-md font-semibold sm:text-base text-sm mt-1"
 			>
 				{category}
 			</p>

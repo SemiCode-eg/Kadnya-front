@@ -27,9 +27,11 @@ export default function Products() {
 			}
 		>
 			<SearchInput onSubmit={handleSubmit} />
-			<div className="flex gap-5 mt-5">
-				<MiniSide tabs={tabs} />
-				<div className="mainContent w-full h-full overflow-auto">
+			<div className="flex sm:flex-row flex-col gap-5 mt-5 relative">
+				<div className="sm:static absolute top-0 right-2">
+					<MiniSide tabs={tabs} />
+				</div>
+				<div className="mainContent w-full h-full">
 					<Outlet />
 				</div>
 			</div>
