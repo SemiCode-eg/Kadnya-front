@@ -16,7 +16,7 @@ function ImageField({ isVertical = true, setImageAsset = () => {} }) {
       const reader = new FileReader();
 
       reader.addEventListener('load', () => {
-        setPreviewedImage([reader.result]);
+        setPreviewedImage(reader.result);
       });
       reader.readAsDataURL(e.target.files[0]);
 
