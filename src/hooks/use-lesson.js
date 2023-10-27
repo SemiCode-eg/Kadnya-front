@@ -7,8 +7,8 @@ const useLesson = (id) => {
   const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
+    setLoading(true);
     getSingleLesson(id).then((data) => {
-      setLoading(true);
       if (data.status === 404) {
         setErrorMsg(data.message);
       } else {

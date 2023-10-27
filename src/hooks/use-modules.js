@@ -9,8 +9,8 @@ const useModules = () => {
   const { id } = useParams();
 
   useEffect(() => {
+    setLoading(true);
     getModules(id).then((data) => {
-      setLoading(true);
       if (data.status === 404) {
         setErrorMsg(data.message);
       } else {

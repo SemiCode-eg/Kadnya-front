@@ -7,8 +7,8 @@ const useModule = (id) => {
   const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
+    setLoading(true);
     getSingleModule(id).then((data) => {
-      setLoading(true);
       if (data.status === 404) {
         setErrorMsg(data.message);
       } else {

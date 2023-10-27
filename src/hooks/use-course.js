@@ -7,8 +7,8 @@ const useCourse = (id) => {
   const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
+    setLoading(true);
     getsingleCourse(id).then((data) => {
-      setLoading(true);
       if (data.status === 404) {
         setErrorMsg(data.message);
       } else {
@@ -18,7 +18,7 @@ const useCourse = (id) => {
     });
   }, [id]);
 
-  return { courseData, errorMsg,loading };
+  return { courseData, errorMsg, loading };
 };
 
 export default useCourse;
