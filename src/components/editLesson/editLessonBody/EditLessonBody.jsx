@@ -103,7 +103,7 @@ function EditLessonBody() {
       <p className="w-full mx-auto text-sky-950 font-[600] text-2xl tracking-[-0.25px] mb-8">
         Lesson Details
       </p>
-      <form className="flex xl:gap-[90px] gap-8 flex-wrap items-start">
+      <form className="flex xl:gap-[90px] gap-8 flex-wrap items-end">
         <div className="flex flex-col gap-6 xl:w-[45%] w-full">
           <div className="flex flex-col gap-[7px] items-start w-full">
             <FormLabel className="!text-black !font-[400] !text-lg">
@@ -206,7 +206,7 @@ function EditLessonBody() {
               icon={<Link size={30} className="text-neutral-400" />}
             />
           ) : (
-            <div className="my-[123px] lg:block hidden" />
+            <div className="my-[120px] lg:block hidden" />
           )}
           <div className="flex gap-5">
             <p className="capitalize font-[500] text-xl text-sky-950">
