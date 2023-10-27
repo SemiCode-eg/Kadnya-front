@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://16.16.95.39/api/";
+const baseURL = "https://backend.kadnya.com/api/";
 const api = axios.create({
 	baseURL,
 	headers: {

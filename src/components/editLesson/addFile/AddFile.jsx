@@ -13,6 +13,7 @@ function AddFile({ open, onClose, setFileName, lessonID }) {
   const fileInputRef = useRef(null);
 
   const uploadFile = (e) => {
+    e.preventDefault();
     setError('');
     const file = e.target.files[0];
     if (!file) return;
@@ -31,15 +32,13 @@ function AddFile({ open, onClose, setFileName, lessonID }) {
 
     api
       .patch(`lessons/${lessonID}/`, formData, {
-        onUploadProgress: ({ loaded, total, bytes }) => {
-          console.log(bytes);
+        onUploadProgress: ({ loaded, total }) => {
           setUploadedFile((prev) => ({
             ...prev,
             loading: Math.floor((loaded / total) * 100),
           }));
 
           if (loaded === total) {
-            setShowProgress(false);
             setFileName(fileName);
           }
         },
@@ -106,7 +105,7 @@ function AddFile({ open, onClose, setFileName, lessonID }) {
               <p className="text-center font-[600] text-xl text-black">
                 Uploading: {uploadedFile?.name}
               </p>
-              {error ? (
+              {error.length > 0 ? (
                 <p className="text-red-500 text-lg">{error}</p>
               ) : (
                 <p className="text-teal-500 text-lg">{uploadedFile?.loading}%</p>
