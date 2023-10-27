@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "https://educify.vercel.app/api/";
+const baseURL = "http://16.16.95.39/api/";
 const api = axios.create({
 	baseURL,
 	headers: {
@@ -10,7 +10,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    const token = "8db78c4e7cc2b362c3636ef5b577bb31dffbca6e";
+    const token = "c80de43bb4cca36e14a3e63556845960523b04c0";
 
 		if (token) {
 			config.headers.Authorization = `Token ${token}`;
