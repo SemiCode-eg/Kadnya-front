@@ -5,7 +5,7 @@ import GoBackBtn from '../../goBackBtn/GoBackBtn';
 import { Link } from 'react-router-dom';
 import DraftBtn from '../../draftBtn/DraftBtn';
 
-function EditLessonHeader({ isDraft, setIsDraft }) {
+function EditLessonHeader({ isDraft, setIsDraft, formRef }) {
   return (
     <div className="flex flex-col md:flex-row items-end justify-between gap-10 ">
       <GoBackBtn />
@@ -23,9 +23,13 @@ function EditLessonHeader({ isDraft, setIsDraft }) {
             isPrimary={false}
           />
           <MainButton
+            type="submit"
             text="Save"
             isForm={true}
             className="!py-2.5 !px-4 md:!px-8"
+            handleClick={() => {
+              formRef.current.click();
+            }}
           />
         </div>
       </div>

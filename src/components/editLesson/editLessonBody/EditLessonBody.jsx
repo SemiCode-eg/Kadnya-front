@@ -23,6 +23,7 @@ import EditLessonLinkCard from '../editLessonLinkCard/editLessonLinkCard';
 import DraftBtn from '../../draftBtn/DraftBtn';
 import AddFile from '../addFile/AddFile';
 import HandleErrorLoad from '../../HandeErrorLoad/index';
+import { updateLesson } from '../../../utils/ApiCalls';
 
 const toolbar = [
   'heading',
@@ -52,7 +53,7 @@ const visibleMenuItems = [
   },
 ];
 
-function EditLessonBody() {
+function EditLessonBody({ isDraft, formRef }) {
   const { id, lessonID } = useParams();
   const { lessonData, errorMsg, loading } = useLesson(lessonID);
 
@@ -60,7 +61,7 @@ function EditLessonBody() {
   const [titleErrorMsg, setTitleErrorMsg] = useState('');
   const [description, setDescription] = useState('');
   const [descriptionErrorMsg, setDescriptionErrorMsg] = useState('');
-  const [imageAsset, setImageAsset] = useState(null);
+  const [imageAsset, setImageAsset] = useState(lessonData?.image);
   const [isCommentHidden, setIsCommentHidden] = useState(true);
   const [fileName, setFileName] = useState('');
 
@@ -72,7 +73,11 @@ function EditLessonBody() {
 
   useEffect(() => {
     if (lessonData) {
+      const lessonDescription = JSON.parse(lessonData.description).data;
+
       setTitle(lessonData.title);
+      setDescription(lessonDescription);
+      setImageAsset(lessonData.image);
       setSubmodulesSortKey(
         lessonData.sub_module !== null ? lessonData.sub_module?.id : 'NONE'
       );
@@ -100,13 +105,43 @@ function EditLessonBody() {
     }));
   };
 
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (title === '') {
+      setTitleErrorMsg('This field is required!');
+      return;
+    }
+
+    if (description === '') {
+      setDescriptionErrorMsg('This field is required!');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('description', JSON.stringify(description));
+    submodulesSortKey === 'NONE'
+      ? formData.append('module', modulesSortKey)
+      : formData.append('sub_module', submodulesSortKey);
+    formData.append('course', id);
+    formData.append('hide_comment', isCommentHidden);
+    formData.append('draft', isDraft);
+    formData.append('image', imageAsset);
+
+    updateLesson(lessonID, formData);
+  }
+
   return (
     <HandleErrorLoad loading={loading} errorMsg={errorMsg}>
       <div className="border-[1.5px] border-[#ddd] rounded-[10px] p-6">
         <p className="w-full mx-auto text-sky-950 font-[600] text-2xl tracking-[-0.25px] mb-8">
           Lesson Details
         </p>
-        <form className="flex xl:gap-[90px] gap-8 flex-wrap items-end">
+        <form
+          className="flex xl:gap-[90px] gap-8 flex-wrap items-end"
+          onSubmit={handleSubmit}
+        >
           <div className="flex flex-col gap-6 xl:w-[45%] w-full">
             <div className="flex flex-col gap-[7px] items-start w-full">
               <FormLabel className="!text-black !font-[400] !text-lg">
@@ -163,10 +198,11 @@ function EditLessonBody() {
             <div>
               <CKEditor
                 editor={ClassicEditor}
-                data="<p>Introduction to earning money</p>"
+                data={description}
                 onChange={(event, editor) => {
                   const data = editor.getData();
                   setDescription({ data });
+                  setDescriptionErrorMsg('');
                 }}
                 config={{
                   toolbar,
@@ -268,6 +304,7 @@ function EditLessonBody() {
               )}
             </div>
           </div>
+          <button ref={formRef} hidden type="submit" />
         </form>
       </div>
     </HandleErrorLoad>
