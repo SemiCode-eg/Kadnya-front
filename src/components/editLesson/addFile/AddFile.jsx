@@ -1,25 +1,42 @@
 /* eslint-disable react/prop-types */
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import CustomModal from '../../CustomModal';
 import { FormLabel } from '@mui/material';
 import api from '../../../utils/ApiUrl';
 import { FolderOpen } from '@phosphor-icons/react';
 
 function AddFile({ open, onClose, setFileName, lessonID }) {
-  const [wrongFileType, setWrongFileType] = useState(false);
   const [error, setError] = useState('');
   const [showProgress, setShowProgress] = useState(false);
   const [uploadedFile, setUploadedFile] = useState(null);
   const fileInputRef = useRef(null);
 
   const uploadFile = (e) => {
-    e.preventDefault();
     setError('');
     const file = e.target.files[0];
+
     if (!file) return;
 
+    if (file.type !== 'application/pdf') {
+      setError('Wrong file type. Please select a PDF file.');
+      return;
+    }
+
+    // Check file size (in bytes)
+    if (file.size > 20 * 1024 * 1024) {
+      // 5 MB
+      setError('File is too large. Please select a smaller file.');
+      return;
+    }
+
+    // Check file size (in bytes)
+    if (file.name.length > 100) {
+      setError('Maximum file name charachters is 100.');
+      return;
+    }
+
     const fileName =
-      file.name.lenght > 12
+      file.name.length > 12
         ? `${file.name.substring(0, 13)}... .${file.name.split('.')[1]}`
         : file.name;
 
@@ -33,9 +50,10 @@ function AddFile({ open, onClose, setFileName, lessonID }) {
     api
       .patch(`lessons/${lessonID}/`, formData, {
         onUploadProgress: ({ loaded, total }) => {
+          const loading = Math.floor((loaded / total) * 100);
           setUploadedFile((prev) => ({
             ...prev,
-            loading: Math.floor((loaded / total) * 100),
+            loading: loading,
           }));
 
           if (loaded === total) {
@@ -44,19 +62,19 @@ function AddFile({ open, onClose, setFileName, lessonID }) {
         },
         headers: { 'Content-Type': 'application/pdf' },
       })
+      .then(() => {
+        close();
+      })
       .catch((error) => {
         setShowProgress(true);
         setUploadedFile(null);
         setFileName('');
-        setError(() => {
-          if (error.status === 413) {
-            setUploadedFile(null);
-            return 'Please, try to upload small files!';
-          } else {
-            return error.status?.statusText || error.message;
-          }
-        });
-        console.log(error)
+        setError(
+          () =>
+            error.response?.statusText ||
+            'Please, check your network and try again later'
+        );
+        console.log(error);
       });
   };
 
@@ -73,8 +91,6 @@ function AddFile({ open, onClose, setFileName, lessonID }) {
       maxWidth="md"
     >
       <div className="flex justify-center items-center flex-col p-20 border-[2px] border-dashed border-black/50 h-full rounded-2xl">
-        {wrongFileType && <p className="text-red-500 mb-8">Wrong file type</p>}
-
         <FormLabel className="flex flex-col items-center justify-center gap-5 w-full">
           {!showProgress ? (
             <>
@@ -98,17 +114,24 @@ function AddFile({ open, onClose, setFileName, lessonID }) {
                   </div>
                   <p className="font-[600] text-lg text-sky-950">My Device</p>
                 </div>
+                {error.length > 0 && (
+                  <p className="text-red-500 text-lg mt-5">{error}</p>
+                )}
               </form>
             </>
           ) : (
             <>
-              <p className="text-center font-[600] text-xl text-black">
-                Uploading: {uploadedFile?.name}
-              </p>
               {error.length > 0 ? (
                 <p className="text-red-500 text-lg">{error}</p>
               ) : (
-                <p className="text-teal-500 text-lg">{uploadedFile?.loading}%</p>
+                <>
+                  <p className="text-center font-[600] text-xl text-black">
+                    Uploading: {uploadedFile?.name}
+                  </p>
+                  <p className="text-teal-500 text-lg">
+                    {uploadedFile?.loading}%
+                  </p>
+                </>
               )}
               <div className="relative w-[100%] h-3 bg-gray-400 rounded-lg">
                 <span

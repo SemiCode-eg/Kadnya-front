@@ -248,7 +248,14 @@ function EditLessonBody() {
                 </>
               ) : (
                 <EditLessonLinkCard
-                  text={fileName}
+                  text={
+                    <>
+                      {fileName}
+                      <p className="mt-1 text-teal-500">
+                        Saved on the server Successfully
+                      </p>
+                    </>
+                  }
                   icon={
                     <CheckFat
                       size={56}
