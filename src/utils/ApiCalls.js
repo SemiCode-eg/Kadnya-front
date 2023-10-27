@@ -54,7 +54,7 @@ export const sendModule = async (moduleData) => {
 		formData.append("title", moduleData.title);
 		formData.append("description", moduleData.description);
 		formData.append("course", moduleData.courseID);
-		// formData.append('image', moduleData.imageAsset);
+		formData.append('image', moduleData.imageAsset);
 
 		const response = await api.post("modules/create", formData);
 

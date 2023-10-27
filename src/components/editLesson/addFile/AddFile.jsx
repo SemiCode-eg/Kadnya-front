@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import CustomModal from '../../CustomModal';
 import { FormLabel } from '@mui/material';
 import api from '../../../utils/ApiUrl';
@@ -9,7 +9,7 @@ function AddFile({ open, onClose, setFileName, lessonID }) {
   const [wrongFileType, setWrongFileType] = useState(false);
   const [error, setError] = useState('');
   const [showProgress, setShowProgress] = useState(false);
-  const [file, setFile] = useState({ name: 'file.pdf', loading: 20 });
+  const [uploadedFile, setUploadedFile] = useState(null);
   const fileInputRef = useRef(null);
 
   const uploadFile = (e) => {
@@ -22,28 +22,44 @@ function AddFile({ open, onClose, setFileName, lessonID }) {
         ? `${file.name.substring(0, 13)}... .${file.name.split('.')[1]}`
         : file.name;
 
-    setFile({ name: fileName, loading: 0 });
+    setUploadedFile({ name: fileName, loading: 0 });
 
     const formData = new FormData();
     formData.append('file', file);
+
     setShowProgress(true);
+
     api
-      .patch(`lesson/${lessonID}`, formData, {
-        onUploadProgress: ({ loaded, total }) => {
-          setFile(
-            (prev) => (prev.loading = Math.floor((loaded / total) * 100))
-          );
+      .patch(`lessons/${lessonID}/`, formData, {
+        onUploadProgress: ({ loaded, total, bytes }) => {
+          console.log(bytes);
+          setUploadedFile((prev) => ({
+            ...prev,
+            loading: Math.floor((loaded / total) * 100),
+          }));
 
           if (loaded === total) {
             setShowProgress(false);
             setFileName(fileName);
           }
         },
+        headers: { 'Content-Type': 'application/pdf' },
       })
-      .catch((error) => setError(error.message));
+      .catch((error) => {
+        setShowProgress(true);
+        setUploadedFile(null);
+        setFileName('');
+        setError(() => {
+          if (error.status === 413) {
+            setUploadedFile(null);
+            return 'Please, try to upload small files!';
+          } else {
+            return error.status?.statusText || error.message;
+          }
+        });
+        console.log(error)
+      });
   };
-
-  console.log(error);
 
   return (
     <CustomModal
@@ -88,17 +104,17 @@ function AddFile({ open, onClose, setFileName, lessonID }) {
           ) : (
             <>
               <p className="text-center font-[600] text-xl text-black">
-                Uploading: {file.name}
+                Uploading: {uploadedFile?.name}
               </p>
               {error ? (
                 <p className="text-red-500 text-lg">{error}</p>
               ) : (
-                <p className="text-teal-500 text-lg">{file.loading}%</p>
+                <p className="text-teal-500 text-lg">{uploadedFile?.loading}%</p>
               )}
               <div className="relative w-[100%] h-3 bg-gray-400 rounded-lg">
                 <span
                   className="absolute top-0 left-0 h-full w-auto rounded-lg bg-teal-500"
-                  style={{ width: `${file.loading}%` }}
+                  style={{ width: `${uploadedFile?.loading}%` }}
                 ></span>
               </div>
             </>

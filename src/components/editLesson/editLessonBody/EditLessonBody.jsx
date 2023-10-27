@@ -155,7 +155,11 @@ function EditLessonBody() {
                 </>
               )}
             </div>
-            <ImageField isVertical={false} setImageAsset={setImageAsset} />
+            <ImageField
+              isVertical={false}
+              setImageAsset={setImageAsset}
+              imageURL={lessonData?.image}
+            />
             <div>
               <CKEditor
                 editor={ClassicEditor}
