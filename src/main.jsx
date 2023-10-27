@@ -1,14 +1,16 @@
-import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import './index.css';
-import RootLayout from './RootLayout.jsx';
-import Products from './pages/products/Products.jsx';
-import Website from './pages/website/Website.jsx';
-import Courses from './pages/products/courses/Courses';
-import AllProducts from './pages/products/allProducts/AllProducts';
-import SingleCourse from './pages/course/SingleCourse';
-import Outline from './pages/course/outline/Outline';
-import EditLesson from './pages/course/editLesson/EditLesson';
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./index.css";
+import RootLayout from "./RootLayout.jsx";
+import Products from "./pages/products/Products.jsx";
+import Website from "./pages/website/Website.jsx";
+import Courses from "./pages/products/courses/Courses";
+import AllProducts from "./pages/products/allProducts/AllProducts";
+import SingleCourse from "./pages/course/SingleCourse";
+import Outline from "./pages/course/outline/Outline";
+import EditLesson from "./pages/course/editLesson/EditLesson";
+import CertificateTab from "./pages/course/CertificateTab";
+import SittingTab from "./pages/course/SittingsTab";
 
 const router = createBrowserRouter([
   {
@@ -31,13 +33,13 @@ const router = createBrowserRouter([
         children: [{ path: 'outline', element: <Outline /> }],
       },
       {
-        path: 'products/courses/:id/edit-lesson/:lessonID',
+        path: 'products/courses/:id/edit-lesson/:lissonID',
         element: <EditLesson />,
       },
     ],
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router} />
+ReactDOM.createRoot(document.getElementById("root")).render(
+	<RouterProvider router={router} />
 );

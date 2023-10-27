@@ -11,7 +11,9 @@ const useCourse = () => {
 			setLoading(true);
 
 			const response = await getCourses();
-			if (response.status === 404) setErrorMsg(response.message);
+
+			if (response.status === 404 || !response.data)
+				setErrorMsg(response.message);
 			else setCourses(response.data);
 
 			setLoading(false);
