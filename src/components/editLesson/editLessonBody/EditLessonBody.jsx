@@ -138,9 +138,15 @@ function EditLessonBody({
     const formData = new FormData();
     formData.append('title', title);
     formData.append('description', JSON.stringify(description));
-    submodulesSortKey === 'NONE'
-      ? formData.append('module', modulesSortKey)
-      : formData.append('sub_module', submodulesSortKey);
+
+    if (submodulesSortKey === 'NONE') {
+      formData.append('module', modulesSortKey);
+      formData.append('sub_module', '');
+    } else {
+      formData.append('module', '');
+      formData.append('sub_module', submodulesSortKey);
+    }
+
     formData.append('course', id);
     formData.append('hide', isCommentHidden);
     formData.append('draft', isDraft);
