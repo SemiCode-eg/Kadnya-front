@@ -24,6 +24,7 @@ import DraftBtn from '../../draftBtn/DraftBtn';
 import AddFile from '../addFile/AddFile';
 import HandleErrorLoad from '../../HandeErrorLoad/index';
 import { updateLesson } from '../../../utils/ApiCalls';
+import useModule from '../../../hooks/use-module';
 
 const toolbar = [
   'heading',
@@ -102,6 +103,8 @@ function EditLessonBody({
     loading: modulesLoading,
   } = useModules(id);
 
+  const { moduleData } = useModule(modulesSortKey);
+
   const setModulesSelectOption = () => {
     return modulesData?.map((module) => ({
       value: module.id,
@@ -110,15 +113,10 @@ function EditLessonBody({
   };
 
   const setSubmodulesSelectOption = () => {
-    return lessonData?.module
-      ? lessonData.module?.submodules?.map((submodule) => ({
-          value: submodule.id,
-          label: submodule.title,
-        }))
-      : lessonData?.sub_module?.module?.submodules?.map((submodule) => ({
-          value: submodule.id,
-          label: submodule.title,
-        }));
+    return moduleData?.submodules?.map((submodule) => ({
+      value: submodule.id,
+      label: submodule.title,
+    }));
   };
 
   function handleSubmit(e) {
