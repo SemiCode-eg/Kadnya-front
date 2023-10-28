@@ -69,9 +69,9 @@ function AddLesson({
     sendLesson(formData)
       .then(() => {
         onClose();
+        window.location.reload()
       })
       .catch((err) => console.log(err))
-      .then(() => window.location.reload());
   }
 
   return (

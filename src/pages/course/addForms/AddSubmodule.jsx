@@ -52,7 +52,7 @@ function AddSubmodule({ open, onClose, modules }) {
     sendSubmodule(submoduleData)
       .then(() => {
         onClose();
-        window.location.reload();
+        // window.location.reload();
       })
       .catch((err) => console.log(err));
   };
