@@ -5,7 +5,12 @@ import ImageSquareColored from '../../assets/icons/ImageSquare.svg';
 import { ImageSquare } from '@phosphor-icons/react';
 import ImageSelectBtn from './ImageSelectBtn';
 
-function ImageField({ isVertical = true, setImageAsset = () => {}, height, imageURL }) {
+function ImageField({
+  isVertical = true,
+  setImageAsset = () => {},
+  height,
+  imageURL,
+}) {
   const [wrongImageType, setWrongImageType] = useState(false);
   const [previewedImage, setPreviewedImage] = useState(imageURL || '');
 
@@ -36,7 +41,7 @@ function ImageField({ isVertical = true, setImageAsset = () => {}, height, image
             style={{ height: height }}
           >
             <img
-              src={previewedImage}
+              src={imageURL ? imageURL : previewedImage}
               alt="uploaded-image"
               className="max-w-full"
             />

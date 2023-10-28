@@ -80,7 +80,7 @@ function Outline() {
             </ModuleAccordion>
           ))}
         </Container>
-      </HandleErrorLoad>{' '}
+      </HandleErrorLoad>
     </>
   );
 }

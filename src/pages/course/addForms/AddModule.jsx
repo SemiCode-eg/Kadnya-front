@@ -61,24 +61,24 @@ function AddModule({
         updateSubmodule({ ...moduleData, module: parentModuleID }, moduleID)
           .then(() => {
             onClose();
+            window.location.reload();
           })
-          .catch((err) => console.log(err))
-          .then(() => window.location.reload());
+          .catch((err) => console.log(err));
       } else {
         updateModule(moduleData, moduleID)
           .then(() => {
             onClose();
+            window.location.reload();
           })
-          .catch((err) => console.log(err))
-          .then(() => window.location.reload());
+          .catch((err) => console.log(err));
       }
     } else {
       sendModule(moduleData)
         .then(() => {
           onClose();
+          window.location.reload();
         })
-        .catch((err) => console.log(err))
-        .then(() => window.location.reload());
+        .catch((err) => console.log(err));
     }
   }
 

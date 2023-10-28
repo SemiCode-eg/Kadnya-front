@@ -56,7 +56,12 @@ export const sendModule = async (moduleData) => {
     formData.append('course', moduleData.courseID);
     formData.append('image', moduleData.imageAsset);
 
-    const response = await api.post('modules/create', formData);
+    const headers = new Headers();
+    headers.append('Content-Type', 'image/jpeg');
+    headers.append('Content-Type', 'image/png');
+    headers.append('Content-Type', 'application/json');
+
+    const response = await api.post('modules/create', formData, { headers });
 
     return response.data;
   } catch (error) {
@@ -70,9 +75,16 @@ export const updateModule = async (moduleData, moduleID) => {
     formData.append('title', moduleData.title);
     formData.append('description', moduleData.description);
     formData.append('course', moduleData.courseID);
-    // formData.append('image', moduleData.imageAsset);
+    formData.append('image', moduleData.imageAsset);
 
-    const response = await api.put(`modules/${moduleID}/`, formData);
+    const headers = new Headers();
+    headers.append('Content-Type', 'image/jpeg');
+    headers.append('Content-Type', 'image/png');
+    headers.append('Content-Type', 'application/json');
+
+    const response = await api.put(`modules/${moduleID}/`, formData, {
+      headers,
+    });
 
     return response.data;
   } catch (error) {
@@ -86,9 +98,14 @@ export const sendSubmodule = async (submoduleData) => {
     formData.append('title', submoduleData.title);
     formData.append('description', submoduleData.description);
     formData.append('module', submoduleData.module);
-    // formData.append('image', submoduleData.imageAsset);
+    formData.append('image', submoduleData.imageAsset);
 
-    const response = await api.post('submodules/create', formData);
+    const headers = new Headers();
+    headers.append('Content-Type', 'image/jpeg');
+    headers.append('Content-Type', 'image/png');
+    headers.append('Content-Type', 'application/json');
+
+    const response = await api.post('submodules/create', formData, { headers });
 
     return response.data;
   } catch (error) {
@@ -103,9 +120,16 @@ export const updateSubmodule = async (moduleData, submoduleID) => {
     formData.append('description', moduleData.description);
     formData.append('course', moduleData.courseID);
     formData.append('module', moduleData.module);
-    // formData.append('image', moduleData.imageAsset);
+    formData.append('image', moduleData.imageAsset);
 
-    const response = await api.put(`submodules/${submoduleID}/`, formData);
+    const headers = new Headers();
+    headers.append('Content-Type', 'image/jpeg');
+    headers.append('Content-Type', 'image/png');
+    headers.append('Content-Type', 'application/json');
+
+    const response = await api.put(`submodules/${submoduleID}/`, formData, {
+      headers,
+    });
 
     return response.data;
   } catch (error) {
