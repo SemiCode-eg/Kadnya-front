@@ -24,6 +24,7 @@ import DraftBtn from '../../draftBtn/DraftBtn';
 import AddFile from '../addFile/AddFile';
 import HandleErrorLoad from '../../HandeErrorLoad/index';
 import { updateLesson } from '../../../utils/ApiCalls';
+import useModule from '../../../hooks/use-module';
 
 const toolbar = [
   'heading',
@@ -83,10 +84,14 @@ function EditLessonBody({
       setTitle(lessonData.title);
       setDescription(lessonData.description);
       setImageAsset(lessonData.image);
+      setModulesSortKey(
+        lessonData.module
+          ? lessonData.module?.id
+          : lessonData.sub_module?.module?.id
+      );
       setSubmodulesSortKey(
         lessonData.sub_module !== null ? lessonData.sub_module?.id : 'NONE'
       );
-      setModulesSortKey(lessonData.module?.id);
       setIsCommentHidden(lessonData?.hide);
       setIsDraft(lessonData?.draft);
     }
@@ -98,6 +103,8 @@ function EditLessonBody({
     loading: modulesLoading,
   } = useModules(id);
 
+  const { moduleData } = useModule(modulesSortKey);
+
   const setModulesSelectOption = () => {
     return modulesData?.map((module) => ({
       value: module.id,
@@ -106,7 +113,7 @@ function EditLessonBody({
   };
 
   const setSubmodulesSelectOption = () => {
-    return lessonData?.module?.submodules?.map((submodule) => ({
+    return moduleData?.submodules?.map((submodule) => ({
       value: submodule.id,
       label: submodule.title,
     }));
@@ -135,7 +142,7 @@ function EditLessonBody({
       ? formData.append('module', modulesSortKey)
       : formData.append('sub_module', submodulesSortKey);
     formData.append('course', id);
-    formData.append('hide_comment', isCommentHidden);
+    formData.append('hide', isCommentHidden);
     formData.append('draft', isDraft);
     imageAsset && formData.append('image', imageAsset);
 
