@@ -6,7 +6,7 @@ import TextField from '../../../components/Forms/TextField';
 import SortSelect from '../../../components/SortSelect';
 import CustomModal from '../../../components/CustomModal';
 import useModule from '../../../hooks/use-module';
-import { sendModuleLesson, sendSubmoduleLesson } from '../../../utils/ApiCalls';
+import { sendLesson } from '../../../utils/ApiCalls';
 
 function AddLesson({
   open,
@@ -57,24 +57,20 @@ function AddLesson({
       return;
     }
 
-    const lessonData = {
-      title,
-      module: submodulesSortKey !== 'NONE' ? submodulesSortKey : modulesSortKey,
-    };
+    const formData = new FormData();
+    formData.append('title', title);
 
-    if (submodulesSortKey !== 'NONE') {
-      sendSubmoduleLesson(lessonData)
-        .then(() => {
-          onClose();
-        })
-        .catch((err) => console.log(err));
+    if (submodulesSortKey === 'NONE') {
+      formData.append('module', modulesSortKey);
     } else {
-      sendModuleLesson(lessonData)
-        .then(() => {
-          onClose();
-        })
-        .catch((err) => console.log(err));
+      formData.append('sub_module', submodulesSortKey);
     }
+
+    sendLesson(formData)
+      .then(() => {
+        onClose();
+      })
+      .catch((err) => console.log(err));
   }
 
   return (

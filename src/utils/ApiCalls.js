@@ -113,29 +113,9 @@ export const updateSubmodule = async (moduleData, submoduleID) => {
   }
 };
 
-export const sendModuleLesson = async (lessonData) => {
+export const sendLesson = async (data) => {
   try {
-    const formData = new FormData();
-    formData.append('title', lessonData.title);
-    formData.append('module', lessonData.module);
-    // formData.append('image', lessonData.imageAsset);
-
-    const response = await api.post('lessons/create', formData);
-
-    return response.data;
-  } catch (error) {
-    return error;
-  }
-};
-
-export const sendSubmoduleLesson = async (lessonData) => {
-  try {
-    const formData = new FormData();
-    formData.append('title', lessonData.title);
-    formData.append('submodule', lessonData.module);
-    // formData.append('image', lessonData.imageAsset);
-
-    const response = await api.post('submodulelessons/create', formData);
+    const response = await api.post('lessons/create', data);
 
     return response.data;
   } catch (error) {
