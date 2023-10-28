@@ -5,9 +5,9 @@ import ImageSquareColored from '../../assets/icons/ImageSquare.svg';
 import { ImageSquare } from '@phosphor-icons/react';
 import ImageSelectBtn from './ImageSelectBtn';
 
-function ImageField({ isVertical = true, setImageAsset = () => {} }) {
+function ImageField({ isVertical = true, setImageAsset = () => {}, height, imageURL }) {
   const [wrongImageType, setWrongImageType] = useState(false);
-  const [previewedImage, setPreviewedImage] = useState(null);
+  const [previewedImage, setPreviewedImage] = useState(imageURL || '');
 
   const handleImageChange = (e) => {
     const { type } = e.target.files[0];
@@ -16,7 +16,7 @@ function ImageField({ isVertical = true, setImageAsset = () => {} }) {
       const reader = new FileReader();
 
       reader.addEventListener('load', () => {
-        setPreviewedImage([reader.result]);
+        setPreviewedImage(reader.result);
       });
       reader.readAsDataURL(e.target.files[0]);
 
@@ -31,7 +31,10 @@ function ImageField({ isVertical = true, setImageAsset = () => {} }) {
     <div className="flex flex-col gap-[33px] w-full">
       <div>
         {previewedImage ? (
-          <div className="rounded-[5px] border-[1px] flex justify-center items-center h-auto max-h-[332px] w-full overflow-auto">
+          <div
+            className="rounded-[5px] border-[1px] flex justify-center items-center h-auto max-h-[332px] w-full overflow-auto"
+            style={{ height: height }}
+          >
             <img
               src={previewedImage}
               alt="uploaded-image"
