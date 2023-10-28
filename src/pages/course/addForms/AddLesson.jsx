@@ -70,7 +70,8 @@ function AddLesson({
       .then(() => {
         onClose();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .then(() => window.location.reload());
   }
 
   return (

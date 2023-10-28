@@ -62,20 +62,23 @@ function AddModule({
           .then(() => {
             onClose();
           })
-          .catch((err) => console.log(err));
+          .catch((err) => console.log(err))
+          .then(() => window.location.reload());
       } else {
         updateModule(moduleData, moduleID)
           .then(() => {
             onClose();
           })
-          .catch((err) => console.log(err));
+          .catch((err) => console.log(err))
+          .then(() => window.location.reload());
       }
     } else {
       sendModule(moduleData)
         .then(() => {
           onClose();
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
+        .then(() => window.location.reload());
     }
   }
 
