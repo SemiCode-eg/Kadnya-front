@@ -4,12 +4,15 @@ import CustomModal from '../../CustomModal';
 import { FormLabel } from '@mui/material';
 import api from '../../../utils/ApiUrl';
 import { FolderOpen } from '@phosphor-icons/react';
+import MainButton from '../../MainButton/MainButton';
+import { CancelToken, isCancel } from 'axios';
 
 function AddFile({ open, onClose, setFileName, lessonID }) {
   const [error, setError] = useState('');
   const [showProgress, setShowProgress] = useState(false);
   const [uploadedFile, setUploadedFile] = useState(null);
-  const fileInputRef = useRef(null);
+
+  const requestCancelRef = useRef(null);
 
   const uploadFile = (e) => {
     setError('');
@@ -60,22 +63,35 @@ function AddFile({ open, onClose, setFileName, lessonID }) {
             setFileName(fileName);
           }
         },
+        cancelToken: new CancelToken(
+          (cancel) => (requestCancelRef.current = cancel)
+        ),
         headers: { 'Content-Type': 'application/pdf' },
       })
-      .then(() => {
+      .then((data) => {
+        console.log(data);
         close();
       })
       .catch((error) => {
-        setShowProgress(true);
         setUploadedFile(null);
         setFileName('');
-        setError(
-          () =>
+        setShowProgress(false);
+
+        if (isCancel(error)) {
+          setError('Upload canceled.');
+        } else {
+          setError(
             error.response?.statusText ||
-            'Please, check your network and try again later'
-        );
-        console.log(error);
+              'Please, check your network and try again later'
+          );
+        }
       });
+  };
+
+  const cancelUpload = () => {
+    if (requestCancelRef.current) {
+      requestCancelRef.current('Upload canceled.');
+    }
   };
 
   return (
@@ -85,6 +101,7 @@ function AddFile({ open, onClose, setFileName, lessonID }) {
       onClose={() => {
         setShowProgress(false);
         setError('');
+        requestCancelRef.current('Upload canceled.');
         onClose();
       }}
       fullWidth
@@ -102,8 +119,7 @@ function AddFile({ open, onClose, setFileName, lessonID }) {
                   type="file"
                   name="upload-file"
                   onChange={uploadFile}
-                  hidden
-                  ref={fileInputRef}
+                  className="w-0 h-0"
                 />
                 <div
                   className="border-[1.5px] border-sky-950 rounded-[8px] p-3 flex justify-center items-center flex-col gap-3"
@@ -120,26 +136,32 @@ function AddFile({ open, onClose, setFileName, lessonID }) {
               </form>
             </>
           ) : (
-            <>
+            <div className="flex flex-col gap-10 justify-center items-center w-full">
               {error.length > 0 ? (
                 <p className="text-red-500 text-lg">{error}</p>
               ) : (
-                <>
+                <div className="flex flex-col items-center justify-center gap-3 w-full">
                   <p className="text-center font-[600] text-xl text-black">
                     Uploading: {uploadedFile?.name}
                   </p>
                   <p className="text-teal-500 text-lg">
                     {uploadedFile?.loading}%
                   </p>
-                </>
+                  <div className="relative w-full h-2.5 bg-gray-400 rounded-xl">
+                    <span
+                      className="absolute top-0 left-0 h-full w-auto rounded-lg bg-teal-500"
+                      style={{ width: `${uploadedFile?.loading}%` }}
+                    ></span>
+                  </div>
+                </div>
               )}
-              <div className="relative w-[100%] h-3 bg-gray-400 rounded-lg">
-                <span
-                  className="absolute top-0 left-0 h-full w-auto rounded-lg bg-teal-500"
-                  style={{ width: `${uploadedFile?.loading}%` }}
-                ></span>
-              </div>
-            </>
+              <MainButton
+                text="Cancel Upload"
+                className="text-teal-500 text-[17px] !px-5 !mr-0 font-[500] border-[1px] border-teal-500 duration-150 hover:text-white hover:bg-teal-500"
+                isPrimary={false}
+                handleClick={() => cancelUpload()}
+              />
+            </div>
           )}
         </FormLabel>
       </div>
