@@ -10,8 +10,16 @@ function EditLesson() {
   return (
     <CustomCard>
       <div className="flex flex-col gap-10 mt-5">
-        <EditLessonHeader isDraft={isDraft} setIsDraft={setIsDraft} formRef={formRef} />
-        <EditLessonBody isDraft={isDraft} formRef={formRef} />
+        <EditLessonHeader
+          isDraft={isDraft}
+          setIsDraft={setIsDraft}
+          formRef={formRef}
+        />
+        <EditLessonBody
+          isDraft={isDraft}
+          formRef={formRef}
+          setIsDraft={setIsDraft}
+        />
       </div>
     </CustomCard>
   );

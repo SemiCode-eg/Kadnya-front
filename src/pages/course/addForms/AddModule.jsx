@@ -61,24 +61,24 @@ function AddModule({
         updateSubmodule({ ...moduleData, module: parentModuleID }, moduleID)
           .then(() => {
             onClose();
+            // window.location.reload();
           })
-          .catch((err) => console.log(err))
-          .then(() => window.location.reload());
+          .catch((err) => console.log(err));
       } else {
         updateModule(moduleData, moduleID)
           .then(() => {
             onClose();
+            // window.location.reload();
           })
-          .catch((err) => console.log(err))
-          .then(() => window.location.reload());
+          .catch((err) => console.log(err));
       }
     } else {
       sendModule(moduleData)
         .then(() => {
           onClose();
+          // window.location.reload();
         })
-        .catch((err) => console.log(err))
-        .then(() => window.location.reload());
+        .catch((err) => console.log(err));
     }
   }
 
@@ -120,7 +120,7 @@ function AddModule({
 
           <div className="text-red-500">{descriptionErrorMsg}</div>
         </div>
-        <ImageField setImageAsset={setImageAsset} />
+        <ImageField setImageAsset={setImageAsset} imageURL={moduleImage} />
         <div className="self-end flex mt-5">
           <MainButton
             text="Cancel"
