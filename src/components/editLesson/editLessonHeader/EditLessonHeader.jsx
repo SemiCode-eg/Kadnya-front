@@ -7,7 +7,7 @@ import DraftBtn from '../../draftBtn/DraftBtn';
 import { deleteLesson } from '../../../utils/ApiCalls';
 import { useParams } from 'react-router-dom';
 
-function EditLessonHeader({ isDraft, setIsDraft, formRef }) {
+function EditLessonHeader({ isDraft, setIsDraft, formRef, submitError, submitLoading }) {
   const { lessonID } = useParams();
 
   const handleDeleteLesson = () => {
@@ -20,6 +20,7 @@ function EditLessonHeader({ isDraft, setIsDraft, formRef }) {
     <div className="flex flex-col md:flex-row items-end justify-between gap-10 ">
       <GoBackBtn />
       <div className="self-end flex gap-5 md:gap-3 justify-end items-center flex-wrap-reverse">
+      {submitError && <p className='text-red-500 font-bold text-lg'>Server Error, please try again later!</p>}
         <div className="flex gap-3 items-center flex-row-reverse md:flex-row">
           <DraftBtn setDraftState={setIsDraft} draftState={isDraft} />
           <Link title="Preview" to="/">
@@ -35,7 +36,7 @@ function EditLessonHeader({ isDraft, setIsDraft, formRef }) {
           />
           <MainButton
             type="submit"
-            text="Save"
+            text={submitLoading? "Saving...": "Save"}
             isForm={true}
             className="!py-2.5 !px-4 md:!px-8"
             handleClick={() => {

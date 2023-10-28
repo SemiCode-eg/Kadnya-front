@@ -16,6 +16,10 @@ function AddSubmodule({ open, onClose, modules }) {
   const [description, setDescription] = useState('');
   const [descriptionErrorMsg, setDescriptionErrorMsg] = useState('');
   const [imageAsset, setImageAsset] = useState(null);
+  const [imageAssetErrorMsg, setImageAssetErrorMsg] = useState('');
+
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
 
   const { id } = useParams();
 
@@ -41,6 +45,11 @@ function AddSubmodule({ open, onClose, modules }) {
       return;
     }
 
+    if (imageAsset === null) {
+      setImageAssetErrorMsg('This field is required!');
+      return;
+    }
+
     const submoduleData = {
       title,
       description,
@@ -49,12 +58,15 @@ function AddSubmodule({ open, onClose, modules }) {
       module: sortKey,
     };
 
-    sendSubmodule(submoduleData)
-      .then(() => {
-        onClose();
-        // window.location.reload();
-      })
-      .catch((err) => console.log(err));
+    sendSubmodule(submoduleData).then((data) => {
+      setSubmitLoading(false);
+      if (data) {
+        setSubmitError(false);
+        window.location.reload();
+      } else {
+        setSubmitError(true);
+      }
+    });
   };
 
   return (
@@ -78,7 +90,7 @@ function AddSubmodule({ open, onClose, modules }) {
               setTitleErrorMsg('');
             }}
           />
-          <div className="text-red-500">{titleErrorMsg}</div>
+          <p className="text-red-500">{titleErrorMsg}</p>
         </div>
         <div>
           <SortSelect
@@ -103,9 +115,17 @@ function AddSubmodule({ open, onClose, modules }) {
             }}
           />
 
-          <div className="text-red-500">{descriptionErrorMsg}</div>
+          <p className="text-red-500">{descriptionErrorMsg}</p>
         </div>
-        <ImageField setImageAsset={setImageAsset} />
+        <div>
+          <ImageField setImageAsset={setImageAsset} />
+          <p className="text-red-500">{imageAssetErrorMsg}</p>
+        </div>
+        {submitError && (
+          <p className="text-red-500 font-bold text-lg">
+            Server Error, please try again later!
+          </p>
+        )}
         <div className="self-end flex mt-5">
           <MainButton
             text="Cancel"
@@ -113,7 +133,11 @@ function AddSubmodule({ open, onClose, modules }) {
             handleClick={onClose}
             isPrimary={false}
           />
-          <MainButton text="Create Module" isForm={true} type="submit" />
+          <MainButton
+            text={submitLoading ? 'Submitting' : 'Create Module'}
+            isForm={true}
+            type="submit"
+          />
         </div>
       </form>
     </CustomModal>

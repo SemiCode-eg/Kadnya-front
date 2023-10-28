@@ -9,8 +9,8 @@ const useCourse = (id) => {
   useEffect(() => {
     setLoading(true);
     getsingleCourse(id).then((data) => {
-      if (data.status === 404) {
-        setErrorMsg(data.message);
+      if (data.status !== 200 || !data.data) {
+        setErrorMsg(data.request.statusText || data.message);
       } else {
         setCourseData(data.data);
       }

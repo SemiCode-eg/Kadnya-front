@@ -28,11 +28,13 @@ function AddModule({
 }) {
   const [title, setTitle] = useState(moduleTitle);
   const [titleErrorMsg, setTitleErrorMsg] = useState('');
-
   const [description, setDescription] = useState(moduleDescription);
   const [descriptionErrorMsg, setDescriptionErrorMsg] = useState('');
+  const [imageAsset, setImageAsset] = useState(moduleImage || null);
+  const [imageAssetErrorMsg, setImageAssetErrorMsg] = useState('');
 
-  const [imageAsset, setImageAsset] = useState(moduleImage);
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
 
   const { id } = useParams();
 
@@ -49,6 +51,11 @@ function AddModule({
       return;
     }
 
+    if (imageAsset === null) {
+      setImageAssetErrorMsg('This field is required!');
+      return;
+    }
+
     const moduleData = {
       title,
       description,
@@ -56,29 +63,45 @@ function AddModule({
       courseID: id,
     };
 
+    setSubmitError(false);
+    setSubmitLoading(true);
+
     if (isEdit) {
       if (isSubmodule) {
-        updateSubmodule({ ...moduleData, module: parentModuleID }, moduleID)
-          .then(() => {
-            onClose();
-            // window.location.reload();
-          })
-          .catch((err) => console.log(err));
+        updateSubmodule(
+          { ...moduleData, module: parentModuleID },
+          moduleID
+        ).then((data) => {
+          setSubmitLoading(false);
+          if (data) {
+            setSubmitError(false);
+            window.location.reload();
+          } else {
+            setSubmitError(true);
+          }
+        });
       } else {
-        updateModule(moduleData, moduleID)
-          .then(() => {
-            onClose();
-            // window.location.reload();
-          })
-          .catch((err) => console.log(err));
+        updateModule(moduleData, moduleID).then((data) => {
+          setSubmitLoading(false);
+          if (data) {
+            setSubmitError(false);
+            window.location.reload();
+          } else {
+            setSubmitError(true);
+          }
+        });
       }
     } else {
-      sendModule(moduleData)
-        .then(() => {
-          onClose();
-          // window.location.reload();
-        })
-        .catch((err) => console.log(err));
+      setSubmitLoading(true);
+      sendModule(moduleData).then((data) => {
+        setSubmitLoading(false);
+        if (data) {
+          setSubmitError(false);
+          window.location.reload();
+        } else {
+          setSubmitError(true);
+        }
+      });
     }
   }
 
@@ -103,7 +126,7 @@ function AddModule({
               setTitleErrorMsg('');
             }}
           />
-          <div className="text-red-500">{titleErrorMsg}</div>
+          <p className="text-red-500">{titleErrorMsg}</p>
         </div>
         <div className="flex flex-col gap-[7px] items-start w-full">
           <FormLabel className="!text-black !font-[400] !text-xl">
@@ -118,9 +141,17 @@ function AddModule({
             }}
           />
 
-          <div className="text-red-500">{descriptionErrorMsg}</div>
+          <p className="text-red-500">{descriptionErrorMsg}</p>
         </div>
-        <ImageField setImageAsset={setImageAsset} imageURL={moduleImage} />
+        <div>
+          <ImageField setImageAsset={setImageAsset} imageURL={moduleImage} />
+          <p className="text-red-500">{imageAssetErrorMsg}</p>
+        </div>
+        {submitError && (
+          <p className="text-red-500 font-bold text-lg">
+            Server Error, please try again later!
+          </p>
+        )}
         <div className="self-end flex mt-5">
           <MainButton
             text="Cancel"
@@ -128,7 +159,11 @@ function AddModule({
             handleClick={onClose}
             isPrimary={false}
           />
-          <MainButton text={submitBtnTitle} isForm={true} type="submit" />
+          <MainButton
+            text={submitLoading ? 'Submitting...' : submitBtnTitle}
+            isForm={true}
+            type="submit"
+          />
         </div>
       </form>
     </CustomModal>

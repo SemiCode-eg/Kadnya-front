@@ -7,6 +7,7 @@ import SortSelect from '../../../components/SortSelect';
 import CustomModal from '../../../components/CustomModal';
 import useModule from '../../../hooks/use-module';
 import { sendLesson } from '../../../utils/ApiCalls';
+import HandleErrorLoad from '../../../components/HandeErrorLoad';
 
 function AddLesson({
   open,
@@ -17,6 +18,10 @@ function AddLesson({
 }) {
   const [title, setTitle] = useState('');
   const [titleErrorMsg, setTitleErrorMsg] = useState('');
+
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
+
   const [submodulesSortKey, setSubmodulesSortKey] = useState(
     submodules.length > 0 ? submodules[0].value : 'NONE'
   );
@@ -66,12 +71,15 @@ function AddLesson({
       formData.append('sub_module', submodulesSortKey);
     }
 
-    sendLesson(formData)
-      .then(() => {
-        onClose();
-        window.location.reload()
-      })
-      .catch((err) => console.log(err))
+    sendLesson(formData).then((data) => {
+      setSubmitLoading(false);
+      if (data) {
+        setSubmitError(false);
+        window.location.reload();
+      } else {
+        setSubmitError(true);
+      }
+    });
   }
 
   return (
@@ -82,60 +90,71 @@ function AddLesson({
       fullWidth
       maxWidth="md"
     >
-      <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
-        <div className="flex flex-col gap-[7px] items-start w-full">
-          <FormLabel className="!text-black !font-[400] !text-xl">
-            Title
-          </FormLabel>
-          <TextField
-            placeholder="Text"
-            value={title}
-            handleChange={(e) => {
-              setTitle(e.target.value);
-              setTitleErrorMsg('');
-            }}
-          />
-          <div className="text-red-500">{titleErrorMsg}</div>
-        </div>
-        <div>
-          <SortSelect
-            label="Select Top-level Module"
-            className="!w-full"
-            options={setModulesSelectOption()}
-            sortKey={modulesSortKey}
-            onSelect={(e) => setModulesSortKey(e.target.value)}
-            selectClasses="!rounded-xl"
-          />
-        </div>
-        <div>
-          {setSubmodulesSelectOption()?.length > 0 && (
+      <HandleErrorLoad loading={moduleLoading} errorMsg={moduleErrorMsg}>
+        <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+          <div className="flex flex-col gap-[7px] items-start w-full">
+            <FormLabel className="!text-black !font-[400] !text-xl">
+              Title
+            </FormLabel>
+            <TextField
+              placeholder="Text"
+              value={title}
+              handleChange={(e) => {
+                setTitle(e.target.value);
+                setTitleErrorMsg('');
+              }}
+            />
+            <div className="text-red-500">{titleErrorMsg}</div>
+          </div>
+          <div>
             <SortSelect
-              label="Select Submodule"
+              label="Select Top-level Module"
               className="!w-full"
-              options={
-                submodules.length > 0
-                  ? [...setSubmodulesSelectOption()]
-                  : [
-                      { value: 'NONE', label: 'None' },
-                      ...setSubmodulesSelectOption(),
-                    ]
-              }
-              sortKey={submodulesSortKey}
-              onSelect={(e) => setSubmodulesSortKey(e.target.value)}
+              options={setModulesSelectOption()}
+              sortKey={modulesSortKey}
+              onSelect={(e) => setModulesSortKey(e.target.value)}
               selectClasses="!rounded-xl"
             />
+          </div>
+          <div>
+            {setSubmodulesSelectOption()?.length > 0 && (
+              <SortSelect
+                label="Select Submodule"
+                className="!w-full"
+                options={
+                  submodules.length > 0
+                    ? [...setSubmodulesSelectOption()]
+                    : [
+                        { value: 'NONE', label: 'None' },
+                        ...setSubmodulesSelectOption(),
+                      ]
+                }
+                sortKey={submodulesSortKey}
+                onSelect={(e) => setSubmodulesSortKey(e.target.value)}
+                selectClasses="!rounded-xl"
+              />
+            )}
+          </div>
+          {submitError && (
+            <p className="text-red-500 font-bold text-lg">
+              Server Error, please try again later!
+            </p>
           )}
-        </div>
-        <div className="self-end flex mt-5">
-          <MainButton
-            text="Cancel"
-            className="text-teal-500 text-[17px] font-[500] border-[1px] border-teal-500 duration-150 hover:text-white hover:bg-teal-500"
-            handleClick={onClose}
-            isPrimary={false}
-          />
-          <MainButton text="Create Lesson" isForm={true} type="submit" />
-        </div>
-      </form>
+          <div className="self-end flex mt-5">
+            <MainButton
+              text="Cancel"
+              className="text-teal-500 text-[17px] font-[500] border-[1px] border-teal-500 duration-150 hover:text-white hover:bg-teal-500"
+              handleClick={onClose}
+              isPrimary={false}
+            />
+            <MainButton
+              text={submitLoading ? 'Submitting...' : 'Create Lesson'}
+              isForm={true}
+              type="submit"
+            />
+          </div>
+        </form>
+      </HandleErrorLoad>
     </CustomModal>
   );
 }

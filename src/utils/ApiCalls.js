@@ -133,7 +133,7 @@ export const sendLesson = async (data) => {
 
 export const updateLesson = async (id, data) => {
   try {
-    const response = await api.patch(`lessons/${id}/`, data, {
+    const response = await api.patch(`lessons/${id}/update/`, data, {
       headers: { 'content-type': 'multipart/form-data' },
     });
 
@@ -145,7 +145,7 @@ export const updateLesson = async (id, data) => {
 
 export const deleteLesson = async (id) => {
   try {
-    const response = await api.delete(`lessons/${id}/`);
+    const response = await api.delete(`lessons/${id}/delete/`);
 
     return response;
   } catch (error) {

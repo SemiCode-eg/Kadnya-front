@@ -5,6 +5,9 @@ import EditLessonBody from '../../../components/editLesson/editLessonBody/EditLe
 
 function EditLesson() {
   const [isDraft, setIsDraft] = useState(true);
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
+
   const formRef = useRef(null);
 
   return (
@@ -14,11 +17,15 @@ function EditLesson() {
           isDraft={isDraft}
           setIsDraft={setIsDraft}
           formRef={formRef}
+          submitError={submitError}
+          submitLoading={submitLoading}
         />
         <EditLessonBody
           isDraft={isDraft}
           formRef={formRef}
           setIsDraft={setIsDraft}
+          setSubmitError={setSubmitError}
+          setSubmitLoading={setSubmitLoading}
         />
       </div>
     </CustomCard>
