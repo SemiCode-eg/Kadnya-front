@@ -53,7 +53,7 @@ const visibleMenuItems = [
   },
 ];
 
-function EditLessonBody({ isDraft, formRef }) {
+function EditLessonBody({ isDraft, setIsDraft, formRef }) {
   const { id, lessonID } = useParams();
   const { lessonData, errorMsg, loading } = useLesson(lessonID);
 
@@ -80,6 +80,8 @@ function EditLessonBody({ isDraft, formRef }) {
         lessonData.sub_module !== null ? lessonData.sub_module?.id : 'NONE'
       );
       setModulesSortKey(lessonData.module?.id);
+      setIsCommentHidden(lessonData?.hide);
+      setIsDraft(lessonData?.draft);
     }
   }, [lessonData]);
 
@@ -125,10 +127,10 @@ function EditLessonBody({ isDraft, formRef }) {
     formData.append('course', id);
     formData.append('hide_comment', isCommentHidden);
     formData.append('draft', isDraft);
-    formData.append('image', imageAsset);
+    imageAsset && formData.append('image', imageAsset);
 
-    updateLesson(lessonID, formData).then(() => {
-      location.href = '/products/courses/1';
+    updateLesson(lessonID, formData).then((data) => {
+      console.log(data);
     });
   }
 
@@ -199,9 +201,9 @@ function EditLessonBody({ isDraft, formRef }) {
               <CKEditor
                 editor={ClassicEditor}
                 data={
-                  lessonData?.description && lessonData?.description[0] === '<'
+                  description?.length > 0
                     ? description
-                    : `<p>${lessonData?.description}</p>`
+                    : '<p>Add a description for your lesson</p>'
                 }
                 onChange={(event, editor) => {
                   const data = editor.getData();

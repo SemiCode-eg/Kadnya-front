@@ -120,7 +120,7 @@ function AddModule({
 
           <div className="text-red-500">{descriptionErrorMsg}</div>
         </div>
-        <ImageField setImageAsset={setImageAsset} />
+        <ImageField setImageAsset={setImageAsset} imageURL={moduleImage} />
         <div className="self-end flex mt-5">
           <MainButton
             text="Cancel"

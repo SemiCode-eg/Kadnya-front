@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Menu } from '@mui/material';
 import { CaretDown, Eye, EyeSlash } from '@phosphor-icons/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import MenuItems from '../Menu/MenuItems';
 
 function DraftBtn({
@@ -29,6 +29,10 @@ function DraftBtn({
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    setTitle(draftState ? draftMenuItems[0].text : draftMenuItems[1].text);
+  }, [draftMenuItems, draftState]);
 
   const handleMenuItemClick = (event) => {
     switch (event.target.id) {

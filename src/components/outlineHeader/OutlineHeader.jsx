@@ -134,7 +134,7 @@ function OutlineHeader({ courseData }) {
             />
 
             <p className="text-gray-950 capitalize text-[20px]">
-              {courseData.title}
+              {courseData?.title}
             </p>
           </div>
           <div className="flex items-center gap-[20px] flex-1 justify-end">

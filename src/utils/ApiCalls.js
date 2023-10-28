@@ -56,12 +56,9 @@ export const sendModule = async (moduleData) => {
     formData.append('course', moduleData.courseID);
     formData.append('image', moduleData.imageAsset);
 
-    const headers = new Headers();
-    headers.append('Content-Type', 'image/jpeg');
-    headers.append('Content-Type', 'image/png');
-    headers.append('Content-Type', 'application/json');
-
-    const response = await api.post('modules/create', formData, { headers });
+    const response = await api.post('modules/create', formData, {
+      headers: { 'content-type': 'multipart/form-data' },
+    });
 
     return response.data;
   } catch (error) {
@@ -77,13 +74,8 @@ export const updateModule = async (moduleData, moduleID) => {
     formData.append('course', moduleData.courseID);
     formData.append('image', moduleData.imageAsset);
 
-    const headers = new Headers();
-    headers.append('Content-Type', 'image/jpeg');
-    headers.append('Content-Type', 'image/png');
-    headers.append('Content-Type', 'application/json');
-
     const response = await api.put(`modules/${moduleID}/`, formData, {
-      headers,
+      headers: { 'content-type': 'multipart/form-data' },
     });
 
     return response.data;
@@ -100,12 +92,9 @@ export const sendSubmodule = async (submoduleData) => {
     formData.append('module', submoduleData.module);
     formData.append('image', submoduleData.imageAsset);
 
-    const headers = new Headers();
-    headers.append('Content-Type', 'image/jpeg');
-    headers.append('Content-Type', 'image/png');
-    headers.append('Content-Type', 'application/json');
-
-    const response = await api.post('submodules/create', formData, { headers });
+    const response = await api.post('submodules/create', formData, {
+      headers: { 'content-type': 'multipart/form-data' },
+    });
 
     return response.data;
   } catch (error) {
@@ -122,13 +111,8 @@ export const updateSubmodule = async (moduleData, submoduleID) => {
     formData.append('module', moduleData.module);
     formData.append('image', moduleData.imageAsset);
 
-    const headers = new Headers();
-    headers.append('Content-Type', 'image/jpeg');
-    headers.append('Content-Type', 'image/png');
-    headers.append('Content-Type', 'application/json');
-
     const response = await api.put(`submodules/${submoduleID}/`, formData, {
-      headers,
+      headers: { 'content-type': 'multipart/form-data' },
     });
 
     return response.data;
@@ -149,12 +133,9 @@ export const sendLesson = async (data) => {
 
 export const updateLesson = async (id, data) => {
   try {
-    const headers = new Headers();
-    headers.append('Content-Type', 'image/jpeg');
-    headers.append('Content-Type', 'image/png');
-    headers.append('Content-Type', 'application/json');
-
-    const response = await api.patch(`lessons/${id}/`, data, { headers });
+    const response = await api.patch(`lessons/${id}/`, data, {
+      headers: { 'content-type': 'multipart/form-data' },
+    });
 
     return response;
   } catch (error) {
