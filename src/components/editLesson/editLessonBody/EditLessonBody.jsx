@@ -59,7 +59,7 @@ function EditLessonBody({ isDraft, formRef }) {
 
   const [title, setTitle] = useState('');
   const [titleErrorMsg, setTitleErrorMsg] = useState('');
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState(lessonData?.description);
   const [descriptionErrorMsg, setDescriptionErrorMsg] = useState('');
   const [imageAsset, setImageAsset] = useState(lessonData?.image);
   const [isCommentHidden, setIsCommentHidden] = useState(true);
@@ -73,10 +73,8 @@ function EditLessonBody({ isDraft, formRef }) {
 
   useEffect(() => {
     if (lessonData) {
-      const lessonDescription = JSON.parse(lessonData.description).data;
-
       setTitle(lessonData.title);
-      setDescription(lessonDescription);
+      setDescription(lessonData.description);
       setImageAsset(lessonData.image);
       setSubmodulesSortKey(
         lessonData.sub_module !== null ? lessonData.sub_module?.id : 'NONE'
@@ -129,7 +127,9 @@ function EditLessonBody({ isDraft, formRef }) {
     formData.append('draft', isDraft);
     formData.append('image', imageAsset);
 
-    updateLesson(lessonID, formData);
+    updateLesson(lessonID, formData).then(() => {
+      location.href = '/products/courses/1';
+    });
   }
 
   return (
@@ -198,7 +198,11 @@ function EditLessonBody({ isDraft, formRef }) {
             <div>
               <CKEditor
                 editor={ClassicEditor}
-                data={description}
+                data={
+                  lessonData?.description && lessonData?.description[0] === '<'
+                    ? description
+                    : `<p>${lessonData?.description}</p>`
+                }
                 onChange={(event, editor) => {
                   const data = editor.getData();
                   setDescription({ data });
