@@ -4,8 +4,18 @@ import MainButton from '../../MainButton/MainButton';
 import GoBackBtn from '../../goBackBtn/GoBackBtn';
 import { Link } from 'react-router-dom';
 import DraftBtn from '../../draftBtn/DraftBtn';
+import { deleteLesson } from '../../../utils/ApiCalls';
+import { useParams } from 'react-router-dom';
 
 function EditLessonHeader({ isDraft, setIsDraft, formRef }) {
+  const { lessonID } = useParams();
+
+  const handleDeleteLesson = () => {
+    deleteLesson(lessonID).then(() => {
+      location.href = '/products/courses';
+    });
+  };
+
   return (
     <div className="flex flex-col md:flex-row items-end justify-between gap-10 ">
       <GoBackBtn />
@@ -21,6 +31,7 @@ function EditLessonHeader({ isDraft, setIsDraft, formRef }) {
             text="Delete"
             className="border-[1px] !py-2.5 !mr-0 text-white bg-red-500 hover:!border-red-600 hover:bg-white hover:text-red-500 !px-4 md:!px-8"
             isPrimary={false}
+            handleClick={handleDeleteLesson}
           />
           <MainButton
             type="submit"
