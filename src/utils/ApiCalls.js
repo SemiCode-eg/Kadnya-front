@@ -153,6 +153,16 @@ export const deleteLesson = async (id) => {
   }
 };
 
+export const deleteCourse = async (id) => {
+  try {
+    const response = await api.delete(`courses/${id}/`);
+
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const updateCourse = async (id, data) => {
   try {
     const response = await api.patch(`courses/${id}/update`, data);
