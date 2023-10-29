@@ -6,21 +6,45 @@ import { Link } from 'react-router-dom';
 import DraftBtn from '../../draftBtn/DraftBtn';
 import { deleteLesson } from '../../../utils/ApiCalls';
 import { useParams } from 'react-router-dom';
+import { useState } from 'react';
 
-function EditLessonHeader({ isDraft, setIsDraft, formRef, submitError, submitLoading }) {
-  const { lessonID } = useParams();
+function EditLessonHeader({
+  isDraft,
+  setIsDraft,
+  formRef,
+  submitError,
+  setSubmitError,
+  submitLoading,
+}) {
+  const { id, lessonID } = useParams();
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
   const handleDeleteLesson = () => {
-    deleteLesson(lessonID).then(() => {
-      location.href = '/products/courses';
-    });
+    setSubmitError('');
+    setDeleteLoading(true);
+    deleteLesson(lessonID)
+      .then(() => {
+        setDeleteLoading(false);
+
+        setTimeout(() => {
+          location.href = `/products/courses/${id}/outline`;
+        }, 2000);
+      })
+      .catch(() => {
+        setDeleteLoading(false);
+        setSubmitError('Server error, try again later!');
+      });
   };
 
   return (
     <div className="flex flex-col md:flex-row items-end justify-between gap-10 ">
       <GoBackBtn />
       <div className="self-end flex gap-5 md:gap-3 justify-end items-center flex-wrap-reverse">
-      {submitError && <p className='text-red-500 font-bold text-lg'>Server Error, please try again later!</p>}
+        {submitError && (
+          <p className="text-red-500 font-bold text-lg">
+            Server Error, please try again later!
+          </p>
+        )}
         <div className="flex gap-3 items-center flex-row-reverse md:flex-row">
           <DraftBtn setDraftState={setIsDraft} draftState={isDraft} />
           <Link title="Preview" to="/">
@@ -29,14 +53,14 @@ function EditLessonHeader({ isDraft, setIsDraft, formRef, submitError, submitLoa
         </div>
         <div className="flex gap-3 items-center">
           <MainButton
-            text="Delete"
+            text={deleteLoading ? 'Deleting...' : 'Delete'}
             className="border-[1px] !py-2.5 !mr-0 text-white bg-red-500 hover:!border-red-600 hover:bg-white hover:text-red-500 !px-4 md:!px-8"
             isPrimary={false}
             handleClick={handleDeleteLesson}
           />
           <MainButton
             type="submit"
-            text={submitLoading? "Saving...": "Save"}
+            text={submitLoading ? 'Saving...' : 'Save'}
             isForm={true}
             className="!py-2.5 !px-4 md:!px-8"
             handleClick={() => {
