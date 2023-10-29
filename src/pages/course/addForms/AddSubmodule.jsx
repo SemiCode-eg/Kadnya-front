@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import { FormLabel } from '@mui/material';
-import TextAriaField from '../../../components/Forms/TextAriaField';
+import TextAriaField from '../../../components/forms/TextAriaField';
 import ImageField from '../../../components/imageField/ImageField';
 import MainButton from '../../../components/MainButton/MainButton';
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
-import TextField from '../../../components/Forms/TextField';
+import TextField from '../../../components/forms/TextField';
 import SortSelect from '../../../components/SortSelect';
 import CustomModal from '../../../components/CustomModal';
 import { sendSubmodule } from '../../../utils/ApiCalls';

@@ -3,7 +3,7 @@ import { FormLabel } from '@mui/material';
 import { useEffect, useState } from 'react';
 import SortSelect from '../../SortSelect';
 import useModules from '../../../hooks/use-modules';
-import TextField from '../../Forms/TextField';
+import TextField from '../../forms/TextField';
 import ImageField from '../../imageField/ImageField';
 import { useNavigate, useParams } from 'react-router-dom';
 import useLesson from '../../../hooks/use-lesson';

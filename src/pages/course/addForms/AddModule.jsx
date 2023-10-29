@@ -8,8 +8,8 @@ import {
   updateSubmodule,
 } from '../../../utils/ApiCalls';
 import MainButton from '../../../components/MainButton/MainButton';
-import TextField from '../../../components/Forms/TextField';
-import TextAriaField from '../../../components/Forms/TextAriaField';
+import TextField from '../../../components/forms/TextField';
+import TextAriaField from '../../../components/forms/TextAriaField';
 import CustomModal from '../../../components/CustomModal';
 import { useParams } from 'react-router-dom';
 
