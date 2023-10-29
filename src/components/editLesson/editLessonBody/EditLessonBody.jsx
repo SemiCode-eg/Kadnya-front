@@ -19,7 +19,7 @@ import {
   LinkSimple,
   VideoCamera,
 } from '@phosphor-icons/react';
-import EditLessonLinkCard from '../editLessonLinkCard/editLessonLinkCard';
+import EditLessonLinkCard from '../editLessonLinkCard/EditLessonLinkCard';
 import DraftBtn from '../../draftBtn/DraftBtn';
 import AddFile from '../addFile/AddFile';
 import HandleErrorLoad from '../../HandeErrorLoad/index';
