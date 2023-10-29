@@ -16,6 +16,7 @@ import styled from '@emotion/styled';
 import AddModule from '../../pages/course/addForms/addModule';
 import AddSubmodule from '../../pages/course/addForms/AddSubmodule';
 import AddLesson from '../../pages/course/addForms/AddLesson';
+import SettingMenu from '../Menu';
 
 const MUIMenu = styled(Menu)(() => ({
   '& .MuiList-root': {
@@ -138,9 +139,10 @@ function OutlineHeader({ courseData }) {
             </p>
           </div>
           <div className="flex items-center gap-[20px] flex-1 justify-end">
-            <div className="rounded-full w-[40px] h-[40px] flex items-center justify-center border-[1px] border-black/10 cursor-pointer">
-              <DotsThree size={40} weight="bold" />
-            </div>
+            <SettingMenu
+              id={courseData?.id}
+              buttonIcon={<DotsThree size={40} weight="bold" />}
+            />
             <MainButton
               text="Add Content"
               icon={
