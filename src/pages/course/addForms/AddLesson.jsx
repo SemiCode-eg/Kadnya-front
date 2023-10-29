@@ -2,7 +2,7 @@
 import { FormLabel } from '@mui/material';
 import MainButton from '../../../components/MainButton/MainButton';
 import { useState } from 'react';
-import TextField from '../../../components/Forms/TextField';
+import TextField from '../../../components/forms/TextField';
 import SortSelect from '../../../components/SortSelect';
 import CustomModal from '../../../components/CustomModal';
 import useModule from '../../../hooks/use-module';

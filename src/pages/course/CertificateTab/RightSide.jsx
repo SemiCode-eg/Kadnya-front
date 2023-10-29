@@ -1,5 +1,5 @@
 import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
-import TextField from "../../../components/Forms/TextField";
+import TextField from "../../../components/forms/TextField";
 
 /* eslint-disable react/prop-types */
 export default function RightSide({

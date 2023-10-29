@@ -13,7 +13,7 @@ import { Menu } from '@mui/material';
 import { useState } from 'react';
 import MenuItems from '../Menu/MenuItems';
 import styled from '@emotion/styled';
-import AddModule from '../../pages/course/addForms/addModule';
+import AddModule from '../../pages/course/addForms/AddModule';
 import AddSubmodule from '../../pages/course/addForms/AddSubmodule';
 import AddLesson from '../../pages/course/addForms/AddLesson';
 import SettingMenu from '../Menu';
