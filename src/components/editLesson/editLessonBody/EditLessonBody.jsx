@@ -99,7 +99,7 @@ function EditLessonBody({
     setSubmodulesOption(
       courseData?.modules
         ?.filter((module) => module.id === modulesSortKey)[0]
-        .submodules?.map((submodule) =>
+        ?.submodules?.map((submodule) =>
           submodule
             ? {
                 value: submodule.id,
