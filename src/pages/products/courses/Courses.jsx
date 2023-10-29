@@ -1,10 +1,10 @@
 import { Presentation } from "@phosphor-icons/react";
 import { useCallback, useMemo, useState } from "react";
 import ProductsHead from "../../../components/Product/ProductsHead";
-import ProductCards from "../../../components/Product/Card/ProductCards";
+import ProductCards from "../../../components/Product/card/ProductCards";
 import useCourse from "../../../hooks/use-courses";
 import AddCouseForm from "./AddCourseForm";
-import HandleErrorLoad from "../../../components/HandeErrorLoad";
+import HandleErrorLoad from "../../../components/handleErrorLoad";
 
 const COURSE_PER_PAGE = 4;
 

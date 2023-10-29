@@ -8,7 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import useLesson from '../../../hooks/use-lesson';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import MainButton from '../../MainButton/MainButton';
+import MainButton from '../../mainButton/MainButton';
 import {
   CheckFat,
   Eye,
@@ -21,7 +21,7 @@ import {
 import EditLessonLinkCard from '../editLessonLinkCard/EditLessonLinkCard';
 import DraftBtn from '../../draftBtn/DraftBtn';
 import AddFile from '../addFile/AddFile';
-import HandleErrorLoad from '../../HandeErrorLoad/index';
+import HandleErrorLoad from '../../handleErrorLoad/index';
 import { updateLesson } from '../../../utils/ApiCalls';
 import useCourse from '../../../hooks/use-course';
 
