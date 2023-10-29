@@ -2,7 +2,6 @@
 import { FormLabel } from '@mui/material';
 import { useEffect, useState } from 'react';
 import SortSelect from '../../SortSelect';
-import useModules from '../../../hooks/use-modules';
 import TextField from '../../forms/TextField';
 import ImageField from '../../imageField/ImageField';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -24,7 +23,7 @@ import DraftBtn from '../../draftBtn/DraftBtn';
 import AddFile from '../addFile/AddFile';
 import HandleErrorLoad from '../../HandeErrorLoad/index';
 import { updateLesson } from '../../../utils/ApiCalls';
-import useModule from '../../../hooks/use-module';
+import useCourse from '../../../hooks/use-course';
 
 const toolbar = [
   'heading',
@@ -63,6 +62,11 @@ function EditLessonBody({
 }) {
   const { id, lessonID } = useParams();
   const { lessonData, errorMsg, loading } = useLesson(lessonID);
+  const {
+    courseData,
+    errorMsg: courseErrorMsg,
+    loading: courseLoading,
+  } = useCourse(id);
   const navigate = useNavigate();
 
   const [title, setTitle] = useState('');
@@ -75,11 +79,36 @@ function EditLessonBody({
   const [isCommentHidden, setIsCommentHidden] = useState(true);
   const [fileName, setFileName] = useState('');
 
+  const [modulesOptions, setModulesOptions] = useState([]);
+  const [submodulesOption, setSubmodulesOption] = useState([]);
+
   const [submodulesSortKey, setSubmodulesSortKey] = useState('NONE');
   const [modulesSortKey, setModulesSortKey] = useState(1);
 
   const [isVideo, setIsVideo] = useState(false);
   const [openAddFile, setOpenAddFile] = useState(false);
+
+  useEffect(() => {
+    setModulesOptions(
+      courseData?.modules?.map((module) => ({
+        value: module.id,
+        label: module.title,
+      }))
+    );
+
+    setSubmodulesOption(
+      courseData?.modules
+        ?.filter((module) => module.id === modulesSortKey)[0]
+        .submodules?.map((submodule) =>
+          submodule
+            ? {
+                value: submodule.id,
+                label: submodule.title,
+              }
+            : []
+        )
+    );
+  }, [courseData?.modules, modulesSortKey]);
 
   useEffect(() => {
     if (lessonData) {
@@ -102,27 +131,27 @@ function EditLessonBody({
     }
   }, [lessonData, setIsDraft]);
 
-  const {
-    modulesData,
-    errorMsg: modulesErrorMsg,
-    loading: modulesLoading,
-  } = useModules(id);
+  // const {
+  //   modulesData,
+  //   errorMsg: modulesErrorMsg,
+  //   loading: modulesLoading,
+  // } = useModules(id);
 
-  const { moduleData } = useModule(modulesSortKey);
+  // const { moduleData } = useModule(modulesSortKey);
 
-  const setModulesSelectOption = () => {
-    return modulesData?.map((module) => ({
-      value: module.id,
-      label: module.title,
-    }));
-  };
+  // const setModulesSelectOption = () => {
+  //   return modulesData?.map((module) => ({
+  //     value: module.id,
+  //     label: module.title,
+  //   }));
+  // };
 
-  const setSubmodulesSelectOption = () => {
-    return moduleData?.submodules?.map((submodule) => ({
-      value: submodule.id,
-      label: submodule.title,
-    }));
-  };
+  // const setSubmodulesSelectOption = () => {
+  //   return moduleData?.submodules?.map((submodule) => ({
+  //     value: submodule.id,
+  //     label: submodule.title,
+  //   }));
+  // };
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -170,7 +199,7 @@ function EditLessonBody({
 
   return (
     <HandleErrorLoad loading={loading} errorMsg={errorMsg}>
-      <HandleErrorLoad loading={modulesLoading} errorMsg={modulesErrorMsg}>
+      <HandleErrorLoad loading={courseLoading} errorMsg={courseErrorMsg}>
         <div className="border-[1.5px] border-[#ddd] rounded-[10px] p-6">
           <p className="w-full mx-auto text-sky-950 font-[600] text-2xl tracking-[-0.25px] mb-8">
             Lesson Details
@@ -204,14 +233,14 @@ function EditLessonBody({
                   <SortSelect
                     label="Select Top-level Module"
                     className="!w-full"
-                    options={setModulesSelectOption()}
+                    options={modulesOptions}
                     sortKey={modulesSortKey}
                     onSelect={(e) => setModulesSortKey(e.target.value)}
                     selectClasses="!rounded-xl !py-0"
                   />
                 </div>
                 <div className="flex flex-col gap-[10px] items-start w-full">
-                  {setSubmodulesSelectOption()?.length > 0 && (
+                  {submodulesOption?.length > 0 && (
                     <>
                       <FormLabel className="!text-black !font-[400] !text-lg">
                         Select submodule
@@ -221,7 +250,7 @@ function EditLessonBody({
                         className="!w-full"
                         options={[
                           { value: 'NONE', label: 'None' },
-                          ...setSubmodulesSelectOption(),
+                          ...submodulesOption,
                         ]}
                         sortKey={submodulesSortKey}
                         onSelect={(e) => setSubmodulesSortKey(e.target.value)}
