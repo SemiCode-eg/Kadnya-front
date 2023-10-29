@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import { CaretDown, PencilSimple, Plus } from "@phosphor-icons/react";
 import FolderIcon from "../../assets/icons/FolderSimple.svg";
 import { useState } from "react";
-import AddModule from "../../pages/course/addForms/addModule";
+import AddModule from "../../pages/course/addForms/AddModule";
 import AddSubmodule from "../../pages/course/addForms/AddSubmodule";
 import AddLesson from "../../pages/course/addForms/AddLesson";
 import MenuItems from "../Menu/MenuItems";
