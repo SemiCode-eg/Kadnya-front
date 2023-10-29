@@ -1,4 +1,4 @@
-import MainButton from '../../../components/MainButton/MainButton';
+import MainButton from '../../../components/mainButton/MainButton';
 import ImageField from '../../../components/imageField/ImageField';
 import TextField from '../../../components/forms/TextField';
 import { Typography } from '@mui/material';

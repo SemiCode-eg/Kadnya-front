@@ -18,6 +18,7 @@ function EditLesson() {
           setIsDraft={setIsDraft}
           formRef={formRef}
           submitError={submitError}
+          setSubmitError={setSubmitError}
           submitLoading={submitLoading}
         />
         <EditLessonBody

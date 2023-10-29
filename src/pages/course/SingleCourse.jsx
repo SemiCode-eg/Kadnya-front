@@ -3,8 +3,8 @@ import Outline from "./outline/Outline";
 import CustomCard from "../../components/customCard/CustomCard";
 import MiniSide from "../../components/miniSide/MiniSide";
 import GoBackBtn from "../../components/goBackBtn/GoBackBtn";
-import CertificateTab from "./CertificateTab";
-import SittingTab from "./SittingsTab";
+import CertificateTab from "./certificateTab";
+import SittingTab from "./sittingsTab";
 
 const tabs = [
 	{

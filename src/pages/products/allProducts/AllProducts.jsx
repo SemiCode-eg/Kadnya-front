@@ -2,7 +2,7 @@ import { Presentation } from "@phosphor-icons/react";
 import AddProduct from "../AddProduct";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import ProductsHead from "../../../components/Product/ProductsHead";
-import ProductCards from "../../../components/Product/Card/ProductCards";
+import ProductCards from "../../../components/Product/card/ProductCards";
 
 const PRODUCT_PER_PAGE = 2;
 

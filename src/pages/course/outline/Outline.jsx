@@ -1,12 +1,12 @@
 import { useParams } from 'react-router-dom';
 import { FolderDashed, FolderSimple } from '@phosphor-icons/react';
-import ModuleAccordion from '../../../components/ModuleAccordion/ModuleAccordion';
+import ModuleAccordion from '../../../components/moduleAccordion/ModuleAccordion';
 import SearchInput from '../../../components/SearchInput';
-import ModuleLesson from '../../../components/ModuleAccordion/ModuleLesson';
+import ModuleLesson from '../../../components/moduleAccordion/ModuleLesson';
 import useCourse from '../../../hooks/use-course';
 import OutlineHeader from '../../../components/outlineHeader/OutlineHeader';
 import Container from '../Container';
-import HandleErrorLoad from '../../../components/HandeErrorLoad';
+import HandleErrorLoad from '../../../components/handleErrorLoad';
 
 function Outline() {
   const { id } = useParams();
