@@ -67,7 +67,9 @@ function EditLessonBody({
 
   const [title, setTitle] = useState('');
   const [titleErrorMsg, setTitleErrorMsg] = useState('');
-  const [description, setDescription] = useState(lessonData?.description);
+  const [description, setDescription] = useState(
+    '<p>Add a description for your lesson</p>'
+  );
   const [descriptionErrorMsg, setDescriptionErrorMsg] = useState('');
   const [imageAsset, setImageAsset] = useState(lessonData?.image);
   const [isCommentHidden, setIsCommentHidden] = useState(true);
@@ -82,7 +84,6 @@ function EditLessonBody({
   useEffect(() => {
     if (lessonData) {
       setTitle(lessonData.title);
-      setDescription(lessonData.description);
       setImageAsset(lessonData.image);
       setModulesSortKey(
         lessonData.module
@@ -94,6 +95,10 @@ function EditLessonBody({
       );
       setIsCommentHidden(lessonData?.hide);
       setIsDraft(lessonData?.draft);
+
+      if (lessonData.description !== null) {
+        setDescription(lessonData.description?.match(/"(.*?)"/)[1]);
+      }
     }
   }, [lessonData, setIsDraft]);
 
@@ -233,11 +238,7 @@ function EditLessonBody({
                 <div>
                   <CKEditor
                     editor={ClassicEditor}
-                    data={
-                      description?.length > 0
-                        ? description
-                        : '<p>Add a description for your lesson</p>'
-                    }
+                    data={description}
                     onChange={(event, editor) => {
                       const data = editor.getData();
                       setDescription({ data });
