@@ -8,7 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import useLesson from '../../../hooks/use-lesson';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import MainButton from '../../mainButton/MainButton';
+import MainButton from '../../hainButton/MainButton';
 import {
   CheckFat,
   Eye,

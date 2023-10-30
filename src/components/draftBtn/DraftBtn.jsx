@@ -2,7 +2,7 @@
 import { Menu } from '@mui/material';
 import { CaretDown, Eye, EyeSlash } from '@phosphor-icons/react';
 import { useEffect, useState } from 'react';
-import MenuItems from '../menu/MenuItems';
+import MenuItems from '../henu/MenuItems';
 
 function DraftBtn({
   draftState,

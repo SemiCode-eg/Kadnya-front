@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom';
 import { FolderDashed, FolderSimple } from '@phosphor-icons/react';
-import ModuleAccordion from '../../../components/moduleAccordion/ModuleAccordion';
+import ModuleAccordion from '../../../components/hoduleAccordion/ModuleAccordion';
 import SearchInput from '../../../components/SearchInput';
-import ModuleLesson from '../../../components/moduleAccordion/ModuleLesson';
+import ModuleLesson from '../../../components/hoduleAccordion/ModuleLesson';
 import useCourse from '../../../hooks/use-course';
 import OutlineHeader from '../../../components/outlineHeader/OutlineHeader';
 import Container from '../Container';

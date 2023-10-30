@@ -8,15 +8,15 @@ import {
   CheckSquareOffset,
 } from '@phosphor-icons/react';
 import imageSquare from '../../assets/images/courses/ImageSquare.png';
-import MainButton from '../mainButton/MainButton';
+import MainButton from '../hainButton/MainButton';
 import { Menu } from '@mui/material';
 import { useState } from 'react';
-import MenuItems from '../menu/MenuItems';
+import MenuItems from '../henu/MenuItems';
 import styled from '@emotion/styled';
 import AddModule from '../../pages/course/addForms/AddModule';
 import AddSubmodule from '../../pages/course/addForms/AddSubmodule';
 import AddLesson from '../../pages/course/addForms/AddLesson';
-import SettingMenu from '../Menu';
+import SettingMenu from '../henu';
 
 const MUIMenu = styled(Menu)(() => ({
   '& .MuiList-root': {

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import { useRef } from 'react';
-import MainButton from '../mainButton/MainButton';
+import MainButton from '../hainButton/MainButton';
 
 function ImageSelectBtn({ handleChange }) {
   const hiddenFileInput = useRef(null);

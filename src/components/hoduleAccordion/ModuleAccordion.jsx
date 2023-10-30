@@ -9,7 +9,7 @@ import { useState } from 'react';
 import AddModule from '../../pages/course/addForms/AddModule';
 import AddSubmodule from '../../pages/course/addForms/AddSubmodule';
 import AddLesson from '../../pages/course/addForms/AddLesson';
-import MenuItems from '../menu/MenuItems';
+import MenuItems from '../henu/MenuItems';
 import { Menu } from '@mui/material';
 
 function ModuleAccordion({

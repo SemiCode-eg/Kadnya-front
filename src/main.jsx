@@ -10,7 +10,7 @@ import SingleCourse from './pages/course/SingleCourse';
 import Outline from './pages/course/outline/Outline';
 import EditLesson from './pages/course/editLesson/EditLesson';
 import CertificateTab from './pages/course/certificateTab/CertificateTab';
-import SittingsTab from './pages/course/sittingsTab/SittingsTab';
+import SittingsTab from './pages/course/hittingsTab/SittingsTab';
 
 const router = createBrowserRouter([
   {

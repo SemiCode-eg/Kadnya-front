@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Eye } from '@phosphor-icons/react';
-import MainButton from '../../mainButton/MainButton';
+import MainButton from '../../hainButton/MainButton';
 import GoBackBtn from '../../goBackBtn/GoBackBtn';
 import { Link } from 'react-router-dom';
 import DraftBtn from '../../draftBtn/DraftBtn';
