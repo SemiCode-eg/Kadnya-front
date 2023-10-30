@@ -47,7 +47,7 @@ const formDataReducer = (state, action) => {
   }
 };
 
-function SittingTab() {
+function SittingsTab() {
   const { id } = useParams();
   const { courseData, errorMsg, loading } = useCourse(id);
   const [formData, dispatchFormData] = useReducer(
@@ -131,4 +131,4 @@ function SittingTab() {
   );
 }
 
-export default SittingTab;
+export default SittingsTab;
