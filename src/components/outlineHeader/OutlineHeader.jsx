@@ -53,7 +53,7 @@ const MUIMenu = styled(Menu)(() => ({
   },
 }));
 
-function OutlineHeader({ courseData }) {
+function OutlineHeader({ courseData, setRefetch }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [openModuleForm, setOpenModuleForm] = useState(false);
   const [opensubModuleForm, setOpensubModuleForm] = useState(false);
@@ -96,6 +96,7 @@ function OutlineHeader({ courseData }) {
           open={openModuleForm}
           onClose={() => setOpenModuleForm(false)}
           title="New Module"
+          setRefetch={setRefetch}
         />
       );
     } else if (opensubModuleForm) {
@@ -105,6 +106,7 @@ function OutlineHeader({ courseData }) {
           onClose={() => setOpensubModuleForm(false)}
           title="New Submodule"
           modules={courseData?.modules}
+          setRefetch={setRefetch}
         />
       );
     } else if (openLessonForm) {
@@ -115,6 +117,7 @@ function OutlineHeader({ courseData }) {
           title="New Lesson"
           modules={courseData?.modules}
           isMainBtn={true}
+          setRefetch={setRefetch}
         />
       );
     } else if (openQuizForm) {

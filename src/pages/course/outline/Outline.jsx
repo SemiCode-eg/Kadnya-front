@@ -7,14 +7,16 @@ import useCourse from '../../../hooks/use-course';
 import OutlineHeader from '../../../components/outlineHeader/OutlineHeader';
 import Container from '../Container';
 import HandleErrorLoad from '../../../components/handleErrorLoad';
+import { useState } from 'react';
 
 function Outline() {
+  const [refetch, setRefetch] = useState(false);
   const { id } = useParams();
-  const { courseData, errorMsg, loading } = useCourse(id);
+  const { courseData, errorMsg, loading } = useCourse(id, refetch);
 
   return (
     <>
-      <OutlineHeader courseData={courseData} />
+      <OutlineHeader courseData={courseData} setRefetch={setRefetch} />
       <HandleErrorLoad loading={loading} errorMsg={errorMsg}>
         <Container>
           <SearchInput placeholder="Find module or lesson" />
@@ -34,6 +36,7 @@ function Outline() {
               moduleID={module.id}
               modules={[module]}
               paperClasses="!my-1 !shadow !rounded-lg before:!opacity-0 after:!opacity-0"
+              setRefetch={setRefetch}
             >
               {module.lessons?.length > 0 ? (
                 module.lessons?.map((lesson, i) => (
@@ -62,6 +65,7 @@ function Outline() {
                   submodule={[submodule]}
                   isSubmodule={true}
                   parentModuleID={module?.id}
+                  setRefetch={setRefetch}
                 >
                   {submodule.lessons?.length > 0 ? (
                     submodule.lessons?.map((lesson, i) => (
