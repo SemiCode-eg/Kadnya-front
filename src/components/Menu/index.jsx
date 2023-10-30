@@ -36,6 +36,8 @@ export default function SettingMenu({
   };
 
   const handleMenuItemClick = (event) => {
+    event.preventDefault();
+    
     switch (event.target.id) {
       case settingMenuItems[0].text: // preview
         navigate(`/products/courses/${id}/outline`);

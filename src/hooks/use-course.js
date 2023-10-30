@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getsingleCourse } from '../utils/ApiCalls';
 
-const useCourse = (id) => {
+const useCourse = (id, refetch) => {
   const [courseData, setCourseData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
@@ -16,7 +16,7 @@ const useCourse = (id) => {
       }
       setLoading(false);
     });
-  }, [id]);
+  }, [id, refetch]);
 
   return { courseData, errorMsg, loading };
 };

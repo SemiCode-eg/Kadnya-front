@@ -8,7 +8,7 @@ import {
   Gear,
   SignOut,
 } from "@phosphor-icons/react";
-import { Link, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const navigation = [
   {
@@ -33,30 +33,26 @@ const navigation = [
 ];
 
 const SidebarItem = ({ icon, name, link, onClick }) => {
-  const location = useLocation();
-  const isActive = location.pathname === link;
 
   const handleClick = () => {
     onClick();
   };
 
   return (
-    <Link
-      tag={Link}
+    <NavLink
       to={link}
-      active={isActive}
       onClick={handleClick}
-      className={classNames(
-        isActive
+      className={({isActive}) => 
+        `${isActive
           ? "bg-gradient-to-r from-violet-200 to-teal-300 text-sky-950"
-          : "text-sky-950 hover:bg-gradient-to-r hover:from-violet-200 hover:to-teal-300",
-        `py-1.5 px-4 text-sm font-medium rounded-md flex items-center
+          : "text-sky-950 hover:bg-gradient-to-r hover:from-violet-200 hover:to-teal-300"}
+        py-1.5 px-4 text-sm font-medium rounded-md flex items-center
          gap-2 duration-300 ease-linear`
-      )}
+      }
     >
       {icon}
       {name}
-    </Link>
+    </NavLink>
   );
 };
 

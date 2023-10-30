@@ -47,7 +47,7 @@ const formDataReducer = (state, action) => {
   }
 };
 
-export default function SittingTab() {
+function SittingsTab() {
   const { id } = useParams();
   const { courseData, errorMsg, loading } = useCourse(id);
   const [formData, dispatchFormData] = useReducer(
@@ -130,3 +130,5 @@ export default function SittingTab() {
     </HandleErrorLoad>
   );
 }
+
+export default SittingsTab;

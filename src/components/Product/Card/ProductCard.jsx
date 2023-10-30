@@ -17,10 +17,13 @@ export default function ProductCard({
 
   return (
     <li>
-      <div className="bg-white rounded-lg border border-gray-300 sm:p-2 p-2 pb-3 flex sm:flex-row flex-col gap-5 cursor-pointer hover:bg-teal-100 hover:border-gray-200 duration-200 ease-in-out">
-        <Link to={`${pathname}/${id}/outline`} className="sm:w-1/4 w-full">
+      <Link
+        to={`${pathname}/${id}/outline`}
+        className="bg-white rounded-lg border border-gray-300 sm:p-2 p-2 pb-3 flex sm:flex-row flex-col gap-5 cursor-pointer hover:bg-teal-100 hover:border-gray-200 duration-200 ease-in-out"
+      >
+        <div className="sm:w-1/4 w-full">
           <CardImage image={image} />
-        </Link>
+        </div>
         <div className="flex gap-2 items-center sm:w-3/4 w-full sm:px-0 px-1">
           <div className="flex flex-col items-start sm:w-2/5 w-5/12 text-left">
             <CardMain title={title} category={category} />
@@ -34,7 +37,7 @@ export default function ProductCard({
             <SettingMenu id={id} />
           </div>
         </div>
-      </div>
+      </Link>
     </li>
   );
 }
