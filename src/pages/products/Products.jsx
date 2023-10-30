@@ -20,21 +20,21 @@ const tabs = [
 export default function Products() {
   const handleSubmit = () => {};
 
-  return (
-    <CustomCard
-      titleComponent={
-        <h1 className="font-bold text-2xl w-full ml-1">Products</h1>
-      }
-    >
-      <SearchInput onSubmit={handleSubmit} />
-      <div className="flex sm:flex-row flex-col items-center gap-5 mt-5 relative">
-        <div className="sm:static absolute top-0 right-2">
-          <MiniSide tabs={tabs} />
-        </div>
-        <div className="mainContent w-full h-full">
-          <Outlet />
-        </div>
-      </div>
-    </CustomCard>
-  );
+	return (
+		<CustomCard
+			titleComponent={
+				<h1 className="font-bold text-2xl w-full ml-1">Products</h1>
+			}
+		>
+			<SearchInput onSubmit={handleSubmit} />
+			<div className="flex sm:flex-row flex-col items-center gap-5 mt-5 relative">
+				<div className="self-start sm:static absolute top-0 right-2">
+					<MiniSide tabs={tabs} />
+				</div>
+				<div className="mainContent w-full h-full">
+					<Outlet />
+				</div>
+			</div>
+		</CustomCard>
+	);
 }
