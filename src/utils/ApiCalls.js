@@ -172,6 +172,15 @@ export const updateCourse = async (id, data) => {
 	}
 };
 
+export const createCourse = async (course) => {
+	try {
+		const response = await api.post("/courses/create", course);
+		return response;
+	} catch (error) {
+		return error;
+	}
+};
+
 export const getCategories = async () => {
 	try {
 		const response = await api.get("course_categories/");
