@@ -208,7 +208,7 @@ function EditLessonBody({
             <p className="text-xl text-red-500 font-bold">{errorMsg}</p>
           ) : (
             <form
-              className="flex xl:gap-[90px] gap-8 flex-wrap items-end"
+              className="flex xl:gap-[90px] gap-8 flex-wrap h-full"
               onSubmit={handleSubmit}
             >
               <div className="flex flex-col gap-6 xl:w-[45%] w-full">
@@ -282,12 +282,12 @@ function EditLessonBody({
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col gap-6 xl:w-[40%] w-full">
+              <div className="flex flex-col gap-6 xl:w-[40%] w-full justify-between">
                 <div className="flex flex-col gap-[7px] items-start w-full">
                   <p className="text-sky-950 font-[600] text-2xl tracking-[-0.25px]">
                     Media
                   </p>
-                  <div className="flex items-end gap-4">
+                  <div className="flex items-end gap-4 flex-wrap">
                     <MainButton
                       icon={<EyeClosed size={30} />}
                       text="None"
