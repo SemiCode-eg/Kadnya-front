@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getCourses } from "../utils/ApiCalls";
 
-const useCourse = () => {
+const useCourse = (refetch) => {
 	const [courses, setCourses] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [errorMsg, setErrorMsg] = useState("");
@@ -19,7 +19,7 @@ const useCourse = () => {
 			setLoading(false);
 		};
 		handleCourses();
-	}, []);
+	}, [refetch]);
 
 	return { courses, loading, errorMsg };
 };

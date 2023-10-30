@@ -174,7 +174,19 @@ export const updateCourse = async (id, data) => {
 
 export const createCourse = async (course) => {
 	try {
-		const response = await api.post("/courses/create", course);
+		const formData = new FormData();
+		formData.append("title", course.title);
+		formData.append("description", course.description);
+		formData.append("image", course.image);
+		formData.append("pricingType", course.pricingType);
+		formData.append("price", course.price);
+		formData.append("category", course.category);
+		formData.append("instructor", course.instructor);
+
+		const response = await api.post("/courses/create/", course, {
+			headers: { "content-type": "multipart/form-data" },
+		});
+
 		return response;
 	} catch (error) {
 		return error;

@@ -15,6 +15,7 @@ const formReducerKeys = {
 	setPricingType: "setPricingType",
 	setCategory: "setCategory",
 	setError: "setError",
+	reset: "reset",
 };
 
 function formReducer(state, action) {
@@ -54,13 +55,15 @@ function formReducer(state, action) {
 				...state,
 				error: action.payload,
 			};
+		case formReducerKeys.reset:
+			return formInitialState;
 	}
 }
 
 const maxStep = 2;
 const titleInputErrMsg = "Title mustn't be empty";
 const descInputErrMsg = "Description mustn't be empty";
-const imgInputErrMsg = 'Add course image';
+const imgInputErrMsg = "Add course image";
 
 const formInitialState = {
 	title: "",
@@ -73,17 +76,17 @@ const formInitialState = {
 };
 
 /* eslint-disable react/prop-types */
-export default function AddCouseForm({ open, onClose }) {
-  const [step, setStep] = useState(1);
-  const [formData, dispatchFormData] = useReducer(
-    formReducer,
-    formInitialState
-  );
-  const [loading, setLoading] = useState(false);
+export default function AddCouseForm({ open, onClose, targerCousesRefetch }) {
+	const [step, setStep] = useState(1);
+	const [formData, dispatchFormData] = useReducer(
+		formReducer,
+		formInitialState
+	);
+	const [loading, setLoading] = useState(false);
 
-  const handleGoBack = () => {
-    setStep((step) => --step);
-  };
+	const handleGoBack = () => {
+		setStep((step) => --step);
+	};
 
 	const handleTitleInput = (event) => {
 		dispatchFormData({
@@ -124,21 +127,22 @@ export default function AddCouseForm({ open, onClose }) {
 		});
 	};
 
-  const handleContinue = () => {
-    setStep((step) => ++step);
-  };
+	const handleContinue = () => {
+		setStep((step) => ++step);
+	};
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+	const handleSubmit = async (event) => {
+		event.preventDefault();
 
-    if (!formData.title)
-      return dispatchFormData({ type: 'setError', payload: titleInputErrMsg });
-    if (!formData.description)
-      return dispatchFormData({ type: 'setError', patload: descInputErrMsg });
-    if (!formData.image)
-      return dispatchFormData({ type: 'setError', payload: imgInputErrMsg });
+		if (!formData.title)
+			return dispatchFormData({ type: "setError", payload: titleInputErrMsg });
+		if (!formData.description)
+			return dispatchFormData({ type: "setError", patload: descInputErrMsg });
+		if (!formData.image)
+			return dispatchFormData({ type: "setError", payload: imgInputErrMsg });
 
 		setLoading(true);
+
 		const res = await createCourse({
 			title: formData.title,
 			description: formData.description,
@@ -149,9 +153,10 @@ export default function AddCouseForm({ open, onClose }) {
 			instructor: 1,
 		});
 
-    console.log(res);
-    setLoading(false);
-  };
+		dispatchFormData({ type: formReducerKeys.reset });
+		setLoading(false);
+		targerCousesRefetch();
+	};
 
 	return (
 		<CustomModal
