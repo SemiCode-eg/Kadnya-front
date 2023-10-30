@@ -2,33 +2,54 @@ import { useReducer, useState } from "react";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import AddCoursePreview from "./Preview";
-import axios from "axios";
 import CustomModal from "../../../../components/customModal";
 import MainButton from "../../../../components/mainButton/MainButton";
+import HandleErrorLoad from "../../../../components/handleErrorLoad";
+import { createCourse } from "../../../../utils/ApiCalls";
+
+const formReducerKeys = {
+	setTitle: "setTitle",
+	setDescription: "setDescription",
+	setImage: "setImage",
+	setPrice: "setPrice",
+	setPricingType: "setPricingType",
+	setCategory: "setCategory",
+	setError: "setError",
+};
 
 function formReducer(state, action) {
 	switch (action.type) {
-		case "setTitle":
+		case formReducerKeys.setTitle:
 			return {
 				...state,
 				title: action.payload,
 			};
-		case "setDescription":
+		case formReducerKeys.setDescription:
 			return {
 				...state,
 				description: action.payload,
 			};
-		case "setImage":
+		case formReducerKeys.setImage:
 			return {
 				...state,
 				image: action.payload,
 			};
-		case "setPricingType":
+		case formReducerKeys.setPrice:
+			return {
+				...state,
+				price: action.payload,
+			};
+		case formReducerKeys.setPricingType:
 			return {
 				...state,
 				pricingType: action.payload,
 			};
-		case "setError":
+		case formReducerKeys.setCategory:
+			return {
+				...state,
+				category: action.payload,
+			};
+		case formReducerKeys.setError:
 			return {
 				...state,
 				error: action.payload,
@@ -45,7 +66,9 @@ const formInitialState = {
 	title: "",
 	description: "",
 	image: null,
+	price: 0,
 	pricingType: "FREE",
+	category: 1,
 	error: "",
 };
 
@@ -63,19 +86,42 @@ export default function AddCouseForm({ open, onClose }) {
 	};
 
 	const handleTitleInput = (event) => {
-		dispatchFormData({ type: "setTitle", payload: event.target.value });
+		dispatchFormData({
+			type: formReducerKeys.setTitle,
+			payload: event.target.value,
+		});
 	};
 
 	const handleDescTextAria = (event) => {
-		dispatchFormData({ type: "setDescription", payload: event.target.value });
+		dispatchFormData({
+			type: formReducerKeys.setDescription,
+			payload: event.target.value,
+		});
 	};
 
 	const handleImage = (image) => {
-		dispatchFormData({ type: "setImage", payload: image });
+		dispatchFormData({
+			type: formReducerKeys.setImage,
+			payload: image,
+		});
+	};
+
+	const handlePrice = (event) => {
+		dispatchFormData({
+			type: formReducerKeys.setPrice,
+			payload: event.target.value,
+		});
 	};
 
 	const handlePricingType = (value) => {
-		dispatchFormData({ type: "setPricingType", payload: value });
+		dispatchFormData({ type: formReducerKeys.setPricingType, payload: value });
+	};
+
+	const handleCategory = (event) => {
+		dispatchFormData({
+			type: formReducerKeys.setCategory,
+			payload: event.target.value,
+		});
 	};
 
 	const handleContinue = () => {
@@ -93,11 +139,14 @@ export default function AddCouseForm({ open, onClose }) {
 			return dispatchFormData({ type: "setError", payload: imgInputErrMsg });
 
 		setLoading(true);
-		const res = await axios("/courses/create", {
+		const res = await createCourse({
 			title: formData.title,
 			description: formData.description,
-			price: 0,
-			image: "",
+			image: formData.image,
+			pricingType: formData.pricingType,
+			price: formData.pricingType === "FREE" ? 0 : formData.price,
+			category: formData.category,
+			instructor: 1,
 		});
 
 		console.log(res);
@@ -114,36 +163,42 @@ export default function AddCouseForm({ open, onClose }) {
 			maxWidth="md"
 			step={step}
 		>
-			<form
-				onSubmit={handleSubmit}
-				className="flex flex-col gap-6 items-center sm:px-28"
-			>
-				<Step1
-					step={step}
-					title={formData.title}
-					onTitleInput={handleTitleInput}
-					description={formData.description}
-					onDescInput={handleDescTextAria}
-				/>
+			<HandleErrorLoad loading={loading} errorMsg={formData.error}>
+				<form
+					onSubmit={handleSubmit}
+					className="flex flex-col gap-6 items-center sm:px-28"
+				>
+					<Step1
+						step={step}
+						title={formData.title}
+						onTitleInput={handleTitleInput}
+						description={formData.description}
+						onDescInput={handleDescTextAria}
+					/>
 
-				<Step2
-					step={step}
-					onSelectImage={handleImage}
-					pricingType={formData.pricingType}
-					onChangePricingType={handlePricingType}
-				/>
+					<Step2
+						step={step}
+						onSelectImage={handleImage}
+						pricingType={formData.pricingType}
+						onChangePricingType={handlePricingType}
+						price={formData.price}
+						onChangePrice={handlePrice}
+						category={formData.category}
+						onChangeCategory={handleCategory}
+					/>
 
-				<AddCoursePreview
-					title={formData.title}
-					description={formData.description}
-				/>
+					<AddCoursePreview
+						title={formData.title}
+						description={formData.description}
+					/>
 
-				<MainButton
-					text={step === maxStep ? "Finish" : "Continue"}
-					className="sm:!px-28 !px-16"
-					handleClick={step === maxStep ? handleSubmit : handleContinue}
-				/>
-			</form>
+					<MainButton
+						text={step === maxStep ? "Finish" : "Continue"}
+						className="sm:!px-28 !px-16"
+						handleClick={step === maxStep ? handleSubmit : handleContinue}
+					/>
+				</form>
+			</HandleErrorLoad>
 		</CustomModal>
 	);
 }
