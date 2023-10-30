@@ -15,6 +15,7 @@ const formReducerKeys = {
 	setPricingType: "setPricingType",
 	setCategory: "setCategory",
 	setError: "setError",
+	reset: "reset",
 };
 
 function formReducer(state, action) {
@@ -54,6 +55,8 @@ function formReducer(state, action) {
 				...state,
 				error: action.payload,
 			};
+		case formReducerKeys.reset:
+			return formInitialState;
 	}
 }
 
@@ -150,6 +153,7 @@ export default function AddCouseForm({ open, onClose, targerCousesRefetch }) {
 			instructor: 1,
 		});
 
+		dispatchFormData({ type: formReducerKeys.reset });
 		setLoading(false);
 		targerCousesRefetch();
 	};
