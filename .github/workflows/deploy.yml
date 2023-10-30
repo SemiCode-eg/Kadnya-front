@@ -19,7 +19,7 @@ jobs:
     - name: Build the project
       run: npm run build
 
-    - name: Debug: List build directory contents
+    - name: Debug: List build directory
       run: ls -l build
 
     - name: Copy files to EC2
