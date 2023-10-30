@@ -9,6 +9,7 @@ export default function ProductsHead({
 	countTitle = "",
 	productCount = 0,
 	Form = () => <form></form>,
+	targerCousesRefetch = () => {},
 	ButtonIcon = Presentation,
 	buttonText = "",
 	sortOptions = [],
@@ -27,7 +28,11 @@ export default function ProductsHead({
 
 	return (
 		<>
-			<Form open={OpenForm} onClose={handleFormClose} />
+			<Form
+				open={OpenForm}
+				onClose={handleFormClose}
+				targerCousesRefetch={targerCousesRefetch}
+			/>
 			<section className="flex sm:flex-row flex-col sm:items-center items-start sm:gap-2 gap-4 justify-between px-3 sm:py-4 pb-6">
 				<Typography
 					variant="h5"

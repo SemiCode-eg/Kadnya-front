@@ -73,7 +73,7 @@ const formInitialState = {
 };
 
 /* eslint-disable react/prop-types */
-export default function AddCouseForm({ open, onClose }) {
+export default function AddCouseForm({ open, onClose, targerCousesRefetch }) {
 	const [step, setStep] = useState(1);
 	const [formData, dispatchFormData] = useReducer(
 		formReducer,
@@ -151,6 +151,7 @@ export default function AddCouseForm({ open, onClose }) {
 
 		console.log(res);
 		setLoading(false);
+		targerCousesRefetch();
 	};
 
 	return (

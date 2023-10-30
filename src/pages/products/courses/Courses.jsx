@@ -9,7 +9,8 @@ import HandleErrorLoad from "../../../components/handleErrorLoad";
 const COURSE_PER_PAGE = 4;
 
 export default function Courses() {
-	const { courses, errorMsg, loading } = useCourse();
+	const [refetch, setRefetch] = useState(false);
+	const { courses, errorMsg, loading } = useCourse(refetch);
 	const [sortKey, setSortKey] = useState(sortOptions[0].value);
 	const [page, setPage] = useState(1);
 
@@ -45,10 +46,15 @@ export default function Courses() {
 		[courses, handleSort, sortKey]
 	);
 
+	const targerCousesRefetch = () => {
+		setRefetch((state) => !state);
+	};
+
 	return (
 		<HandleErrorLoad loading={loading} errorMsg={errorMsg}>
 			<ProductsHead
 				Form={AddCouseForm}
+				targerCousesRefetch={targerCousesRefetch}
 				ButtonIcon={Presentation}
 				buttonText="Add Course"
 				countTitle="Courses"
