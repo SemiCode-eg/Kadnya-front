@@ -139,6 +139,7 @@ export default function AddCouseForm({ open, onClose, targerCousesRefetch }) {
 			return dispatchFormData({ type: "setError", payload: imgInputErrMsg });
 
 		setLoading(true);
+
 		const res = await createCourse({
 			title: formData.title,
 			description: formData.description,
@@ -149,7 +150,6 @@ export default function AddCouseForm({ open, onClose, targerCousesRefetch }) {
 			instructor: 1,
 		});
 
-		console.log(res);
 		setLoading(false);
 		targerCousesRefetch();
 	};
