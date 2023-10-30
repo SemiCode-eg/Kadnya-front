@@ -1,4 +1,4 @@
-import MainButton from './hainButton/MainButton';
+import MainButton from './mainButton/MainButton';
 
 /* eslint-disable react/prop-types */
 export default function SearchInput({

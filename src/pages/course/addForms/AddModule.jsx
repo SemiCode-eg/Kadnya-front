@@ -7,10 +7,10 @@ import {
   updateModule,
   updateSubmodule,
 } from '../../../utils/ApiCalls';
-import MainButton from '../../../components/hainButton/MainButton';
+import MainButton from '../../../components/mainButton/MainButton';
 import TextField from '../../../components/forms/TextField';
 import TextAriaField from '../../../components/forms/TextAriaField';
-import CustomModal from '../../../components/hustomModal';
+import CustomModal from '../../../components/customModal';
 import { useParams } from 'react-router-dom';
 
 function AddModule({

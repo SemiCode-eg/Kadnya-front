@@ -1,5 +1,5 @@
 import { Link, useResolvedPath } from 'react-router-dom';
-import SettingMenu from '../../henu';
+import SettingMenu from '../../menu';
 import CardImage from './CardImage';
 import CardMain from './CardMain';
 import CardMeta from './CardMeta';

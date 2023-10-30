@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import ImageField from '../../../../components/imageField/ImageField';
-import MainButton from '../../../../components/hainButton/MainButton';
+import MainButton from '../../../../components/mainButton/MainButton';
 import { Receipt, ReceiptX } from '@phosphor-icons/react';
 
 /* eslint-disable react/prop-types */

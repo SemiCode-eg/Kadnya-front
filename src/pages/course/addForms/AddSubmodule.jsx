@@ -2,12 +2,12 @@
 import { FormLabel } from '@mui/material';
 import TextAriaField from '../../../components/forms/TextAriaField';
 import ImageField from '../../../components/imageField/ImageField';
-import MainButton from '../../../components/hainButton/MainButton';
+import MainButton from '../../../components/mainButton/MainButton';
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import TextField from '../../../components/forms/TextField';
 import SortSelect from '../../../components/SortSelect';
-import CustomModal from '../../../components/hustomModal';
+import CustomModal from '../../../components/customModal';
 import { sendSubmodule } from '../../../utils/ApiCalls';
 
 function AddSubmodule({ open, onClose, modules, setRefetch = () => {} }) {

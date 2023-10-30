@@ -1,7 +1,7 @@
 import { Presentation } from '@phosphor-icons/react';
 import { useCallback, useMemo, useState } from 'react';
 import ProductsHead from '../../../components/Product/ProductsHead';
-import ProductCards from '../../../components/Product/hard/ProductCards';
+import ProductCards from '../../../components/Product/card/ProductCards';
 import useCourse from '../../../hooks/use-courses';
 import AddCouseForm from './AddCourseForm';
 import HandleErrorLoad from '../../../components/handleErrorLoad';

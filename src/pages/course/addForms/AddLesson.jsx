@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import { FormLabel } from '@mui/material';
-import MainButton from '../../../components/hainButton/MainButton';
+import MainButton from '../../../components/mainButton/MainButton';
 import { useState } from 'react';
 import TextField from '../../../components/forms/TextField';
 import SortSelect from '../../../components/SortSelect';
-import CustomModal from '../../../components/hustomModal';
+import CustomModal from '../../../components/customModal';
 import useModule from '../../../hooks/use-module';
 import { sendLesson } from '../../../utils/ApiCalls';
 import HandleErrorLoad from '../../../components/handleErrorLoad';

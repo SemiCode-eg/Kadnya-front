@@ -2,7 +2,7 @@ import { Presentation } from '@phosphor-icons/react';
 import { useState } from 'react';
 import SortSelect from '../SortSelect';
 import { Typography } from '@mui/material';
-import MainButton from '../hainButton/MainButton';
+import MainButton from '../mainButton/MainButton';
 
 /* eslint-disable react/prop-types */
 export default function ProductsHead({

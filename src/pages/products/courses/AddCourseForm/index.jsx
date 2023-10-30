@@ -3,8 +3,8 @@ import Step1 from './Step1';
 import Step2 from './Step2';
 import AddCoursePreview from './Preview';
 import axios from 'axios';
-import CustomModal from '../../../../components/hustomModal';
-import MainButton from '../../../../components/hainButton/MainButton';
+import CustomModal from '../../../../components/customModal';
+import MainButton from '../../../../components/mainButton/MainButton';
 
 function formReducer(state, action) {
   switch (action.type) {

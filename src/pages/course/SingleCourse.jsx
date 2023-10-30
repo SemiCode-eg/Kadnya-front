@@ -4,7 +4,7 @@ import CustomCard from '../../components/customCard/CustomCard';
 import MiniSide from '../../components/miniSide/MiniSide';
 import GoBackBtn from '../../components/goBackBtn/GoBackBtn';
 import CertificateTab from './certificateTab/CertificateTab';
-import SittingTab from './hittingsTab/SittingsTab';
+import SittingTab from './sittingsTab/SittingsTab';
 
 const tabs = [
   {
