@@ -270,7 +270,7 @@ function EditLessonBody({
                     data={description}
                     onChange={(event, editor) => {
                       const data = editor.getData();
-                      setDescription({ data });
+                      setDescription(data.data);
                       setDescriptionErrorMsg('');
                     }}
                     config={{
