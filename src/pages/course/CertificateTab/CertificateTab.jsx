@@ -13,7 +13,7 @@ import {
 } from './formDataReducer';
 import HandleErrorLoad from '../../../components/handleErrorLoad/index';
 
-export default function CertificateTab() {
+function CertificateTab() {
   const { id } = useParams();
   const { courseData, errorMsg, loading } = useCourse(id);
   const [formData, dispatchFormData] = useReducer(
@@ -125,3 +125,5 @@ export default function CertificateTab() {
     </HandleErrorLoad>
   );
 }
+
+export default CertificateTab;
