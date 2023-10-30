@@ -16,7 +16,7 @@ import styled from '@emotion/styled';
 import AddModule from '../../pages/course/addForms/AddModule';
 import AddSubmodule from '../../pages/course/addForms/AddSubmodule';
 import AddLesson from '../../pages/course/addForms/AddLesson';
-import SettingMenu from '../Menu';
+import SettingMenu from '../menu';
 
 const MUIMenu = styled(Menu)(() => ({
   '& .MuiList-root': {
