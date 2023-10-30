@@ -28,7 +28,7 @@ export default function ProductCards({
 				page={page}
 				onChange={onPagination}
 				classes={{
-					root: "absolute -bottom-16 right-0",
+					root: "absolute -bottom-[4.2rem] right-0",
 				}}
 			/>
 		</>
