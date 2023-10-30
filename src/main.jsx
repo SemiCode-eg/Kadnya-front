@@ -9,8 +9,8 @@ import AllProducts from './pages/products/allProducts/AllProducts';
 import SingleCourse from './pages/course/SingleCourse';
 import Outline from './pages/course/outline/Outline';
 import EditLesson from './pages/course/editLesson/EditLesson';
-import CertificateTab from './pages/course/certificateTab/index.jsx';
-import SittingTab from './pages/course/sittingsTab';
+import SittingTab from './pages/course/sittingsTab/SittingTab';
+import CertificateTab from './pages/course/certificateTab/CertificateTab';
 
 const router = createBrowserRouter([
   {
