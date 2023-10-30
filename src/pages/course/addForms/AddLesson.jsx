@@ -15,6 +15,7 @@ function AddLesson({
   modules,
   submodules = [],
   isMainBtn = true,
+  setRefetch = () => {},
 }) {
   const [title, setTitle] = useState('');
   const [titleErrorMsg, setTitleErrorMsg] = useState('');
@@ -71,15 +72,25 @@ function AddLesson({
       formData.append('sub_module', submodulesSortKey);
     }
 
-    sendLesson(formData).then((data) => {
-      setSubmitLoading(false);
-      if (data) {
-        setSubmitError(false);
-        window.location.reload();
-      } else {
-        setSubmitError(true);
-      }
-    });
+    setSubmitLoading(true);
+    setSubmitError(false);
+
+    sendLesson(formData)
+      .then((data) => {
+        setSubmitLoading(false);
+        if (
+          !data.request ||
+          data.request.status === 200 ||
+          data.request.status === 201
+        ) {
+          setSubmitError(false);
+          setRefetch((prev) => !prev);
+          onClose();
+        } else {
+          setSubmitError(true);
+        }
+      })
+      .catch(() => setSubmitError(true));
   }
 
   return (

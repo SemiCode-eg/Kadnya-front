@@ -72,7 +72,7 @@ function ImageField({
       </div>
     </div>
   ) : (
-    <div className="flex gap-[19px] w-full">
+    <div className="flex gap-[19px] w-full flex-wrap md:flex-nowrap">
       {previewedImage ? (
         <div className="rounded-[5px] border-[1px] flex justify-center items-center h-auto max-h-[332px] w-full overflow-auto">
           <img

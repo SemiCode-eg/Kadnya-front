@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useState, useRef } from 'react';
-import CustomModal from '../../customModal';
+import CustomModal from '../../CustomModal';
 import { FormLabel } from '@mui/material';
 import api from '../../../utils/ApiUrl';
 import { FolderOpen } from '@phosphor-icons/react';
-import MainButton from '../../mainButton/MainButton';
+import MainButton from '../../MainButton/MainButton';
 import { CancelToken, isCancel } from 'axios';
 
 function AddFile({ open, onClose, setFileName, lessonID }) {
@@ -101,7 +101,9 @@ function AddFile({ open, onClose, setFileName, lessonID }) {
       onClose={() => {
         setShowProgress(false);
         setError('');
-        requestCancelRef.current('Upload canceled.');
+        if (requestCancelRef.current) {
+          requestCancelRef.current('Upload canceled.');
+        }
         onClose();
       }}
       fullWidth
@@ -159,7 +161,10 @@ function AddFile({ open, onClose, setFileName, lessonID }) {
                 text="Cancel Upload"
                 className="text-teal-500 text-[17px] !px-5 !mr-0 font-[500] border-[1px] border-teal-500 duration-150 hover:text-white hover:bg-teal-500"
                 isPrimary={false}
-                handleClick={() => cancelUpload()}
+                handleClick={(e) => {
+                  e.preventDefault();
+                  cancelUpload();
+                }}
               />
             </div>
           )}

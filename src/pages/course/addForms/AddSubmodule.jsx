@@ -10,7 +10,7 @@ import SortSelect from '../../../components/SortSelect';
 import CustomModal from '../../../components/customModal';
 import { sendSubmodule } from '../../../utils/ApiCalls';
 
-function AddSubmodule({ open, onClose, modules }) {
+function AddSubmodule({ open, onClose, modules, setRefetch = () => {} }) {
   const [title, setTitle] = useState('');
   const [titleErrorMsg, setTitleErrorMsg] = useState('');
   const [description, setDescription] = useState('');
@@ -58,15 +58,25 @@ function AddSubmodule({ open, onClose, modules }) {
       module: sortKey,
     };
 
-    sendSubmodule(submoduleData).then((data) => {
-      setSubmitLoading(false);
-      if (data) {
-        setSubmitError(false);
-        window.location.reload();
-      } else {
-        setSubmitError(true);
-      }
-    });
+    setSubmitLoading(true);
+    setSubmitError(false);
+
+    sendSubmodule(submoduleData)
+      .then((data) => {
+        setSubmitLoading(false);
+        if (
+          !data.request ||
+          data.request.status === 200 ||
+          data.request.status === 201
+        ) {
+          setSubmitError(false);
+          setRefetch((prev) => !prev);
+          onClose();
+        } else {
+          setSubmitError(true);
+        }
+      })
+      .catch(() => setSubmitError(true));
   };
 
   return (
@@ -134,7 +144,7 @@ function AddSubmodule({ open, onClose, modules }) {
             isPrimary={false}
           />
           <MainButton
-            text={submitLoading ? 'Submitting' : 'Create Module'}
+            text={submitLoading ? 'Submitting...' : 'Create Module'}
             isForm={true}
             type="submit"
           />

@@ -25,6 +25,7 @@ function AddModule({
   submitBtnTitle = 'Create Module',
   isSubmodule = false,
   parentModuleID,
+  setRefetch = () => {},
 }) {
   const [title, setTitle] = useState(moduleTitle);
   const [titleErrorMsg, setTitleErrorMsg] = useState('');
@@ -68,40 +69,57 @@ function AddModule({
 
     if (isEdit) {
       if (isSubmodule) {
-        updateSubmodule(
-          { ...moduleData, module: parentModuleID },
-          moduleID
-        ).then((data) => {
-          setSubmitLoading(false);
-          if (data) {
-            setSubmitError(false);
-            window.location.reload();
-          } else {
-            setSubmitError(true);
-          }
-        });
+        updateSubmodule({ ...moduleData, module: parentModuleID }, moduleID)
+          .then((data) => {
+            setSubmitLoading(false);
+            if (
+              !data.request ||
+              data.request.status === 200 ||
+              data.request.status === 201
+            ) {
+              setSubmitError(false);
+              setRefetch((prev) => !prev);
+              onClose();
+            } else {
+              setSubmitError(true);
+            }
+          })
+          .catch(() => setSubmitError(true));
       } else {
-        updateModule(moduleData, moduleID).then((data) => {
-          setSubmitLoading(false);
-          if (data) {
-            setSubmitError(false);
-            window.location.reload();
-          } else {
-            setSubmitError(true);
-          }
-        });
+        updateModule(moduleData, moduleID)
+          .then((data) => {
+            setSubmitLoading(false);
+            if (
+              !data.request ||
+              data.request.status === 200 ||
+              data.request.status === 201
+            ) {
+              setSubmitError(false);
+              setRefetch((prev) => !prev);
+              onClose();
+            } else {
+              setSubmitError(true);
+            }
+          })
+          .catch(() => setSubmitError(true));
       }
     } else {
-      setSubmitLoading(true);
-      sendModule(moduleData).then((data) => {
-        setSubmitLoading(false);
-        if (data) {
-          setSubmitError(false);
-          window.location.reload();
-        } else {
-          setSubmitError(true);
-        }
-      });
+      sendModule(moduleData)
+        .then((data) => {
+          setSubmitLoading(false);
+          if (
+            !data.request ||
+            data.request.status === 200 ||
+            data.request.status === 201
+          ) {
+            setSubmitError(false);
+            setRefetch((prev) => !prev);
+            onClose();
+          } else {
+            setSubmitError(true);
+          }
+        })
+        .catch(() => setSubmitError(true));
     }
   }
 
