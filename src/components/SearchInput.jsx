@@ -1,12 +1,30 @@
+import api from '../utils/ApiUrl';
 import MainButton from './mainButton/MainButton';
+import { useState } from 'react';
 
 /* eslint-disable react/prop-types */
 export default function SearchInput({
   placeholder = 'Search Mockups, Logos...',
-  onSubmit = () => {},
+  setData = () => {},
+  URL = '',
 }) {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    api.get(`${URL}${searchQuery}`).then((data) => {
+      setIsLoading(false);
+      if (data.status === 200 || data.status === 201) {
+        setData(data.data);
+        setSearchQuery('');
+      }
+    });
+  };
+
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit}>
       <label
         htmlFor="default-search"
         className="mb-2 text-sm font-medium 
@@ -44,11 +62,13 @@ export default function SearchInput({
                     text-gray-900 focus:border-sky-950 outline-none
                     transition-all duration-200 ease-in"
           placeholder={placeholder}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
           required
         />
 
         <MainButton
-          text="Search"
+          text={isLoading ? 'Searching' : 'Search'}
           type="submit"
           className="absolute right-2.5 sm:bottom-2 bottom-3 sm:!px-5 sm:!py-2 !px-3 !py-1 sm:text-base text-sm"
         />

@@ -7,26 +7,36 @@ import useCourse from '../../../hooks/use-course';
 import OutlineHeader from '../../../components/outlineHeader/OutlineHeader';
 import Container from '../Container';
 import HandleErrorLoad from '../../../components/handleErrorLoad';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 function Outline() {
   const [refetch, setRefetch] = useState(false);
+  const [searchData, setSearchData] = useState(null);
   const { id } = useParams();
   const { courseData, errorMsg, loading } = useCourse(id, refetch);
+
+  const dataToShow = useMemo(
+    () => searchData || courseData,
+    [courseData, searchData]
+  );
 
   return (
     <>
       <OutlineHeader courseData={courseData} setRefetch={setRefetch} />
       <HandleErrorLoad loading={loading} errorMsg={errorMsg}>
         <Container>
-          <SearchInput placeholder="Find module or lesson" />
+          <SearchInput
+            placeholder="Find module or lesson"
+            setData={setSearchData}
+            URL={`courses/${id}/?q=&module=`}
+          />
           <div className="my-8">
             <p className="text-sky-950 text-[20px] font-semibold text-start">
-              {courseData?.modules?.length ? courseData.modules?.length : 0}{' '}
+              {dataToShow?.modules?.length || 0}
               Modules
             </p>
           </div>
-          {courseData?.modules?.map((module) => (
+          {dataToShow?.modules?.map((module) => (
             <ModuleAccordion
               title={module.title}
               description={module.description}
