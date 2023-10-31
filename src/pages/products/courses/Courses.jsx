@@ -69,6 +69,7 @@ export default function Courses() {
 				page={page}
 				onPagination={handlePage}
 				productPerPage={COURSE_PER_PAGE}
+				targerCousesRefetch={targerCousesRefetch}
 			/>
 		</HandleErrorLoad>
 	);

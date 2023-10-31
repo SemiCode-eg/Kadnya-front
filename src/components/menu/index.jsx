@@ -16,6 +16,7 @@ import { deleteCourse } from '../../utils/ApiCalls';
 export default function SettingMenu({
   buttonIcon = <DotsThreeOutlineVertical size={28} />,
   id,
+  setRefetch = () => {},
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [deleteErrorMsg, setDeleteErrorMsg] = useState('');
@@ -37,7 +38,7 @@ export default function SettingMenu({
 
   const handleMenuItemClick = (event) => {
     event.preventDefault();
-    
+
     switch (event.target.id) {
       case settingMenuItems[0].text: // preview
         navigate(`/products/courses/${id}/outline`);
@@ -58,11 +59,15 @@ export default function SettingMenu({
   };
 
   const handleDeleteCourse = (id) => {
+    setDeleteErrorMsg('');
+
     deleteCourse(id).then((data) => {
-      if (data.request.status === 200 || data.request.status === 201) {
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+      if (
+        !data.request ||
+        data.request.status === 200 ||
+        data.request.status === 204
+      ) {
+        setRefetch((prev) => !prev);
       } else {
         setDeleteErrorMsg('Server error, try again later!');
       }

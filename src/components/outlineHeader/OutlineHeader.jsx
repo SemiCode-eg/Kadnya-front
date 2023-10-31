@@ -145,6 +145,7 @@ function OutlineHeader({ courseData, setRefetch }) {
             <SettingMenu
               id={courseData?.id}
               buttonIcon={<DotsThree size={40} weight="bold" />}
+              setRefetch={setRefetch}
             />
             <MainButton
               text="Add Content"
