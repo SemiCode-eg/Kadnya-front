@@ -66,6 +66,8 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
   };
 
   const handleMenuItemClick = (event) => {
+    event.preventDefault();
+
     switch (event.target.id) {
       case addMenuItems[0].text: // Module
         setOpenModuleForm(true);
@@ -169,7 +171,7 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
                 open={open}
                 onClose={handleClose}
                 MenuListProps={{
-                  'aria-labelledby': 'setting-menu-button',
+                  'aria-labelledby': 'add-menu-button',
                 }}
                 anchorOrigin={{
                   vertical: 'bottom',
