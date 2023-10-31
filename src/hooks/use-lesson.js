@@ -7,15 +7,17 @@ const useLesson = (id) => {
   const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
-    setLoading(true);
-    getSingleLesson(id).then((data) => {
-      if (data.status !== 200 || !data.data) {
-        setErrorMsg(data.request.statusText || data.message);
-      } else {
-        setLessonData(data.data);
-      }
-      setLoading(false);
-    });
+    if (id) {
+      setLoading(true);
+      getSingleLesson(id).then((data) => {
+        if (data.status !== 200 || !data.data) {
+          setErrorMsg(data.request.statusText || data.message);
+        } else {
+          setLessonData(data.data);
+        }
+        setLoading(false);
+      });
+    }
   }, [id]);
 
   return { lessonData, errorMsg, loading };

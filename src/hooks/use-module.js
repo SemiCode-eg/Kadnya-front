@@ -7,15 +7,17 @@ const useModule = (id) => {
   const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
-    setLoading(true);
-    getSingleModule(id).then((data) => {
-      if (data.status !== 200 || !data.data) {
-        setErrorMsg(data.request.statusText || data.message);
-      } else {
-        setModuleData(data.data);
-      }
-      setLoading(false);
-    });
+    if (id) {
+      setLoading(true);
+      getSingleModule(id).then((data) => {
+        if (data.status !== 200 || !data.data) {
+          setErrorMsg(data.request.statusText || data.message);
+        } else {
+          setModuleData(data.data);
+        }
+        setLoading(false);
+      });
+    }
   }, [id]);
 
   return { moduleData, errorMsg, loading };

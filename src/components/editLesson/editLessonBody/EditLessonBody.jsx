@@ -23,7 +23,8 @@ import DraftBtn from '../../draftBtn/DraftBtn';
 import AddFile from '../addFile/AddFile';
 import HandleErrorLoad from '../../handleErrorLoad/index';
 import { updateLesson } from '../../../utils/ApiCalls';
-import useCourse from '../../../hooks/use-course';
+import useModule from '../../../hooks/use-module';
+import useModules from '../../../hooks/use-modules';
 
 const toolbar = [
   'heading',
@@ -62,11 +63,6 @@ function EditLessonBody({
 }) {
   const { id, lessonID } = useParams();
   const { lessonData, errorMsg, loading } = useLesson(lessonID);
-  const {
-    courseData,
-    errorMsg: courseErrorMsg,
-    loading: courseLoading,
-  } = useCourse(id);
   const navigate = useNavigate();
 
   const [title, setTitle] = useState('');
@@ -88,27 +84,37 @@ function EditLessonBody({
   const [isVideo, setIsVideo] = useState(false);
   const [openAddFile, setOpenAddFile] = useState(false);
 
+  const {
+    modulesData,
+    errorMsg: modulesErrorMsg,
+    loading: modulesLoading,
+  } = useModules(id);
+
+  const {
+    moduleData,
+    errorMsg: submodulesErrorMsg,
+    loading: submodulesLoading,
+  } = useModule(modulesSortKey);
+
   useEffect(() => {
     setModulesOptions(
-      courseData?.modules?.map((module) => ({
+      modulesData?.map((module) => ({
         value: module.id,
         label: module.title,
       }))
     );
 
     setSubmodulesOption(
-      courseData?.modules
-        ?.filter((module) => module.id === modulesSortKey)[0]
-        ?.submodules?.map((submodule) =>
-          submodule
-            ? {
-                value: submodule.id,
-                label: submodule.title,
-              }
-            : []
-        )
+      moduleData?.submodules?.map((submodule) =>
+        submodule
+          ? {
+              value: submodule.id,
+              label: submodule.title,
+            }
+          : []
+      )
     );
-  }, [courseData?.modules, modulesSortKey]);
+  }, [moduleData?.submodules, modulesData]);
 
   useEffect(() => {
     if (lessonData) {
@@ -124,34 +130,13 @@ function EditLessonBody({
       );
       setIsCommentHidden(lessonData?.hide);
       setIsDraft(lessonData?.draft);
-
-      if (lessonData.description !== null) {
-        setDescription(lessonData.description?.match(/"(.*?)"/)[1]);
+      if (lessonData.description !== 'undefined') {
+        if (lessonData.description !== null) {
+          setDescription(lessonData.description);
+        }
       }
     }
   }, [lessonData, setIsDraft]);
-
-  // const {
-  //   modulesData,
-  //   errorMsg: modulesErrorMsg,
-  //   loading: modulesLoading,
-  // } = useModules(id);
-
-  // const { moduleData } = useModule(modulesSortKey);
-
-  // const setModulesSelectOption = () => {
-  //   return modulesData?.map((module) => ({
-  //     value: module.id,
-  //     label: module.title,
-  //   }));
-  // };
-
-  // const setSubmodulesSelectOption = () => {
-  //   return moduleData?.submodules?.map((submodule) => ({
-  //     value: submodule.id,
-  //     label: submodule.title,
-  //   }));
-  // };
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -171,7 +156,7 @@ function EditLessonBody({
 
     const formData = new FormData();
     formData.append('title', title);
-    formData.append('description', JSON.stringify(description));
+    formData.append('description', description);
 
     if (submodulesSortKey === 'NONE') {
       formData.append('module', modulesSortKey);
@@ -199,7 +184,7 @@ function EditLessonBody({
 
   return (
     <HandleErrorLoad loading={loading} errorMsg={errorMsg}>
-      <HandleErrorLoad loading={courseLoading} errorMsg={courseErrorMsg}>
+      <HandleErrorLoad loading={modulesLoading} errorMsg={modulesErrorMsg}>
         <div className="border-[1.5px] border-[#ddd] rounded-[10px] p-6">
           <p className="w-full mx-auto text-sky-950 font-[600] text-2xl tracking-[-0.25px] mb-8">
             Lesson Details
@@ -241,7 +226,10 @@ function EditLessonBody({
                 </div>
                 <div className="flex flex-col gap-[10px] items-start w-full">
                   {submodulesOption?.length > 0 && (
-                    <>
+                    <HandleErrorLoad
+                      loading={submodulesLoading}
+                      errorMsg={submodulesErrorMsg}
+                    >
                       <FormLabel className="!text-black !font-[400] !text-lg">
                         Select submodule
                       </FormLabel>
@@ -256,7 +244,7 @@ function EditLessonBody({
                         onSelect={(e) => setSubmodulesSortKey(e.target.value)}
                         selectClasses="!rounded-xl"
                       />
-                    </>
+                    </HandleErrorLoad>
                   )}
                 </div>
                 <ImageField
@@ -267,10 +255,14 @@ function EditLessonBody({
                 <div>
                   <CKEditor
                     editor={ClassicEditor}
-                    data={description}
+                    data={
+                      description
+                        ? description
+                        : '<p>Add a description for your lesson</p>'
+                    }
                     onChange={(event, editor) => {
                       const data = editor.getData();
-                      setDescription(data.data);
+                      setDescription(data);
                       setDescriptionErrorMsg('');
                     }}
                     config={{
