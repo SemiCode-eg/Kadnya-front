@@ -12,6 +12,7 @@ export default function ProductCard({
   category,
   date,
   subscribersCount,
+  targerCousesRefetch = () => {},
 }) {
   const { pathname } = useResolvedPath();
 
@@ -34,7 +35,7 @@ export default function ProductCard({
           </div>
 
           <div className="ml-auto w-2/12">
-            <SettingMenu id={id} />
+            <SettingMenu id={id} setRefetch={targerCousesRefetch} />
           </div>
         </div>
       </Link>

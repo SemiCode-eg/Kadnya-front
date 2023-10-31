@@ -23,12 +23,20 @@ function EditLessonHeader({
     setSubmitError('');
     setDeleteLoading(true);
     deleteLesson(lessonID)
-      .then(() => {
+      .then((data) => {
+        console.log(data);
         setDeleteLoading(false);
-
-        setTimeout(() => {
-          location.href = `/products/courses/${id}/outline`;
-        }, 2000);
+        if (
+          !data.request ||
+          data.request.status === 200 ||
+          data.request.status === 204
+        ) {
+          setTimeout(() => {
+            location.href = `/products/courses/${id}/outline`;
+          }, 1500);
+        } else {
+          setSubmitError('Server error, try again later!');
+        }
       })
       .catch(() => {
         setDeleteLoading(false);

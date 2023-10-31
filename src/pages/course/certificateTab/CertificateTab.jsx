@@ -90,7 +90,7 @@ function CertificateTab() {
 
   return (
     <HandleErrorLoad loading={loading} errorMsg={errorMsg}>
-      <OutlineHeader courseData={courseData} />
+      <OutlineHeader courseData={courseData} showContentBtn={false} />
       <Container>
         <form onSubmit={handleSubmit} className="flex flex-col sm:gap-0 gap-6">
           <div className="flex sm:flex-row flex-col">

@@ -104,7 +104,7 @@ function SittingsTab() {
 
   return (
     <HandleErrorLoad loading={loading || postLoading} errorMsg={errorMsg}>
-      <OutlineHeader courseData={courseData} />
+      <OutlineHeader courseData={courseData} showContentBtn={false} />
       <Container>
         <Typography variant="h5" component="h2" textAlign="start">
           Details

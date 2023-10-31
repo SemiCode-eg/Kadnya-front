@@ -17,7 +17,7 @@ const router = createBrowserRouter([
 		path: "/",
 		element: <RootLayout />,
 		children: [
-			{ index: true, element: <Products /> }, // Temporary, it will be dashboard component
+			// { index: true, element: <Products /> }, // Temporary, it will be dashboard component
 			{
 				path: "products",
 				element: <Products />,
