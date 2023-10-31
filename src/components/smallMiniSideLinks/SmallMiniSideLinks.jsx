@@ -13,7 +13,7 @@ const MUIMenu = styled(Menu)(() => ({
     width: 'calc(50%)',
     marginTop: '2px',
     borderRadius: '10px',
-    border: "1px solid #ddd"
+    border: '1px solid #ddd',
   },
 }));
 
@@ -58,8 +58,11 @@ function SmallMiniSideLinks({ tabs }) {
           horizontal: 'right',
         }}
       >
-        <button className="flex ml-auto pt-0.5 justify-center items-center w-[35px] h-[35px] hover:bg-black/5 rounded-full" onClick={handleClose}>
-          <X size={20} weight="bold" className='mb-1 text-gray-500' />
+        <button
+          className="flex ml-auto pt-0.5 justify-center items-center w-[35px] h-[35px] hover:bg-black/5 rounded-full"
+          onClick={handleClose}
+        >
+          <X size={20} weight="bold" className="mb-1 text-gray-500" />
         </button>
         {tabs.map((tab, index) => (
           <NavLink
@@ -75,6 +78,7 @@ function SmallMiniSideLinks({ tabs }) {
                     : ``
                 }`;
             }}
+            onClick={handleClose}
           >
             {tab.title}
             {getLastPartOfPath() === tab.path && (

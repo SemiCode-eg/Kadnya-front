@@ -47,7 +47,7 @@ export default function Step2({
 						</Typography>
 						<ImageField isVertical={false} setImageAsset={onSelectImage} />
 					</div>
-					<div className="flex justify-between gap-8">
+					<div className="flex justify-between gap-8 flex-col md:flex-row">
 						<div className="flex flex-col gap-4 w-1/2">
 							<Typography
 								id="add-course-form-pricing-type"
