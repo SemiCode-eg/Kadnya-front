@@ -53,7 +53,7 @@ const MUIMenu = styled(Menu)(() => ({
   },
 }));
 
-function OutlineHeader({ courseData, setRefetch }) {
+function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [openModuleForm, setOpenModuleForm] = useState(false);
   const [opensubModuleForm, setOpensubModuleForm] = useState(false);
@@ -141,51 +141,53 @@ function OutlineHeader({ courseData, setRefetch }) {
               {courseData?.title}
             </p>
           </div>
-          <div className="flex items-center gap-[20px] flex-1 justify-end">
-            <SettingMenu
-              id={courseData?.id}
-              buttonIcon={<DotsThree size={40} weight="bold" />}
-              setRefetch={setRefetch}
-            />
-            <MainButton
-              text="Add Content"
-              icon={
-                <>
-                  <Stack size={30} weight="fill" />
-                </>
-              }
-              reverse={true}
-              className={`text-white hover:bg-teal-200 hover:text-sky-950 ${
-                anchorEl === null
-                  ? 'bg-sky-950'
-                  : 'bg-gradient-to-b from-[#28ACA6] to-[#28ACA6]'
-              }`}
-              handleClick={handleClickListItem}
-            />
-            <MUIMenu
-              id="add-menu"
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              MenuListProps={{
-                'aria-labelledby': 'setting-menu-button',
-              }}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'center',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'center',
-              }}
-            >
-              <MenuItems
-                items={addMenuItems}
-                handlerFunction={handleMenuItemClick}
-                iconClasses="text-white"
+          {showContentBtn && (
+            <div className="flex items-center gap-[20px] flex-1 justify-end">
+              <SettingMenu
+                id={courseData?.id}
+                buttonIcon={<DotsThree size={40} weight="bold" />}
+                setRefetch={setRefetch}
               />
-            </MUIMenu>
-          </div>
+              <MainButton
+                text="Add Content"
+                icon={
+                  <>
+                    <Stack size={30} weight="fill" />
+                  </>
+                }
+                reverse={true}
+                className={`text-white hover:bg-teal-200 hover:text-sky-950 ${
+                  anchorEl === null
+                    ? 'bg-sky-950'
+                    : 'bg-gradient-to-b from-[#28ACA6] to-[#28ACA6]'
+                }`}
+                handleClick={handleClickListItem}
+              />
+              <MUIMenu
+                id="add-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  'aria-labelledby': 'setting-menu-button',
+                }}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'center',
+                }}
+              >
+                <MenuItems
+                  items={addMenuItems}
+                  handlerFunction={handleMenuItemClick}
+                  iconClasses="text-white"
+                />
+              </MUIMenu>
+            </div>
+          )}
         </div>
       </div>
     </>
