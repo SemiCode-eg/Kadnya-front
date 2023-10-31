@@ -44,6 +44,7 @@ export default function AllProducts() {
 		[products, handleSort]
 	);
 
+	return <h1>All Products</h1>;
 	return (
 		<>
 			<ProductsHead

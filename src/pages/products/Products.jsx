@@ -12,9 +12,7 @@ const tabs = [
 		content: <AllProducts />,
 	},
 	{ title: "Courses", path: "courses", content: <Courses /> },
-	{ title: "Coaching", path: "coaching", content: "Coaching" },
-	{ title: "Community", path: "community", content: "Community" },
-	{ title: "Codcasts", path: "codcasts", content: "Podcasts" },
+	{ title: "coaching", path: "coaching", content: <h1>Caoching</h1> },
 ];
 
 export default function Products() {
@@ -28,7 +26,7 @@ export default function Products() {
 		>
 			<SearchInput onSubmit={handleSubmit} />
 			<div className="flex sm:flex-row flex-col items-center gap-5 mt-5 relative">
-				<div className="sm:static absolute top-0 right-2">
+				<div className="self-start sm:static absolute top-0 right-2">
 					<MiniSide tabs={tabs} />
 				</div>
 				<div className="mainContent w-full h-full">

@@ -5,7 +5,7 @@ import { red } from "@mui/material/colors";
 export default function MenuItems({ items, handlerFunction, iconClasses }) {
 	return items.map(({ text, Icon }, index) => (
 		<>
-			{text === "Delete" && <Divider />}
+			{text === "Delete" && <Divider key={index} />}
 			<MenuItem
 				key={`${text}-${index}`}
 				sx={
@@ -18,7 +18,11 @@ export default function MenuItems({ items, handlerFunction, iconClasses }) {
 			>
 				{Icon && (
 					<ListItemIcon>
-						<Icon size={22} color={text === "Delete" ? red[700] : undefined} className={iconClasses} />
+						<Icon
+							size={22}
+							color={text === "Delete" ? red[700] : undefined}
+							className={iconClasses}
+						/>
 					</ListItemIcon>
 				)}
 				{text}

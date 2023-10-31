@@ -46,7 +46,7 @@ export default function LeftSide({
 					<Typography variant="h6" component="label" textAlign="start">
 						Logo
 					</Typography>
-					<ImageField setImageAsset={onUploadLogo} />
+					<ImageField setImageAsset={onUploadLogo} size={128} height="11rem" />
 				</div>
 			</div>
 		</div>
