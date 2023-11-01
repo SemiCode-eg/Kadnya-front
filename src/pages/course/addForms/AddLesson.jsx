@@ -16,6 +16,7 @@ function AddLesson({
   submodules = [],
   isMainBtn = true,
   setRefetch = () => {},
+  setSuccessSubmit = () => {},
 }) {
   const [title, setTitle] = useState('');
   const [titleErrorMsg, setTitleErrorMsg] = useState('');
@@ -85,6 +86,7 @@ function AddLesson({
         ) {
           setSubmitError(false);
           setRefetch((prev) => !prev);
+          setSuccessSubmit('Lesson');
           onClose();
         } else {
           setSubmitError(true);

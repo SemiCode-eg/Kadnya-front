@@ -10,7 +10,13 @@ import SortSelect from '../../../components/SortSelect';
 import CustomModal from '../../../components/customModal';
 import { sendSubmodule } from '../../../utils/ApiCalls';
 
-function AddSubmodule({ open, onClose, modules, setRefetch = () => {} }) {
+function AddSubmodule({
+  open,
+  onClose,
+  modules,
+  setRefetch = () => {},
+  setSuccessSubmit = () => {},
+}) {
   const [title, setTitle] = useState('');
   const [titleErrorMsg, setTitleErrorMsg] = useState('');
   const [description, setDescription] = useState('');
@@ -71,6 +77,7 @@ function AddSubmodule({ open, onClose, modules, setRefetch = () => {} }) {
         ) {
           setSubmitError(false);
           setRefetch((prev) => !prev);
+          setSuccessSubmit('Submodule');
           onClose();
         } else {
           setSubmitError(true);

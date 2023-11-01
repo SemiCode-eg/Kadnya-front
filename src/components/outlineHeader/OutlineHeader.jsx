@@ -9,7 +9,7 @@ import {
 } from '@phosphor-icons/react';
 import imageSquare from '../../assets/images/courses/ImageSquare.png';
 import MainButton from '../mainButton/MainButton';
-import { Menu } from '@mui/material';
+import { Alert, Menu, Snackbar } from '@mui/material';
 import { useMemo, useState } from 'react';
 import MenuItems from '../menu/MenuItems';
 import styled from '@emotion/styled';
@@ -59,6 +59,7 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
   const [opensubModuleForm, setOpensubModuleForm] = useState(false);
   const [openLessonForm, setOpenLessonForm] = useState(false);
   const [openQuizForm, setOpenQuizForm] = useState(false);
+  const [successSubmit, setSuccessSubmit] = useState('');
 
   const open = Boolean(anchorEl);
   const handleClickListItem = (event) => {
@@ -129,6 +130,7 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
           onClose={() => setOpenModuleForm(false)}
           title="New Module"
           setRefetch={setRefetch}
+          setSuccessSubmit={setSuccessSubmit}
         />
       );
     } else if (opensubModuleForm) {
@@ -139,6 +141,7 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
           title="New Submodule"
           modules={courseData?.modules}
           setRefetch={setRefetch}
+          setSuccessSubmit={setSuccessSubmit}
         />
       );
     } else if (openLessonForm) {
@@ -150,6 +153,7 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
           modules={courseData?.modules}
           isMainBtn={true}
           setRefetch={setRefetch}
+          setSuccessSubmit={setSuccessSubmit}
         />
       );
     } else if (openQuizForm) {
@@ -225,6 +229,21 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
           )}
         </div>
       </div>
+      {!!successSubmit && (
+        <Snackbar
+          open={!!successSubmit}
+          autoHideDuration={6000}
+          onClose={() => setSuccessSubmit('')}
+        >
+          <Alert
+            severity="success"
+            sx={{ width: '100%' }}
+            onClose={() => setSuccessSubmit('')}
+          >
+            {successSubmit} added successfully!
+          </Alert>
+        </Snackbar>
+      )}
     </>
   );
 }
