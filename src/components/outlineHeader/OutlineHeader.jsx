@@ -10,7 +10,7 @@ import {
 import imageSquare from '../../assets/images/courses/ImageSquare.png';
 import MainButton from '../mainButton/MainButton';
 import { Menu } from '@mui/material';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import MenuItems from '../menu/MenuItems';
 import styled from '@emotion/styled';
 import AddModule from '../../pages/course/addForms/AddModule';
@@ -31,19 +31,19 @@ const MUIMenu = styled(Menu)(() => ({
     padding: '15px',
     color: '#fff',
     fontSize: '20px',
-    [`&#${addMenuItems[0].text}`]: {
+    [`&#Module`]: {
       background:
         'linear-gradient(180deg, rgba(40,172,166,1) 38%, rgba(82,163,194,1) 93%)',
     },
-    [`&#${addMenuItems[1].text}`]: {
+    [`&#Submodule`]: {
       background:
         'linear-gradient(180deg, rgba(82,163,194,1) 38%, rgba(109,156,209,1) 93%)',
     },
-    [`&#${addMenuItems[2].text}`]: {
+    [`&#Lesson`]: {
       background:
         'linear-gradient(180deg, rgba(109,156,209,1) 35%, rgba(140,157,225,1) 93%)',
     },
-    [`&#${addMenuItems[3].text}`]: {
+    [`&#Quiz`]: {
       background:
         'linear-gradient(180deg, rgba(140,157,225,1) 30%, rgba(182,175,247,1) 85%)',
     },
@@ -64,6 +64,36 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
   const handleClickListItem = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const addMenuItems = useMemo(() => {
+    if (courseData?.modules?.length > 0) {
+      return [
+        {
+          Icon: FolderSimple,
+          text: 'Module',
+        },
+        {
+          Icon: Folders,
+          text: 'Submodule',
+        },
+        {
+          Icon: File,
+          text: 'Lesson',
+        },
+        {
+          Icon: CheckSquareOffset,
+          text: 'Quiz',
+        },
+      ];
+    } else {
+      return [
+        {
+          Icon: FolderSimple,
+          text: 'Module',
+        },
+      ];
+    }
+  }, [courseData?.modules?.length]);
 
   const handleMenuItemClick = (event) => {
     event.preventDefault();
@@ -200,22 +230,3 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
 }
 
 export default OutlineHeader;
-
-const addMenuItems = [
-  {
-    Icon: FolderSimple,
-    text: 'Module',
-  },
-  {
-    Icon: Folders,
-    text: 'Submodule',
-  },
-  {
-    Icon: File,
-    text: 'Lesson',
-  },
-  {
-    Icon: CheckSquareOffset,
-    text: 'Quiz',
-  },
-];

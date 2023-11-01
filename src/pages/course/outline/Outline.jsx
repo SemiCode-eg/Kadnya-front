@@ -33,7 +33,7 @@ function Outline() {
           <div className="my-8">
             <p className="text-sky-950 text-[20px] font-semibold text-start">
               {dataToShow?.modules?.length || 0}
-              Modules
+              {" "}Modules
             </p>
           </div>
           {dataToShow?.modules?.map((module) => (
