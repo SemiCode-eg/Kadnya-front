@@ -50,7 +50,13 @@ function ImageField({
             style={{ height: height }}
           >
             <img
-              src={imageURL ? imageURL : previewedImage}
+              src={
+                previewedImage
+                  ? previewedImage
+                  : imageURL
+                  ? imageURL
+                  : previewedImage
+              }
               alt="uploaded-image"
               className="w-full h-full object-cover rounded-[3px]"
             />
