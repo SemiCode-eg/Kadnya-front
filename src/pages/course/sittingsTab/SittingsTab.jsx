@@ -135,7 +135,7 @@ function SittingsTab() {
 						description={formData.description}
 						onDescriptionInput={handleDescription}
 						onImageUpload={handleLogoUpload}
-						imageURL={courseData.image || ""}
+						imageURL={courseData?.image}
 					/>
 				</div>
 			</Container>
