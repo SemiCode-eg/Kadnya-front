@@ -32,8 +32,7 @@ function Outline() {
           />
           <div className="my-8">
             <p className="text-sky-950 text-[20px] font-semibold text-start">
-              {dataToShow?.modules?.length || 0}
-              {" "}Modules
+              {dataToShow?.modules?.length || 0} Modules
             </p>
           </div>
           {dataToShow?.modules?.map((module) => (
@@ -57,8 +56,10 @@ function Outline() {
                     lessonID={lesson.id}
                   />
                 ))
-              ) : (
+              ) : module.submodules?.length === 0 ? (
                 <p>There is no lessons in this module!</p>
+              ) : (
+                ''
               )}
               {module.submodules?.map((submodule) => (
                 <ModuleAccordion
