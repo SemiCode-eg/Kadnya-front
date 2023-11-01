@@ -188,6 +188,7 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
                 id={courseData?.id}
                 buttonIcon={<DotsThree size={40} weight="bold" />}
                 setRefetch={setRefetch}
+                isPreview={false}
               />
               <MainButton
                 text="Add Content"

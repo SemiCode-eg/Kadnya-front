@@ -8,7 +8,7 @@ import {
   TrashSimple,
 } from '@phosphor-icons/react';
 import MenuItems from './MenuItems';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { deleteCourse } from '../../utils/ApiCalls';
 
@@ -17,8 +17,10 @@ export default function SettingMenu({
   buttonIcon = <DotsThreeOutlineVertical size={28} />,
   id,
   setRefetch = () => {},
+  isPreview = true,
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [deleteLoading, setDeleteLoading] = useState(false);
   const [deleteErrorMsg, setDeleteErrorMsg] = useState('');
   const [deleteErrorOpen, setDeleteErrorOpen] = useState(false);
 
@@ -36,38 +38,83 @@ export default function SettingMenu({
     setAnchorEl(null);
   };
 
+  const settingMenuItems = useMemo(() => {
+    const menuItems = [
+      {
+        Icon: PencilSimple,
+        text: 'Edit',
+      },
+      {
+        Icon: ChatCircle,
+        text: 'Manage Comments',
+      },
+      {
+        Icon: CopySimple,
+        text: 'Duplicate',
+      },
+      {
+        Icon: TrashSimple,
+        text: deleteLoading ? 'Deleting...' : 'Delete',
+      },
+    ];
+
+    if (isPreview) {
+      return [
+        {
+          Icon: Eye,
+          text: 'Preview',
+        },
+        ...menuItems,
+      ];
+    } else {
+      return [...menuItems];
+    }
+  }, [deleteLoading, isPreview]);
+
   const handleMenuItemClick = (event) => {
     event.preventDefault();
 
     switch (event.target.id) {
-      case settingMenuItems[0].text: // preview
+      case 'Preview': // preview
         navigate(`/products/courses/${id}/outline`);
+        setAnchorEl(null);
         break;
-      case settingMenuItems[1].text: // edit
+      case 'Edit': // edit
+        navigate(`/products/courses/${id}/sittings`);
+        setAnchorEl(null);
         break;
-      case settingMenuItems[2].text: // comments
+      case 'Manage Comments': // comments
+        setAnchorEl(null);
         break;
-      case settingMenuItems[3].text: // duplicate
+      case 'Duplicate': // duplicate
+        setAnchorEl(null);
         break;
-      case settingMenuItems[4].text: // delete
+      case 'Delete': // delete
         handleDeleteCourse(id);
         break;
       default:
+        setAnchorEl(null);
         break;
     }
-    setAnchorEl(null);
   };
 
   const handleDeleteCourse = (id) => {
     setDeleteErrorMsg('');
+    setDeleteLoading(true);
 
     deleteCourse(id).then((data) => {
+      setDeleteLoading(false);
       if (
         !data.request ||
         data.request.status === 200 ||
         data.request.status === 204
       ) {
-        setRefetch((prev) => !prev);
+        if (!isPreview) {
+          navigate(`/products/courses`);
+        } else {
+          setRefetch((prev) => !prev);
+          setAnchorEl(null);
+        }
       } else {
         setDeleteErrorMsg('Server error, try again later!');
       }
@@ -130,26 +177,3 @@ export default function SettingMenu({
     </>
   );
 }
-
-const settingMenuItems = [
-  {
-    Icon: Eye,
-    text: 'Preview',
-  },
-  {
-    Icon: PencilSimple,
-    text: 'Edit',
-  },
-  {
-    Icon: ChatCircle,
-    text: 'Manage Comments',
-  },
-  {
-    Icon: CopySimple,
-    text: 'Duplicate',
-  },
-  {
-    Icon: TrashSimple,
-    text: 'Delete',
-  },
-];
