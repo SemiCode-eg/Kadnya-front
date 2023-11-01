@@ -42,7 +42,7 @@ export default function RightSide({
 					handleChange={onCourseTitleInput}
 				/>
 			</div>
-			<FormGroup>
+			<FormGroup sx={{ textAlign: "left" }}>
 				<FormControlLabel
 					control={
 						<Checkbox
