@@ -9,8 +9,8 @@ import {
 } from '@phosphor-icons/react';
 import imageSquare from '../../assets/images/courses/ImageSquare.png';
 import MainButton from '../mainButton/MainButton';
-import { Menu } from '@mui/material';
-import { useState } from 'react';
+import { Alert, Menu, Snackbar } from '@mui/material';
+import { useMemo, useState } from 'react';
 import MenuItems from '../menu/MenuItems';
 import styled from '@emotion/styled';
 import AddModule from '../../pages/course/addForms/AddModule';
@@ -31,19 +31,19 @@ const MUIMenu = styled(Menu)(() => ({
     padding: '15px',
     color: '#fff',
     fontSize: '20px',
-    [`&#${addMenuItems[0].text}`]: {
+    [`&#Module`]: {
       background:
         'linear-gradient(180deg, rgba(40,172,166,1) 38%, rgba(82,163,194,1) 93%)',
     },
-    [`&#${addMenuItems[1].text}`]: {
+    [`&#Submodule`]: {
       background:
         'linear-gradient(180deg, rgba(82,163,194,1) 38%, rgba(109,156,209,1) 93%)',
     },
-    [`&#${addMenuItems[2].text}`]: {
+    [`&#Lesson`]: {
       background:
         'linear-gradient(180deg, rgba(109,156,209,1) 35%, rgba(140,157,225,1) 93%)',
     },
-    [`&#${addMenuItems[3].text}`]: {
+    [`&#Quiz`]: {
       background:
         'linear-gradient(180deg, rgba(140,157,225,1) 30%, rgba(182,175,247,1) 85%)',
     },
@@ -59,11 +59,42 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
   const [opensubModuleForm, setOpensubModuleForm] = useState(false);
   const [openLessonForm, setOpenLessonForm] = useState(false);
   const [openQuizForm, setOpenQuizForm] = useState(false);
+  const [successSubmit, setSuccessSubmit] = useState('');
 
   const open = Boolean(anchorEl);
   const handleClickListItem = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const addMenuItems = useMemo(() => {
+    if (courseData?.modules?.length > 0) {
+      return [
+        {
+          Icon: FolderSimple,
+          text: 'Module',
+        },
+        {
+          Icon: Folders,
+          text: 'Submodule',
+        },
+        {
+          Icon: File,
+          text: 'Lesson',
+        },
+        {
+          Icon: CheckSquareOffset,
+          text: 'Quiz',
+        },
+      ];
+    } else {
+      return [
+        {
+          Icon: FolderSimple,
+          text: 'Module',
+        },
+      ];
+    }
+  }, [courseData?.modules?.length]);
 
   const handleMenuItemClick = (event) => {
     event.preventDefault();
@@ -99,6 +130,7 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
           onClose={() => setOpenModuleForm(false)}
           title="New Module"
           setRefetch={setRefetch}
+          setSuccessSubmit={setSuccessSubmit}
         />
       );
     } else if (opensubModuleForm) {
@@ -109,6 +141,7 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
           title="New Submodule"
           modules={courseData?.modules}
           setRefetch={setRefetch}
+          setSuccessSubmit={setSuccessSubmit}
         />
       );
     } else if (openLessonForm) {
@@ -120,6 +153,7 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
           modules={courseData?.modules}
           isMainBtn={true}
           setRefetch={setRefetch}
+          setSuccessSubmit={setSuccessSubmit}
         />
       );
     } else if (openQuizForm) {
@@ -132,16 +166,21 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
       {previewedForm()}
       <div className="mb-2 flex gap-5 flex-col lg:flex-row">
         <div className="flex justify-between gap-[35px] flex-1 flex-col lg:flex-row flex-wrap">
-          <div className="flex items-center gap-[20px]">
-            <img
-              src={courseData?.image ? courseData?.image : imageSquare}
-              alt="course image"
-              className="w-full max-w-[141px] h-[114px] bg-white rounded-[10px] shadow-1"
-            />
+          <div className="flex items-center gap-[20px] flex-1 flex-wrap">
+            <div className="w-[200px] h-[130px] bg-white rounded-[10px] shadow-1">
+              <img
+                src={courseData?.image ? courseData?.image : imageSquare}
+                alt="course image"
+                className="w-full h-full object-cover rounded-[10px]"
+              />
+            </div>
 
-            <p className="text-gray-950 capitalize text-[20px]">
-              {courseData?.title}
-            </p>
+            <div className="text-gray-950 capitalize text-[20px] flex flex-col items-start">
+              <p>{courseData?.title}</p>
+              <p className="text-gray-400 font-normal text-sm">
+                {courseData?.ReleaseDate}
+              </p>
+            </div>
           </div>
           {showContentBtn && (
             <div className="flex items-center gap-[20px] flex-1 justify-end">
@@ -149,6 +188,7 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
                 id={courseData?.id}
                 buttonIcon={<DotsThree size={40} weight="bold" />}
                 setRefetch={setRefetch}
+                isPreview={false}
               />
               <MainButton
                 text="Add Content"
@@ -192,27 +232,23 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
           )}
         </div>
       </div>
+      {!!successSubmit && (
+        <Snackbar
+          open={!!successSubmit}
+          autoHideDuration={6000}
+          onClose={() => setSuccessSubmit('')}
+        >
+          <Alert
+            severity="success"
+            sx={{ width: '100%' }}
+            onClose={() => setSuccessSubmit('')}
+          >
+            {successSubmit} added successfully!
+          </Alert>
+        </Snackbar>
+      )}
     </>
   );
 }
 
 export default OutlineHeader;
-
-const addMenuItems = [
-  {
-    Icon: FolderSimple,
-    text: 'Module',
-  },
-  {
-    Icon: Folders,
-    text: 'Submodule',
-  },
-  {
-    Icon: File,
-    text: 'Lesson',
-  },
-  {
-    Icon: CheckSquareOffset,
-    text: 'Quiz',
-  },
-];

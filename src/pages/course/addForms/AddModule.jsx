@@ -26,6 +26,7 @@ function AddModule({
   isSubmodule = false,
   parentModuleID,
   setRefetch = () => {},
+  setSuccessSubmit = () => {},
 }) {
   const [title, setTitle] = useState(moduleTitle);
   const [titleErrorMsg, setTitleErrorMsg] = useState('');
@@ -79,6 +80,7 @@ function AddModule({
             ) {
               setSubmitError(false);
               setRefetch((prev) => !prev);
+              setSuccessSubmit('Module');
               onClose();
             } else {
               setSubmitError(true);
@@ -96,6 +98,7 @@ function AddModule({
             ) {
               setSubmitError(false);
               setRefetch((prev) => !prev);
+              setSuccessSubmit('Module');
               onClose();
             } else {
               setSubmitError(true);
@@ -114,6 +117,7 @@ function AddModule({
           ) {
             setSubmitError(false);
             setRefetch((prev) => !prev);
+            setSuccessSubmit('Module');
             onClose();
           } else {
             setSubmitError(true);
