@@ -171,7 +171,9 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
               <img
                 src={courseData?.image ? courseData?.image : imageSquare}
                 alt="course image"
-                className="w-full h-full object-cover rounded-[10px]"
+                className={`w-full h-full ${
+                  courseData?.image ? 'object-cover' : 'object-contain'
+                } rounded-[10px]`}
               />
             </div>
 
