@@ -139,9 +139,12 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
               className="w-full max-w-[141px] h-[114px] bg-white rounded-[10px] shadow-1"
             />
 
-            <p className="text-gray-950 capitalize text-[20px]">
-              {courseData?.title}
-            </p>
+            <div className="text-gray-950 capitalize text-[20px] flex flex-col items-start">
+              <p>{courseData?.title}</p>
+              <p className="text-gray-400 font-normal text-sm">
+                {courseData?.ReleaseDate}
+              </p>
+            </div>
           </div>
           {showContentBtn && (
             <div className="flex items-center gap-[20px] flex-1 justify-end">
