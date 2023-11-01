@@ -8,6 +8,7 @@ import TextAriaField from "../../../components/forms/TextAriaField";
 export default function SittingsForm({
 	onSubmit,
 	onImageUpload,
+	imageURL,
 	title,
 	onTitleInput,
 	description,
@@ -18,9 +19,9 @@ export default function SittingsForm({
 			onSubmit={onSubmit}
 			className="flex flex-col items-center sm:gap-0 gap-6"
 		>
-			<div className="flex md:flex-row flex-col w-full mt-3">
+			<div className="flex md:flex-row flex-col gap-4 w-full mt-3">
 				<div className="flex flex-col md:w-1/2">
-					<ImageField setImageAsset={onImageUpload} />
+					<ImageField setImageAsset={onImageUpload} imageURL={imageURL} />
 				</div>
 				<div className="flex flex-col md:w-1/2">
 					<div className="flex flex-col gap-1 items-start">
