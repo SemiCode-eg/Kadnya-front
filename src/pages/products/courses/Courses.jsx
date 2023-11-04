@@ -7,6 +7,7 @@ import useCourse from "../../../hooks/use-courses";
 import AddCouseForm from "./AddCourseForm";
 import HandleErrorLoad from "../../../components/handleErrorLoad";
 import { useOutletContext } from "react-router-dom";
+import { Typography } from "@mui/material";
 
 const COURSE_PER_PAGE = 4;
 
@@ -15,7 +16,7 @@ export default function Courses() {
 	const { courses, errorMsg, loading } = useCourse(refetch);
 	const [sortKey, setSortKey] = useState(sortOptions[0].value);
 	const [page, setPage] = useState(1);
-	const [searchData] = useOutletContext();
+	const [searchData, searchLoading] = useOutletContext();
 
 	const handleSortSelect = (event) => {
 		const newSortKey = event.target.value;
@@ -66,14 +67,18 @@ export default function Courses() {
 				sortOptions={sortOptions}
 			/>
 
-			<HandleErrorLoad loading={loading} errorMsg={errorMsg}>
-				<ProductCards
-					data={preparedCourses}
-					page={page}
-					onPagination={handlePage}
-					productPerPage={COURSE_PER_PAGE}
-					targerCousesRefetch={targerCousesRefetch}
-				/>
+			<HandleErrorLoad loading={loading || searchLoading} errorMsg={errorMsg}>
+				{preparedCourses.length === 0 ? (
+					<Typography>Can&apos;t find these courses</Typography>
+				) : (
+					<ProductCards
+						data={preparedCourses}
+						page={page}
+						onPagination={handlePage}
+						productPerPage={COURSE_PER_PAGE}
+						targerCousesRefetch={targerCousesRefetch}
+					/>
+				)}
 			</HandleErrorLoad>
 		</>
 	);
