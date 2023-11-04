@@ -96,11 +96,6 @@ function SittingsTab() {
 				type: reducerKeys.setError,
 				payload: "You must enter your description",
 			});
-		if (!logo)
-			return dispatchFormData({
-				type: reducerKeys.setError,
-				payload: "You must enter your logo",
-			});
 
 		setPostLoading(true);
 
