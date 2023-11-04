@@ -42,17 +42,18 @@ export default function ProductsHead({
 					<span className="font-bold">{productCount}</span> {countTitle}
 				</Typography>
 
-				<div className="flex sm:gap-3 items-center sm:justify-end justify-between w-full">
+				<div className="flex sm:gap-3 gap-4 items-center sm:justify-end justify-between flex-wrap sm:flex-nowrap w-full">
 					<MainButton
 						text={buttonText}
 						handleClick={handleFormOpen}
 						icon={<ButtonIcon size={25} weight="bold" />}
-						className="sm:!text-md text-sm sm:!px-8 !px-4 sm:!py-3 !py1 sm:!mr-2 !mr-0"
+						className="sm:!text-md text-sm sm:!px-8 !px-4 sm:!py-3 !py1 sm:!mr-2 !mr-0 sm:w-auto justify-center max-[356px]:w-full"
 					/>
 					<SortSelect
 						options={sortOptions}
 						sortKey={sortKey}
 						onSelect={handleSort}
+						className="max-[356px]:w-full"
 					/>
 				</div>
 			</section>

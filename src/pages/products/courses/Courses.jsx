@@ -1,105 +1,107 @@
 /* eslint-disable react/prop-types */
-import { Presentation } from '@phosphor-icons/react';
-import { useCallback, useMemo, useState } from 'react';
-import ProductsHead from '../../../components/Product/ProductsHead';
-import ProductCards from '../../../components/Product/card/ProductCards';
-import useCourse from '../../../hooks/use-courses';
-import AddCouseForm from './AddCourseForm';
-import HandleErrorLoad from '../../../components/handleErrorLoad';
-import { useOutletContext } from 'react-router-dom';
+import { Presentation } from "@phosphor-icons/react";
+import { useCallback, useMemo, useState } from "react";
+import ProductsHead from "../../../components/Product/ProductsHead";
+import ProductCards from "../../../components/Product/card/ProductCards";
+import useCourse from "../../../hooks/use-courses";
+import AddCouseForm from "./AddCourseForm";
+import HandleErrorLoad from "../../../components/handleErrorLoad";
+import { useOutletContext } from "react-router-dom";
 
 const COURSE_PER_PAGE = 4;
 
 export default function Courses() {
-  const [refetch, setRefetch] = useState(false);
-  const { courses, errorMsg, loading } = useCourse(refetch);
-  const [sortKey, setSortKey] = useState(sortOptions[0].value);
-  const [page, setPage] = useState(1);
-  const [searchData] = useOutletContext();
+	const [refetch, setRefetch] = useState(false);
+	const { courses, errorMsg, loading } = useCourse(refetch);
+	const [sortKey, setSortKey] = useState(sortOptions[0].value);
+	const [page, setPage] = useState(1);
+	const [searchData] = useOutletContext();
 
-  const handleSortSelect = (event) => {
-    const newSortKey = event.target.value;
-    setSortKey(newSortKey);
-  };
-  const handleSort = useCallback(
-    (a, b) => {
-      switch (sortKey) {
-        case 'NEWSET':
-          return compareDates(a.ReleaseDate, b.ReleaseDate);
-        case 'OLDEST':
-          return compareDates(b.ReleaseDate, a.ReleaseDate);
-        case 'MORE_SUBSCRIBERES':
-          return compareNumber(b.clients.length, a.clients.length);
-        case 'LESS_SUBSCRIBERES':
-          return compareNumber(a.clients.length, b.clients.length);
-      }
-    },
-    [sortKey]
-  );
+	const handleSortSelect = (event) => {
+		const newSortKey = event.target.value;
+		setSortKey(newSortKey);
+	};
+	const handleSort = useCallback(
+		(a, b) => {
+			switch (sortKey) {
+				case "NEWSET":
+					return compareDates(a.ReleaseDate, b.ReleaseDate);
+				case "OLDEST":
+					return compareDates(b.ReleaseDate, a.ReleaseDate);
+				case "MORE_SUBSCRIBERES":
+					return compareNumber(b.clients.length, a.clients.length);
+				case "LESS_SUBSCRIBERES":
+					return compareNumber(a.clients.length, b.clients.length);
+			}
+		},
+		[sortKey]
+	);
 
-  const handlePage = (_, newPage) => {
-    setPage(newPage);
-  };
+	const handlePage = (_, newPage) => {
+		setPage(newPage);
+	};
 
-  const preparedCourses = useMemo(() => {
-    const dataToUse = searchData ? searchData : courses;
-    const sortedData =
-      sortKey === 'DEFAULT' ? [...dataToUse] : [...dataToUse].sort(handleSort);
-    return sortedData.slice();
-  }, [courses, handleSort, searchData, sortKey]);
+	const preparedCourses = useMemo(() => {
+		const dataToUse = searchData ? searchData : courses;
+		const sortedData =
+			sortKey === "DEFAULT" ? [...dataToUse] : [...dataToUse].sort(handleSort);
+		return sortedData.slice();
+	}, [courses, handleSort, searchData, sortKey]);
 
-  const targerCousesRefetch = () => {
-    setRefetch((state) => !state);
-  };
+	const targerCousesRefetch = () => {
+		setRefetch((state) => !state);
+	};
 
-  return (
-    <HandleErrorLoad loading={loading} errorMsg={errorMsg}>
-      <ProductsHead
-        Form={AddCouseForm}
-        targerCousesRefetch={targerCousesRefetch}
-        ButtonIcon={Presentation}
-        buttonText="Add Course"
-        countTitle="Courses"
-        productCount={preparedCourses.length}
-        sortKey={sortKey}
-        handleSort={handleSortSelect}
-        sortOptions={sortOptions}
-      />
+	return (
+		<>
+			<ProductsHead
+				Form={AddCouseForm}
+				targerCousesRefetch={targerCousesRefetch}
+				ButtonIcon={Presentation}
+				buttonText="Add Course"
+				countTitle="Courses"
+				productCount={preparedCourses.length}
+				sortKey={sortKey}
+				handleSort={handleSortSelect}
+				sortOptions={sortOptions}
+			/>
 
-      <ProductCards
-        data={preparedCourses}
-        page={page}
-        onPagination={handlePage}
-        productPerPage={COURSE_PER_PAGE}
-        targerCousesRefetch={targerCousesRefetch}
-      />
-    </HandleErrorLoad>
-  );
+			<HandleErrorLoad loading={loading} errorMsg={errorMsg}>
+				<ProductCards
+					data={preparedCourses}
+					page={page}
+					onPagination={handlePage}
+					productPerPage={COURSE_PER_PAGE}
+					targerCousesRefetch={targerCousesRefetch}
+				/>
+			</HandleErrorLoad>
+		</>
+	);
 }
 
 const sortOptions = [
-  { value: 'DEFAULT', label: 'Default' },
-  { value: 'NEWEST', label: 'Newest' },
-  { value: 'OLDEST', label: 'Oldest' },
-  { value: 'MORE_SUBSCRIBERES', label: 'More Subscribers' },
-  { value: 'LESS_SUBSCRIBERES', label: 'Less Subscribers' },
+	{ value: "DEFAULT", label: "Default" },
+	{ value: "NEWEST", label: "Newest" },
+	{ value: "OLDEST", label: "Oldest" },
+	{ value: "MORE_SUBSCRIBERES", label: "More Subscribers" },
+	{ value: "LESS_SUBSCRIBERES", label: "Less Subscribers" },
 ];
 
 function compareDates(dateString1, dateString2) {
-  const date1 = new Date(dateString1);
-  const date2 = new Date(dateString2);
+	const date1 = new Date(dateString1);
+	const date2 = new Date(dateString2);
 
-  if (date1 < date2) return -1;
-  else if (date1 > date2) return 1;
+	if (date1 < date2) return -1;
+	else if (date1 > date2) return 1;
 
-  return 0;
+	return 0;
 }
 
 function compareNumber(num1, num2) {
-  if (num1 < num2) return -1;
-  else if (num1 > num2) return 1;
+	if (num1 < num2) return -1;
+	else if (num1 > num2) return 1;
 
-  return 0;
+	return 0;
 }
 
 // const coursesData = [

@@ -165,7 +165,15 @@ export const deleteCourse = async (id) => {
 
 export const updateCourse = async (id, data) => {
 	try {
-		const response = await api.patch(`courses/${id}/update/`, data);
+		const formData = new FormData();
+		formData.append("title", data.title);
+		formData.append("description", data.description);
+		formData.append("image", data.image);
+
+		const response = await api.patch(`courses/${id}/update/`, formData, {
+			headers: { "content-type": "multipart/form-data" },
+		});
+
 		return response;
 	} catch (error) {
 		return error;
@@ -183,7 +191,7 @@ export const createCourse = async (course) => {
 		formData.append("category", course.category);
 		formData.append("instructor", course.instructor);
 
-		const response = await api.post("/courses/create/", course, {
+		const response = await api.post("/courses/create/", formData, {
 			headers: { "content-type": "multipart/form-data" },
 		});
 
