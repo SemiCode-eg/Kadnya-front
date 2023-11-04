@@ -6,14 +6,16 @@ import ProductCards from '../../../components/Product/card/ProductCards';
 import useCourse from '../../../hooks/use-courses';
 import AddCouseForm from './AddCourseForm';
 import HandleErrorLoad from '../../../components/handleErrorLoad';
+import { useOutletContext } from 'react-router-dom';
 
 const COURSE_PER_PAGE = 4;
 
-export default function Courses({ searchData }) {
+export default function Courses() {
   const [refetch, setRefetch] = useState(false);
   const { courses, errorMsg, loading } = useCourse(refetch);
   const [sortKey, setSortKey] = useState(sortOptions[0].value);
   const [page, setPage] = useState(1);
+  const [searchData] = useOutletContext();
 
   const handleSortSelect = (event) => {
     const newSortKey = event.target.value;

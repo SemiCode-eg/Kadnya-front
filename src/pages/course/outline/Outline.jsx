@@ -28,7 +28,7 @@ function Outline() {
           <SearchInput
             placeholder="Find module or lesson"
             setData={setSearchData}
-            URL={`courses/${id}/?q=&module=`}
+            URL={`courses/${id}/?q=`}
           />
           <div className="my-8">
             <p className="text-sky-950 text-[20px] font-semibold text-start">
