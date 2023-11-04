@@ -13,8 +13,6 @@ export default function RightSide({
 	onIncludeCompletionDateChecked,
 	showStudentName,
 	onShowStudentNameChecked,
-	hasCustomField,
-	onHasCustomFieldChecked,
 	includeUniqueSerial,
 	onIncludeUniqueSerialChecked,
 }) {
@@ -44,7 +42,7 @@ export default function RightSide({
 					handleChange={onCourseTitleInput}
 				/>
 			</div>
-			<FormGroup>
+			<FormGroup sx={{ textAlign: "left" }}>
 				<FormControlLabel
 					control={
 						<Checkbox
@@ -64,16 +62,6 @@ export default function RightSide({
 						/>
 					}
 					label="Show student's name"
-				/>
-				<FormControlLabel
-					control={
-						<Checkbox
-							sx={{ color: "rgb(20, 184, 166) !important" }}
-							value={hasCustomField}
-							onChange={onHasCustomFieldChecked}
-						/>
-					}
-					label="Custom field"
 				/>
 				<FormControlLabel
 					control={

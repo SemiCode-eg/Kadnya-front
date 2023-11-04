@@ -6,7 +6,6 @@ export const reducerKeys = {
 	setCourseTitle: "setCourseTitle",
 	setIncludeCompletionDate: "setIncludeCompletionDate",
 	setShowStudentName: "setShowStudentName",
-	setHasCustomField: "setHasCustomField",
 	setIncludeUniqueSerial: "setIncludeUniqueSerial",
 };
 
@@ -21,7 +20,6 @@ export const formDataReducer = (state, action) => {
 				courseTitle: action.payload.courseTitle,
 				includeCompletionDate: action.payload.includeCompletionDate,
 				showStudentName: action.payload.showStudnetName,
-				hasCustomField: action.payload.hasCustomField,
 				includeUniqueSerial: action.payload.includeUniqueSerial,
 			};
 		case reducerKeys.setHasCertificate:
@@ -58,11 +56,6 @@ export const formDataReducer = (state, action) => {
 			return {
 				...state,
 				showStudentName: action.payload,
-			};
-		case reducerKeys.setHasCustomField:
-			return {
-				...state,
-				hasCustomField: action.payload,
 			};
 		case reducerKeys.setIncludeUniqueSerial:
 			return {
