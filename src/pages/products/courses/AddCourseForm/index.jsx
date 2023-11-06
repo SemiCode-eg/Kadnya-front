@@ -127,6 +127,16 @@ export default function AddCouseForm({ open, onClose, targerCousesRefetch }) {
 		});
 	};
 
+	const resetForm = () => {
+		dispatchFormData({ type: formReducerKeys.reset });
+		setStep(1);
+	};
+
+	const handleClose = () => {
+		onClose();
+		resetForm();
+	};
+
 	const handleContinue = () => {
 		setStep((step) => ++step);
 	};
@@ -153,7 +163,7 @@ export default function AddCouseForm({ open, onClose, targerCousesRefetch }) {
 			instructor: 1,
 		});
 
-		dispatchFormData({ type: formReducerKeys.reset });
+		resetForm();
 		setLoading(false);
 		targerCousesRefetch();
 	};
@@ -162,7 +172,7 @@ export default function AddCouseForm({ open, onClose, targerCousesRefetch }) {
 		<CustomModal
 			title="Add Course"
 			open={open}
-			onClose={onClose}
+			onClose={handleClose}
 			onGoBack={handleGoBack}
 			fullWidth
 			maxWidth="md"
