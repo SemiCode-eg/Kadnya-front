@@ -21,7 +21,6 @@ function Outline() {
     () => searchData || courseData,
     [courseData, searchData]
   );
-  console.log(searchData)
 
   return (
     <>
