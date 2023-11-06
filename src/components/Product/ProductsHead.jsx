@@ -42,7 +42,7 @@ export default function ProductsHead({
 					<span className="font-bold">{productCount}</span> {countTitle}
 				</Typography>
 
-				<div className="flex sm:gap-3 gap-4 items-center sm:justify-end justify-between flex-wrap sm:flex-nowrap w-full">
+				<div className="flex sm:gap-3 gap-4 items-center sm:justify-end justify-between flex-wrap sm:flex-nowrap w-full sm:px-0 max-w-xs sm:mx-0 mx-auto">
 					<MainButton
 						text={buttonText}
 						handleClick={handleFormOpen}
@@ -53,7 +53,7 @@ export default function ProductsHead({
 						options={sortOptions}
 						sortKey={sortKey}
 						onSelect={handleSort}
-						className="w-full"
+						className="sm:w-auto w-full"
 					/>
 				</div>
 			</section>
