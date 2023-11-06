@@ -47,13 +47,13 @@ export default function ProductsHead({
 						text={buttonText}
 						handleClick={handleFormOpen}
 						icon={<ButtonIcon size={25} weight="bold" />}
-						className="sm:!text-md text-sm sm:!px-8 !px-4 sm:!py-3 !py1 sm:!mr-2 !mr-0 sm:w-auto justify-center max-[420px]:w-full"
+						className="sm:!text-md text-sm sm:!px-8 !px-4 sm:!py-3 !py1 sm:!mr-2 !mr-0 sm:w-auto justify-center w-full"
 					/>
 					<SortSelect
 						options={sortOptions}
 						sortKey={sortKey}
 						onSelect={handleSort}
-						className="max-[420px]:w-full"
+						className="w-full"
 					/>
 				</div>
 			</section>
