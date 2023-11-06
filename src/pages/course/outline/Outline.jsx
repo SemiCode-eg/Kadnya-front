@@ -8,10 +8,12 @@ import OutlineHeader from '../../../components/outlineHeader/OutlineHeader';
 import Container from '../Container';
 import HandleErrorLoad from '../../../components/handleErrorLoad';
 import { useMemo, useState } from 'react';
+import { Typography } from '@mui/material';
 
 function Outline() {
   const [refetch, setRefetch] = useState(false);
   const [searchData, setSearchData] = useState(null);
+  const [searchLoading, setSearchLoading] = useState(false);
   const { id } = useParams();
   const { courseData, errorMsg, loading } = useCourse(id, refetch);
 
@@ -19,6 +21,7 @@ function Outline() {
     () => searchData || courseData,
     [courseData, searchData]
   );
+  console.log(searchData)
 
   return (
     <>
@@ -29,57 +32,31 @@ function Outline() {
             placeholder="Find module or lesson"
             setData={setSearchData}
             URL={`courses/${id}/?q=`}
+            handleLoading={setSearchLoading}
           />
-          <div className="my-8">
-            <p className="text-sky-950 text-[20px] font-semibold text-start">
-              {dataToShow?.modules?.length || 0} Modules
-            </p>
-          </div>
-          {dataToShow?.modules?.map((module) => (
-            <ModuleAccordion
-              title={module.title}
-              description={module.description}
-              image={module.image}
-              key={module.id}
-              Icon={FolderSimple}
-              moduleID={module.id}
-              modules={[module]}
-              paperClasses="!my-1 !shadow !rounded-lg before:!opacity-0 after:!opacity-0"
-              setRefetch={setRefetch}
-            >
-              {module.lessons?.length > 0 ? (
-                module.lessons?.map((lesson, i) => (
-                  <ModuleLesson
-                    text={lesson.title}
-                    key={lesson.id}
-                    addBorder={i !== 0}
-                    lessonID={lesson.id}
-                  />
-                ))
-              ) : module.submodules?.length === 0 ? (
-                <p>There is no lessons in this module!</p>
-              ) : (
-                ''
-              )}
-              {module.submodules?.map((submodule) => (
+          <HandleErrorLoad loading={searchLoading} errorMsg={errorMsg}>
+            <div className="my-8">
+              <p className="text-sky-950 text-[20px] font-semibold text-start">
+                {dataToShow?.modules?.length || 0} Modules
+              </p>
+            </div>
+            {dataToShow?.modules?.length === 0 ? (
+              <Typography>Can&apos;t find these modules</Typography>
+            ) : (
+              dataToShow?.modules?.map((module) => (
                 <ModuleAccordion
-                  key={submodule.id}
-                  title={submodule.title}
-                  description={submodule.description}
-                  image={submodule.image}
-                  Icon={FolderDashed}
-                  summaryClasses="!p-0 !bg-[#F9FAFB]"
-                  paperClasses="!shadow-none"
-                  iconclasses="text-slate-400"
-                  moduleID={submodule.id}
+                  title={module.title}
+                  description={module.description}
+                  image={module.image}
+                  key={module.id}
+                  Icon={FolderSimple}
+                  moduleID={module.id}
                   modules={[module]}
-                  submodule={[submodule]}
-                  isSubmodule={true}
-                  parentModuleID={module?.id}
+                  paperClasses="!my-1 !shadow !rounded-lg before:!opacity-0 after:!opacity-0"
                   setRefetch={setRefetch}
                 >
-                  {submodule.lessons?.length > 0 ? (
-                    submodule.lessons?.map((lesson, i) => (
+                  {module.lessons?.length > 0 ? (
+                    module.lessons?.map((lesson, i) => (
                       <ModuleLesson
                         text={lesson.title}
                         key={lesson.id}
@@ -87,13 +64,46 @@ function Outline() {
                         lessonID={lesson.id}
                       />
                     ))
+                  ) : module.submodules?.length === 0 ? (
+                    <p>There is no lessons in this module!</p>
                   ) : (
-                    <p>There is no lessons in this submodule!</p>
+                    ''
                   )}
+                  {module.submodules?.map((submodule) => (
+                    <ModuleAccordion
+                      key={submodule.id}
+                      title={submodule.title}
+                      description={submodule.description}
+                      image={submodule.image}
+                      Icon={FolderDashed}
+                      summaryClasses="!p-0 !bg-[#F9FAFB]"
+                      paperClasses="!shadow-none"
+                      iconclasses="text-slate-400"
+                      moduleID={submodule.id}
+                      modules={[module]}
+                      submodule={[submodule]}
+                      isSubmodule={true}
+                      parentModuleID={module?.id}
+                      setRefetch={setRefetch}
+                    >
+                      {submodule.lessons?.length > 0 ? (
+                        submodule.lessons?.map((lesson, i) => (
+                          <ModuleLesson
+                            text={lesson.title}
+                            key={lesson.id}
+                            addBorder={i !== 0}
+                            lessonID={lesson.id}
+                          />
+                        ))
+                      ) : (
+                        <p>There is no lessons in this submodule!</p>
+                      )}
+                    </ModuleAccordion>
+                  ))}
                 </ModuleAccordion>
-              ))}
-            </ModuleAccordion>
-          ))}
+              ))
+            )}
+          </HandleErrorLoad>
         </Container>
       </HandleErrorLoad>
     </>

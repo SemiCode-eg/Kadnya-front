@@ -71,7 +71,7 @@ export default function SearchInput({
 				/>
 
 				<MainButton
-					text={isLoading ? "Searching" : "Search"}
+					text={isLoading ? "Searching..." : "Search"}
 					type="submit"
 					className="absolute right-2.5 sm:bottom-2 bottom-3 sm:!px-5 sm:!py-2 !px-3 !py-1 sm:text-base text-sm"
 				/>
