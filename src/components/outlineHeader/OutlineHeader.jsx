@@ -17,6 +17,7 @@ import AddModule from '../../pages/course/addForms/AddModule';
 import AddSubmodule from '../../pages/course/addForms/AddSubmodule';
 import AddLesson from '../../pages/course/addForms/AddLesson';
 import SettingMenu from '../menu';
+import { useNavigate } from 'react-router-dom';
 
 const MUIMenu = styled(Menu)(() => ({
   '& .MuiList-root': {
@@ -60,6 +61,8 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
   const [openLessonForm, setOpenLessonForm] = useState(false);
   const [openQuizForm, setOpenQuizForm] = useState(false);
   const [successSubmit, setSuccessSubmit] = useState('');
+
+  const navigate = useNavigate();
 
   const open = Boolean(anchorEl);
   const handleClickListItem = (event) => {
@@ -157,7 +160,7 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
         />
       );
     } else if (openQuizForm) {
-      // return <AddQuiz />
+      navigate(`/products/courses/${courseData?.id}/quiz/add`);
     }
   };
 
