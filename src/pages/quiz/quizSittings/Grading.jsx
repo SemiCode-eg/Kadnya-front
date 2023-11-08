@@ -20,8 +20,8 @@ function Grading({
           <FormControlLabel
             control={
               <GradingSwitch
-                value={showPassingGrade}
-                onChange={() => setshowPassingGrade((prev) => !prev)}
+                checked={showPassingGrade}
+                onChange={(e) => setshowPassingGrade(e.target.checked)}
               />
             }
             label={
@@ -33,7 +33,7 @@ function Grading({
                 </p>
               </div>
             }
-            className="!text-sky-950 !items-start"
+            className="!text-sky-950 !items-start !self-end"
           />
           {showPassingGrade && (
             <div className="flex flex-col gap-2 items-start w-[140px]">
@@ -44,7 +44,9 @@ function Grading({
                 <input
                   type="number"
                   value={passingGrade}
-                  onChange={(e) => setPassingGrade(e.target.value)}
+                  onChange={(e) =>
+                    setPassingGrade(e.target.value > 100 ? 100 : e.target.value)
+                  }
                   min={0}
                   max={100}
                   className="w-full border-[2px] rounded-[10px] border-zinc-200 outline-none pl-1.5 pr-5 py-1 focus:duration-200 focus:ease-in focus:border-neutral-400"
@@ -59,8 +61,8 @@ function Grading({
         <FormControlLabel
           control={
             <GradingSwitch
-              value={hideAnswers}
-              onChange={() => setHideAnswers((prev) => !prev)}
+              checked={hideAnswers}
+              onChange={(e) => setHideAnswers(e.target.checked)}
             />
           }
           label={
