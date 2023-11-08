@@ -13,6 +13,10 @@ import CertificateTab from './pages/course/certificateTab/CertificateTab';
 import SittingsTab from './pages/course/sittingsTab/SittingsTab';
 import Questions from './pages/course/questions/Questions';
 import Results from './pages/course/results/Results';
+import Quiz from './pages/quiz/Quiz.jsx';
+import AddQuiz from './pages/quiz/addQuiz/AddQuiz.jsx';
+import QuizSittings from './pages/quiz/quizSittings/QuizSittings.jsx';
+import QuizResults from './pages/quiz/quizResults/QuizResults.jsx';
 
 const router = createBrowserRouter([
   {
@@ -50,6 +54,24 @@ const router = createBrowserRouter([
       {
         path: 'products/courses/:id/edit-lesson/:lessonID',
         element: <EditLesson />,
+      },
+      {
+        path: 'products/courses/:id/quiz',
+        element: <Quiz />,
+        children: [
+          {
+            path: 'add',
+            element: <AddQuiz />,
+          },
+          {
+            path: 'settings',
+            element: <QuizSittings />,
+          },
+          {
+            path: 'results',
+            element: <QuizResults />,
+          },
+        ],
       },
       { path: 'website', element: <Website /> },
       {

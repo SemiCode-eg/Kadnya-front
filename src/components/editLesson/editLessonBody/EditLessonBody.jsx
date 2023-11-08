@@ -255,11 +255,7 @@ function EditLessonBody({
                 <div>
                   <CKEditor
                     editor={ClassicEditor}
-                    data={
-                      description
-                        ? description
-                        : '<p>Add a description for your lesson</p>'
-                    }
+                    data={description}
                     onChange={(event, editor) => {
                       const data = editor.getData();
                       setDescription(data);
