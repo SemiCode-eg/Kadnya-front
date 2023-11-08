@@ -17,7 +17,7 @@ function QuizHeader({
 }) {
   return (
     <>
-      <div className="mb-2 flex gap-5 flex-col lg:flex-row">
+      <div className="mb-5 flex gap-5 flex-col lg:flex-row">
         <div className="flex justify-between items-center gap-[35px] flex-1 flex-col sm:flex-row flex-wrap">
           <div className="flex items-center flex-col sm:flex-row gap-[20px] flex-1">
             <div className="w-[140px] h-[114px] bg-white rounded-[10px] shadow-1">
