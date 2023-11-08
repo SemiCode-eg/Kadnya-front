@@ -34,9 +34,6 @@ function QuizHeader({
             </div>
           </div>
           <div className="flex items-center gap-[20px] flex-1 sm:justify-end flex-wrap-reverse sm:flex-nowrap">
-            {!!submitErrorMsg && (
-              <p className="text-red-500 font-bold text-lg">{submitErrorMsg}</p>
-            )}
             <DraftBtn setDraftState={setIsDraft} draftState={isDraft} />
             <Link title="Preview" to="/">
               <Eye size={30} className="text-gray-400" />
@@ -53,6 +50,9 @@ function QuizHeader({
           </div>
         </div>
       </div>
+      {!!submitErrorMsg && (
+        <p className="text-red-500 font-bold text-lg mb-3">{submitErrorMsg}</p>
+      )}
       {!!successSubmitMsg && (
         <Snackbar open={!!successSubmitMsg} autoHideDuration={6000}>
           <Alert severity="success" sx={{ width: '100%' }}>

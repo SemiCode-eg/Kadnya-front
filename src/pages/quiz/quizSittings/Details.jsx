@@ -2,6 +2,7 @@
 import { FormLabel } from '@mui/material';
 import TextField from '../../../components/forms/TextField';
 import TextAriaField from '../../../components/forms/TextAriaField';
+import ImageField from '../../../components/imageField/ImageField';
 
 function Details({
   title,
@@ -12,6 +13,8 @@ function Details({
   setDescription,
   descriptionErrorMsg,
   setDescriptionErrorMsg,
+  setImageAsset,
+  imageAssetErrorMsg,
 }) {
   return (
     <div className="border-[1.5px] border-[#ddd] rounded-[10px] p-6">
@@ -48,6 +51,10 @@ function Details({
           {descriptionErrorMsg && (
             <p className="text-red-500">{descriptionErrorMsg}</p>
           )}
+        </div>
+        <div>
+          <ImageField setImageAsset={setImageAsset} isVertical={false} />
+          <p className="text-red-500">{imageAssetErrorMsg}</p>
         </div>
       </div>
     </div>
