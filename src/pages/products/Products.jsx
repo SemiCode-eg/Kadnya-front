@@ -13,7 +13,7 @@ const tabs = [
 		content: <AllProducts />,
 	},
 	{ title: "Courses", path: "courses", content: <Courses /> },
-	{ title: "coaching", path: "coaching", content: <h1>Caoching</h1> },
+	{ title: "coaching", path: "coaching"},
 ];
 
 export default function Products() {
