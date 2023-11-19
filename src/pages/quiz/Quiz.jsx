@@ -38,7 +38,7 @@ function Quiz() {
             <MiniSide tabs={tabs} />
           </div>
         </div>
-        <div className="w-full flex flex-col">
+        <div className="w-full">
           <QuizHeader
             isDraft={isDraft}
             setIsDraft={setIsDraft}
@@ -48,6 +48,7 @@ function Quiz() {
             submitErrorMsg={submitErrorMsg}
             successSubmitMsg={successSubmitMsg}
           />
+
           <Outlet
             context={[
               isDraft,
