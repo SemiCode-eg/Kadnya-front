@@ -24,14 +24,14 @@ const MUIMenu = styled(Menu)(() => ({
     padding: '0',
   },
   '& .MuiPaper-root': {
-    width: '200px',
+    width: 'auto',
     marginTop: '2px',
     borderRadius: '10px',
   },
   '& .MuiMenuItem-root': {
     padding: '15px',
     color: '#fff',
-    fontSize: '20px',
+    fontSize: '17px',
     [`&#Module`]: {
       background:
         'linear-gradient(180deg, rgba(40,172,166,1) 38%, rgba(82,163,194,1) 93%)',
@@ -169,8 +169,8 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
       {previewedForm()}
       <div className="mb-2 flex gap-5 flex-col lg:flex-row">
         <div className="flex justify-between gap-[35px] flex-1 flex-col lg:flex-row flex-wrap">
-          <div className="flex items-center gap-[20px] flex-1 flex-wrap">
-            <div className="w-[200px] h-[130px] bg-white rounded-[10px] shadow-1">
+        <div className="flex items-center flex-col sm:flex-row gap-[20px] flex-1">
+            <div className="w-[140px] h-[114px] bg-white rounded-[10px] shadow-1">
               <img
                 src={courseData?.image ? courseData?.image : imageSquare}
                 alt="course image"
@@ -191,7 +191,7 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
             <div className="flex items-center gap-[20px] flex-1 justify-end">
               <SettingMenu
                 id={courseData?.id}
-                buttonIcon={<DotsThree size={40} weight="bold" />}
+                buttonIcon={<DotsThree size={35} weight="bold" />}
                 setRefetch={setRefetch}
                 isPreview={false}
               />
@@ -199,11 +199,11 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
                 text="Add Content"
                 icon={
                   <>
-                    <Stack size={30} weight="fill" />
+                    <Stack size={25} weight="fill" />
                   </>
                 }
                 reverse={true}
-                className={`text-white hover:bg-teal-200 hover:text-sky-950 ${
+                className={`text-white hover:bg-teal-200 hover:text-sky-950 !px-5 !text-sm ${
                   anchorEl === null
                     ? 'bg-sky-950'
                     : 'bg-gradient-to-b from-[#28ACA6] to-[#28ACA6]'
