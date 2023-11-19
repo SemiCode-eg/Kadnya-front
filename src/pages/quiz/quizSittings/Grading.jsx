@@ -27,7 +27,7 @@ function Grading({
             label={
               <div className="flex flex-col items-start w-full">
                 <p className="font-[500] text-md">Set a passing grade</p>
-                <p className="text-slate-400 text-sm text-left">
+                <p className="text-neutral-400 text-sm text-left">
                   Tip: For a non-graded quiz, toggle off passing grade and
                   grading on all questions.
                 </p>
@@ -68,7 +68,7 @@ function Grading({
           label={
             <div className="flex flex-col items-start w-full">
               <p className="font-[500] text-md">Hide answers on results page</p>
-              <p className="text-slate-400 text-sm text-left">
+              <p className="text-neutral-400 text-sm text-left">
                 Members will not be able to view correct answers when they
                 choose an incorrect response.
               </p>

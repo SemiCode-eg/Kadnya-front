@@ -23,7 +23,7 @@ function Details({
       </p>
       <div className="flex flex-col gap-5">
         <div className="flex flex-col gap-[7px] items-start w-full">
-          <FormLabel className="!text-black !font-[400] !text-lg">
+          <FormLabel className="!text-sky-950 !font-[400] !text-md">
             Title
           </FormLabel>
           <TextField
@@ -33,11 +33,12 @@ function Details({
               setTitle(e.target.value);
               setTitleErrorMsg('');
             }}
+            className='!text-sm'
           />
           {titleErrorMsg && <div className="text-red-500">{titleErrorMsg}</div>}
         </div>
         <div className="flex flex-col gap-[7px] items-start w-full">
-          <FormLabel className="!text-black !font-[400] !text-xl">
+          <FormLabel className="!text-sky-950 !font-[400] !text-md">
             Description
           </FormLabel>
           <TextAriaField
@@ -47,6 +48,7 @@ function Details({
               setDescription(e.target.value);
               setDescriptionErrorMsg('');
             }}
+            className='!text-sm'
           />
           {descriptionErrorMsg && (
             <p className="text-red-500">{descriptionErrorMsg}</p>
