@@ -11,8 +11,6 @@ import Outline from './pages/course/outline/Outline';
 import EditLesson from './pages/course/editLesson/EditLesson';
 import CertificateTab from './pages/course/certificateTab/CertificateTab';
 import SittingsTab from './pages/course/sittingsTab/SittingsTab';
-import Questions from './pages/course/questions/Questions';
-import Results from './pages/course/results/Results';
 import Quiz from './pages/quiz/Quiz.jsx';
 import AddQuiz from './pages/quiz/addQuiz/AddQuiz.jsx';
 import QuizSittings from './pages/quiz/quizSittings/QuizSittings.jsx';
@@ -51,8 +49,6 @@ const router = createBrowserRouter([
           { path: 'outline', element: <Outline /> },
           { path: 'certificate', element: <CertificateTab /> },
           { path: 'sittings', element: <SittingsTab /> },
-          { path: 'questions', element: <Questions /> },
-          { path: 'results', element: <Results /> },
         ],
       },
       {
