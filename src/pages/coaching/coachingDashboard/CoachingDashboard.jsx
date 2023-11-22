@@ -1,12 +1,11 @@
-import DashboardSessions from '../../../components/coaching/dashboard/DashboardSessions';
+import DashboardOverView from '../../../components/coaching/dashboard/overview/DashboardOverView';
+import DashboardSessions from '../../../components/coaching/dashboard/sessions/DashboardSessions';
 
 function CoachingDashboard() {
   return (
-    <div className="flex lg:flex-row flex-col">
+    <div className="flex lg:flex-row flex-col gap-5">
       <DashboardSessions />
-      <div className="flex-[0.25]">
-        <p className="text-sky-950 text-lg">Overview</p>
-      </div>
+      <DashboardOverView />
     </div>
   );
 }

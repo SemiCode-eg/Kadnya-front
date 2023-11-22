@@ -12,7 +12,7 @@ export default function MiniSide({ tabs }) {
   }
 
   return (
-    <div className="miniSide lg:mr-5 lg:border-r-2 lg:pr-4 h-full">
+    <div className="lg:border-r-2 lg:pr-4 h-full">
       <div className="miniSide-content">
         <ul className="lg:flex gap-3 flex-col hidden">
           {tabs.map((tab, index) => (

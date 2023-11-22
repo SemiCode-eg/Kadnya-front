@@ -32,7 +32,7 @@ function Coaching() {
       navigate('dashboard');
     }
   }, [navigate, location.pathname]);
-  
+
   return (
     <CustomCard>
       <div className="flex lg:flex-row flex-col lg:gap-5 gap-10 mt-5">
@@ -41,9 +41,7 @@ function Coaching() {
             <GoBackBtn />
             <p className="text-sky-950 text-[31px]">Coaching</p>
           </div>
-          <div className="flex-1">
-            <MiniSide tabs={tabs} />
-          </div>
+          <MiniSide tabs={tabs} />
         </div>
         <div className="w-full">
           <Outlet />

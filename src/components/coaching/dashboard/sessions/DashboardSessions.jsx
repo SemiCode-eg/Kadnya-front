@@ -1,11 +1,10 @@
 /* eslint-disable react/prop-types */
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
-import { styled } from '@mui/material';
+import SessionCards from './sessionCard/SessionCards';
+import NoEvent from './NoEvent';
+import SessionsTabs from './SessionsTabs';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -19,8 +18,8 @@ function CustomTabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+        <Box className="!w-full">
+          <div>{children}</div>
         </Box>
       )}
     </div>
@@ -33,12 +32,6 @@ function a11yProps(index) {
     'aria-controls': `simple-tabpanel-${index}`,
   };
 }
-
-const SessionsTabs = styled(Tabs)(() => ({
-  '& .MuiTabs-indicator': {
-    backgroundColor: 'black',
-  },
-}));
 
 function DashboardSessions() {
   const [value, setValue] = useState(0);
@@ -72,42 +65,28 @@ function DashboardSessions() {
   }, [filter]);
 
   return (
-    <div className="flex-[0.75] shadow p-5 rounded-[15px]">
+    <div className="flex-[0.75] shadow-sm p-5 rounded-[15px] border">
       <p className="text-sky-950 text-lg text-left font-semibold mb-5">
         Sessions
       </p>
       <Box sx={{ width: '100%' }}>
-        <Box>
-          <SessionsTabs
-            value={value}
-            onChange={handleChange}
-            aria-label="basic tabs example"
-          >
-            <Tab
-              label="Upcoming"
-              {...a11yProps(0)}
-              className="!opacity-90 hover:!opacity-100 !duration-75 !font-semibold !text-md !capitalize !text-black !p-0"
-            />
-            <Tab
-              label="Past"
-              {...a11yProps(1)}
-              className="!opacity-90 hover:!opacity-100 !duration-75 !font-semibold !text-md !capitalize !text-black !p-0"
-            />
-            <Tab
-              label="Pending"
-              {...a11yProps(2)}
-              className="!opacity-90 hover:!opacity-100 !duration-75 !font-semibold !text-md !capitalize !text-black !p-0"
-            />
-          </SessionsTabs>
-        </Box>
+        <SessionsTabs
+          value={value}
+          handleChange={handleChange}
+          a11yProps={a11yProps}
+        />
         <CustomTabPanel value={value} index={0}>
-          Item One
+          {upcomingSessionsData.length > 0 ? (
+            <SessionCards data={upcomingSessionsData} />
+          ) : (
+            <NoEvent title="upcoming" />
+          )}
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-          Item Two
+          <NoEvent title="past" />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
-          Item Three
+          <NoEvent title="pending" />
         </CustomTabPanel>
       </Box>
     </div>
@@ -115,3 +94,24 @@ function DashboardSessions() {
 }
 
 export default DashboardSessions;
+
+const upcomingSessionsData = [
+  {
+    id: 1,
+    image: 'dsf',
+    userName: 'Mohamed',
+    sessionTitle: 'Session 1',
+    date: '25/10/2020',
+    time: '4:00 PM',
+    coachingType: 'coaching package 1',
+  },
+  {
+    id: 2,
+    image: 'dsf',
+    userName: 'Mohamed',
+    sessionTitle: 'Session 3',
+    date: '25/10/2020',
+    time: '5:00 PM',
+    coachingType: 'coaching package',
+  },
+];
