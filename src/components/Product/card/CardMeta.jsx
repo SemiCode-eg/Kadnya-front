@@ -1,4 +1,4 @@
-import { ArchiveBox, CalendarBlank, Users } from '@phosphor-icons/react';
+import { CalendarBlank, Cards, Users } from '@phosphor-icons/react';
 
 /* eslint-disable react/prop-types */
 export default function CardMeta({
@@ -11,7 +11,7 @@ export default function CardMeta({
       <p className="sm:text-sm text-xs text-sky-950 text-opacity-50 flex gap-2 font-medium items-center">
         {isProgram ? (
           <>
-            <ArchiveBox size={24} weight="bold" /> {date + ' Sessions'}
+            <Cards size={24} weight="bold" /> {date + ' Sessions'}
           </>
         ) : (
           <>
