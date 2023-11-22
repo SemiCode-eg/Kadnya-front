@@ -26,7 +26,7 @@ function CustomTabs({
         value={value}
         onChange={handleChange}
         aria-label="basic tabs example"
-        className="!mb-8"
+        className="!mb-8 !border-b border-b-gray-300"
       >
         {tabs.map((tab) => (
           <Tab
