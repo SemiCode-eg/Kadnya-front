@@ -77,7 +77,11 @@ function EnhancedTableHead({ order, orderBy, onRequestSort, headCells }) {
   );
 }
 
-export default function CustomTable({ rows, headCells }) {
+export default function CustomTable({
+  rows,
+  headCells,
+  title = 'Students Results',
+}) {
   const [order, setOrder] = useState('desc');
   const [orderBy, setOrderBy] = useState('date');
   const [page, setPage] = useState(0);
@@ -124,9 +128,9 @@ export default function CustomTable({ rows, headCells }) {
           variant="h6"
           id="tableTitle"
           component="div"
-          className="text-teal-500"
+          className="text-teal-500 !capitalize"
         >
-          Students Results
+          {title}
         </Typography>
       </Toolbar>
       <TableContainer className="px-4">
