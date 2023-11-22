@@ -10,7 +10,7 @@ const MuiSessionsTabs = styled(Tabs)(() => ({
   },
 }));
 
-function SessionsTabs({ value, handleChange, a11yProps }) {
+function CustomTabs({ value, handleChange, a11yProps }) {
   return (
     <Box>
       <MuiSessionsTabs
@@ -39,4 +39,4 @@ function SessionsTabs({ value, handleChange, a11yProps }) {
   );
 }
 
-export default SessionsTabs;
+export default CustomTabs;

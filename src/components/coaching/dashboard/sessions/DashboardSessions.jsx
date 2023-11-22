@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import { useEffect, useState } from 'react';
 import SessionCards from './sessionCard/SessionCards';
 import NoEvent from './NoEvent';
-import SessionsTabs from './SessionsTabs';
+import CustomTabs from '../../../customTabs/CustomTabs';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -70,7 +70,7 @@ function DashboardSessions() {
         Sessions
       </p>
       <Box sx={{ width: '100%' }}>
-        <SessionsTabs
+        <CustomTabs
           value={value}
           handleChange={handleChange}
           a11yProps={a11yProps}
