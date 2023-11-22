@@ -80,14 +80,14 @@ function CoachingClients() {
         {rows.length > 0 ? (
           <CustomTable rows={rows} headCells={headCells} title="your clients" />
         ) : (
-          <p className="text-teal-500 font-bold text-xl flex justify-center items-center h-full">
-            There is no active clients.
+          <p className="mt-10 text-center text-neutral-500 text-lg italic">
+            No active clients.
           </p>
         )}
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <p className="text-teal-500 font-bold text-xl flex justify-center items-center h-full">
-          There is no past clients.
+        <p className="mt-10 text-center text-neutral-500 text-lg italic">
+          No past clients.
         </p>
       </CustomTabPanel>
     </Box>
