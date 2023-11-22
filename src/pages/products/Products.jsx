@@ -1,10 +1,10 @@
 import MiniSide from "../../components/miniSide/MiniSide";
 import AllProducts from "./allProducts/AllProducts";
 import Courses from "./courses/Courses";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import SearchInput from "../../components/SearchInput";
 import CustomCard from "../../components/customCard/CustomCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const tabs = [
 	{
@@ -19,10 +19,18 @@ const tabs = [
 export default function Products() {
 	const [searchData, setSearchData] = useState(null);
 	const [searchLoading, setSearchLoading] = useState(false);
+	const navigate = useNavigate();
+	const location = useLocation();
 
 	const handleSearchLoading = (newValue) => {
 		setSearchLoading(newValue);
 	};
+
+  useEffect(() => {
+    if (location.pathname === '/products') {
+      navigate('all');
+    }
+  }, [navigate, location.pathname]);
 
 	return (
 		<CustomCard

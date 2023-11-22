@@ -1,7 +1,8 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import CustomCard from '../../components/customCard/CustomCard';
 import GoBackBtn from '../../components/goBackBtn/GoBackBtn';
 import MiniSide from '../../components/miniSide/MiniSide';
+import { useEffect } from 'react';
 
 const tabs = [
   {
@@ -23,6 +24,15 @@ const tabs = [
 ];
 
 function Coaching() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === '/products/coaching') {
+      navigate('dashboard');
+    }
+  }, [navigate, location.pathname]);
+  
   return (
     <CustomCard>
       <div className="flex lg:flex-row flex-col lg:gap-5 gap-10 mt-5">
