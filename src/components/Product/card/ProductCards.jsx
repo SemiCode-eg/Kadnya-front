@@ -1,5 +1,6 @@
 import { Pagination } from '@mui/material';
 import ProductCard from './ProductCard';
+import { deleteCourse } from '../../../utils/ApiCalls';
 
 /* eslint-disable react/prop-types */
 export default function ProductCards({
@@ -22,6 +23,7 @@ export default function ProductCards({
             date={item.ReleaseDate}
             subscribersCount={item.clients.length}
             targerCousesRefetch={targerCousesRefetch}
+            endPointDelete={deleteCourse}
           />
         ))}
       </ul>
