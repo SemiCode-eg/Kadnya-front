@@ -11,12 +11,15 @@ import Outline from './pages/course/outline/Outline';
 import EditLesson from './pages/course/editLesson/EditLesson';
 import CertificateTab from './pages/course/certificateTab/CertificateTab';
 import SittingsTab from './pages/course/sittingsTab/SittingsTab';
-import Questions from './pages/course/questions/Questions';
-import Results from './pages/course/results/Results';
 import Quiz from './pages/quiz/Quiz.jsx';
 import AddQuiz from './pages/quiz/addQuiz/AddQuiz.jsx';
 import QuizSittings from './pages/quiz/quizSittings/QuizSittings.jsx';
 import QuizResults from './pages/quiz/quizResults/QuizResults.jsx';
+import Coaching from './pages/coaching/Coaching.jsx';
+import CoachingDashboard from './pages/coaching/coachingDashboard/CoachingDashboard.jsx';
+import CoachingPrograms from './pages/coaching/coachingPrograms/CoachingPrograms.jsx';
+import CoachingClients from './pages/coaching/coachingClients/CoachingClients.jsx';
+import CoachingSittings from './pages/coaching/coachingSittings/CoachingSittings.jsx';
 
 const router = createBrowserRouter([
   {
@@ -37,7 +40,6 @@ const router = createBrowserRouter([
         children: [
           { path: 'all', element: <AllProducts /> },
           { path: 'courses', element: <Courses /> },
-          { path: 'coaching', element: <h1>Caoching</h1> },
         ],
       },
       {
@@ -47,8 +49,6 @@ const router = createBrowserRouter([
           { path: 'outline', element: <Outline /> },
           { path: 'certificate', element: <CertificateTab /> },
           { path: 'sittings', element: <SittingsTab /> },
-          { path: 'questions', element: <Questions /> },
-          { path: 'results', element: <Results /> },
         ],
       },
       {
@@ -71,6 +71,16 @@ const router = createBrowserRouter([
             path: 'results',
             element: <QuizResults />,
           },
+        ],
+      },
+      {
+        path: 'products/coaching',
+        element: <Coaching />,
+        children: [
+          { path: 'dashboard', element: <CoachingDashboard /> },
+          { path: 'programs', element: <CoachingPrograms /> },
+          { path: 'clients', element: <CoachingClients /> },
+          { path: 'sittings', element: <CoachingSittings /> },
         ],
       },
       { path: 'website', element: <Website /> },
