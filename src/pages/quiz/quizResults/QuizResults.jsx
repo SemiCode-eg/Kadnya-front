@@ -1,4 +1,4 @@
-import ResultsTable from '../../../components/quiz/resultsTable/ResultsTable';
+import CustomTable from '../../../components/customTable/CustomTable';
 
 function createData(id, name, email, date, result) {
   const [day, month, year] = date.split('/');
@@ -13,6 +13,33 @@ function createData(id, name, email, date, result) {
   };
 }
 
+const headCells = [
+  {
+    id: 'name',
+    numeric: false,
+    disablePadding: true,
+    label: 'Name',
+  },
+  {
+    id: 'email',
+    numeric: false,
+    disablePadding: false,
+    label: 'Email',
+  },
+  {
+    id: 'date',
+    numeric: false,
+    disablePadding: false,
+    label: 'Date',
+  },
+  {
+    id: 'result',
+    numeric: true,
+    disablePadding: false,
+    label: 'Result',
+  },
+];
+
 const rows = [
   createData(1, 'name1', 'email@email.com', '19/1/2020', 67),
   createData(2, 'name2', 'email@email.com', '19/1/2021', 51),
@@ -25,10 +52,12 @@ const rows = [
 
 function QuizResults() {
   return rows.length > 0 ? (
-    <ResultsTable rows={rows} />
+    <CustomTable rows={rows} headCells={headCells} />
   ) : (
     <div>
-      <p className="text-teal-500 font-bold text-xl mt-10">No results to show</p>
+      <p className="text-teal-500 font-bold text-xl mt-10">
+        No results to show
+      </p>
       <p className="text-sm">
         Once your quiz is published, return here to view the results.
       </p>

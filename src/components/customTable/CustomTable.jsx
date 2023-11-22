@@ -43,34 +43,7 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-const headCells = [
-  {
-    id: 'name',
-    numeric: false,
-    disablePadding: true,
-    label: 'Name',
-  },
-  {
-    id: 'email',
-    numeric: false,
-    disablePadding: false,
-    label: 'Email',
-  },
-  {
-    id: 'date',
-    numeric: false,
-    disablePadding: false,
-    label: 'Date',
-  },
-  {
-    id: 'result',
-    numeric: true,
-    disablePadding: false,
-    label: 'Result',
-  },
-];
-
-function EnhancedTableHead({ order, orderBy, onRequestSort }) {
+function EnhancedTableHead({ order, orderBy, onRequestSort, headCells }) {
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -104,7 +77,7 @@ function EnhancedTableHead({ order, orderBy, onRequestSort }) {
   );
 }
 
-export default function ResultsTable({ rows }) {
+export default function CustomTable({ rows, headCells }) {
   const [order, setOrder] = useState('desc');
   const [orderBy, setOrderBy] = useState('date');
   const [page, setPage] = useState(0);
@@ -162,6 +135,7 @@ export default function ResultsTable({ rows }) {
             order={order}
             orderBy={orderBy}
             onRequestSort={handleRequestSort}
+            headCells={headCells}
           />
           <TableBody>
             {visibleRows.map((row, index) => {
