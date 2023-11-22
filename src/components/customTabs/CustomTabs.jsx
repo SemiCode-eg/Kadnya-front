@@ -10,7 +10,16 @@ const MuiSessionsTabs = styled(Tabs)(() => ({
   },
 }));
 
-function CustomTabs({ value, handleChange, a11yProps }) {
+function CustomTabs({
+  value,
+  handleChange,
+  a11yProps,
+  tabs = [
+    { id: 0, label: 'Upcoming' },
+    { id: 1, label: 'Past' },
+    { id: 2, label: 'Pending' },
+  ],
+}) {
   return (
     <Box>
       <MuiSessionsTabs
@@ -19,21 +28,14 @@ function CustomTabs({ value, handleChange, a11yProps }) {
         aria-label="basic tabs example"
         className="!mb-8"
       >
-        <Tab
-          label="Upcoming"
-          {...a11yProps(0)}
-          className="!opacity-90 hover:!opacity-100 !duration-75 !font-semibold !text-md !capitalize !text-black !p-0"
-        />
-        <Tab
-          label="Past"
-          {...a11yProps(1)}
-          className="!opacity-90 hover:!opacity-100 !duration-75 !font-semibold !text-md !capitalize !text-black !p-0"
-        />
-        <Tab
-          label="Pending"
-          {...a11yProps(2)}
-          className="!opacity-90 hover:!opacity-100 !duration-75 !font-semibold !text-md !capitalize !text-black !p-0"
-        />
+        {tabs.map((tab) => (
+          <Tab
+            key={tab.id}
+            label={tab.label}
+            {...a11yProps(tab.id)}
+            className="!opacity-90 hover:!opacity-100 !duration-75 !font-semibold !text-md !capitalize !text-black !p-0"
+          />
+        ))}
       </MuiSessionsTabs>
     </Box>
   );
