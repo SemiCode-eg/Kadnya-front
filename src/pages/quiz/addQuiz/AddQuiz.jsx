@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import HandleErrorLoad from "../../../components/handleErrorLoad";
 import useQuiz from "../../../hooks/use-quiz";
 import AddedQuestions from "./AddedQuestions";
@@ -6,15 +7,21 @@ import { useParams } from "react-router-dom";
 
 function AddQuiz() {
 	const { id } = useParams();
-	const { quizData, loading, errorMsg } = useQuiz(id);
+	const { quizData, loading, errorMsg, refreshData } = useQuiz(id);
+
+	const handleAddQuestion = (questionData) => {
+		// TODO handle send question data to API
+		refreshData();
+	};
 
 	return (
-		<div className="border-[1.5px] border-[#ddd] rounded-[10px] p-6">
-			<HandleErrorLoad errorMsg={errorMsg} loading={loading}>
-				<AddedQuestions quizData={quizData} />
-				<CurrentAddingQuestion />
-			</HandleErrorLoad>
-		</div>
+		<HandleErrorLoad errorMsg={errorMsg} loading={loading}>
+			<Typography variant="h4" textAlign="start" gutterBottom>
+				Questions
+			</Typography>
+			{quizData?.length !== 0 ?? <AddedQuestions quizData={quizData} />}
+			<CurrentAddingQuestion onAddQuestion={handleAddQuestion} />
+		</HandleErrorLoad>
 	);
 }
 
