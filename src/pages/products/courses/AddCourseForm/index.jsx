@@ -147,7 +147,7 @@ export default function AddCouseForm({ open, onClose, targerCousesRefetch }) {
 		if (!formData.title)
 			return dispatchFormData({ type: "setError", payload: titleInputErrMsg });
 		if (!formData.description)
-			return dispatchFormData({ type: "setError", patload: descInputErrMsg });
+			return dispatchFormData({ type: "setError", payload: descInputErrMsg });
 		if (!formData.image)
 			return dispatchFormData({ type: "setError", payload: imgInputErrMsg });
 
