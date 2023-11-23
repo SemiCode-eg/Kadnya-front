@@ -50,12 +50,13 @@ export default function ProductCard({
         <div className="sm:w-1/4 w-full">
           <CardImage image={image} />
         </div>
+
         <div className="flex sm:gap-2 gap-3 items-center flex-wrap sm:w-3/4 w-full sm:px-0 px-1">
-          <div className="flex flex-col items-start sm:w-2/6 w-full text-left">
+          <div className="flex flex-col items-start sm:w-2/6 w-full text-left flex-1">
             <CardMain title={title} category={category} />
           </div>
 
-          <div className="sm:w-2/6 w-2/3 text-left">
+          <div className="sm:w-2/6 w-2/3 text-left flex-1">
             <CardMeta date={date} isProgram={isProgram} subscribersCount={subscribersCount} />
           </div>
 
