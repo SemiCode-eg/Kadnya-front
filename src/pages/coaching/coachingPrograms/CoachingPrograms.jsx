@@ -20,7 +20,7 @@ function CoachingPrograms() {
         handleLoading={handleSearchLoading}
         placeholder="Search for program"
       />
-      <section className="px-3 sm:py-4 pb-6">
+      <section className="px-3 pb-6">
         <ProgramsHead count={programs.length} />
         <ProgramsCards data={programs} setRefetch={setRefetch} />
       </section>
