@@ -14,10 +14,6 @@ const tabs = [
     path: 'programs',
   },
   {
-    title: 'Clients',
-    path: 'clients',
-  },
-  {
     title: 'Sittings',
     path: 'sittings',
   },
