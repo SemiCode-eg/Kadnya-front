@@ -32,7 +32,7 @@ export default CoachingPrograms;
 
 const programs = [
   {
-    id: 0,
+    id: 1,
     image:
       'https://t3.ftcdn.net/jpg/00/92/53/56/240_F_92535664_IvFsQeHjBzfE6sD4VHdO8u5OHUSc6yHF.jpg',
     title: 'Dummy Program 1',
@@ -41,7 +41,7 @@ const programs = [
     subscribersCount: 10,
   },
   {
-    id: 1,
+    id: 2,
     image:
       'https://t3.ftcdn.net/jpg/00/92/53/56/240_F_92535664_IvFsQeHjBzfE6sD4VHdO8u5OHUSc6yHF.jpg',
     title: 'Dummy Program 2',
@@ -50,7 +50,7 @@ const programs = [
     subscribersCount: 20,
   },
   {
-    id: 2,
+    id: 3,
     image:
       'https://t3.ftcdn.net/jpg/00/92/53/56/240_F_92535664_IvFsQeHjBzfE6sD4VHdO8u5OHUSc6yHF.jpg',
     title: 'Dummy Program 3',

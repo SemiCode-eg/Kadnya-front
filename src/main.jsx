@@ -18,8 +18,9 @@ import QuizResults from './pages/quiz/quizResults/QuizResults.jsx';
 import Coaching from './pages/coaching/Coaching.jsx';
 import CoachingDashboard from './pages/coaching/coachingDashboard/CoachingDashboard.jsx';
 import CoachingPrograms from './pages/coaching/coachingPrograms/CoachingPrograms.jsx';
-import CoachingClients from './pages/coaching/coachingClients/CoachingClients.jsx';
 import CoachingSittings from './pages/coaching/coachingSittings/CoachingSittings.jsx';
+import CoachPrograms from './pages/coachPrograms/CoachPrograms.jsx';
+import ProgramClients from './pages/coachPrograms/programClients/ProgramClients.jsx';
 
 const router = createBrowserRouter([
   {
@@ -59,18 +60,9 @@ const router = createBrowserRouter([
         path: 'products/courses/:id/quiz',
         element: <Quiz />,
         children: [
-          {
-            path: 'add',
-            element: <AddQuiz />,
-          },
-          {
-            path: 'settings',
-            element: <QuizSittings />,
-          },
-          {
-            path: 'results',
-            element: <QuizResults />,
-          },
+          { path: 'add', element: <AddQuiz /> },
+          { path: 'settings', element: <QuizSittings /> },
+          { path: 'results', element: <QuizResults /> },
         ],
       },
       {
@@ -79,8 +71,15 @@ const router = createBrowserRouter([
         children: [
           { path: 'dashboard', element: <CoachingDashboard /> },
           { path: 'programs', element: <CoachingPrograms /> },
-          { path: 'clients', element: <CoachingClients /> },
           { path: 'sittings', element: <CoachingSittings /> },
+        ],
+      },
+      {
+        path: 'products/coaching_programs/:programID',
+        element: <CoachPrograms />,
+        children: [
+          { index: true, element: <ProgramClients /> },
+          { path: 'clients', element: <ProgramClients /> },
         ],
       },
       { path: 'website', element: <Website /> },

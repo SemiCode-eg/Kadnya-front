@@ -45,7 +45,7 @@ function createData(id, name, email, date, progress) {
   };
 }
 
-function CoachingClients() {
+function ProgramClients() {
   const [value, setValue] = useState(0);
   const navigate = useNavigate();
 
@@ -94,7 +94,7 @@ function CoachingClients() {
   );
 }
 
-export default CoachingClients;
+export default ProgramClients;
 
 const tabs = [
   { id: 0, label: 'Active' },

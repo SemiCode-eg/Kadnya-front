@@ -1,17 +1,21 @@
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import CustomCard from '../../components/customCard/CustomCard';
 import GoBackBtn from '../../components/goBackBtn/GoBackBtn';
 import MiniSide from '../../components/miniSide/MiniSide';
-import { useEffect } from 'react';
+import ProgramHeader from '../../components/coachPrograms/ProgramHeader';
 
 const tabs = [
   {
-    title: 'Dashboard',
-    path: 'dashboard',
+    title: 'Clients',
+    path: 'clients',
   },
   {
-    title: 'Programs',
-    path: 'programs',
+    title: 'Package outline',
+    path: 'sessions',
+  },
+  {
+    title: 'Offers',
+    path: 'offers',
   },
   {
     title: 'Sittings',
@@ -19,16 +23,7 @@ const tabs = [
   },
 ];
 
-function Coaching() {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  useEffect(() => {
-    if (location.pathname === '/products/coaching') {
-      navigate('dashboard');
-    }
-  }, [navigate, location.pathname]);
-
+function CoachPrograms() {
   return (
     <CustomCard>
       <div className="flex lg:flex-row flex-col lg:gap-5 gap-10 mt-5">
@@ -40,6 +35,7 @@ function Coaching() {
           <MiniSide tabs={tabs} />
         </div>
         <div className="w-full">
+          <ProgramHeader title="Program" ReleaseDate="12/10/2022" />
           <Outlet />
         </div>
       </div>
@@ -47,4 +43,4 @@ function Coaching() {
   );
 }
 
-export default Coaching;
+export default CoachPrograms;
