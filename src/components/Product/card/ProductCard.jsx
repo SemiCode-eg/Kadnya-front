@@ -1,4 +1,4 @@
-import { Link, useResolvedPath } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import SettingMenu from '../../menu';
 import CardImage from './CardImage';
 import CardMain from './CardMain';
@@ -15,13 +15,11 @@ export default function ProductCard({
   subscribersCount,
   targerCousesRefetch = () => {},
   endPointDelete = () => {},
-  path = 'outline',
+  path = '',
   isProgram = false,
 }) {
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [deleteErrorMsg, setDeleteErrorMsg] = useState('');
-
-  const { pathname } = useResolvedPath();
 
   const handleDelete = (id) => {
     setDeleteErrorMsg('');
@@ -44,7 +42,7 @@ export default function ProductCard({
   return (
     <li>
       <Link
-        to={`${pathname}/${id}/${path}`}
+        to={path}
         className="bg-white rounded-lg border border-gray-300 sm:p-2 p-2 pb-3 flex sm:flex-row flex-col gap-5 cursor-pointer hover:bg-teal-100 hover:border-gray-200 duration-200 ease-in-out"
       >
         <div className="sm:w-1/4 w-full">
@@ -57,7 +55,11 @@ export default function ProductCard({
           </div>
 
           <div className="sm:w-2/6 w-2/3 text-left flex-1">
-            <CardMeta date={date} isProgram={isProgram} subscribersCount={subscribersCount} />
+            <CardMeta
+              date={date}
+              isProgram={isProgram}
+              subscribersCount={subscribersCount}
+            />
           </div>
 
           <div className="ml-auto sm:1/6 justify-self-end">

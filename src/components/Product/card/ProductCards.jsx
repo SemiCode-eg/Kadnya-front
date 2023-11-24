@@ -1,6 +1,7 @@
 import { Pagination } from '@mui/material';
 import ProductCard from './ProductCard';
 import { deleteCourse } from '../../../utils/ApiCalls';
+import { useResolvedPath } from 'react-router-dom';
 
 /* eslint-disable react/prop-types */
 export default function ProductCards({
@@ -10,6 +11,8 @@ export default function ProductCards({
   productPerPage = 10,
   targerCousesRefetch = () => {},
 }) {
+  const { pathname } = useResolvedPath();
+
   return (
     <>
       <ul className="flex flex-col gap-6 sm:pr-5 w-full h-[40dvh] overflow-y-scroll overflow-x-hidden">
@@ -24,6 +27,7 @@ export default function ProductCards({
             subscribersCount={item.clients.length}
             targerCousesRefetch={targerCousesRefetch}
             endPointDelete={deleteCourse}
+            path={`${pathname}/${item.id}/outline`}
           />
         ))}
       </ul>

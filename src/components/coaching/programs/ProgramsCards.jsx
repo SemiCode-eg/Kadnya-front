@@ -5,17 +5,17 @@ function ProgramsCards({ data = [], setRefresh = () => {} }) {
   return (
     <>
       <ul className="flex flex-col gap-6 sm:pr-5 w-full h-[40dvh] overflow-y-scroll overflow-x-hidden">
-        {data.map((item) => (
+        {data.map((program) => (
           <ProductCard
-            key={item.id}
-            id={item.id}
-            image={item.image}
-            title={item.title}
-            category={item.programType}
-            date={item.sessions}
-            subscribersCount={item.subscribersCount}
+            key={program.id}
+            id={program.id}
+            image={program.image}
+            title={program.title}
+            category={program.programType}
+            date={program.sessions}
+            subscribersCount={program.subscribersCount}
             targerCousesRefetch={setRefresh}
-            path="clients"
+            path={`/products/coaching_programs/${program.id}`}
             endPointDelete={() => {}}
             isProgram={true}
           />
