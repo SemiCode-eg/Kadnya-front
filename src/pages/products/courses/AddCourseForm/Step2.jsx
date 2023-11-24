@@ -10,6 +10,7 @@ import MainButton from "../../../../components/mainButton/MainButton";
 import { Receipt, ReceiptX } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { getCategories } from "../../../../utils/ApiCalls";
+import PaidMethod from "../../../../components/paidMethod/PaidMethod";
 
 /* eslint-disable react/prop-types */
 export default function Step2({
@@ -54,58 +55,15 @@ export default function Step2({
 								component="label"
 								variant="h6"
 							>
-								Price your cource
+								Price your course
 							</Typography>
 
-							<div className="flex flex-col gap-3">
-								<div className="flex gap-3">
-									<MainButton
-										text="Free"
-										icon={<ReceiptX size={30} />}
-										isForm
-										isPrimary={false}
-										handleClick={() => {
-											onChangePricingType("FREE");
-										}}
-										className={`!rounded-sm text-lg sm:px-8 sm:py-3 !px-5 ${
-											pricingType !== "FREE"
-												? "bg-transparent !text-teal-500 hover:!bg-teal-500 hover:!text-white"
-												: "hover:!text-white hover:!bg-teal-500"
-										}`}
-									/>
-									<MainButton
-										text="Paid"
-										icon={<Receipt size={30} />}
-										isForm
-										isPrimary={false}
-										handleClick={() => {
-											onChangePricingType("PAID");
-										}}
-										className={`!rounded-sm text-lg sm:px-8 sm:py-3 !px-5 ${
-											pricingType !== "PAID"
-												? "bg-transparent !text-teal-500 hover:!bg-teal-500 hover:!text-white"
-												: "hover:!text-white hover:!bg-teal-500"
-										}`}
-									/>
-								</div>
-								{pricingType === "PAID" && (
-									<div className="flex flex-col gap-2">
-										<Typography
-											id="add-course-form-pricing-type"
-											component="label"
-											variant="subtitle1"
-										>
-											Price
-										</Typography>
-										<input
-											type="number"
-											className="border py-4 px-4 outline-none"
-											value={price}
-											onChange={onChangePrice}
-										/>
-									</div>
-								)}
-							</div>
+							<PaidMethod   
+								price={price}
+								onChangePrice={onChangePrice}
+								onChangePricingType={onChangePricingType}
+								pricingType={pricingType}
+							/>
 						</div>
 						<div className="flex flex-col gap-4 w-1/2">
 							<Typography

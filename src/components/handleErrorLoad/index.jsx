@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import Loader from "./Loader";
 
 /* eslint-disable react/prop-types */
-export default function HandleErrorLoad({ loading, errorMsg, children }) {
+export default function HandleErrorLoad({ loading, errorMsg, children, errorReopen = false }) {
 	const [errorOpen, setErrorOpen] = useState(false);
 
 	useEffect(() => {
 		setErrorOpen(errorMsg === "" ? false : true);
-	}, [errorMsg]);
+	}, [errorMsg, errorReopen]);
 
 	const handleClose = () => {
 		setErrorOpen(false);
