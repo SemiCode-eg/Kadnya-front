@@ -17,6 +17,7 @@ export default function ProductCard({
   endPointDelete = () => {},
   path = '',
   isProgram = false,
+  editPath = '',
 }) {
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [deleteErrorMsg, setDeleteErrorMsg] = useState('');
@@ -69,6 +70,8 @@ export default function ProductCard({
               handleDelete={handleDelete}
               deleteErrorMsg={deleteErrorMsg}
               deleteLoading={deleteLoading}
+              previewPath={path}
+              editPath={editPath}
             />
           </div>
         </div>

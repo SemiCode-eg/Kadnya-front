@@ -16,6 +16,7 @@ function ProgramsCards({ data = [], setRefresh = () => {} }) {
             subscribersCount={program.subscribersCount}
             targerCousesRefetch={setRefresh}
             path={`/products/coaching_programs/${program.id}`}
+            editPath={`/products/coaching_programs/${program.id}/sittings`}
             endPointDelete={() => {}}
             isProgram={true}
           />

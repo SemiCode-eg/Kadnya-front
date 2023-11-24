@@ -18,7 +18,9 @@ export default function SettingMenu({
   isPreview = true,
   handleDelete = () => {},
   deleteLoading,
-  deleteErrorMsg
+  deleteErrorMsg,
+  previewPath = '',
+  editPath = '',
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [deleteErrorOpen, setDeleteErrorOpen] = useState(false);
@@ -75,11 +77,11 @@ export default function SettingMenu({
 
     switch (event.target.id) {
       case 'Preview': // preview
-        navigate(`/products/courses/${id}/outline`);
+        navigate(previewPath);
         setAnchorEl(null);
         break;
       case 'Edit': // edit
-        navigate(`/products/courses/${id}/sittings`);
+        navigate(editPath);
         setAnchorEl(null);
         break;
       case 'Manage Comments': // comments
