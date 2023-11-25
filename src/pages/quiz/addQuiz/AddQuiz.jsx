@@ -12,6 +12,7 @@ const errorTypes = {
 };
 
 function AddQuiz() {
+	const [errorReopen, setErrorOpen] = useState(false);
 	const { id } = useParams();
 	const { quizData, loading, errorMsg, refreshData } = useQuiz(id);
 	const [expanded, setExpanded] = useState("NEW");
@@ -38,6 +39,8 @@ function AddQuiz() {
 	};
 
 	const validateQuestion = (questionData) => {
+		setErrorOpen((prev) => !prev);
+		
 		if (questionData.question.trim() === "")
 			return handleQuestionError(
 				errorTypes.question,
@@ -74,6 +77,7 @@ function AddQuiz() {
 		<HandleErrorLoad
 			errorMsg={newQuestion.error !== "" ? newQuestion.error : errorMsg}
 			loading={loading}
+			errorReopen={errorReopen}
 		>
 			<Typography variant="h4" textAlign="start" gutterBottom>
 				Questions
