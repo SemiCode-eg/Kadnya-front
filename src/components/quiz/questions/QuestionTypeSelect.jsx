@@ -1,16 +1,21 @@
+/* eslint-disable react/prop-types */
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
-export default function QuestionTypeSelect() {
+export default function QuestionTypeSelect({ value, onChange }) {
 	return (
 		<FormControl fullWidth>
 			<InputLabel id="question-select-label">Question Type</InputLabel>
 			<Select
 				labelId="question-select-label"
-				// value={age}
+				defaultValue="MCQ"
+				value={value}
 				label="Question Type"
-				// onChange={handleChange}
+				onChange={(event) => onChange(event.target.value)}
+				sx={{ textAlign: "left" }}
 			>
-				<MenuItem value="MCQ">Multiple choice</MenuItem>
+				<MenuItem value="MCQ" sx={{ textAlign: "left" }}>
+					Multiple choice
+				</MenuItem>
 			</Select>
 		</FormControl>
 	);
