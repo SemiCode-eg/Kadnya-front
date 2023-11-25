@@ -1,8 +1,8 @@
-import { FormLabel } from '@mui/material';
-import { formReducerKeys } from './CreateProgramReducer';
-import TextField from '../../../forms/TextField';
-import TextAriaField from '../../../forms/TextAriaField';
-import ImageField from '../../../imageField/ImageField';
+import { FormLabel } from "@mui/material";
+import TextField from "../../../forms/TextField";
+import TextAriaField from "../../../forms/TextAriaField";
+import ImageField from "../../../imageField/ImageField";
+import useProgramReducer from "../../../../hooks/use-program-reducer";
 
 /* eslint-disable react/prop-types */
 function ProgramInfoForm({
@@ -13,37 +13,39 @@ function ProgramInfoForm({
   dispatchFormData,
   isPackage = false,
 }) {
+  const { formReducerKeys } = useProgramReducer();
+
   const handleTitleChange = (value) => {
     dispatchFormData({
-      type: formReducerKeys.setTitle,
+      type: formReducerKeys.SET_TITLE,
       payload: value,
     });
   };
 
   const handleSessionsCountChange = (value) => {
     dispatchFormData({
-      type: formReducerKeys.setSessionsCount,
+      type: formReducerKeys.SET_SESSIONS_COUNT,
       payload: value,
     });
   };
 
   const handleCoachNameChange = (value) => {
     dispatchFormData({
-      type: formReducerKeys.setCoachName,
+      type: formReducerKeys.SET_COACH_NAME,
       payload: value,
     });
   };
 
   const handleDescriptionChange = (value) => {
     dispatchFormData({
-      type: formReducerKeys.setDescription,
+      type: formReducerKeys.SET_DESCRIPTION,
       payload: value,
     });
   };
 
   const handleImageChange = (image) => {
     dispatchFormData({
-      type: formReducerKeys.setImage,
+      type: formReducerKeys.SET_IMAGE,
       payload: image,
     });
   };

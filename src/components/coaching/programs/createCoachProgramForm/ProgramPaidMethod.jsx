@@ -1,15 +1,17 @@
+import useProgramReducer from '../../../../hooks/use-program-reducer';
 import PaidMethod from '../../../paidMethod/PaidMethod';
-import { formReducerKeys } from './CreateProgramReducer';
 
 /* eslint-disable react/prop-types */
 function ProgramPaidMethod({ dispatchFormData, priceValue, pricingTypeValue }) {
+  const { formReducerKeys } = useProgramReducer();
+
   const handlePricingType = (value) => {
-    dispatchFormData({ type: formReducerKeys.setPricingType, payload: value });
+    dispatchFormData({ type: formReducerKeys.SET_PRICING_TYPE, payload: value });
   };
 
   const handlePrice = (event) => {
     dispatchFormData({
-      type: formReducerKeys.setPrice,
+      type: formReducerKeys.SET_PRICE,
       payload: event.target.value,
     });
   };
