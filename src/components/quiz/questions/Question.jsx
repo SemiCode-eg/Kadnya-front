@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
 	Accordion,
 	AccordionDetails,
@@ -7,9 +8,22 @@ import {
 import { CaretDown } from "@phosphor-icons/react";
 import QuestionFrom from "./QuestionFrom";
 
-export default function Question({ expanded, onClick, questionNum }) {
+export default function Question({
+	question = {},
+	onQuestionChange = () => {},
+	titlePrefix = 1,
+	expanded = true,
+	panel,
+	toggleExpand = () => {},
+	onAddQuestion,
+	onUpdateQuestion,
+}) {
 	return (
-		<Accordion expanded={expanded === "panel1"} onChange={onClick("panel1")}>
+		<Accordion
+			expanded={expanded === panel}
+			onChange={toggleExpand}
+			className="px-4"
+		>
 			<AccordionSummary
 				expandIcon={<CaretDown size={24} />}
 				aria-controls="panel1bh-content"
@@ -21,11 +35,16 @@ export default function Question({ expanded, onClick, questionNum }) {
 					textAlign="start"
 					sx={{ width: "33%", flexShrink: 0 }}
 				>
-					Question {questionNum}
+					{titlePrefix} Question
 				</Typography>
 			</AccordionSummary>
 			<AccordionDetails>
-				<QuestionFrom />
+				<QuestionFrom
+					question={question}
+					onQuestionChange={onQuestionChange}
+					onAddQuestion={onAddQuestion}
+					onUpdateQuestion={onUpdateQuestion}
+				/>
 			</AccordionDetails>
 		</Accordion>
 	);
