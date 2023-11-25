@@ -12,10 +12,8 @@ const tabs = [
     path: 'outline',
     content: <Outline />,
   },
-  { title: 'Questions', path: 'questions', content: 'Questions' },
   { title: 'Certificate', path: 'certificate', content: <CertificateTab /> },
   { title: 'Sittings', path: 'sittings', content: <SittingTab /> },
-  { title: 'Results', path: 'results', content: 'Results' },
 ];
 
 function SingleCourse() {

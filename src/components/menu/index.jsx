@@ -10,18 +10,19 @@ import {
 import MenuItems from './MenuItems';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { deleteCourse } from '../../utils/ApiCalls';
 
 /* eslint-disable react/prop-types */
 export default function SettingMenu({
   buttonIcon = <DotsThreeOutlineVertical size={28} />,
   id,
-  setRefetch = () => {},
   isPreview = true,
+  handleDelete = () => {},
+  deleteLoading,
+  deleteErrorMsg,
+  previewPath = '',
+  editPath = '',
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [deleteLoading, setDeleteLoading] = useState(false);
-  const [deleteErrorMsg, setDeleteErrorMsg] = useState('');
   const [deleteErrorOpen, setDeleteErrorOpen] = useState(false);
 
   const open = Boolean(anchorEl);
@@ -76,11 +77,11 @@ export default function SettingMenu({
 
     switch (event.target.id) {
       case 'Preview': // preview
-        navigate(`/products/courses/${id}/outline`);
+        navigate(previewPath);
         setAnchorEl(null);
         break;
       case 'Edit': // edit
-        navigate(`/products/courses/${id}/sittings`);
+        navigate(editPath);
         setAnchorEl(null);
         break;
       case 'Manage Comments': // comments
@@ -90,37 +91,13 @@ export default function SettingMenu({
         setAnchorEl(null);
         break;
       case 'Delete': // delete
-        handleDeleteCourse(id);
+        handleDelete(id);
         break;
       default:
         setAnchorEl(null);
         break;
     }
   };
-
-  const handleDeleteCourse = (id) => {
-    setDeleteErrorMsg('');
-    setDeleteLoading(true);
-
-    deleteCourse(id).then((data) => {
-      setDeleteLoading(false);
-      if (
-        !data.request ||
-        data.request.status === 200 ||
-        data.request.status === 204
-      ) {
-        if (!isPreview) {
-          navigate(`/products/courses`);
-        } else {
-          setRefetch((prev) => !prev);
-          setAnchorEl(null);
-        }
-      } else {
-        setDeleteErrorMsg('Server error, try again later!');
-      }
-    });
-  };
-
   useEffect(() => {
     setDeleteErrorOpen(deleteErrorMsg === '' ? false : true);
   }, [deleteErrorMsg]);

@@ -18,6 +18,7 @@ import AddSubmodule from '../../pages/course/addForms/AddSubmodule';
 import AddLesson from '../../pages/course/addForms/AddLesson';
 import SettingMenu from '../menu';
 import { useNavigate } from 'react-router-dom';
+import { deleteCourse } from '../../utils/ApiCalls';
 
 const MUIMenu = styled(Menu)(() => ({
   '& .MuiList-root': {
@@ -61,6 +62,8 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
   const [openLessonForm, setOpenLessonForm] = useState(false);
   const [openQuizForm, setOpenQuizForm] = useState(false);
   const [successSubmit, setSuccessSubmit] = useState('');
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [deleteErrorMsg, setDeleteErrorMsg] = useState('');
 
   const navigate = useNavigate();
 
@@ -164,12 +167,27 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
     }
   };
 
+  const handleDeleteCourse = (id) => {
+    setDeleteErrorMsg('');
+    setDeleteLoading(true);
+
+    deleteCourse(id).then((data) => {
+      console.log(data);
+      setDeleteLoading(false);
+      if (data.request.status === 200 || data.status === 204) {
+        navigate(`/products/courses`);
+      } else {
+        setDeleteErrorMsg('Server error, try again later!');
+      }
+    });
+  };
+
   return (
     <>
       {previewedForm()}
       <div className="mb-2 flex gap-5 flex-col lg:flex-row">
         <div className="flex justify-between gap-[35px] flex-1 flex-col lg:flex-row flex-wrap">
-        <div className="flex items-center flex-col sm:flex-row gap-[20px] flex-1">
+          <div className="flex items-center flex-col sm:flex-row gap-[20px] flex-1">
             <div className="w-[140px] h-[114px] bg-white rounded-[10px] shadow-1">
               <img
                 src={courseData?.image ? courseData?.image : imageSquare}
@@ -192,8 +210,10 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
               <SettingMenu
                 id={courseData?.id}
                 buttonIcon={<DotsThree size={35} weight="bold" />}
-                setRefetch={setRefetch}
                 isPreview={false}
+                handleDelete={handleDeleteCourse}
+                deleteErrorMsg={deleteErrorMsg}
+                deleteLoading={deleteLoading}
               />
               <MainButton
                 text="Add Content"
