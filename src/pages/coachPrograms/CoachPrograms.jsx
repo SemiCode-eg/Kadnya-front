@@ -14,10 +14,6 @@ const tabs = [
     path: 'sessions',
   },
   {
-    title: 'Offers',
-    path: 'offers',
-  },
-  {
     title: 'Sittings',
     path: 'sittings',
   },
