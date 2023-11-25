@@ -1,8 +1,8 @@
 import { FormLabel } from '@mui/material';
 import SortSelect from '../../../SortSelect';
 import { useState } from 'react';
-import { formReducerKeys } from './CreateProgramReducer';
 import TextField from '../../../forms/TextField';
+import useProgramReducer from '../../../../hooks/use-program-reducer';
 
 /* eslint-disable react/prop-types */
 function ProgramTimeLocationForm({
@@ -14,18 +14,19 @@ function ProgramTimeLocationForm({
 }) {
   const [scheduleSortKey, setScheduleSortKey] = useState(scheduleTypeValue);
   const [durationSortKey, setDurationSortKey] = useState(durationValue);
+  const { formReducerKeys } = useProgramReducer();
 
   const handleScheduleTypeChange = (value) => {
     setScheduleSortKey(value);
     dispatchFormData({
-      type: formReducerKeys.setScheduleType,
+      type: formReducerKeys.SET_SCHEDULE_TYPE,
       payload: value,
     });
   };
 
   const handleLocationChange = (value) => {
     dispatchFormData({
-      type: formReducerKeys.setLocation,
+      type: formReducerKeys.SET_LOCATION,
       payload: value,
     });
   };
@@ -33,14 +34,14 @@ function ProgramTimeLocationForm({
   const handleDurationChange = (value) => {
     setDurationSortKey(value);
     dispatchFormData({
-      type: formReducerKeys.setDuration,
+      type: formReducerKeys.SET_DURATION,
       payload: value,
     });
   };
 
   const handleScheduleURLChange = (value) => {
     dispatchFormData({
-      type: formReducerKeys.setScheduleURL,
+      type: formReducerKeys.SET_SCHEDULE_URL,
       payload: value,
     });
   };

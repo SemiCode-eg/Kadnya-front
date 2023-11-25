@@ -1,17 +1,13 @@
-import { useReducer, useState } from 'react';
-import CustomModal from '../../../customModal';
-import MainButton from '../../../mainButton/MainButton';
-import AddCoursePreview from '../../../../pages/products/courses/AddCourseForm/Preview';
-import {
-  ProgramFormInitialState,
-  createProgramReducer,
-  formReducerKeys,
-} from './CreateProgramReducer';
-import SessionType from './SessionType';
-import HandleErrorLoad from '../../../../components/handleErrorLoad/index';
-import ProgramInfoForm from './ProgramInfoForm';
-import ProgramTimeLocationForm from './ProgramTimeLocationForm';
-import ProgramPaidMethod from './ProgramPaidMethod';
+import { useState } from "react";
+import CustomModal from "../../../customModal";
+import MainButton from "../../../mainButton/MainButton";
+import AddCoursePreview from "../../../../pages/products/courses/AddCourseForm/Preview";
+import SessionType from "./SessionType";
+import HandleErrorLoad from "../../../../components/handleErrorLoad/index";
+import ProgramInfoForm from "./ProgramInfoForm";
+import ProgramTimeLocationForm from "./ProgramTimeLocationForm";
+import ProgramPaidMethod from "./ProgramPaidMethod";
+import useProgramReducer from "../../../../hooks/use-program-reducer";
 
 const maxSteps = 4;
 
@@ -19,22 +15,22 @@ const validateStep = (step, formData) => {
   switch (step) {
     case 2:
       if (isEmpty(formData.title)) {
-        return 'Title is required';
+        return "Title is required";
       } else if (isEmpty(formData.description)) {
-        return 'Description is required';
+        return "Description is required";
       } else if (!formData.image) {
-        return 'Image is required';
+        return "Image is required";
       }
       break;
     case 3:
-      if (formData.scheduleType === 'WEBSITE' && isEmpty(formData.location)) {
-        return 'Location is required';
+      if (formData.scheduleType === "WEBSITE" && isEmpty(formData.location)) {
+        return "Location is required";
       }
-      if (formData.scheduleType === 'LINK') {
+      if (formData.scheduleType === "LINK") {
         if (isEmpty(formData.scheduleURL)) {
-          return 'Schedule URL is required';
+          return "Schedule URL is required";
         } else if (!isValidUrl(formData.scheduleURL)) {
-          return 'Enter a valid URL';
+          return "Enter a valid URL";
         }
       }
       break;
@@ -45,7 +41,7 @@ const validateStep = (step, formData) => {
 };
 
 const isEmpty = (target) => {
-  return target === '';
+  return target === "";
 };
 
 function isValidUrl(url) {
@@ -59,23 +55,21 @@ function CreateCoachProgramForm({ onClose, open, targetRefetch = () => {} }) {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [errorReopen, setErrorReopen] = useState(false);
-  const [formData, dispatchFormData] = useReducer(
-    createProgramReducer,
-    ProgramFormInitialState
-  );
+  const { programData, dispatchFormData, formReducerKeys } =
+    useProgramReducer();
 
   const handleGoBack = () => {
     setStep((step) => --step);
   };
 
   const handleContinue = () => {
-    dispatchFormData({ type: formReducerKeys.setError, payload: '' });
+    dispatchFormData({ type: formReducerKeys.SET_ERROR, payload: "" });
     setErrorReopen((prev) => !prev);
 
-    const validationError = validateStep(step, formData);
+    const validationError = validateStep(step, programData);
     if (validationError) {
       dispatchFormData({
-        type: formReducerKeys.setError,
+        type: formReducerKeys.SET_ERROR,
         payload: validationError,
       });
     } else {
@@ -89,7 +83,7 @@ function CreateCoachProgramForm({ onClose, open, targetRefetch = () => {} }) {
   };
 
   const resetForm = () => {
-    dispatchFormData({ type: formReducerKeys.reset });
+    dispatchFormData({ type: formReducerKeys.RESET });
     setStep(1);
   };
 
@@ -97,7 +91,7 @@ function CreateCoachProgramForm({ onClose, open, targetRefetch = () => {} }) {
     e.preventDefault();
     setLoading(true);
 
-    console.log("Form Data:", formData);
+    console.log("Form Data:", programData);
 
     resetForm();
     setLoading(false);
@@ -110,30 +104,30 @@ function CreateCoachProgramForm({ onClose, open, targetRefetch = () => {} }) {
       case 2:
         return (
           <ProgramInfoForm
-            titleValue={formData.title}
-            descriptionValue={formData.description}
-            coachNameValue={formData.coachName}
-            sessionsCountValue={formData.sessionsCount}
+            titleValue={programData.title}
+            descriptionValue={programData.description}
+            coachNameValue={programData.coachName}
+            sessionsCountValue={programData.sessionsCount}
             dispatchFormData={dispatchFormData}
-            isPackage={formData.sessionType === 'SINGLE' ? false : true}
+            isPackage={programData.sessionType === "SINGLE" ? false : true}
           />
         );
       case 3:
         return (
           <ProgramTimeLocationForm
             dispatchFormData={dispatchFormData}
-            scheduleTypeValue={formData.scheduleType}
-            scheduleURLValue={formData.scheduleURL}
-            durationValue={formData.duration}
-            locationValue={formData.location}
+            scheduleTypeValue={programData.scheduleType}
+            scheduleURLValue={programData.scheduleURL}
+            durationValue={programData.duration}
+            locationValue={programData.location}
           />
         );
       case 4:
         return (
           <ProgramPaidMethod
             dispatchFormData={dispatchFormData}
-            priceValue={formData.price}
-            pricingTypeValue={formData.pricingType}
+            priceValue={programData.price}
+            pricingTypeValue={programData.pricingType}
           />
         );
       default:
@@ -153,7 +147,7 @@ function CreateCoachProgramForm({ onClose, open, targetRefetch = () => {} }) {
     >
       <HandleErrorLoad
         loading={loading}
-        errorMsg={formData.error}
+        errorMsg={programData.error}
         errorReopen={errorReopen}
       >
         <form
@@ -163,8 +157,8 @@ function CreateCoachProgramForm({ onClose, open, targetRefetch = () => {} }) {
           {step > 1 && (
             <>
               <AddCoursePreview
-                title={formData.title}
-                description={formData.description}
+                title={programData.title}
+                description={programData.description}
                 backgroundColor="#F66A82"
               />
               {renderStepContent()}
@@ -174,14 +168,14 @@ function CreateCoachProgramForm({ onClose, open, targetRefetch = () => {} }) {
           {step === 1 && (
             <>
               <SessionType
-                selectedValue={formData.sessionType}
-                reducerType={formReducerKeys.setSessionType}
+                selectedValue={programData.sessionType}
+                reducerType={formReducerKeys.SET_SESSION_TYPE}
                 dispatchFormData={dispatchFormData}
               />
 
               <AddCoursePreview
-                title={formData.title}
-                description={formData.description}
+                title={programData.title}
+                description={programData.description}
                 backgroundColor="#F66A82"
               />
             </>
@@ -191,9 +185,9 @@ function CreateCoachProgramForm({ onClose, open, targetRefetch = () => {} }) {
             text={
               step === maxSteps
                 ? loading
-                  ? 'Submitting...'
-                  : 'Finish'
-                : 'Continue'
+                  ? "Submitting..."
+                  : "Finish"
+                : "Continue"
             }
             className="sm:!px-28 !px-16"
             handleClick={step === maxSteps ? handleSubmit : handleContinue}
