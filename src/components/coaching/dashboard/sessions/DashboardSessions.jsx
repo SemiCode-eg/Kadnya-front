@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
-import { useLocation, useNavigate } from 'react-router-dom';
-import Box from '@mui/material/Box';
-import { useEffect, useState } from 'react';
-import SessionCards from './sessionCard/SessionCards';
-import NoEvent from './NoEvent';
-import CustomTabs from '../../../customTabs/CustomTabs';
+import { useLocation, useNavigate } from 'react-router-dom'
+import Box from '@mui/material/Box'
+import { useEffect, useState } from 'react'
+import SessionCards from './sessionCard/SessionCards'
+import NoEvent from './NoEvent'
+import CustomTabs from '../../../customTabs/CustomTabs'
 
 function CustomTabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const { children, value, index, ...other } = props
 
   return (
     <div
@@ -23,46 +23,46 @@ function CustomTabPanel(props) {
         </Box>
       )}
     </div>
-  );
+  )
 }
 
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
     'aria-controls': `simple-tabpanel-${index}`,
-  };
+  }
 }
 
 function DashboardSessions() {
-  const [value, setValue] = useState(0);
-  const navigate = useNavigate();
+  const [value, setValue] = useState(0)
+  const navigate = useNavigate()
 
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const filter = queryParams.get('filter');
+  const location = useLocation()
+  const queryParams = new URLSearchParams(location.search)
+  const filter = queryParams.get('filter')
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    setValue(newValue)
     navigate(
       newValue === 0
         ? '?filter=upcoming'
         : newValue === 1
-        ? '?filter=past'
-        : '?filter=pending'
-    );
-  };
+          ? '?filter=past'
+          : '?filter=pending',
+    )
+  }
 
   useEffect(() => {
     if (filter === 'upcoming') {
-      setValue(0);
+      setValue(0)
     } else if (filter === 'past') {
-      setValue(1);
+      setValue(1)
     } else if (filter === 'pending') {
-      setValue(2);
+      setValue(2)
     } else {
-      setValue(0);
+      setValue(0)
     }
-  }, [filter]);
+  }, [filter])
 
   return (
     <div className="flex-[0.75] shadow-sm p-5 rounded-[15px] border">
@@ -90,10 +90,10 @@ function DashboardSessions() {
         </CustomTabPanel>
       </Box>
     </div>
-  );
+  )
 }
 
-export default DashboardSessions;
+export default DashboardSessions
 
 const upcomingSessionsData = [
   {
@@ -114,4 +114,4 @@ const upcomingSessionsData = [
     time: '5:00 PM',
     coachingType: 'coaching package',
   },
-];
+]

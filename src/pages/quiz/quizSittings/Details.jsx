@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import { FormLabel } from '@mui/material';
-import TextField from '../../../components/forms/TextField';
-import TextAriaField from '../../../components/forms/TextAriaField';
-import ImageField from '../../../components/imageField/ImageField';
+import { FormLabel } from '@mui/material'
+import TextField from '../../../components/forms/TextField'
+import TextAriaField from '../../../components/forms/TextAriaField'
+import ImageField from '../../../components/imageField/ImageField'
 
 function Details({
   title,
@@ -29,11 +29,11 @@ function Details({
           <TextField
             placeholder="Title"
             value={title}
-            handleChange={(e) => {
-              setTitle(e.target.value);
-              setTitleErrorMsg('');
+            handleChange={e => {
+              setTitle(e.target.value)
+              setTitleErrorMsg('')
             }}
-            className='!text-sm'
+            className="!text-sm"
           />
           {titleErrorMsg && <div className="text-red-500">{titleErrorMsg}</div>}
         </div>
@@ -44,11 +44,11 @@ function Details({
           <TextAriaField
             value={description}
             placeholder="Add a description..."
-            handleChange={(e) => {
-              setDescription(e.target.value);
-              setDescriptionErrorMsg('');
+            handleChange={e => {
+              setDescription(e.target.value)
+              setDescriptionErrorMsg('')
             }}
-            className='!text-sm'
+            className="!text-sm"
           />
           {descriptionErrorMsg && (
             <p className="text-red-500">{descriptionErrorMsg}</p>
@@ -60,7 +60,7 @@ function Details({
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Details;
+export default Details

@@ -1,110 +1,110 @@
 /* eslint-disable react/prop-types */
-import { useState, useRef } from 'react';
-import CustomModal from '../../customModal';
-import { FormLabel } from '@mui/material';
-import api from '../../../utils/ApiUrl';
-import { FolderOpen } from '@phosphor-icons/react';
-import MainButton from '../../mainButton/MainButton';
-import { CancelToken, isCancel } from 'axios';
+import { useState, useRef } from 'react'
+import CustomModal from '../../customModal'
+import { FormLabel } from '@mui/material'
+import api from '../../../utils/ApiUrl'
+import { FolderOpen } from '@phosphor-icons/react'
+import MainButton from '../../mainButton/MainButton'
+import { CancelToken, isCancel } from 'axios'
 
 function AddFile({ open, onClose, setFileName, lessonID }) {
-  const [error, setError] = useState('');
-  const [showProgress, setShowProgress] = useState(false);
-  const [uploadedFile, setUploadedFile] = useState(null);
+  const [error, setError] = useState('')
+  const [showProgress, setShowProgress] = useState(false)
+  const [uploadedFile, setUploadedFile] = useState(null)
 
-  const requestCancelRef = useRef(null);
+  const requestCancelRef = useRef(null)
 
-  const uploadFile = (e) => {
-    setError('');
-    const file = e.target.files[0];
+  const uploadFile = e => {
+    setError('')
+    const file = e.target.files[0]
 
-    if (!file) return;
+    if (!file) return
 
     if (file.type !== 'application/pdf') {
-      setError('Wrong file type. Please select a PDF file.');
-      return;
+      setError('Wrong file type. Please select a PDF file.')
+      return
     }
 
     // Check file size (in bytes)
     if (file.size > 20 * 1024 * 1024) {
       // 5 MB
-      setError('File is too large. Please select a smaller file.');
-      return;
+      setError('File is too large. Please select a smaller file.')
+      return
     }
 
     // Check file size (in bytes)
     if (file.name.length > 100) {
-      setError('Maximum file name charachters is 100.');
-      return;
+      setError('Maximum file name charachters is 100.')
+      return
     }
 
     const fileName =
       file.name.length > 12
         ? `${file.name.substring(0, 13)}... .${file.name.split('.')[1]}`
-        : file.name;
+        : file.name
 
-    setUploadedFile({ name: fileName, loading: 0 });
+    setUploadedFile({ name: fileName, loading: 0 })
 
-    const formData = new FormData();
-    formData.append('file', file);
+    const formData = new FormData()
+    formData.append('file', file)
 
-    setShowProgress(true);
+    setShowProgress(true)
 
     api
       .patch(`lessons/${lessonID}/`, formData, {
         onUploadProgress: ({ loaded, total }) => {
-          const loading = Math.floor((loaded / total) * 100);
-          setUploadedFile((prev) => ({
+          const loading = Math.floor((loaded / total) * 100)
+          setUploadedFile(prev => ({
             ...prev,
             loading: loading,
-          }));
+          }))
 
           if (loaded === total) {
-            setFileName(fileName);
+            setFileName(fileName)
           }
         },
         cancelToken: new CancelToken(
-          (cancel) => (requestCancelRef.current = cancel)
+          cancel => (requestCancelRef.current = cancel),
         ),
         headers: { 'Content-Type': 'application/pdf' },
       })
-      .then((data) => {
-        console.log(data);
-        close();
+      .then(data => {
+        console.log(data)
+        close()
       })
-      .catch((error) => {
-        setUploadedFile(null);
-        setFileName('');
-        setShowProgress(false);
+      .catch(error => {
+        setUploadedFile(null)
+        setFileName('')
+        setShowProgress(false)
 
         if (isCancel(error)) {
-          setError('Upload canceled.');
+          setError('Upload canceled.')
         } else {
           setError(
             error.response?.statusText ||
-              'Please, check your network and try again later'
-          );
+              'Please, check your network and try again later',
+          )
         }
-      });
-  };
+      })
+  }
 
   const cancelUpload = () => {
     if (requestCancelRef.current) {
-      requestCancelRef.current('Upload canceled.');
+      requestCancelRef.current('Upload canceled.')
     }
-  };
+  }
 
   return (
     <CustomModal
       title="Upload file"
       open={open}
       onClose={() => {
-        setShowProgress(false);
-        setError('');
+        setShowProgress(false)
+        setError('')
         if (requestCancelRef.current) {
-          requestCancelRef.current('Upload canceled.');
+          requestCancelRef.current('Upload canceled.')
         }
-        onClose();
+        onClose()
       }}
       fullWidth
       maxWidth="md"
@@ -161,9 +161,9 @@ function AddFile({ open, onClose, setFileName, lessonID }) {
                 text="Cancel Upload"
                 className="text-teal-500 text-[17px] !px-5 !mr-0 font-[500] border-[1px] border-teal-500 duration-150 hover:text-white hover:bg-teal-500"
                 isPrimary={false}
-                handleClick={(e) => {
-                  e.preventDefault();
-                  cancelUpload();
+                handleClick={e => {
+                  e.preventDefault()
+                  cancelUpload()
                 }}
               />
             </div>
@@ -171,7 +171,7 @@ function AddFile({ open, onClose, setFileName, lessonID }) {
         </FormLabel>
       </div>
     </CustomModal>
-  );
+  )
 }
 
-export default AddFile;
+export default AddFile

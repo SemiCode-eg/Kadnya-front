@@ -1,4 +1,4 @@
-import { Alert, IconButton, Menu, Snackbar } from '@mui/material';
+import { Alert, IconButton, Menu, Snackbar } from '@mui/material'
 import {
   ChatCircle,
   CopySimple,
@@ -6,10 +6,10 @@ import {
   Eye,
   PencilSimple,
   TrashSimple,
-} from '@phosphor-icons/react';
-import MenuItems from './MenuItems';
-import { useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+} from '@phosphor-icons/react'
+import MenuItems from './MenuItems'
+import { useEffect, useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 /* eslint-disable react/prop-types */
 export default function SettingMenu({
@@ -22,22 +22,22 @@ export default function SettingMenu({
   previewPath = '',
   editPath = '',
 }) {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [deleteErrorOpen, setDeleteErrorOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null)
+  const [deleteErrorOpen, setDeleteErrorOpen] = useState(false)
 
-  const open = Boolean(anchorEl);
+  const open = Boolean(anchorEl)
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const handleOpenMenu = (event) => {
-    event.preventDefault();
-    setAnchorEl(event.currentTarget);
-  };
+  const handleOpenMenu = event => {
+    event.preventDefault()
+    setAnchorEl(event.currentTarget)
+  }
 
-  const handleCloseMenu = (event) => {
-    event.preventDefault();
-    setAnchorEl(null);
-  };
+  const handleCloseMenu = event => {
+    event.preventDefault()
+    setAnchorEl(null)
+  }
 
   const settingMenuItems = useMemo(() => {
     const menuItems = [
@@ -57,7 +57,7 @@ export default function SettingMenu({
         Icon: TrashSimple,
         text: deleteLoading ? 'Deleting...' : 'Delete',
       },
-    ];
+    ]
 
     if (isPreview) {
       return [
@@ -66,41 +66,41 @@ export default function SettingMenu({
           text: 'Preview',
         },
         ...menuItems,
-      ];
+      ]
     } else {
-      return [...menuItems];
+      return [...menuItems]
     }
-  }, [deleteLoading, isPreview]);
+  }, [deleteLoading, isPreview])
 
-  const handleMenuItemClick = (event) => {
-    event.preventDefault();
+  const handleMenuItemClick = event => {
+    event.preventDefault()
 
     switch (event.target.id) {
       case 'Preview': // preview
-        navigate(previewPath);
-        setAnchorEl(null);
-        break;
+        navigate(previewPath)
+        setAnchorEl(null)
+        break
       case 'Edit': // edit
-        navigate(editPath);
-        setAnchorEl(null);
-        break;
+        navigate(editPath)
+        setAnchorEl(null)
+        break
       case 'Manage Comments': // comments
-        setAnchorEl(null);
-        break;
+        setAnchorEl(null)
+        break
       case 'Duplicate': // duplicate
-        setAnchorEl(null);
-        break;
+        setAnchorEl(null)
+        break
       case 'Delete': // delete
-        handleDelete(id);
-        break;
+        handleDelete(id)
+        break
       default:
-        setAnchorEl(null);
-        break;
+        setAnchorEl(null)
+        break
     }
-  };
+  }
   useEffect(() => {
-    setDeleteErrorOpen(deleteErrorMsg === '' ? false : true);
-  }, [deleteErrorMsg]);
+    setDeleteErrorOpen(deleteErrorMsg === '' ? false : true)
+  }, [deleteErrorMsg])
 
   return (
     <>
@@ -152,5 +152,5 @@ export default function SettingMenu({
         </Snackbar>
       )}
     </>
-  );
+  )
 }

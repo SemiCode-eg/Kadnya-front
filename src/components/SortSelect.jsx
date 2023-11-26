@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 
 /* eslint-disable react/prop-types */
 export default function SortSelect({
@@ -24,12 +24,12 @@ export default function SortSelect({
         inputProps={hideLabel && { 'aria-label': 'Without label' }}
         sx={sx}
       >
-        {options.map((option) => (
+        {options.map(option => (
           <MenuItem key={option.value} value={option.value}>
             {option.label}
           </MenuItem>
         ))}
       </Select>
     </FormControl>
-  );
+  )
 }

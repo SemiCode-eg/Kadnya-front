@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import Details from './Details';
-import Grading from './Grading';
-import { useOutletContext } from 'react-router-dom';
+import { useState } from 'react'
+import Details from './Details'
+import Grading from './Grading'
+import { useOutletContext } from 'react-router-dom'
 
 function QuizSittings() {
-  const [title, setTitle] = useState('');
-  const [titleErrorMsg, setTitleErrorMsg] = useState('');
-  const [description, setDescription] = useState('');
-  const [descriptionErrorMsg, setDescriptionErrorMsg] = useState('');
-  const [passingGrade, setPassingGrade] = useState(0);
-  const [hideAnswers, setHideAnswers] = useState(false);
-  const [imageAsset, setImageAsset] = useState(null);
-  const [imageAssetErrorMsg, setImageAssetErrorMsg] = useState('');
+  const [title, setTitle] = useState('')
+  const [titleErrorMsg, setTitleErrorMsg] = useState('')
+  const [description, setDescription] = useState('')
+  const [descriptionErrorMsg, setDescriptionErrorMsg] = useState('')
+  const [passingGrade, setPassingGrade] = useState(0)
+  const [hideAnswers, setHideAnswers] = useState(false)
+  const [imageAsset, setImageAsset] = useState(null)
+  const [imageAssetErrorMsg, setImageAssetErrorMsg] = useState('')
 
   const [
     isDraft,
@@ -19,32 +19,32 @@ function QuizSittings() {
     setSubmitErrorMsg,
     setSuccessSubmitMsg,
     formRef,
-  ] = useOutletContext();
+  ] = useOutletContext()
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitErrorMsg('');
+  const handleSubmit = e => {
+    e.preventDefault()
+    setSubmitErrorMsg('')
 
     if (title === '') {
-      setTitleErrorMsg('This field is required!');
-      return;
+      setTitleErrorMsg('This field is required!')
+      return
     }
 
     if (description === '') {
-      setDescriptionErrorMsg('This field is required!');
-      return;
+      setDescriptionErrorMsg('This field is required!')
+      return
     }
 
     if (imageAsset === null) {
-      setImageAssetErrorMsg('This field is required!');
-      return;
+      setImageAssetErrorMsg('This field is required!')
+      return
     }
 
-    console.log(title, description, passingGrade, hideAnswers, isDraft);
-    setSubmitErrorMsg('Server error, try again later!');
+    console.log(title, description, passingGrade, hideAnswers, isDraft)
+    setSubmitErrorMsg('Server error, try again later!')
     // setSubmitLoading(true);
     // Patch function
-  };
+  }
 
   return (
     <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
@@ -68,7 +68,7 @@ function QuizSittings() {
       />
       <button hidden ref={formRef} />
     </form>
-  );
+  )
 }
 
-export default QuizSittings;
+export default QuizSittings

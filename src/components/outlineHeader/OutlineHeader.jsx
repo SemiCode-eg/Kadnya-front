@@ -6,19 +6,19 @@ import {
   Folders,
   File,
   CheckSquareOffset,
-} from '@phosphor-icons/react';
-import imageSquare from '../../assets/images/courses/ImageSquare.png';
-import MainButton from '../mainButton/MainButton';
-import { Alert, Menu, Snackbar } from '@mui/material';
-import { useMemo, useState } from 'react';
-import MenuItems from '../menu/MenuItems';
-import styled from '@emotion/styled';
-import AddModule from '../../pages/course/addForms/AddModule';
-import AddSubmodule from '../../pages/course/addForms/AddSubmodule';
-import AddLesson from '../../pages/course/addForms/AddLesson';
-import SettingMenu from '../menu';
-import { useNavigate } from 'react-router-dom';
-import { deleteCourse } from '../../utils/ApiCalls';
+} from '@phosphor-icons/react'
+import imageSquare from '../../assets/images/courses/ImageSquare.png'
+import MainButton from '../mainButton/MainButton'
+import { Alert, Menu, Snackbar } from '@mui/material'
+import { useMemo, useState } from 'react'
+import MenuItems from '../menu/MenuItems'
+import styled from '@emotion/styled'
+import AddModule from '../../pages/course/addForms/AddModule'
+import AddSubmodule from '../../pages/course/addForms/AddSubmodule'
+import AddLesson from '../../pages/course/addForms/AddLesson'
+import SettingMenu from '../menu'
+import { useNavigate } from 'react-router-dom'
+import { deleteCourse } from '../../utils/ApiCalls'
 
 const MUIMenu = styled(Menu)(() => ({
   '& .MuiList-root': {
@@ -53,24 +53,24 @@ const MUIMenu = styled(Menu)(() => ({
       opacity: '0.9',
     },
   },
-}));
+}))
 
 function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [openModuleForm, setOpenModuleForm] = useState(false);
-  const [opensubModuleForm, setOpensubModuleForm] = useState(false);
-  const [openLessonForm, setOpenLessonForm] = useState(false);
-  const [openQuizForm, setOpenQuizForm] = useState(false);
-  const [successSubmit, setSuccessSubmit] = useState('');
-  const [deleteLoading, setDeleteLoading] = useState(false);
-  const [deleteErrorMsg, setDeleteErrorMsg] = useState('');
+  const [anchorEl, setAnchorEl] = useState(null)
+  const [openModuleForm, setOpenModuleForm] = useState(false)
+  const [opensubModuleForm, setOpensubModuleForm] = useState(false)
+  const [openLessonForm, setOpenLessonForm] = useState(false)
+  const [openQuizForm, setOpenQuizForm] = useState(false)
+  const [successSubmit, setSuccessSubmit] = useState('')
+  const [deleteLoading, setDeleteLoading] = useState(false)
+  const [deleteErrorMsg, setDeleteErrorMsg] = useState('')
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const open = Boolean(anchorEl);
-  const handleClickListItem = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const open = Boolean(anchorEl)
+  const handleClickListItem = event => {
+    setAnchorEl(event.currentTarget)
+  }
 
   const addMenuItems = useMemo(() => {
     if (courseData?.modules?.length > 0) {
@@ -91,42 +91,42 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
           Icon: CheckSquareOffset,
           text: 'Quiz',
         },
-      ];
+      ]
     } else {
       return [
         {
           Icon: FolderSimple,
           text: 'Module',
         },
-      ];
+      ]
     }
-  }, [courseData?.modules?.length]);
+  }, [courseData?.modules?.length])
 
-  const handleMenuItemClick = (event) => {
-    event.preventDefault();
+  const handleMenuItemClick = event => {
+    event.preventDefault()
 
     switch (event.target.id) {
       case addMenuItems[0].text: // Module
-        setOpenModuleForm(true);
-        break;
+        setOpenModuleForm(true)
+        break
       case addMenuItems[1].text: // Submodule
-        setOpensubModuleForm(true);
-        break;
+        setOpensubModuleForm(true)
+        break
       case addMenuItems[2].text: // Lesson
-        setOpenLessonForm(true);
-        break;
+        setOpenLessonForm(true)
+        break
       case addMenuItems[3].text: // Quiz
-        setOpenQuizForm(true);
-        break;
+        setOpenQuizForm(true)
+        break
       default:
-        break;
+        break
     }
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
 
   const handleClose = () => {
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
 
   const previewedForm = () => {
     if (openModuleForm) {
@@ -138,7 +138,7 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
           setRefetch={setRefetch}
           setSuccessSubmit={setSuccessSubmit}
         />
-      );
+      )
     } else if (opensubModuleForm) {
       return (
         <AddSubmodule
@@ -149,7 +149,7 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
           setRefetch={setRefetch}
           setSuccessSubmit={setSuccessSubmit}
         />
-      );
+      )
     } else if (openLessonForm) {
       return (
         <AddLesson
@@ -161,26 +161,26 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
           setRefetch={setRefetch}
           setSuccessSubmit={setSuccessSubmit}
         />
-      );
+      )
     } else if (openQuizForm) {
-      navigate(`/products/courses/${courseData?.id}/quiz/add`);
+      navigate(`/products/courses/${courseData?.id}/quiz/add`)
     }
-  };
+  }
 
-  const handleDeleteCourse = (id) => {
-    setDeleteErrorMsg('');
-    setDeleteLoading(true);
+  const handleDeleteCourse = id => {
+    setDeleteErrorMsg('')
+    setDeleteLoading(true)
 
-    deleteCourse(id).then((data) => {
-      console.log(data);
-      setDeleteLoading(false);
+    deleteCourse(id).then(data => {
+      console.log(data)
+      setDeleteLoading(false)
       if (data.request.status === 200 || data.status === 204) {
-        navigate(`/products/courses`);
+        navigate(`/products/courses`)
       } else {
-        setDeleteErrorMsg('Server error, try again later!');
+        setDeleteErrorMsg('Server error, try again later!')
       }
-    });
-  };
+    })
+  }
 
   return (
     <>
@@ -274,7 +274,7 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
         </Snackbar>
       )}
     </>
-  );
+  )
 }
 
-export default OutlineHeader;
+export default OutlineHeader

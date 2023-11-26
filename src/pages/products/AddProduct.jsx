@@ -1,50 +1,50 @@
-import { useEffect, useState } from "react";
-import Preview from "../../components/preview/Preview";
+import { useEffect, useState } from 'react'
+import Preview from '../../components/preview/Preview'
 
 export default function AddProduct() {
   const initialContent = [
     {
-      name: "course",
-      color: "teal-300",
+      name: 'course',
+      color: 'teal-300',
       active: false,
     },
     {
-      name: "coaching",
-      color: "red-300",
+      name: 'coaching',
+      color: 'red-300',
       active: false,
     },
     {
-      name: "course",
-      color: "orange-300",
+      name: 'course',
+      color: 'orange-300',
       active: false,
     },
     {
-      name: "course",
-      color: "cyan-800",
+      name: 'course',
+      color: 'cyan-800',
       active: false,
     },
-  ];
+  ]
 
-  const [content, setContent] = useState(initialContent);
-  const [selectedColor, setSelectedColor] = useState("");
+  const [content, setContent] = useState(initialContent)
+  const [selectedColor, setSelectedColor] = useState('')
 
-  const toggleActivation = (index) => {
+  const toggleActivation = index => {
     const updatedContent = content.map((item, i) => ({
       ...item,
       active: i === index ? !item.active : false,
-    }));
-    setContent(updatedContent);
+    }))
+    setContent(updatedContent)
 
     if (updatedContent[index].active) {
-      setSelectedColor(updatedContent[index].color);
+      setSelectedColor(updatedContent[index].color)
     } else {
-      setSelectedColor("");
+      setSelectedColor('')
     }
-  };
+  }
 
   useEffect(() => {
     toggleActivation(0)
-  }, []);
+  }, [])
 
   return (
     <div className="absolute inset-0 w-full flex items-center justify-center z-50">
@@ -58,7 +58,7 @@ export default function AddProduct() {
               gap-2 border-2 hover:bg-sky-100 ${
                 object.active
                   ? `border-2 border-sky-950 border-opacity-100 bg-sky-100`
-                  : ""
+                  : ''
               } items-center justify-between m-auto p-3 duration-150 ease-in-out border-opacity-50`}
               key={index}
               onClick={() => toggleActivation(index)}
@@ -78,5 +78,5 @@ export default function AddProduct() {
         </div>
       </div>
     </div>
-  );
+  )
 }

@@ -1,17 +1,17 @@
 /* eslint-disable react/prop-types */
-import { FormLabel } from '@mui/material';
-import ImageField from '../../../components/imageField/ImageField';
-import { useState } from 'react';
+import { FormLabel } from '@mui/material'
+import ImageField from '../../../components/imageField/ImageField'
+import { useState } from 'react'
 import {
   sendModule,
   updateModule,
   updateSubmodule,
-} from '../../../utils/ApiCalls';
-import MainButton from '../../../components/mainButton/MainButton';
-import TextField from '../../../components/forms/TextField';
-import TextAriaField from '../../../components/forms/TextAriaField';
-import CustomModal from '../../../components/customModal';
-import { useParams } from 'react-router-dom';
+} from '../../../utils/ApiCalls'
+import MainButton from '../../../components/mainButton/MainButton'
+import TextField from '../../../components/forms/TextField'
+import TextAriaField from '../../../components/forms/TextAriaField'
+import CustomModal from '../../../components/customModal'
+import { useParams } from 'react-router-dom'
 
 function AddModule({
   open,
@@ -28,34 +28,34 @@ function AddModule({
   setRefetch = () => {},
   setSuccessSubmit = () => {},
 }) {
-  const [title, setTitle] = useState(moduleTitle);
-  const [titleErrorMsg, setTitleErrorMsg] = useState('');
-  const [description, setDescription] = useState(moduleDescription);
-  const [descriptionErrorMsg, setDescriptionErrorMsg] = useState('');
-  const [imageAsset, setImageAsset] = useState(moduleImage || null);
-  const [imageAssetErrorMsg, setImageAssetErrorMsg] = useState('');
+  const [title, setTitle] = useState(moduleTitle)
+  const [titleErrorMsg, setTitleErrorMsg] = useState('')
+  const [description, setDescription] = useState(moduleDescription)
+  const [descriptionErrorMsg, setDescriptionErrorMsg] = useState('')
+  const [imageAsset, setImageAsset] = useState(moduleImage || null)
+  const [imageAssetErrorMsg, setImageAssetErrorMsg] = useState('')
 
-  const [submitLoading, setSubmitLoading] = useState(false);
-  const [submitError, setSubmitError] = useState(false);
+  const [submitLoading, setSubmitLoading] = useState(false)
+  const [submitError, setSubmitError] = useState(false)
 
-  const { id } = useParams();
+  const { id } = useParams()
 
   function handleSubmit(e) {
-    e.preventDefault();
+    e.preventDefault()
 
     if (title === '') {
-      setTitleErrorMsg('This field is required!');
-      return;
+      setTitleErrorMsg('This field is required!')
+      return
     }
 
     if (description === '') {
-      setDescriptionErrorMsg('This field is required!');
-      return;
+      setDescriptionErrorMsg('This field is required!')
+      return
     }
 
     if (imageAsset === null) {
-      setImageAssetErrorMsg('This field is required!');
-      return;
+      setImageAssetErrorMsg('This field is required!')
+      return
     }
 
     const moduleData = {
@@ -63,67 +63,67 @@ function AddModule({
       description,
       imageAsset,
       courseID: id,
-    };
+    }
 
-    setSubmitError(false);
-    setSubmitLoading(true);
+    setSubmitError(false)
+    setSubmitLoading(true)
 
     if (isEdit) {
       if (isSubmodule) {
         updateSubmodule({ ...moduleData, module: parentModuleID }, moduleID)
-          .then((data) => {
-            setSubmitLoading(false);
+          .then(data => {
+            setSubmitLoading(false)
             if (
               !data.request ||
               data.request.status === 200 ||
               data.request.status === 201
             ) {
-              setSubmitError(false);
-              setRefetch((prev) => !prev);
-              setSuccessSubmit('Module');
-              onClose();
+              setSubmitError(false)
+              setRefetch(prev => !prev)
+              setSuccessSubmit('Module')
+              onClose()
             } else {
-              setSubmitError(true);
+              setSubmitError(true)
             }
           })
-          .catch(() => setSubmitError(true));
+          .catch(() => setSubmitError(true))
       } else {
         updateModule(moduleData, moduleID)
-          .then((data) => {
-            setSubmitLoading(false);
+          .then(data => {
+            setSubmitLoading(false)
             if (
               !data.request ||
               data.request.status === 200 ||
               data.request.status === 201
             ) {
-              setSubmitError(false);
-              setRefetch((prev) => !prev);
-              setSuccessSubmit('Module');
-              onClose();
+              setSubmitError(false)
+              setRefetch(prev => !prev)
+              setSuccessSubmit('Module')
+              onClose()
             } else {
-              setSubmitError(true);
+              setSubmitError(true)
             }
           })
-          .catch(() => setSubmitError(true));
+          .catch(() => setSubmitError(true))
       }
     } else {
       sendModule(moduleData)
-        .then((data) => {
-          setSubmitLoading(false);
+        .then(data => {
+          setSubmitLoading(false)
           if (
             !data.request ||
             data.request.status === 200 ||
             data.request.status === 201
           ) {
-            setSubmitError(false);
-            setRefetch((prev) => !prev);
-            setSuccessSubmit('Module');
-            onClose();
+            setSubmitError(false)
+            setRefetch(prev => !prev)
+            setSuccessSubmit('Module')
+            onClose()
           } else {
-            setSubmitError(true);
+            setSubmitError(true)
           }
         })
-        .catch(() => setSubmitError(true));
+        .catch(() => setSubmitError(true))
     }
   }
 
@@ -143,9 +143,9 @@ function AddModule({
           <TextField
             placeholder="Text"
             value={title}
-            handleChange={(e) => {
-              setTitle(e.target.value);
-              setTitleErrorMsg('');
+            handleChange={e => {
+              setTitle(e.target.value)
+              setTitleErrorMsg('')
             }}
           />
           <p className="text-red-500">{titleErrorMsg}</p>
@@ -157,9 +157,9 @@ function AddModule({
           <TextAriaField
             value={description}
             placeholder="Add a description..."
-            handleChange={(e) => {
-              setDescription(e.target.value);
-              setDescriptionErrorMsg('');
+            handleChange={e => {
+              setDescription(e.target.value)
+              setDescriptionErrorMsg('')
             }}
           />
 
@@ -189,7 +189,7 @@ function AddModule({
         </div>
       </form>
     </CustomModal>
-  );
+  )
 }
 
-export default AddModule;
+export default AddModule

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import SessionCard from './SessionCard';
+import SessionCard from './SessionCard'
 
 function SessionCards({ data = [] }) {
   return (
@@ -8,7 +8,7 @@ function SessionCards({ data = [] }) {
         {data.length} Events
       </p>
       <ul className="flex flex-col gap-6 w-full h-[45dvh] pr-3 overflow-y-auto overflow-x-hidden">
-        {data.map((session) => (
+        {data.map(session => (
           <SessionCard
             key={session.id}
             id={session.id}
@@ -22,7 +22,7 @@ function SessionCards({ data = [] }) {
         ))}
       </ul>
     </>
-  );
+  )
 }
 
-export default SessionCards;
+export default SessionCards

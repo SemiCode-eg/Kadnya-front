@@ -1,103 +1,102 @@
-import { useState } from "react";
-import CustomModal from "../../../customModal";
-import MainButton from "../../../mainButton/MainButton";
-import AddCoursePreview from "../../../../pages/products/courses/AddCourseForm/Preview";
-import SessionType from "./SessionType";
-import HandleErrorLoad from "../../../../components/handleErrorLoad/index";
-import ProgramInfoForm from "./ProgramInfoForm";
-import ProgramTimeLocationForm from "./ProgramTimeLocationForm";
-import ProgramPaidMethod from "./ProgramPaidMethod";
-import useProgramReducer from "../../../../hooks/use-program-reducer";
+import { useState } from 'react'
+import CustomModal from '../../../customModal'
+import MainButton from '../../../mainButton/MainButton'
+import AddCoursePreview from '../../../../pages/products/courses/AddCourseForm/Preview'
+import SessionType from './SessionType'
+import HandleErrorLoad from '../../../../components/handleErrorLoad/index'
+import ProgramInfoForm from './ProgramInfoForm'
+import ProgramTimeLocationForm from './ProgramTimeLocationForm'
+import ProgramPaidMethod from './ProgramPaidMethod'
+import useProgramReducer from '../../../../hooks/use-program-reducer'
 
-const maxSteps = 4;
+const maxSteps = 4
 
 const validateStep = (step, formData) => {
   switch (step) {
     case 2:
       if (isEmpty(formData.title)) {
-        return "Title is required";
+        return 'Title is required'
       } else if (isEmpty(formData.description)) {
-        return "Description is required";
+        return 'Description is required'
       } else if (!formData.image) {
-        return "Image is required";
+        return 'Image is required'
       }
-      break;
+      break
     case 3:
-      if (formData.scheduleType === "WEBSITE" && isEmpty(formData.location)) {
-        return "Location is required";
+      if (formData.scheduleType === 'WEBSITE' && isEmpty(formData.location)) {
+        return 'Location is required'
       }
-      if (formData.scheduleType === "LINK") {
+      if (formData.scheduleType === 'LINK') {
         if (isEmpty(formData.scheduleURL)) {
-          return "Schedule URL is required";
+          return 'Schedule URL is required'
         } else if (!isValidUrl(formData.scheduleURL)) {
-          return "Enter a valid URL";
+          return 'Enter a valid URL'
         }
       }
-      break;
+      break
     default:
-      break;
+      break
   }
-  return null;
-};
+  return null
+}
 
-const isEmpty = (target) => {
-  return target === "";
-};
+const isEmpty = target => {
+  return target === ''
+}
 
 function isValidUrl(url) {
-  const urlRegex = /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?$/;
+  const urlRegex = /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?$/
 
-  return urlRegex.test(url);
+  return urlRegex.test(url)
 }
 
 /* eslint-disable react/prop-types */
 function CreateCoachProgramForm({ onClose, open, targetRefetch = () => {} }) {
-  const [step, setStep] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [errorReopen, setErrorReopen] = useState(false);
-  const { programData, dispatchFormData, formReducerKeys } =
-    useProgramReducer();
+  const [step, setStep] = useState(1)
+  const [loading, setLoading] = useState(false)
+  const [errorReopen, setErrorReopen] = useState(false)
+  const { programData, dispatchFormData, formReducerKeys } = useProgramReducer()
 
   const handleGoBack = () => {
-    setStep((step) => --step);
-  };
+    setStep(step => --step)
+  }
 
   const handleContinue = () => {
-    dispatchFormData({ type: formReducerKeys.SET_ERROR, payload: "" });
-    setErrorReopen((prev) => !prev);
+    dispatchFormData({ type: formReducerKeys.SET_ERROR, payload: '' })
+    setErrorReopen(prev => !prev)
 
-    const validationError = validateStep(step, programData);
+    const validationError = validateStep(step, programData)
     if (validationError) {
       dispatchFormData({
         type: formReducerKeys.SET_ERROR,
         payload: validationError,
-      });
+      })
     } else {
-      setStep((prevStep) => prevStep + 1);
+      setStep(prevStep => prevStep + 1)
     }
-  };
+  }
 
   const handleClose = () => {
-    onClose();
-    resetForm();
-  };
+    onClose()
+    resetForm()
+  }
 
   const resetForm = () => {
-    dispatchFormData({ type: formReducerKeys.RESET });
-    setStep(1);
-  };
+    dispatchFormData({ type: formReducerKeys.RESET })
+    setStep(1)
+  }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setLoading(true);
+  const handleSubmit = e => {
+    e.preventDefault()
+    setLoading(true)
 
-    console.log("Form Data:", programData);
+    console.log('Form Data:', programData)
 
-    resetForm();
-    setLoading(false);
-    onClose();
-    targetRefetch();
-  };
+    resetForm()
+    setLoading(false)
+    onClose()
+    targetRefetch()
+  }
 
   const renderStepContent = () => {
     switch (step) {
@@ -109,9 +108,9 @@ function CreateCoachProgramForm({ onClose, open, targetRefetch = () => {} }) {
             coachNameValue={programData.coachName}
             sessionsCountValue={programData.sessionsCount}
             dispatchFormData={dispatchFormData}
-            isPackage={programData.sessionType === "SINGLE" ? false : true}
+            isPackage={programData.sessionType === 'SINGLE' ? false : true}
           />
-        );
+        )
       case 3:
         return (
           <ProgramTimeLocationForm
@@ -121,7 +120,7 @@ function CreateCoachProgramForm({ onClose, open, targetRefetch = () => {} }) {
             durationValue={programData.duration}
             locationValue={programData.location}
           />
-        );
+        )
       case 4:
         return (
           <ProgramPaidMethod
@@ -129,11 +128,11 @@ function CreateCoachProgramForm({ onClose, open, targetRefetch = () => {} }) {
             priceValue={programData.price}
             pricingTypeValue={programData.pricingType}
           />
-        );
+        )
       default:
-        return null;
+        return null
     }
-  };
+  }
 
   return (
     <CustomModal
@@ -185,9 +184,9 @@ function CreateCoachProgramForm({ onClose, open, targetRefetch = () => {} }) {
             text={
               step === maxSteps
                 ? loading
-                  ? "Submitting..."
-                  : "Finish"
-                : "Continue"
+                  ? 'Submitting...'
+                  : 'Finish'
+                : 'Continue'
             }
             className="sm:!px-28 !px-16"
             handleClick={step === maxSteps ? handleSubmit : handleContinue}
@@ -195,7 +194,7 @@ function CreateCoachProgramForm({ onClose, open, targetRefetch = () => {} }) {
         </form>
       </HandleErrorLoad>
     </CustomModal>
-  );
+  )
 }
 
-export default CreateCoachProgramForm;
+export default CreateCoachProgramForm

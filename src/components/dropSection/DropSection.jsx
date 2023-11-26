@@ -1,10 +1,10 @@
-import { ArrowsOutCardinal } from "@phosphor-icons/react";
-import { Draggable } from "react-beautiful-dnd";
+import { ArrowsOutCardinal } from '@phosphor-icons/react'
+import { Draggable } from 'react-beautiful-dnd'
 
 const DropSection = ({ icon, text, index }) => {
   return (
     <Draggable draggableId={text} index={index}>
-      {(provided) => (
+      {provided => (
         <div
           ref={provided.innerRef}
           {...provided.draggableProps}
@@ -26,7 +26,7 @@ const DropSection = ({ icon, text, index }) => {
         </div>
       )}
     </Draggable>
-  );
-};
+  )
+}
 
-export default DropSection;
+export default DropSection

@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 
-import { useState } from 'react';
-import ImageSquareColored from '../../assets/icons/ImageSquare.svg';
-import { ImageSquare } from '@phosphor-icons/react';
-import ImageSelectBtn from './ImageSelectBtn';
+import { useState } from 'react'
+import ImageSquareColored from '../../assets/icons/ImageSquare.svg'
+import { ImageSquare } from '@phosphor-icons/react'
+import ImageSelectBtn from './ImageSelectBtn'
 
 function ImageField({
   isVertical = true,
@@ -12,34 +12,34 @@ function ImageField({
   size = 250,
   imageURL,
 }) {
-  const [imageError, setImageError] = useState('');
-  const [previewedImage, setPreviewedImage] = useState(imageURL || '');
+  const [imageError, setImageError] = useState('')
+  const [previewedImage, setPreviewedImage] = useState(imageURL || '')
 
-  const handleImageChange = (e) => {
+  const handleImageChange = e => {
     if (e.target.files[0]) {
-      const { type, size } = e.target.files[0];
+      const { type, size } = e.target.files[0]
 
       if (type === 'image/png' || type === 'image/jpeg') {
         // Check file size (in bytes) -> 5 MB
         if (size > 5 * 1024 * 1024) {
-          setImageError('Image size must not exceeds 5 MB!');
-          return;
+          setImageError('Image size must not exceeds 5 MB!')
+          return
         }
 
-        const reader = new FileReader();
+        const reader = new FileReader()
 
         reader.addEventListener('load', () => {
-          setPreviewedImage(reader.result);
-        });
-        reader.readAsDataURL(e.target.files[0]);
+          setPreviewedImage(reader.result)
+        })
+        reader.readAsDataURL(e.target.files[0])
 
-        setImageError(false);
-        setImageAsset(e.target.files[0]);
+        setImageError(false)
+        setImageAsset(e.target.files[0])
       } else {
-        setImageError('Wrong image type');
+        setImageError('Wrong image type')
       }
     }
-  };
+  }
 
   return isVertical ? (
     <div className="flex flex-col gap-[33px] w-full">
@@ -54,8 +54,8 @@ function ImageField({
                 previewedImage
                   ? previewedImage
                   : imageURL
-                  ? imageURL
-                  : previewedImage
+                    ? imageURL
+                    : previewedImage
               }
               alt="uploaded-image"
               className="w-full h-full object-cover rounded-[3px]"
@@ -116,7 +116,7 @@ function ImageField({
         )}
       </div>
     </div>
-  );
+  )
 }
 
-export default ImageField;
+export default ImageField

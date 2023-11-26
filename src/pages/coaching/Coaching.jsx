@@ -1,33 +1,33 @@
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import CustomCard from "../../components/customCard/CustomCard";
-import GoBackBtn from "../../components/goBackBtn/GoBackBtn";
-import MiniSide from "../../components/miniSide/MiniSide";
-import { useEffect } from "react";
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import CustomCard from '../../components/customCard/CustomCard'
+import GoBackBtn from '../../components/goBackBtn/GoBackBtn'
+import MiniSide from '../../components/miniSide/MiniSide'
+import { useEffect } from 'react'
 
 const tabs = [
   {
-    title: "Dashboard",
-    path: "dashboard",
+    title: 'Dashboard',
+    path: 'dashboard',
   },
   {
-    title: "Programs",
-    path: "programs",
+    title: 'Programs',
+    path: 'programs',
   },
   {
-    title: "Sittings",
-    path: "sittings",
+    title: 'Sittings',
+    path: 'sittings',
   },
-];
+]
 
 function Coaching() {
-  const navigate = useNavigate();
-  const location = useLocation();
+  const navigate = useNavigate()
+  const location = useLocation()
 
   useEffect(() => {
-    if (location.pathname === "/products/coaching") {
-      navigate("dashboard");
+    if (location.pathname === '/products/coaching') {
+      navigate('dashboard')
     }
-  }, [navigate, location.pathname]);
+  }, [navigate, location.pathname])
 
   return (
     <CustomCard>
@@ -44,7 +44,7 @@ function Coaching() {
         </div>
       </div>
     </CustomCard>
-  );
+  )
 }
 
-export default Coaching;
+export default Coaching

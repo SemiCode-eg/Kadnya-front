@@ -1,17 +1,17 @@
-import { useRef } from 'react';
-import SchedulingOptions from '../../../components/coaching/settings/SchedulingOptions';
-import Availability from '../../../components/coaching/settings/Availability';
+import { useRef } from 'react'
+import SchedulingOptions from '../../../components/coaching/settings/SchedulingOptions'
+import Availability from '../../../components/coaching/settings/Availability'
 
 function CoachingSittings() {
-  const coachingFormRef = useRef();
-  
+  const coachingFormRef = useRef()
+
   return (
     <form className="flex flex-col gap-5">
       <Availability />
       <SchedulingOptions />
       <button hidden ref={coachingFormRef} />
     </form>
-  );
+  )
 }
 
-export default CoachingSittings;
+export default CoachingSittings

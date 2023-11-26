@@ -1,20 +1,20 @@
-import useProgramReducer from '../../../../hooks/use-program-reducer';
-import PaidMethod from '../../../paidMethod/PaidMethod';
+import useProgramReducer from '../../../../hooks/use-program-reducer'
+import PaidMethod from '../../../paidMethod/PaidMethod'
 
 /* eslint-disable react/prop-types */
 function ProgramPaidMethod({ dispatchFormData, priceValue, pricingTypeValue }) {
-  const { formReducerKeys } = useProgramReducer();
+  const { formReducerKeys } = useProgramReducer()
 
-  const handlePricingType = (value) => {
-    dispatchFormData({ type: formReducerKeys.SET_PRICING_TYPE, payload: value });
-  };
+  const handlePricingType = value => {
+    dispatchFormData({ type: formReducerKeys.SET_PRICING_TYPE, payload: value })
+  }
 
-  const handlePrice = (event) => {
+  const handlePrice = event => {
     dispatchFormData({
       type: formReducerKeys.SET_PRICE,
       payload: event.target.value,
-    });
-  };
+    })
+  }
 
   return (
     <div className="w-full flex flex-col gap-5">
@@ -26,7 +26,7 @@ function ProgramPaidMethod({ dispatchFormData, priceValue, pricingTypeValue }) {
         pricingType={pricingTypeValue}
       />
     </div>
-  );
+  )
 }
 
-export default ProgramPaidMethod;
+export default ProgramPaidMethod

@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-import { Note, PencilSimple } from '@phosphor-icons/react';
-import { Link, useParams } from 'react-router-dom';
+import { Note, PencilSimple } from '@phosphor-icons/react'
+import { Link, useParams } from 'react-router-dom'
 
 function ModuleLesson({ text, addBorder, lessonID }) {
-  const { id } = useParams();
+  const { id } = useParams()
 
   return (
     <p
@@ -21,7 +21,7 @@ function ModuleLesson({ text, addBorder, lessonID }) {
         </Link>
       </p>
     </p>
-  );
+  )
 }
 
-export default ModuleLesson;
+export default ModuleLesson

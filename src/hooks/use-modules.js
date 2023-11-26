@@ -1,29 +1,29 @@
-import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { getModules } from '../utils/ApiCalls';
+import { useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { getModules } from '../utils/ApiCalls'
 
 const useModules = () => {
-  const [modulesData, setModulesData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState('');
-  const { id } = useParams();
+  const [modulesData, setModulesData] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('')
+  const { id } = useParams()
 
   useEffect(() => {
-    setLoading(true);
-    getModules(id).then((data) => {
+    setLoading(true)
+    getModules(id).then(data => {
       if (data.status !== 200 || !data.data) {
         if (data.status === 404) {
-          setErrorMsg('Not Found!');
+          setErrorMsg('Not Found!')
         }
-        setErrorMsg(data.request.statusText || data.message);
+        setErrorMsg(data.request.statusText || data.message)
       } else {
-        setModulesData(data.data);
+        setModulesData(data.data)
       }
-      setLoading(false);
-    });
-  }, [id]);
+      setLoading(false)
+    })
+  }, [id])
 
-  return { modulesData, errorMsg, loading };
-};
+  return { modulesData, errorMsg, loading }
+}
 
-export default useModules;
+export default useModules

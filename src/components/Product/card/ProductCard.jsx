@@ -1,9 +1,9 @@
-import { Link } from 'react-router-dom';
-import SettingMenu from '../../menu';
-import CardImage from './CardImage';
-import CardMain from './CardMain';
-import CardMeta from './CardMeta';
-import { useState } from 'react';
+import { Link } from 'react-router-dom'
+import SettingMenu from '../../menu'
+import CardImage from './CardImage'
+import CardMain from './CardMain'
+import CardMeta from './CardMeta'
+import { useState } from 'react'
 
 /* eslint-disable react/prop-types */
 export default function ProductCard({
@@ -19,26 +19,26 @@ export default function ProductCard({
   isProgram = false,
   editPath = '',
 }) {
-  const [deleteLoading, setDeleteLoading] = useState(false);
-  const [deleteErrorMsg, setDeleteErrorMsg] = useState('');
+  const [deleteLoading, setDeleteLoading] = useState(false)
+  const [deleteErrorMsg, setDeleteErrorMsg] = useState('')
 
-  const handleDelete = (id) => {
-    setDeleteErrorMsg('');
-    setDeleteLoading(true);
+  const handleDelete = id => {
+    setDeleteErrorMsg('')
+    setDeleteLoading(true)
 
-    endPointDelete(id).then((data) => {
-      setDeleteLoading(false);
+    endPointDelete(id).then(data => {
+      setDeleteLoading(false)
       if (
         !data.request ||
         data.request.status === 200 ||
         data.request.status === 204
       ) {
-        targerCousesRefetch((prev) => !prev);
+        targerCousesRefetch(prev => !prev)
       } else {
-        setDeleteErrorMsg('Server error, try again later!');
+        setDeleteErrorMsg('Server error, try again later!')
       }
-    });
-  };
+    })
+  }
 
   return (
     <li>
@@ -77,5 +77,5 @@ export default function ProductCard({
         </div>
       </Link>
     </li>
-  );
+  )
 }

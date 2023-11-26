@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import { Button } from "@mui/material";
-import { Trash } from "@phosphor-icons/react";
-import MainButton from "../../mainButton/MainButton";
+import { Button } from '@mui/material'
+import { Trash } from '@phosphor-icons/react'
+import MainButton from '../../mainButton/MainButton'
 
 function ProgramSettingsFooter({ handleDelete = () => {} }) {
   return (
@@ -17,7 +17,7 @@ function ProgramSettingsFooter({ handleDelete = () => {} }) {
 
       <MainButton text="Save" type="submit" />
     </div>
-  );
+  )
 }
 
-export default ProgramSettingsFooter;
+export default ProgramSettingsFooter

@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import { Link } from 'react-router-dom';
-import { CaretRight } from '@phosphor-icons/react';
-import SessionInfo from './SessionInfo';
-import UserSessionInfo from './UserSessionInfo';
+import { Link } from 'react-router-dom'
+import { CaretRight } from '@phosphor-icons/react'
+import SessionInfo from './SessionInfo'
+import UserSessionInfo from './UserSessionInfo'
 
 function SessionCard({
   // id,
@@ -42,7 +42,7 @@ function SessionCard({
         </div>
       </Link>
     </li>
-  );
+  )
 }
 
-export default SessionCard;
+export default SessionCard

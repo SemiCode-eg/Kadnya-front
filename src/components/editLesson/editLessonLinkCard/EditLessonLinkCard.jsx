@@ -10,7 +10,7 @@ function EditLessonLinkCard({ text = '', icon, handleClick = () => {} }) {
       {icon}
       <p className="capitalize font-[500] text-xl text-sky-950">{text}</p>
     </div>
-  );
+  )
 }
 
-export default EditLessonLinkCard;
+export default EditLessonLinkCard

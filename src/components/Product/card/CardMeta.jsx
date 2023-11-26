@@ -1,4 +1,4 @@
-import { CalendarBlank, Cards, Users } from '@phosphor-icons/react';
+import { CalendarBlank, Cards, Users } from '@phosphor-icons/react'
 
 /* eslint-disable react/prop-types */
 export default function CardMeta({
@@ -24,5 +24,5 @@ export default function CardMeta({
         {subscribersCount} Subscribers
       </p>
     </>
-  );
+  )
 }

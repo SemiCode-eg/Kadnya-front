@@ -1,12 +1,12 @@
-import { Outlet } from 'react-router-dom';
-import CustomCard from '../../components/customCard/CustomCard';
-import GoBackBtn from '../../components/goBackBtn/GoBackBtn';
-import MiniSide from '../../components/miniSide/MiniSide';
-import AddQuiz from './addQuiz/AddQuiz';
-import QuizSittings from './quizSittings/QuizSittings';
-import QuizResults from './quizResults/QuizResults';
-import { useRef, useState } from 'react';
-import QuizHeader from '../../components/quiz/quizHeader/QuizHeader';
+import { Outlet } from 'react-router-dom'
+import CustomCard from '../../components/customCard/CustomCard'
+import GoBackBtn from '../../components/goBackBtn/GoBackBtn'
+import MiniSide from '../../components/miniSide/MiniSide'
+import AddQuiz from './addQuiz/AddQuiz'
+import QuizSittings from './quizSittings/QuizSittings'
+import QuizResults from './quizResults/QuizResults'
+import { useRef, useState } from 'react'
+import QuizHeader from '../../components/quiz/quizHeader/QuizHeader'
 
 const tabs = [
   {
@@ -16,15 +16,15 @@ const tabs = [
   },
   { title: 'Settings', path: 'settings', content: <QuizSittings /> },
   { title: 'Results', path: 'results', content: <QuizResults /> },
-];
+]
 
 function Quiz() {
-  const [isDraft, setIsDraft] = useState(true);
-  const [submitLoading, setSubmitLoading] = useState(false);
-  const [successSubmitMsg, setSuccessSubmitMsg] = useState('');
-  const [submitErrorMsg, setSubmitErrorMsg] = useState(false);
+  const [isDraft, setIsDraft] = useState(true)
+  const [submitLoading, setSubmitLoading] = useState(false)
+  const [successSubmitMsg, setSuccessSubmitMsg] = useState('')
+  const [submitErrorMsg, setSubmitErrorMsg] = useState(false)
 
-  const formRef = useRef(null);
+  const formRef = useRef(null)
 
   return (
     <CustomCard>
@@ -61,7 +61,7 @@ function Quiz() {
         </div>
       </div>
     </CustomCard>
-  );
+  )
 }
 
-export default Quiz;
+export default Quiz

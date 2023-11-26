@@ -1,8 +1,8 @@
-import { FormLabel } from '@mui/material';
-import SortSelect from '../../../SortSelect';
-import { useState } from 'react';
-import TextField from '../../../forms/TextField';
-import useProgramReducer from '../../../../hooks/use-program-reducer';
+import { FormLabel } from '@mui/material'
+import SortSelect from '../../../SortSelect'
+import { useState } from 'react'
+import TextField from '../../../forms/TextField'
+import useProgramReducer from '../../../../hooks/use-program-reducer'
 
 /* eslint-disable react/prop-types */
 function ProgramTimeLocationForm({
@@ -12,39 +12,39 @@ function ProgramTimeLocationForm({
   locationValue,
   dispatchFormData = () => {},
 }) {
-  const [scheduleSortKey, setScheduleSortKey] = useState(scheduleTypeValue);
-  const [durationSortKey, setDurationSortKey] = useState(durationValue);
-  const { formReducerKeys } = useProgramReducer();
+  const [scheduleSortKey, setScheduleSortKey] = useState(scheduleTypeValue)
+  const [durationSortKey, setDurationSortKey] = useState(durationValue)
+  const { formReducerKeys } = useProgramReducer()
 
-  const handleScheduleTypeChange = (value) => {
-    setScheduleSortKey(value);
+  const handleScheduleTypeChange = value => {
+    setScheduleSortKey(value)
     dispatchFormData({
       type: formReducerKeys.SET_SCHEDULE_TYPE,
       payload: value,
-    });
-  };
+    })
+  }
 
-  const handleLocationChange = (value) => {
+  const handleLocationChange = value => {
     dispatchFormData({
       type: formReducerKeys.SET_LOCATION,
       payload: value,
-    });
-  };
+    })
+  }
 
-  const handleDurationChange = (value) => {
-    setDurationSortKey(value);
+  const handleDurationChange = value => {
+    setDurationSortKey(value)
     dispatchFormData({
       type: formReducerKeys.SET_DURATION,
       payload: value,
-    });
-  };
+    })
+  }
 
-  const handleScheduleURLChange = (value) => {
+  const handleScheduleURLChange = value => {
     dispatchFormData({
       type: formReducerKeys.SET_SCHEDULE_URL,
       payload: value,
-    });
-  };
+    })
+  }
 
   return (
     <>
@@ -62,7 +62,7 @@ function ProgramTimeLocationForm({
           }}
           options={scheduleOptions}
           sortKey={scheduleSortKey}
-          onSelect={(e) => handleScheduleTypeChange(e.target.value)}
+          onSelect={e => handleScheduleTypeChange(e.target.value)}
           selectClasses="!rounded-xl !text-left"
           hideLabel={true}
         />
@@ -77,7 +77,7 @@ function ProgramTimeLocationForm({
             <TextField
               placeholder="Enter a location, or a scheduling url"
               value={locationValue}
-              handleChange={(e) => handleLocationChange(e.target.value)}
+              handleChange={e => handleLocationChange(e.target.value)}
             />
           </div>
 
@@ -95,7 +95,7 @@ function ProgramTimeLocationForm({
               }}
               options={durationOptions}
               sortKey={durationSortKey}
-              onSelect={(e) => handleDurationChange(e.target.value)}
+              onSelect={e => handleDurationChange(e.target.value)}
               selectClasses="!rounded-xl !text-left"
               hideLabel={true}
             />
@@ -109,7 +109,7 @@ function ProgramTimeLocationForm({
           <TextField
             placeholder="Custom link"
             value={scheduleURLValue}
-            handleChange={(e) => handleScheduleURLChange(e.target.value)}
+            handleChange={e => handleScheduleURLChange(e.target.value)}
           />
           <p className="text-neutral-500">
             You can use a link from Calendly, Acuity, Google Calendar, etc.
@@ -117,15 +117,15 @@ function ProgramTimeLocationForm({
         </div>
       )}
     </>
-  );
+  )
 }
 
-export default ProgramTimeLocationForm;
+export default ProgramTimeLocationForm
 
 const scheduleOptions = [
   { value: 'WEBSITE', label: 'Website book' },
   { value: 'LINK', label: 'Custom link' },
-];
+]
 
 const durationOptions = [
   { value: 15, label: '15 minutes' },
@@ -134,4 +134,4 @@ const durationOptions = [
   { value: 60, label: '60 minutes' },
   { value: 75, label: '75 minutes' },
   { value: 90, label: '90 minutes' },
-];
+]

@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import { ArrowLeft } from "@phosphor-icons/react";
-import { Link } from "react-router-dom";
+import { ArrowLeft } from '@phosphor-icons/react'
+import { Link } from 'react-router-dom'
 
-function GoBackBtn({ path = "/products/courses" }) {
+function GoBackBtn({ path = '/products/courses' }) {
   return (
     <Link
       to={path}
@@ -10,7 +10,7 @@ function GoBackBtn({ path = "/products/courses" }) {
     >
       <ArrowLeft size={35} />
     </Link>
-  );
+  )
 }
 
-export default GoBackBtn;
+export default GoBackBtn

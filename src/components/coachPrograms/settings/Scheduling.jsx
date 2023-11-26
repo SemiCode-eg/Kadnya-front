@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
-import useProgramReducer from "../../../hooks/use-program-reducer";
-import ProgramTimeLocationForm from "../../coaching/programs/createCoachProgramForm/ProgramTimeLocationForm";
+import useProgramReducer from '../../../hooks/use-program-reducer'
+import ProgramTimeLocationForm from '../../coaching/programs/createCoachProgramForm/ProgramTimeLocationForm'
 
 function Scheduling({
   programData: { scheduleType, scheduleURL, duration, location },
 }) {
-  const { dispatchFormData } = useProgramReducer();
+  const { dispatchFormData } = useProgramReducer()
 
   return (
     <div className="border-[1.5px] border-[#ddd] rounded-[10px] p-6">
@@ -22,14 +22,14 @@ function Scheduling({
 
         <ProgramTimeLocationForm
           dispatchFormData={dispatchFormData}
-          scheduleTypeValue={scheduleType || "WEBSITE"}
+          scheduleTypeValue={scheduleType || 'WEBSITE'}
           scheduleURLValue={scheduleURL}
           durationValue={duration || 15}
           locationValue={location}
         />
       </div>
     </div>
-  );
+  )
 }
 
-export default Scheduling;
+export default Scheduling

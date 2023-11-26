@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
-import { Radio } from '@mui/material';
+import styled from '@emotion/styled'
+import { Radio } from '@mui/material'
 
 const BpIcon = styled('span')(() => ({
   borderRadius: '50%',
@@ -27,7 +27,7 @@ const BpIcon = styled('span')(() => ({
     boxShadow: 'none',
     background: 'rgba(206,217,224,.5)',
   },
-}));
+}))
 
 const BpCheckedIcon = styled(BpIcon)({
   width: '15px',
@@ -39,7 +39,7 @@ const BpCheckedIcon = styled(BpIcon)({
   'input:hover ~ &': {
     backgroundColor: 'transparent',
   },
-});
+})
 
 /* eslint-disable react/prop-types */
 function RadioInput({
@@ -52,12 +52,12 @@ function RadioInput({
   radioSublabelClasses = '',
   backgroundColor = '#F66A82',
 }) {
-  const radioLabelClass = `${radioLabelClasses}`;
-  const radioSublabelClass = `${radioSublabelClasses}`;
+  const radioLabelClass = `${radioLabelClasses}`
+  const radioSublabelClass = `${radioSublabelClasses}`
 
-  const handleChange = (e) => {
-    handleSelect(e.target.value);
-  };
+  const handleChange = e => {
+    handleSelect(e.target.value)
+  }
 
   return (
     <div
@@ -88,7 +88,7 @@ function RadioInput({
         {radioSublabel && <p className={radioSublabelClass}>{radioSublabel}</p>}
       </label>
     </div>
-  );
+  )
 }
 
-export default RadioInput;
+export default RadioInput

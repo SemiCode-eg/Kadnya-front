@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "format": "prettier --loglevel warn --write \"{src/components,src/pages,src/utils,src/hooks,src/theme}/**/*.{jsx,js}\""
   },
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^40.0.0",
@@ -36,6 +37,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "postcss": "^8.4.28",
+    "prettier": "3.1.0",
     "tailwindcss": "^3.3.3",
     "vite": "^4.4.9"
   }

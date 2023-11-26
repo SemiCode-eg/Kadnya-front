@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react'
 import {
   House,
   Package,
@@ -7,45 +7,46 @@ import {
   Users,
   Gear,
   SignOut,
-} from "@phosphor-icons/react";
-import { NavLink } from "react-router-dom";
+} from '@phosphor-icons/react'
+import { NavLink } from 'react-router-dom'
 
 const navigation = [
   {
     icon: <House size={25} />,
-    name: "Dashboard",
-    link: "/",
+    name: 'Dashboard',
+    link: '/',
   },
   {
     icon: <Package size={25} />,
-    name: "Products",
-    link: "/products",
+    name: 'Products',
+    link: '/products',
   },
   {
     icon: <ChartPieSlice size={25} />,
-    name: "Sales",
-    link: "/sales",
+    name: 'Sales',
+    link: '/sales',
   },
-  { icon: <Airplay size={25} />, name: "Website", link: "/website" },
-  { icon: <Users size={25} />, name: "Contacts", link: "/contacts" },
-  { icon: <Gear size={25} />, name: "Setting", link: "/setting" },
-  { icon: <SignOut size={25} />, name: "Logout", link: "/login" },
-];
+  { icon: <Airplay size={25} />, name: 'Website', link: '/website' },
+  { icon: <Users size={25} />, name: 'Contacts', link: '/contacts' },
+  { icon: <Gear size={25} />, name: 'Setting', link: '/setting' },
+  { icon: <SignOut size={25} />, name: 'Logout', link: '/login' },
+]
 
 const SidebarItem = ({ icon, name, link, onClick }) => {
-
   const handleClick = () => {
-    onClick();
-  };
+    onClick()
+  }
 
   return (
     <NavLink
       to={link}
       onClick={handleClick}
-      className={({isActive}) => 
-        `${isActive
-          ? "bg-gradient-to-r from-violet-200 to-teal-300 text-sky-950"
-          : "text-sky-950 hover:bg-gradient-to-r hover:from-violet-200 hover:to-teal-300"}
+      className={({ isActive }) =>
+        `${
+          isActive
+            ? 'bg-gradient-to-r from-violet-200 to-teal-300 text-sky-950'
+            : 'text-sky-950 hover:bg-gradient-to-r hover:from-violet-200 hover:to-teal-300'
+        }
         py-1.5 px-4 text-sm font-medium rounded-md flex items-center
          gap-2 duration-300 ease-linear`
       }
@@ -53,34 +54,34 @@ const SidebarItem = ({ icon, name, link, onClick }) => {
       {icon}
       {name}
     </NavLink>
-  );
-};
+  )
+}
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(' ')
 }
 
 export default function Sidebar({ isSidebarOpen, closeSidebar }) {
-  const initialPath = localStorage.getItem("currentPath") || "/dashboard";
+  const initialPath = localStorage.getItem('currentPath') || '/dashboard'
 
   const [activeIndex, setActiveIndex] = useState(
-    navigation.findIndex((item) => item.link === initialPath)
-  );
+    navigation.findIndex(item => item.link === initialPath),
+  )
 
   const handleItemClick = (index, link) => {
-    setActiveIndex(index);
-    localStorage.setItem("currentPath", link);
+    setActiveIndex(index)
+    localStorage.setItem('currentPath', link)
     if (window.innerWidth <= 768) {
-      closeSidebar();
+      closeSidebar()
     }
-  };
+  }
 
   return (
     <div className="flex h-screen md:w-3/12 lg:w-2/12 fixed w-full bg-gray-50 border-r border-gray-200">
       {/* Sidebar */}
       <nav
         className={`flex flex-col w-full bg-gray-50 ${
-          isSidebarOpen ? "block" : "hidden"
+          isSidebarOpen ? 'block' : 'hidden'
         }`}
       >
         <div className="flex items-center justify-center h-16 bg-gray-50">
@@ -105,5 +106,5 @@ export default function Sidebar({ isSidebarOpen, closeSidebar }) {
         </div>
       </nav>
     </div>
-  );
+  )
 }

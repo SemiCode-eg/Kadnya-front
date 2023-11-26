@@ -1,26 +1,26 @@
-import { useParams } from 'react-router-dom';
-import { FolderDashed, FolderSimple } from '@phosphor-icons/react';
-import ModuleAccordion from '../../../components/moduleAccordion/ModuleAccordion';
-import SearchInput from '../../../components/SearchInput';
-import ModuleLesson from '../../../components/moduleAccordion/ModuleLesson';
-import useCourse from '../../../hooks/use-course';
-import OutlineHeader from '../../../components/outlineHeader/OutlineHeader';
-import Container from '../Container';
-import HandleErrorLoad from '../../../components/handleErrorLoad';
-import { useMemo, useState } from 'react';
-import { Typography } from '@mui/material';
+import { useParams } from 'react-router-dom'
+import { FolderDashed, FolderSimple } from '@phosphor-icons/react'
+import ModuleAccordion from '../../../components/moduleAccordion/ModuleAccordion'
+import SearchInput from '../../../components/SearchInput'
+import ModuleLesson from '../../../components/moduleAccordion/ModuleLesson'
+import useCourse from '../../../hooks/use-course'
+import OutlineHeader from '../../../components/outlineHeader/OutlineHeader'
+import Container from '../Container'
+import HandleErrorLoad from '../../../components/handleErrorLoad'
+import { useMemo, useState } from 'react'
+import { Typography } from '@mui/material'
 
 function Outline() {
-  const [refetch, setRefetch] = useState(false);
-  const [searchData, setSearchData] = useState(null);
-  const [searchLoading, setSearchLoading] = useState(false);
-  const { id } = useParams();
-  const { courseData, errorMsg, loading } = useCourse(id, refetch);
+  const [refetch, setRefetch] = useState(false)
+  const [searchData, setSearchData] = useState(null)
+  const [searchLoading, setSearchLoading] = useState(false)
+  const { id } = useParams()
+  const { courseData, errorMsg, loading } = useCourse(id, refetch)
 
   const dataToShow = useMemo(
     () => searchData || courseData,
-    [courseData, searchData]
-  );
+    [courseData, searchData],
+  )
 
   return (
     <>
@@ -42,7 +42,7 @@ function Outline() {
             {dataToShow?.modules?.length === 0 ? (
               <Typography>Can&apos;t find these modules</Typography>
             ) : (
-              dataToShow?.modules?.map((module) => (
+              dataToShow?.modules?.map(module => (
                 <ModuleAccordion
                   title={module.title}
                   description={module.description}
@@ -68,7 +68,7 @@ function Outline() {
                   ) : (
                     ''
                   )}
-                  {module.submodules?.map((submodule) => (
+                  {module.submodules?.map(submodule => (
                     <ModuleAccordion
                       key={submodule.id}
                       title={submodule.title}
@@ -106,7 +106,7 @@ function Outline() {
         </Container>
       </HandleErrorLoad>
     </>
-  );
+  )
 }
 
-export default Outline;
+export default Outline

@@ -1,5 +1,5 @@
-import { Typography } from '@mui/material';
-import Preview from '../../../../components/preview/Preview';
+import { Typography } from '@mui/material'
+import Preview from '../../../../components/preview/Preview'
 
 /* eslint-disable react/prop-types */
 export default function AddCoursePreview({
@@ -29,5 +29,5 @@ export default function AddCoursePreview({
         </div>
       </div>
     </Preview>
-  );
+  )
 }

@@ -1,14 +1,14 @@
 /* eslint-disable react/prop-types */
-import { FormLabel } from '@mui/material';
-import TextAriaField from '../../../components/forms/TextAriaField';
-import ImageField from '../../../components/imageField/ImageField';
-import MainButton from '../../../components/mainButton/MainButton';
-import { useParams } from 'react-router-dom';
-import { useState } from 'react';
-import TextField from '../../../components/forms/TextField';
-import SortSelect from '../../../components/SortSelect';
-import CustomModal from '../../../components/customModal';
-import { sendSubmodule } from '../../../utils/ApiCalls';
+import { FormLabel } from '@mui/material'
+import TextAriaField from '../../../components/forms/TextAriaField'
+import ImageField from '../../../components/imageField/ImageField'
+import MainButton from '../../../components/mainButton/MainButton'
+import { useParams } from 'react-router-dom'
+import { useState } from 'react'
+import TextField from '../../../components/forms/TextField'
+import SortSelect from '../../../components/SortSelect'
+import CustomModal from '../../../components/customModal'
+import { sendSubmodule } from '../../../utils/ApiCalls'
 
 function AddSubmodule({
   open,
@@ -17,43 +17,43 @@ function AddSubmodule({
   setRefetch = () => {},
   setSuccessSubmit = () => {},
 }) {
-  const [title, setTitle] = useState('');
-  const [titleErrorMsg, setTitleErrorMsg] = useState('');
-  const [description, setDescription] = useState('');
-  const [descriptionErrorMsg, setDescriptionErrorMsg] = useState('');
-  const [imageAsset, setImageAsset] = useState(null);
-  const [imageAssetErrorMsg, setImageAssetErrorMsg] = useState('');
+  const [title, setTitle] = useState('')
+  const [titleErrorMsg, setTitleErrorMsg] = useState('')
+  const [description, setDescription] = useState('')
+  const [descriptionErrorMsg, setDescriptionErrorMsg] = useState('')
+  const [imageAsset, setImageAsset] = useState(null)
+  const [imageAssetErrorMsg, setImageAssetErrorMsg] = useState('')
 
-  const [submitLoading, setSubmitLoading] = useState(false);
-  const [submitError, setSubmitError] = useState(false);
+  const [submitLoading, setSubmitLoading] = useState(false)
+  const [submitError, setSubmitError] = useState(false)
 
-  const { id } = useParams();
+  const { id } = useParams()
 
   const setModulesSelectOption = () => {
-    return modules?.map((module) => ({
+    return modules?.map(module => ({
       value: module.id,
       label: module.title,
-    }));
-  };
+    }))
+  }
 
-  const [sortKey, setSortKey] = useState(setModulesSelectOption()[0].value);
+  const [sortKey, setSortKey] = useState(setModulesSelectOption()[0].value)
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = e => {
+    e.preventDefault()
 
     if (title === '') {
-      setTitleErrorMsg('This field is required!');
-      return;
+      setTitleErrorMsg('This field is required!')
+      return
     }
 
     if (description === '') {
-      setDescriptionErrorMsg('This field is required!');
-      return;
+      setDescriptionErrorMsg('This field is required!')
+      return
     }
 
     if (imageAsset === null) {
-      setImageAssetErrorMsg('This field is required!');
-      return;
+      setImageAssetErrorMsg('This field is required!')
+      return
     }
 
     const submoduleData = {
@@ -62,29 +62,29 @@ function AddSubmodule({
       imageAsset,
       id,
       module: sortKey,
-    };
+    }
 
-    setSubmitLoading(true);
-    setSubmitError(false);
+    setSubmitLoading(true)
+    setSubmitError(false)
 
     sendSubmodule(submoduleData)
-      .then((data) => {
-        setSubmitLoading(false);
+      .then(data => {
+        setSubmitLoading(false)
         if (
           !data.request ||
           data.request.status === 200 ||
           data.request.status === 201
         ) {
-          setSubmitError(false);
-          setRefetch((prev) => !prev);
-          setSuccessSubmit('Submodule');
-          onClose();
+          setSubmitError(false)
+          setRefetch(prev => !prev)
+          setSuccessSubmit('Submodule')
+          onClose()
         } else {
-          setSubmitError(true);
+          setSubmitError(true)
         }
       })
-      .catch(() => setSubmitError(true));
-  };
+      .catch(() => setSubmitError(true))
+  }
 
   return (
     <CustomModal
@@ -102,9 +102,9 @@ function AddSubmodule({
           <TextField
             placeholder="Text"
             value={title}
-            handleChange={(e) => {
-              setTitle(e.target.value);
-              setTitleErrorMsg('');
+            handleChange={e => {
+              setTitle(e.target.value)
+              setTitleErrorMsg('')
             }}
           />
           <p className="text-red-500">{titleErrorMsg}</p>
@@ -115,7 +115,7 @@ function AddSubmodule({
             className="!w-full"
             options={setModulesSelectOption()}
             sortKey={sortKey}
-            onSelect={(e) => setSortKey(e.target.value)}
+            onSelect={e => setSortKey(e.target.value)}
             selectClasses="!rounded-xl"
           />
         </div>
@@ -126,9 +126,9 @@ function AddSubmodule({
           <TextAriaField
             value={description}
             placeholder="Add a description..."
-            handleChange={(e) => {
-              setDescription(e.target.value);
-              setDescriptionErrorMsg('');
+            handleChange={e => {
+              setDescription(e.target.value)
+              setDescriptionErrorMsg('')
             }}
           />
 
@@ -158,7 +158,7 @@ function AddSubmodule({
         </div>
       </form>
     </CustomModal>
-  );
+  )
 }
 
-export default AddSubmodule;
+export default AddSubmodule

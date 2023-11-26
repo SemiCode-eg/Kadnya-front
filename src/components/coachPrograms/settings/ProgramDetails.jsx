@@ -1,49 +1,49 @@
 /* eslint-disable react/prop-types */
-import { FormLabel } from "@mui/material";
-import useProgramReducer from "../../../hooks/use-program-reducer";
-import TextField from "../../forms/TextField";
-import TextAriaField from "../../forms/TextAriaField";
-import ImageField from "../../imageField/ImageField";
+import { FormLabel } from '@mui/material'
+import useProgramReducer from '../../../hooks/use-program-reducer'
+import TextField from '../../forms/TextField'
+import TextAriaField from '../../forms/TextAriaField'
+import ImageField from '../../imageField/ImageField'
 
 function ProgramDetails({
   programData: { title, description, coachName, coachEmail },
 }) {
-  const { dispatchFormData, formReducerKeys } = useProgramReducer();
+  const { dispatchFormData, formReducerKeys } = useProgramReducer()
 
-  const handleTitleChange = (value) => {
+  const handleTitleChange = value => {
     dispatchFormData({
       type: formReducerKeys.SET_TITLE,
       payload: value,
-    });
-  };
+    })
+  }
 
-  const handleCoachNameChange = (value) => {
+  const handleCoachNameChange = value => {
     dispatchFormData({
       type: formReducerKeys.SET_COACH_NAME,
       payload: value,
-    });
-  };
+    })
+  }
 
-  const handleCoachEmailChange = (value) => {
+  const handleCoachEmailChange = value => {
     dispatchFormData({
       type: formReducerKeys.SET_COACH_EMAIL,
       payload: value,
-    });
-  };
+    })
+  }
 
-  const handleDescriptionChange = (value) => {
+  const handleDescriptionChange = value => {
     dispatchFormData({
       type: formReducerKeys.SET_DESCRIPTION,
       payload: value,
-    });
-  };
+    })
+  }
 
-  const handleImageChange = (image) => {
+  const handleImageChange = image => {
     dispatchFormData({
       type: formReducerKeys.SET_IMAGE,
       payload: image,
-    });
-  };
+    })
+  }
 
   return (
     <div className="border-[1.5px] border-[#ddd] rounded-[10px] p-6">
@@ -65,7 +65,7 @@ function ProgramDetails({
           <TextField
             placeholder="Title"
             value={title}
-            handleChange={(e) => handleTitleChange(e.target.value)}
+            handleChange={e => handleTitleChange(e.target.value)}
           />
         </div>
 
@@ -76,7 +76,7 @@ function ProgramDetails({
           <TextField
             placeholder="Coach name (optional)"
             value={coachName}
-            handleChange={(e) => handleCoachNameChange(e.target.value)}
+            handleChange={e => handleCoachNameChange(e.target.value)}
           />
         </div>
 
@@ -87,7 +87,7 @@ function ProgramDetails({
           <TextField
             placeholder="Coach email (optional)"
             value={coachEmail}
-            handleChange={(e) => handleCoachEmailChange(e.target.value)}
+            handleChange={e => handleCoachEmailChange(e.target.value)}
           />
         </div>
 
@@ -98,7 +98,7 @@ function ProgramDetails({
           <TextAriaField
             value={description}
             placeholder="Enter a program description..."
-            handleChange={(e) => handleDescriptionChange(e.target.value)}
+            handleChange={e => handleDescriptionChange(e.target.value)}
           />
         </div>
 
@@ -107,7 +107,7 @@ function ProgramDetails({
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default ProgramDetails;
+export default ProgramDetails

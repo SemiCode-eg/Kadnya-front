@@ -8,7 +8,7 @@ function SchedulingOptions() {
         <p className="text-neutral-500">Select your availability window.</p>
       </div>
     </div>
-  );
+  )
 }
 
-export default SchedulingOptions;
+export default SchedulingOptions

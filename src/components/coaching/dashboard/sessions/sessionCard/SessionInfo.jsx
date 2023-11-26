@@ -11,7 +11,7 @@ function SessionInfo({ sessionTitle, coachingType }) {
         {coachingType}
       </p>
     </div>
-  );
+  )
 }
 
-export default SessionInfo;
+export default SessionInfo

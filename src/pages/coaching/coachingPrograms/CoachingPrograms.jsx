@@ -1,16 +1,16 @@
-import SearchInput from '../../../components/SearchInput';
-import { useState } from 'react';
-import ProgramsHead from '../../../components/coaching/programs/ProgramsHead';
-import ProgramsCards from '../../../components/coaching/programs/ProgramsCards';
+import SearchInput from '../../../components/SearchInput'
+import { useState } from 'react'
+import ProgramsHead from '../../../components/coaching/programs/ProgramsHead'
+import ProgramsCards from '../../../components/coaching/programs/ProgramsCards'
 
 function CoachingPrograms() {
-  const [searchData, setSearchData] = useState(null);
-  const [searchLoading, setSearchLoading] = useState(false);
-  const [refetch, setRefetch] = useState(false);
+  const [searchData, setSearchData] = useState(null)
+  const [searchLoading, setSearchLoading] = useState(false)
+  const [refetch, setRefetch] = useState(false)
 
-  const handleSearchLoading = (newValue) => {
-    setSearchLoading(newValue);
-  };
+  const handleSearchLoading = newValue => {
+    setSearchLoading(newValue)
+  }
 
   return (
     <div>
@@ -25,10 +25,10 @@ function CoachingPrograms() {
         <ProgramsCards data={programs} setRefetch={setRefetch} />
       </section>
     </div>
-  );
+  )
 }
 
-export default CoachingPrograms;
+export default CoachingPrograms
 
 const programs = [
   {
@@ -58,4 +58,4 @@ const programs = [
     sessions: 5,
     subscribersCount: 15,
   },
-];
+]

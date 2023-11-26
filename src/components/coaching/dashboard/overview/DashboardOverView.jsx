@@ -1,5 +1,5 @@
-import { CurrencyCircleDollar, Headphones, Users } from '@phosphor-icons/react';
-import OverViewCard from './OverViewCard';
+import { CurrencyCircleDollar, Headphones, Users } from '@phosphor-icons/react'
+import OverViewCard from './OverViewCard'
 
 function DashboardOverView() {
   return (
@@ -32,7 +32,7 @@ function DashboardOverView() {
         />
       </div>
     </div>
-  );
+  )
 }
 
-export default DashboardOverView;
+export default DashboardOverView

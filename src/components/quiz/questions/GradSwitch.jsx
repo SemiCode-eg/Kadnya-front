@@ -1,50 +1,50 @@
 /* eslint-disable react/prop-types */
-import { Button, FormControlLabel, Switch } from "@mui/material";
-import { Link } from "@phosphor-icons/react";
-import { useRef, useState } from "react";
-import HandleErrorLoad from "../../handleErrorLoad";
-import QuizImage from "../QuizImage";
+import { Button, FormControlLabel, Switch } from '@mui/material'
+import { Link } from '@phosphor-icons/react'
+import { useRef, useState } from 'react'
+import HandleErrorLoad from '../../handleErrorLoad'
+import QuizImage from '../QuizImage'
 
 export default function GradSwitch({ value, onChange, imageURL }) {
-  const [imageError, setImageError] = useState("");
-  const [previewedImage, setPreviewedImage] = useState(imageURL || null);
-  const imageFieldRef = useRef();
+  const [imageError, setImageError] = useState('')
+  const [previewedImage, setPreviewedImage] = useState(imageURL || null)
+  const imageFieldRef = useRef()
 
-  const handleImageChange = (e) => {
+  const handleImageChange = e => {
     if (e.target.files[0]) {
-      const { type, size, name } = e.target.files[0];
+      const { type, size, name } = e.target.files[0]
 
       const imageName =
         name.length > 12
-          ? `${name.substring(0, 13)}... .${name.split(".")[1]}`
-          : name;
+          ? `${name.substring(0, 13)}... .${name.split('.')[1]}`
+          : name
 
-      if (type === "image/png" || type === "image/jpeg") {
+      if (type === 'image/png' || type === 'image/jpeg') {
         // Check file size (in bytes) -> 5 MB
         if (size > 5 * 1024 * 1024) {
-          setImageError("Image size must not exceeds 5 MB!");
-          return;
+          setImageError('Image size must not exceeds 5 MB!')
+          return
         }
 
-        const reader = new FileReader();
+        const reader = new FileReader()
 
-        reader.addEventListener("load", () => {
-          setPreviewedImage({ image: reader.result, name: imageName });
-        });
-        reader.readAsDataURL(e.target.files[0]);
+        reader.addEventListener('load', () => {
+          setPreviewedImage({ image: reader.result, name: imageName })
+        })
+        reader.readAsDataURL(e.target.files[0])
 
-        setImageError(false);
+        setImageError(false)
         // TODO Here you add the image to the reducer
         // setImageAsset(e.target.files[0]);
       } else {
-        setImageError("Wrong image type");
+        setImageError('Wrong image type')
       }
     }
-  };
+  }
 
   const handleClick = () => {
-    imageFieldRef.current.click();
-  };
+    imageFieldRef.current.click()
+  }
 
   return (
     <HandleErrorLoad errorMsg={imageError}>
@@ -56,12 +56,12 @@ export default function GradSwitch({ value, onChange, imageURL }) {
           />
           <p
             className={`flex justify-center items-center px-4 gap-3 rounded-full text-white duration-150 ease-in ${
-              value ? "bg-teal-500" : "bg-gray-400"
+              value ? 'bg-teal-500' : 'bg-gray-400'
             }`}
           >
             <span
               className={`block ${
-                value ? "bg-black" : "bg-white"
+                value ? 'bg-black' : 'bg-white'
               } rounded-full w-3 h-3 duration-200 ease-out`}
             ></span>
             Auto-graded
@@ -95,5 +95,5 @@ export default function GradSwitch({ value, onChange, imageURL }) {
         )}
       </div>
     </HandleErrorLoad>
-  );
+  )
 }

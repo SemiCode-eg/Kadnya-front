@@ -1,14 +1,14 @@
 /* eslint-disable react/prop-types */
-import { styled } from '@mui/material';
-import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
+import { styled } from '@mui/material'
+import Box from '@mui/material/Box'
+import Tab from '@mui/material/Tab'
+import Tabs from '@mui/material/Tabs'
 
 const MuiSessionsTabs = styled(Tabs)(() => ({
   '& .MuiTabs-indicator': {
     backgroundColor: 'black',
   },
-}));
+}))
 
 function CustomTabs({
   value,
@@ -28,7 +28,7 @@ function CustomTabs({
         aria-label="basic tabs example"
         className="!mb-8 !border-b border-b-gray-300"
       >
-        {tabs.map((tab) => (
+        {tabs.map(tab => (
           <Tab
             key={tab.id}
             label={tab.label}
@@ -38,7 +38,7 @@ function CustomTabs({
         ))}
       </MuiSessionsTabs>
     </Box>
-  );
+  )
 }
 
-export default CustomTabs;
+export default CustomTabs

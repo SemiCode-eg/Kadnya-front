@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
-import { FormLabel } from '@mui/material';
-import MainButton from '../../../components/mainButton/MainButton';
-import { useState } from 'react';
-import TextField from '../../../components/forms/TextField';
-import SortSelect from '../../../components/SortSelect';
-import CustomModal from '../../../components/customModal';
-import useModule from '../../../hooks/use-module';
-import { sendLesson } from '../../../utils/ApiCalls';
-import HandleErrorLoad from '../../../components/handleErrorLoad';
+import { FormLabel } from '@mui/material'
+import MainButton from '../../../components/mainButton/MainButton'
+import { useState } from 'react'
+import TextField from '../../../components/forms/TextField'
+import SortSelect from '../../../components/SortSelect'
+import CustomModal from '../../../components/customModal'
+import useModule from '../../../hooks/use-module'
+import { sendLesson } from '../../../utils/ApiCalls'
+import HandleErrorLoad from '../../../components/handleErrorLoad'
 
 function AddLesson({
   open,
@@ -18,81 +18,81 @@ function AddLesson({
   setRefetch = () => {},
   setSuccessSubmit = () => {},
 }) {
-  const [title, setTitle] = useState('');
-  const [titleErrorMsg, setTitleErrorMsg] = useState('');
+  const [title, setTitle] = useState('')
+  const [titleErrorMsg, setTitleErrorMsg] = useState('')
 
-  const [submitLoading, setSubmitLoading] = useState(false);
-  const [submitError, setSubmitError] = useState(false);
+  const [submitLoading, setSubmitLoading] = useState(false)
+  const [submitError, setSubmitError] = useState(false)
 
   const [submodulesSortKey, setSubmodulesSortKey] = useState(
-    submodules.length > 0 ? submodules[0].value : 'NONE'
-  );
+    submodules.length > 0 ? submodules[0].value : 'NONE',
+  )
 
   const setModulesSelectOption = () => {
-    return modules?.map((module) => ({
+    return modules?.map(module => ({
       value: module.id,
       label: module.title,
-    }));
-  };
+    }))
+  }
 
   const [modulesSortKey, setModulesSortKey] = useState(
-    setModulesSelectOption()[0].value
-  );
+    setModulesSelectOption()[0].value,
+  )
 
   const {
     moduleData,
     errorMsg: moduleErrorMsg,
     loading: moduleLoading,
-  } = useModule(modulesSortKey);
+  } = useModule(modulesSortKey)
 
   const setSubmodulesSelectOption = () => {
     if (!isMainBtn) {
-      return submodules.length === 0 ? [] : submodules;
+      return submodules.length === 0 ? [] : submodules
     } else {
-      return moduleData?.submodules?.map((submodule) => ({
+      return moduleData?.submodules?.map(submodule => ({
         value: submodule.id,
         label: submodule.title,
-      }));
+      }))
     }
-  };
+  }
 
   function handleSubmit(e) {
-    e.preventDefault();
+    e.preventDefault()
 
     if (title === '') {
-      setTitleErrorMsg('This field is required!');
-      return;
+      setTitleErrorMsg('This field is required!')
+      return
     }
 
-    const formData = new FormData();
-    formData.append('title', title);
+    const formData = new FormData()
+    formData.append('title', title)
 
     if (submodulesSortKey === 'NONE') {
-      formData.append('module', modulesSortKey);
+      formData.append('module', modulesSortKey)
     } else {
-      formData.append('sub_module', submodulesSortKey);
+      formData.append('sub_module', submodulesSortKey)
     }
 
-    setSubmitLoading(true);
-    setSubmitError(false);
+    setSubmitLoading(true)
+    setSubmitError(false)
 
     sendLesson(formData)
-      .then((data) => {
-        setSubmitLoading(false);
+      .then(data => {
+        setSubmitLoading(false)
         if (
           !data.request ||
           data.request.status === 200 ||
           data.request.status === 201
         ) {
-          setSubmitError(false);
-          setRefetch((prev) => !prev);
-          setSuccessSubmit('Lesson');
-          onClose();
+          setSubmitError(false)
+          setRefetch(prev => !prev)
+          setSuccessSubmit('Lesson')
+          onClose()
         } else {
-          setSubmitError(true);
+          setSubmitError(true)
         }
       })
-      .catch(() => setSubmitError(true));
+      .catch(() => setSubmitError(true))
   }
 
   return (
@@ -112,9 +112,9 @@ function AddLesson({
             <TextField
               placeholder="Text"
               value={title}
-              handleChange={(e) => {
-                setTitle(e.target.value);
-                setTitleErrorMsg('');
+              handleChange={e => {
+                setTitle(e.target.value)
+                setTitleErrorMsg('')
               }}
             />
             <div className="text-red-500">{titleErrorMsg}</div>
@@ -125,7 +125,7 @@ function AddLesson({
               className="!w-full"
               options={setModulesSelectOption()}
               sortKey={modulesSortKey}
-              onSelect={(e) => setModulesSortKey(e.target.value)}
+              onSelect={e => setModulesSortKey(e.target.value)}
               selectClasses="!rounded-xl"
             />
           </div>
@@ -143,7 +143,7 @@ function AddLesson({
                       ]
                 }
                 sortKey={submodulesSortKey}
-                onSelect={(e) => setSubmodulesSortKey(e.target.value)}
+                onSelect={e => setSubmodulesSortKey(e.target.value)}
                 selectClasses="!rounded-xl"
               />
             )}
@@ -169,7 +169,7 @@ function AddLesson({
         </form>
       </HandleErrorLoad>
     </CustomModal>
-  );
+  )
 }
 
-export default AddLesson;
+export default AddLesson

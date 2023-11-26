@@ -1,14 +1,14 @@
 /* eslint-disable react/prop-types */
-import { FormLabel } from '@mui/material';
-import { useEffect, useState } from 'react';
-import SortSelect from '../../SortSelect';
-import TextField from '../../forms/TextField';
-import ImageField from '../../imageField/ImageField';
-import { useNavigate, useParams } from 'react-router-dom';
-import useLesson from '../../../hooks/use-lesson';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import MainButton from '../../mainButton/MainButton';
+import { FormLabel } from '@mui/material'
+import { useEffect, useState } from 'react'
+import SortSelect from '../../SortSelect'
+import TextField from '../../forms/TextField'
+import ImageField from '../../imageField/ImageField'
+import { useNavigate, useParams } from 'react-router-dom'
+import useLesson from '../../../hooks/use-lesson'
+import { CKEditor } from '@ckeditor/ckeditor5-react'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import MainButton from '../../mainButton/MainButton'
 import {
   CheckFat,
   Eye,
@@ -17,14 +17,14 @@ import {
   Link,
   LinkSimple,
   VideoCamera,
-} from '@phosphor-icons/react';
-import EditLessonLinkCard from '../editLessonLinkCard/EditLessonLinkCard';
-import DraftBtn from '../../draftBtn/DraftBtn';
-import AddFile from '../addFile/AddFile';
-import HandleErrorLoad from '../../handleErrorLoad/index';
-import { updateLesson } from '../../../utils/ApiCalls';
-import useModule from '../../../hooks/use-module';
-import useModules from '../../../hooks/use-modules';
+} from '@phosphor-icons/react'
+import EditLessonLinkCard from '../editLessonLinkCard/EditLessonLinkCard'
+import DraftBtn from '../../draftBtn/DraftBtn'
+import AddFile from '../addFile/AddFile'
+import HandleErrorLoad from '../../handleErrorLoad/index'
+import { updateLesson } from '../../../utils/ApiCalls'
+import useModule from '../../../hooks/use-module'
+import useModules from '../../../hooks/use-modules'
 
 const toolbar = [
   'heading',
@@ -41,7 +41,7 @@ const toolbar = [
   'insertTable',
   'indent',
   'outdent',
-];
+]
 
 const visibleMenuItems = [
   {
@@ -52,7 +52,7 @@ const visibleMenuItems = [
     Icon: Eye,
     text: 'Visible',
   },
-];
+]
 
 function EditLessonBody({
   isDraft,
@@ -61,125 +61,125 @@ function EditLessonBody({
   setSubmitError,
   setSubmitLoading,
 }) {
-  const { id, lessonID } = useParams();
-  const { lessonData, errorMsg, loading } = useLesson(lessonID);
-  const navigate = useNavigate();
+  const { id, lessonID } = useParams()
+  const { lessonData, errorMsg, loading } = useLesson(lessonID)
+  const navigate = useNavigate()
 
-  const [title, setTitle] = useState('');
-  const [titleErrorMsg, setTitleErrorMsg] = useState('');
+  const [title, setTitle] = useState('')
+  const [titleErrorMsg, setTitleErrorMsg] = useState('')
   const [description, setDescription] = useState(
-    '<p>Add a description for your lesson</p>'
-  );
-  const [descriptionErrorMsg, setDescriptionErrorMsg] = useState('');
-  const [imageAsset, setImageAsset] = useState(lessonData?.image);
-  const [isCommentHidden, setIsCommentHidden] = useState(true);
-  const [fileName, setFileName] = useState('');
+    '<p>Add a description for your lesson</p>',
+  )
+  const [descriptionErrorMsg, setDescriptionErrorMsg] = useState('')
+  const [imageAsset, setImageAsset] = useState(lessonData?.image)
+  const [isCommentHidden, setIsCommentHidden] = useState(true)
+  const [fileName, setFileName] = useState('')
 
-  const [modulesOptions, setModulesOptions] = useState([]);
-  const [submodulesOption, setSubmodulesOption] = useState([]);
+  const [modulesOptions, setModulesOptions] = useState([])
+  const [submodulesOption, setSubmodulesOption] = useState([])
 
-  const [submodulesSortKey, setSubmodulesSortKey] = useState('NONE');
-  const [modulesSortKey, setModulesSortKey] = useState(1);
+  const [submodulesSortKey, setSubmodulesSortKey] = useState('NONE')
+  const [modulesSortKey, setModulesSortKey] = useState(1)
 
-  const [isVideo, setIsVideo] = useState(false);
-  const [openAddFile, setOpenAddFile] = useState(false);
+  const [isVideo, setIsVideo] = useState(false)
+  const [openAddFile, setOpenAddFile] = useState(false)
 
   const {
     modulesData,
     errorMsg: modulesErrorMsg,
     loading: modulesLoading,
-  } = useModules(id);
+  } = useModules(id)
 
   const {
     moduleData,
     errorMsg: submodulesErrorMsg,
     loading: submodulesLoading,
-  } = useModule(modulesSortKey);
+  } = useModule(modulesSortKey)
 
   useEffect(() => {
     setModulesOptions(
-      modulesData?.map((module) => ({
+      modulesData?.map(module => ({
         value: module.id,
         label: module.title,
-      }))
-    );
+      })),
+    )
 
     setSubmodulesOption(
-      moduleData?.submodules?.map((submodule) =>
+      moduleData?.submodules?.map(submodule =>
         submodule
           ? {
               value: submodule.id,
               label: submodule.title,
             }
-          : []
-      )
-    );
-  }, [moduleData?.submodules, modulesData]);
+          : [],
+      ),
+    )
+  }, [moduleData?.submodules, modulesData])
 
   useEffect(() => {
     if (lessonData) {
-      setTitle(lessonData.title);
-      setImageAsset(lessonData.image);
+      setTitle(lessonData.title)
+      setImageAsset(lessonData.image)
       setModulesSortKey(
         lessonData.module
           ? lessonData.module?.id
-          : lessonData.sub_module?.module?.id
-      );
+          : lessonData.sub_module?.module?.id,
+      )
       setSubmodulesSortKey(
-        lessonData.sub_module !== null ? lessonData.sub_module?.id : 'NONE'
-      );
-      setIsCommentHidden(lessonData?.hide);
-      setIsDraft(lessonData?.draft);
+        lessonData.sub_module !== null ? lessonData.sub_module?.id : 'NONE',
+      )
+      setIsCommentHidden(lessonData?.hide)
+      setIsDraft(lessonData?.draft)
       if (lessonData.description !== 'undefined') {
         if (lessonData.description !== null) {
-          setDescription(lessonData.description);
+          setDescription(lessonData.description)
         }
       }
     }
-  }, [lessonData, setIsDraft]);
+  }, [lessonData, setIsDraft])
 
   function handleSubmit(e) {
-    e.preventDefault();
+    e.preventDefault()
 
     if (title === '') {
-      setTitleErrorMsg('This field is required!');
-      return;
+      setTitleErrorMsg('This field is required!')
+      return
     }
 
     if (description === '') {
-      setDescriptionErrorMsg('This field is required!');
-      return;
+      setDescriptionErrorMsg('This field is required!')
+      return
     }
 
-    setSubmitError(false);
-    setSubmitLoading(true);
+    setSubmitError(false)
+    setSubmitLoading(true)
 
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('description', description);
+    const formData = new FormData()
+    formData.append('title', title)
+    formData.append('description', description)
 
     if (submodulesSortKey === 'NONE') {
-      formData.append('module', modulesSortKey);
-      formData.append('sub_module', '');
+      formData.append('module', modulesSortKey)
+      formData.append('sub_module', '')
     } else {
-      formData.append('module', '');
-      formData.append('sub_module', submodulesSortKey);
+      formData.append('module', '')
+      formData.append('sub_module', submodulesSortKey)
     }
 
-    formData.append('course', id);
-    formData.append('hide', isCommentHidden);
-    formData.append('draft', isDraft);
-    imageAsset && formData.append('image', imageAsset);
+    formData.append('course', id)
+    formData.append('hide', isCommentHidden)
+    formData.append('draft', isDraft)
+    imageAsset && formData.append('image', imageAsset)
 
-    updateLesson(lessonID, formData).then((data) => {
-      setSubmitLoading(false);
+    updateLesson(lessonID, formData).then(data => {
+      setSubmitLoading(false)
       if (data.status === 200 || (data.status === 201 && data.data)) {
-        setSubmitError(false);
-        navigate('/products/courses');
+        setSubmitError(false)
+        navigate('/products/courses')
       } else {
-        setSubmitError(true);
+        setSubmitError(true)
       }
-    });
+    })
   }
 
   return (
@@ -204,9 +204,9 @@ function EditLessonBody({
                   <TextField
                     placeholder="What are the Different Ways to Earn Money?"
                     value={title}
-                    handleChange={(e) => {
-                      setTitle(e.target.value);
-                      setTitleErrorMsg('');
+                    handleChange={e => {
+                      setTitle(e.target.value)
+                      setTitleErrorMsg('')
                     }}
                   />
                   <div className="text-red-500">{titleErrorMsg}</div>
@@ -220,7 +220,7 @@ function EditLessonBody({
                     className="!w-full"
                     options={modulesOptions}
                     sortKey={modulesSortKey}
-                    onSelect={(e) => setModulesSortKey(e.target.value)}
+                    onSelect={e => setModulesSortKey(e.target.value)}
                     selectClasses="!rounded-xl !py-0"
                   />
                 </div>
@@ -241,7 +241,7 @@ function EditLessonBody({
                           ...submodulesOption,
                         ]}
                         sortKey={submodulesSortKey}
-                        onSelect={(e) => setSubmodulesSortKey(e.target.value)}
+                        onSelect={e => setSubmodulesSortKey(e.target.value)}
                         selectClasses="!rounded-xl"
                       />
                     </HandleErrorLoad>
@@ -257,9 +257,9 @@ function EditLessonBody({
                     editor={ClassicEditor}
                     data={description}
                     onChange={(event, editor) => {
-                      const data = editor.getData();
-                      setDescription(data);
-                      setDescriptionErrorMsg('');
+                      const data = editor.getData()
+                      setDescription(data)
+                      setDescriptionErrorMsg('')
                     }}
                     config={{
                       toolbar,
@@ -371,7 +371,7 @@ function EditLessonBody({
         </div>
       </HandleErrorLoad>
     </HandleErrorLoad>
-  );
+  )
 }
 
-export default EditLessonBody;
+export default EditLessonBody

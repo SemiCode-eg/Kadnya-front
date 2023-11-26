@@ -1,15 +1,15 @@
-import { useState } from "react";
-import { ArrowLineLeft } from "@phosphor-icons/react";
-import { Link } from "react-router-dom";
-import Sections from "./sections/Sections";
-import Settings from "./settings/Settings";
+import { useState } from 'react'
+import { ArrowLineLeft } from '@phosphor-icons/react'
+import { Link } from 'react-router-dom'
+import Sections from './sections/Sections'
+import Settings from './settings/Settings'
 
 const DropBar = () => {
-  const [activeTab, setActiveTab] = useState("tab1");
+  const [activeTab, setActiveTab] = useState('tab1')
 
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-  };
+  const handleTabChange = tab => {
+    setActiveTab(tab)
+  }
 
   return (
     <div className="border-r">
@@ -29,31 +29,35 @@ const DropBar = () => {
       <div className="flex">
         <div
           className={`cursor-pointer border border-b-4 border-gray-200 text-center p-4 w-1/2 text-sm ${
-            activeTab === "tab1" ? " border-b-blue-500 font-semibold" : "border-gray-200"
+            activeTab === 'tab1'
+              ? ' border-b-blue-500 font-semibold'
+              : 'border-gray-200'
           }`}
-          onClick={() => handleTabChange("tab1")}
+          onClick={() => handleTabChange('tab1')}
         >
           Sections
         </div>
         <div
           className={`cursor-pointer border border-l-0 border-gray-200 border-b-4 text-center text-sm p-4 w-1/2 ${
-            activeTab === "tab2" ? "border-b-blue-500 font-semibold" : "border-gray-200"
+            activeTab === 'tab2'
+              ? 'border-b-blue-500 font-semibold'
+              : 'border-gray-200'
           }`}
-          onClick={() => handleTabChange("tab2")}
+          onClick={() => handleTabChange('tab2')}
         >
           Settings
         </div>
       </div>
       <div>
-        <div className={"pl-2 pr-4"}>
-          {activeTab === "tab1" && (
+        <div className={'pl-2 pr-4'}>
+          {activeTab === 'tab1' && (
             <>
               <Sections />
             </>
           )}
         </div>
         <div>
-          {activeTab === "tab2" && (
+          {activeTab === 'tab2' && (
             <>
               <Settings />
             </>
@@ -61,7 +65,7 @@ const DropBar = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default DropBar;
+export default DropBar

@@ -1,5 +1,5 @@
-import { Disclosure } from "@headlessui/react";
-import { List, X } from "@phosphor-icons/react";
+import { Disclosure } from '@headlessui/react'
+import { List, X } from '@phosphor-icons/react'
 
 export default function WebBar({ toggleDropbar, isDropbarOpen }) {
   return (
@@ -7,7 +7,7 @@ export default function WebBar({ toggleDropbar, isDropbarOpen }) {
       {/* Content */}
       <div className="flex flex-col flex-grow">
         <Disclosure as="nav" className="p-4 sm:pr-16">
-          {" "}
+          {' '}
           {/* border-b-2 shadow-sm */}
           {/* Webbar */}
           <div className="flex items-center justify-between">
@@ -48,5 +48,5 @@ export default function WebBar({ toggleDropbar, isDropbarOpen }) {
         </Disclosure>
       </div>
     </>
-  );
+  )
 }

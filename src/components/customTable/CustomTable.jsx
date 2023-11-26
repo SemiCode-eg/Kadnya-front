@@ -1,57 +1,57 @@
 /* eslint-disable react/prop-types */
-import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import { visuallyHidden } from '@mui/utils';
-import { UserCircle } from '@phosphor-icons/react';
-import { useMemo, useState } from 'react';
+import Box from '@mui/material/Box'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+import TablePagination from '@mui/material/TablePagination'
+import TableRow from '@mui/material/TableRow'
+import TableSortLabel from '@mui/material/TableSortLabel'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
+import Paper from '@mui/material/Paper'
+import { visuallyHidden } from '@mui/utils'
+import { UserCircle } from '@phosphor-icons/react'
+import { useMemo, useState } from 'react'
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
-    return -1;
+    return -1
   }
   if (b[orderBy] > a[orderBy]) {
-    return 1;
+    return 1
   }
-  return 0;
+  return 0
 }
 
 function getComparator(order, orderBy) {
   return order === 'desc'
     ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
+    : (a, b) => -descendingComparator(a, b, orderBy)
 }
 
 function stableSort(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
+  const stabilizedThis = array.map((el, index) => [el, index])
   stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
+    const order = comparator(a[0], b[0])
     if (order !== 0) {
-      return order;
+      return order
     }
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
+    return a[1] - b[1]
+  })
+  return stabilizedThis.map(el => el[0])
 }
 
 function EnhancedTableHead({ order, orderBy, onRequestSort, headCells }) {
-  const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property);
-  };
+  const createSortHandler = property => event => {
+    onRequestSort(event, property)
+  }
 
   return (
     <TableHead>
       <TableRow>
-        {headCells.map((headCell) => (
+        {headCells.map(headCell => (
           <TableCell
             key={headCell.id}
             align={headCell.numeric ? 'right' : 'left'}
@@ -74,7 +74,7 @@ function EnhancedTableHead({ order, orderBy, onRequestSort, headCells }) {
         ))}
       </TableRow>
     </TableHead>
-  );
+  )
 }
 
 export default function CustomTable({
@@ -82,38 +82,38 @@ export default function CustomTable({
   headCells,
   title = 'Students Results',
 }) {
-  const [order, setOrder] = useState('desc');
-  const [orderBy, setOrderBy] = useState('date');
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [order, setOrder] = useState('desc')
+  const [orderBy, setOrderBy] = useState('date')
+  const [page, setPage] = useState(0)
+  const [rowsPerPage, setRowsPerPage] = useState(5)
 
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
-  };
+    const isAsc = orderBy === property && order === 'asc'
+    setOrder(isAsc ? 'desc' : 'asc')
+    setOrderBy(property)
+  }
 
   const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
+    setPage(newPage)
+  }
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
+  const handleChangeRowsPerPage = event => {
+    setRowsPerPage(parseInt(event.target.value, 10))
+    setPage(0)
+  }
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0
 
   const visibleRows = useMemo(
     () =>
       stableSort(rows, getComparator(order, orderBy)).slice(
         page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage
+        page * rowsPerPage + rowsPerPage,
       ),
-    [order, orderBy, page, rows, rowsPerPage]
-  );
+    [order, orderBy, page, rows, rowsPerPage],
+  )
 
   return (
     <Paper className="mb-2 w-full">
@@ -143,7 +143,7 @@ export default function CustomTable({
           />
           <TableBody>
             {visibleRows.map((row, index) => {
-              const labelId = `enhanced-table-checkbox-${index}`;
+              const labelId = `enhanced-table-checkbox-${index}`
 
               return (
                 <TableRow
@@ -170,7 +170,7 @@ export default function CustomTable({
                   </TableCell>
                   <TableCell align="right">{row.result}</TableCell>
                 </TableRow>
-              );
+              )
             })}
             {emptyRows > 0 && (
               <TableRow
@@ -194,5 +194,5 @@ export default function CustomTable({
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </Paper>
-  );
+  )
 }

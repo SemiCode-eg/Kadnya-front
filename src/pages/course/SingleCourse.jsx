@@ -1,10 +1,10 @@
-import { Outlet } from 'react-router-dom';
-import Outline from './outline/Outline';
-import CustomCard from '../../components/customCard/CustomCard';
-import MiniSide from '../../components/miniSide/MiniSide';
-import GoBackBtn from '../../components/goBackBtn/GoBackBtn';
-import CertificateTab from './certificateTab/CertificateTab';
-import SittingTab from './sittingsTab/SittingsTab';
+import { Outlet } from 'react-router-dom'
+import Outline from './outline/Outline'
+import CustomCard from '../../components/customCard/CustomCard'
+import MiniSide from '../../components/miniSide/MiniSide'
+import GoBackBtn from '../../components/goBackBtn/GoBackBtn'
+import CertificateTab from './certificateTab/CertificateTab'
+import SittingTab from './sittingsTab/SittingsTab'
 
 const tabs = [
   {
@@ -14,7 +14,7 @@ const tabs = [
   },
   { title: 'Certificate', path: 'certificate', content: <CertificateTab /> },
   { title: 'Sittings', path: 'sittings', content: <SittingTab /> },
-];
+]
 
 function SingleCourse() {
   return (
@@ -34,7 +34,7 @@ function SingleCourse() {
         </div>
       </div>
     </CustomCard>
-  );
+  )
 }
 
-export default SingleCourse;
+export default SingleCourse

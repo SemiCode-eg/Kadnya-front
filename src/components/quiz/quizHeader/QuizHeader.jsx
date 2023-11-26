@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
-import { Alert, Snackbar } from '@mui/material';
-import imageSquare from '../../../assets/images/courses/ImageSquare.png';
-import DraftBtn from '../../draftBtn/DraftBtn';
-import { Link } from 'react-router-dom';
-import { Eye } from '@phosphor-icons/react';
-import MainButton from '../../mainButton/MainButton';
+import { Alert, Snackbar } from '@mui/material'
+import imageSquare from '../../../assets/images/courses/ImageSquare.png'
+import DraftBtn from '../../draftBtn/DraftBtn'
+import { Link } from 'react-router-dom'
+import { Eye } from '@phosphor-icons/react'
+import MainButton from '../../mainButton/MainButton'
 
 function QuizHeader({
   quizData,
@@ -44,7 +44,7 @@ function QuizHeader({
               isForm={true}
               className="!py-2.5 md:!px-8"
               handleClick={() => {
-                formRef.current.click();
+                formRef.current.click()
               }}
             />
           </div>
@@ -61,7 +61,7 @@ function QuizHeader({
         </Snackbar>
       )}
     </>
-  );
+  )
 }
 
-export default QuizHeader;
+export default QuizHeader

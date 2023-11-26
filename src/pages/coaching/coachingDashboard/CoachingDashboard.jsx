@@ -1,5 +1,5 @@
-import DashboardOverView from '../../../components/coaching/dashboard/overview/DashboardOverView';
-import DashboardSessions from '../../../components/coaching/dashboard/sessions/DashboardSessions';
+import DashboardOverView from '../../../components/coaching/dashboard/overview/DashboardOverView'
+import DashboardSessions from '../../../components/coaching/dashboard/sessions/DashboardSessions'
 
 function CoachingDashboard() {
   return (
@@ -7,7 +7,7 @@ function CoachingDashboard() {
       <DashboardSessions />
       <DashboardOverView />
     </div>
-  );
+  )
 }
 
-export default CoachingDashboard;
+export default CoachingDashboard

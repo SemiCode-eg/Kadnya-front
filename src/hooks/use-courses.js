@@ -1,27 +1,27 @@
-import { useEffect, useState } from "react";
-import { getCourses } from "../utils/ApiCalls";
+import { useEffect, useState } from 'react'
+import { getCourses } from '../utils/ApiCalls'
 
-const useCourse = (refetch) => {
-	const [courses, setCourses] = useState([]);
-	const [loading, setLoading] = useState(false);
-	const [errorMsg, setErrorMsg] = useState("");
+const useCourse = refetch => {
+  const [courses, setCourses] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('')
 
-	useEffect(() => {
-		const handleCourses = async () => {
-			setLoading(true);
+  useEffect(() => {
+    const handleCourses = async () => {
+      setLoading(true)
 
-			const response = await getCourses();
+      const response = await getCourses()
 
-			if (response.status === 404 || !response.data)
-				setErrorMsg(response.message);
-			else setCourses(response.data);
+      if (response.status === 404 || !response.data)
+        setErrorMsg(response.message)
+      else setCourses(response.data)
 
-			setLoading(false);
-		};
-		handleCourses();
-	}, [refetch]);
+      setLoading(false)
+    }
+    handleCourses()
+  }, [refetch])
 
-	return { courses, loading, errorMsg };
-};
+  return { courses, loading, errorMsg }
+}
 
-export default useCourse;
+export default useCourse

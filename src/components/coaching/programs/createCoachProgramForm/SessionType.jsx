@@ -1,4 +1,4 @@
-import RadioInput from '../../../customRadioInput/RadioInput';
+import RadioInput from '../../../customRadioInput/RadioInput'
 
 /* eslint-disable react/prop-types */
 function SessionType({ dispatchFormData, selectedValue, reducerType }) {
@@ -7,10 +7,10 @@ function SessionType({ dispatchFormData, selectedValue, reducerType }) {
       <p className="w-full text-black">
         Choose how you want to make your podcast
       </p>
-      
+
       <RadioInput
         selectedValue={selectedValue}
-        handleSelect={(value) =>
+        handleSelect={value =>
           dispatchFormData({
             type: reducerType,
             payload: value,
@@ -28,7 +28,7 @@ function SessionType({ dispatchFormData, selectedValue, reducerType }) {
 
       <RadioInput
         selectedValue={selectedValue}
-        handleSelect={(value) =>
+        handleSelect={value =>
           dispatchFormData({
             type: reducerType,
             payload: value,
@@ -44,7 +44,7 @@ function SessionType({ dispatchFormData, selectedValue, reducerType }) {
         backgroundColor="#F66A82"
       />
     </>
-  );
+  )
 }
 
-export default SessionType;
+export default SessionType

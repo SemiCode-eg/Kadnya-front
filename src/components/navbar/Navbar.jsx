@@ -1,9 +1,9 @@
-import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bell, List, X } from "@phosphor-icons/react";
+import { Fragment } from 'react'
+import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { Bell, List, X } from '@phosphor-icons/react'
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(' ')
 }
 
 export default function Navbar({ toggleSidebar, isSidebarOpen }) {
@@ -80,8 +80,8 @@ export default function Navbar({ toggleSidebar, isSidebarOpen }) {
                         <a
                           href="#"
                           className={classNames(
-                            active ? "bg-gray-100" : "",
-                            "block px-4 py-2 text-sm text-gray-700"
+                            active ? 'bg-gray-100' : '',
+                            'block px-4 py-2 text-sm text-gray-700',
                           )}
                         >
                           Your Profile
@@ -93,8 +93,8 @@ export default function Navbar({ toggleSidebar, isSidebarOpen }) {
                         <a
                           href="#"
                           className={classNames(
-                            active ? "bg-gray-100" : "",
-                            "block px-4 py-2 text-sm text-gray-700"
+                            active ? 'bg-gray-100' : '',
+                            'block px-4 py-2 text-sm text-gray-700',
                           )}
                         >
                           Settings
@@ -106,8 +106,8 @@ export default function Navbar({ toggleSidebar, isSidebarOpen }) {
                         <a
                           href="#"
                           className={classNames(
-                            active ? "bg-gray-100" : "",
-                            "block px-4 py-2 text-sm text-gray-700"
+                            active ? 'bg-gray-100' : '',
+                            'block px-4 py-2 text-sm text-gray-700',
                           )}
                         >
                           Sign out
@@ -125,5 +125,5 @@ export default function Navbar({ toggleSidebar, isSidebarOpen }) {
         <main className="p-4">{/* Your page content goes here */}</main>
       </div>
     </>
-  );
+  )
 }

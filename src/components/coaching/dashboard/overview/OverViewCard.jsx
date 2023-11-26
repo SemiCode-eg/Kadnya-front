@@ -28,7 +28,7 @@ function OverViewCard({
         <p className="font-bold text-2xl">{isRevenue ? `$${count}` : count}</p>
       </div>
     </div>
-  );
+  )
 }
 
-export default OverViewCard;
+export default OverViewCard

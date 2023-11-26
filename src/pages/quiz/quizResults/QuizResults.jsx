@@ -1,8 +1,8 @@
-import CustomTable from '../../../components/customTable/CustomTable';
+import CustomTable from '../../../components/customTable/CustomTable'
 
 function createData(id, name, email, date, result) {
-  const [day, month, year] = date.split('/');
-  const formattedDate = new Date(`${year}-${month}-${day}`);
+  const [day, month, year] = date.split('/')
+  const formattedDate = new Date(`${year}-${month}-${day}`)
 
   return {
     id,
@@ -10,7 +10,7 @@ function createData(id, name, email, date, result) {
     email,
     date: formattedDate,
     result,
-  };
+  }
 }
 
 const headCells = [
@@ -38,7 +38,7 @@ const headCells = [
     disablePadding: false,
     label: 'Result',
   },
-];
+]
 
 const rows = [
   createData(1, 'name1', 'email@email.com', '19/1/2020', 67),
@@ -48,7 +48,7 @@ const rows = [
   createData(5, 'name5', 'email@email.com', '19/1/2020', 60),
   createData(6, 'name6', 'email@email.com', '19/1/2020', 100),
   createData(7, 'name7', 'email@email.com', '19/1/2020', 50),
-];
+]
 
 function QuizResults() {
   return rows.length > 0 ? (
@@ -62,7 +62,7 @@ function QuizResults() {
         Once your quiz is published, return here to view the results.
       </p>
     </div>
-  );
+  )
 }
 
-export default QuizResults;
+export default QuizResults

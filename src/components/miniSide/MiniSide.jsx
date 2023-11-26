@@ -1,14 +1,14 @@
 /* eslint-disable react/prop-types */
-import { CaretRight } from '@phosphor-icons/react';
-import { NavLink, useLocation } from 'react-router-dom';
-import SmallMiniSideLinks from '../smallMiniSideLinks/SmallMiniSideLinks';
+import { CaretRight } from '@phosphor-icons/react'
+import { NavLink, useLocation } from 'react-router-dom'
+import SmallMiniSideLinks from '../smallMiniSideLinks/SmallMiniSideLinks'
 
 export default function MiniSide({ tabs }) {
-  const location = useLocation();
-  const parts = location.pathname.split('/');
+  const location = useLocation()
+  const parts = location.pathname.split('/')
 
   function getLastPartOfPath() {
-    return parts[parts.length - 1];
+    return parts[parts.length - 1]
   }
 
   return (
@@ -27,7 +27,7 @@ export default function MiniSide({ tabs }) {
                     ? `bg-gradient-to-r from-violet-200 to-teal-300 
                      text-sky-950`
                     : ``
-                }`;
+                }`
               }}
             >
               {tab.title}
@@ -40,5 +40,5 @@ export default function MiniSide({ tabs }) {
         <SmallMiniSideLinks tabs={tabs} />
       </div>
     </div>
-  );
+  )
 }

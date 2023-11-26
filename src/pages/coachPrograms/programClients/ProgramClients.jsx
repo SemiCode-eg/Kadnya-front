@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
-import { useLocation, useNavigate } from 'react-router-dom';
-import Box from '@mui/material/Box';
-import { useEffect, useState } from 'react';
-import CustomTable from '../../../components/customTable/CustomTable';
-import CustomTabs from '../../../components/customTabs/CustomTabs';
+import { useLocation, useNavigate } from 'react-router-dom'
+import Box from '@mui/material/Box'
+import { useEffect, useState } from 'react'
+import CustomTable from '../../../components/customTable/CustomTable'
+import CustomTabs from '../../../components/customTabs/CustomTabs'
 
 function CustomTabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const { children, value, index, ...other } = props
 
   return (
     <div
@@ -22,19 +22,19 @@ function CustomTabPanel(props) {
         </Box>
       )}
     </div>
-  );
+  )
 }
 
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
     'aria-controls': `simple-tabpanel-${index}`,
-  };
+  }
 }
 
 function createData(id, name, email, date, progress) {
-  const [day, month, year] = date.split('/');
-  const formattedDate = new Date(`${year}-${month}-${day}`);
+  const [day, month, year] = date.split('/')
+  const formattedDate = new Date(`${year}-${month}-${day}`)
 
   return {
     id,
@@ -42,31 +42,31 @@ function createData(id, name, email, date, progress) {
     email,
     date: formattedDate,
     result: progress,
-  };
+  }
 }
 
 function ProgramClients() {
-  const [value, setValue] = useState(0);
-  const navigate = useNavigate();
+  const [value, setValue] = useState(0)
+  const navigate = useNavigate()
 
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const filter = queryParams.get('filter');
+  const location = useLocation()
+  const queryParams = new URLSearchParams(location.search)
+  const filter = queryParams.get('filter')
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-    navigate(newValue === 0 ? '?filter=active' : '?filter=past');
-  };
+    setValue(newValue)
+    navigate(newValue === 0 ? '?filter=active' : '?filter=past')
+  }
 
   useEffect(() => {
     if (filter === 'active') {
-      setValue(0);
+      setValue(0)
     } else if (filter === 'past') {
-      setValue(1);
+      setValue(1)
     } else {
-      setValue(0);
+      setValue(0)
     }
-  }, [filter]);
+  }, [filter])
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -91,15 +91,15 @@ function ProgramClients() {
         </p>
       </CustomTabPanel>
     </Box>
-  );
+  )
 }
 
-export default ProgramClients;
+export default ProgramClients
 
 const tabs = [
   { id: 0, label: 'Active' },
   { id: 1, label: 'Past' },
-];
+]
 
 const headCells = [
   {
@@ -126,7 +126,7 @@ const headCells = [
     disablePadding: false,
     label: 'Program Progress',
   },
-];
+]
 
 const rows = [
   createData(
@@ -134,48 +134,48 @@ const rows = [
     'name1',
     'email@email.com',
     '19/2/2022',
-    'Completed 1 of 14 sessions'
+    'Completed 1 of 14 sessions',
   ),
   createData(
     2,
     'name2',
     'email@email.com',
     '19/1/2021',
-    'Completed 0 of 14 sessions'
+    'Completed 0 of 14 sessions',
   ),
   createData(
     3,
     'name3',
     'email@email.com',
     '19/1/2020',
-    'Completed 0 of 14 sessions'
+    'Completed 0 of 14 sessions',
   ),
   createData(
     4,
     'name4',
     'email@email.com',
     '19/2/2020',
-    'Completed 2 of 14 sessions'
+    'Completed 2 of 14 sessions',
   ),
   createData(
     5,
     'name5',
     'email@email.com',
     '19/1/2020',
-    'Completed 0 of 14 sessions'
+    'Completed 0 of 14 sessions',
   ),
   createData(
     6,
     'name6',
     'email@email.com',
     '19/1/2020',
-    'Completed 3 of 14 sessions'
+    'Completed 3 of 14 sessions',
   ),
   createData(
     7,
     'name7',
     'email@email.com',
     '19/1/2019',
-    'Completed 0 of 14 sessions'
+    'Completed 0 of 14 sessions',
   ),
-];
+]

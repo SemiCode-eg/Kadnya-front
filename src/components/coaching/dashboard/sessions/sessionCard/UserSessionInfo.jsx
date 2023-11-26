@@ -1,5 +1,5 @@
-import { CalendarBlank } from '@phosphor-icons/react';
-import imageSquare from '../../../../../assets/images/courses/ImageSquare.png';
+import { CalendarBlank } from '@phosphor-icons/react'
+import imageSquare from '../../../../../assets/images/courses/ImageSquare.png'
 
 /* eslint-disable react/prop-types */
 function UserSessionInfo({ image, userName, date, time }) {
@@ -24,7 +24,7 @@ function UserSessionInfo({ image, userName, date, time }) {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default UserSessionInfo;
+export default UserSessionInfo

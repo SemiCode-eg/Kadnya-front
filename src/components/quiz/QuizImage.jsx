@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import MainButton from "../mainButton/MainButton";
+import MainButton from '../mainButton/MainButton'
 
 function QuizImage({ imageURL, imageName, handleDelete = () => {} }) {
   return (
@@ -23,7 +23,7 @@ function QuizImage({ imageURL, imageName, handleDelete = () => {} }) {
         />
       </div>
     </div>
-  );
+  )
 }
 
-export default QuizImage;
+export default QuizImage

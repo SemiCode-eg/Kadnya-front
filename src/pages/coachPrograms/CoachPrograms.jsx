@@ -1,8 +1,8 @@
-import { Outlet } from 'react-router-dom';
-import CustomCard from '../../components/customCard/CustomCard';
-import GoBackBtn from '../../components/goBackBtn/GoBackBtn';
-import MiniSide from '../../components/miniSide/MiniSide';
-import ProgramHeader from '../../components/coachPrograms/ProgramHeader';
+import { Outlet } from 'react-router-dom'
+import CustomCard from '../../components/customCard/CustomCard'
+import GoBackBtn from '../../components/goBackBtn/GoBackBtn'
+import MiniSide from '../../components/miniSide/MiniSide'
+import ProgramHeader from '../../components/coachPrograms/ProgramHeader'
 
 const tabs = [
   {
@@ -17,7 +17,7 @@ const tabs = [
     title: 'Settings',
     path: 'settings',
   },
-];
+]
 
 function CoachPrograms() {
   return (
@@ -36,7 +36,7 @@ function CoachPrograms() {
         </div>
       </div>
     </CustomCard>
-  );
+  )
 }
 
-export default CoachPrograms;
+export default CoachPrograms

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import imageSquare from '../../assets/images/courses/ImageSquare.png';
+import imageSquare from '../../assets/images/courses/ImageSquare.png'
 
 function ProgramHeader({ image, title, ReleaseDate }) {
   return (
@@ -19,7 +19,7 @@ function ProgramHeader({ image, title, ReleaseDate }) {
         <p className="text-gray-400 font-normal text-sm">{ReleaseDate}</p>
       </div>
     </div>
-  );
+  )
 }
 
-export default ProgramHeader;
+export default ProgramHeader

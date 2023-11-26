@@ -1,14 +1,14 @@
 /* eslint-disable react/prop-types */
 
-import { useRef } from 'react';
-import MainButton from '../mainButton/MainButton';
+import { useRef } from 'react'
+import MainButton from '../mainButton/MainButton'
 
 function ImageSelectBtn({ handleChange }) {
-  const hiddenFileInput = useRef(null);
+  const hiddenFileInput = useRef(null)
 
   const handleClick = () => {
-    hiddenFileInput.current.click();
-  };
+    hiddenFileInput.current.click()
+  }
 
   return (
     <>
@@ -27,7 +27,7 @@ function ImageSelectBtn({ handleChange }) {
         className="w-0 h-0 "
       />
     </>
-  );
+  )
 }
 
-export default ImageSelectBtn;
+export default ImageSelectBtn

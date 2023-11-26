@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import { Menu } from '@mui/material';
-import { CaretDown, Eye, EyeSlash } from '@phosphor-icons/react';
-import { useEffect, useState } from 'react';
-import MenuItems from '../menu/MenuItems';
+import { Menu } from '@mui/material'
+import { CaretDown, Eye, EyeSlash } from '@phosphor-icons/react'
+import { useEffect, useState } from 'react'
+import MenuItems from '../menu/MenuItems'
 
 function DraftBtn({
   draftState,
@@ -18,37 +18,37 @@ function DraftBtn({
     },
   ],
 }) {
-  const [title, setTitle] = useState(draftMenuItems[0].text);
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [title, setTitle] = useState(draftMenuItems[0].text)
+  const [anchorEl, setAnchorEl] = useState(null)
 
-  const open = Boolean(anchorEl);
-  const handleClickListItem = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const open = Boolean(anchorEl)
+  const handleClickListItem = event => {
+    setAnchorEl(event.currentTarget)
+  }
 
   const handleClose = () => {
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
 
   useEffect(() => {
-    setTitle(draftState ? draftMenuItems[0].text : draftMenuItems[1].text);
-  }, [draftMenuItems, draftState]);
+    setTitle(draftState ? draftMenuItems[0].text : draftMenuItems[1].text)
+  }, [draftMenuItems, draftState])
 
-  const handleMenuItemClick = (event) => {
+  const handleMenuItemClick = event => {
     switch (event.target.id) {
       case draftMenuItems[0].text: // draft
-        setTitle(draftMenuItems[0].text);
-        setDraftState(true);
-        break;
+        setTitle(draftMenuItems[0].text)
+        setDraftState(true)
+        break
       case draftMenuItems[1].text: // publish
-        setTitle(draftMenuItems[1].text);
-        setDraftState(false);
-        break;
+        setTitle(draftMenuItems[1].text)
+        setDraftState(false)
+        break
       default:
-        break;
+        break
     }
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
 
   return (
     <>
@@ -81,7 +81,7 @@ function DraftBtn({
         />
       </Menu>
     </>
-  );
+  )
 }
 
-export default DraftBtn;
+export default DraftBtn

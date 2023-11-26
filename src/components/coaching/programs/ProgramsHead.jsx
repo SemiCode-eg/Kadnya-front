@@ -1,20 +1,20 @@
 /* eslint-disable react/prop-types */
-import { Typography } from '@mui/material';
-import MainButton from '../../mainButton/MainButton';
-import { Plus } from '@phosphor-icons/react';
-import { useState } from 'react';
-import CreateCoachProgramForm from './createCoachProgramForm/CreateCoachProgramForm';
+import { Typography } from '@mui/material'
+import MainButton from '../../mainButton/MainButton'
+import { Plus } from '@phosphor-icons/react'
+import { useState } from 'react'
+import CreateCoachProgramForm from './createCoachProgramForm/CreateCoachProgramForm'
 
 function ProgramsHead({ count }) {
-  const [openCreateForm, setOpenCreateForm] = useState(false);
+  const [openCreateForm, setOpenCreateForm] = useState(false)
 
   const handleOpen = () => {
-    setOpenCreateForm(true);
-  };
+    setOpenCreateForm(true)
+  }
 
   const handleClose = () => {
-    setOpenCreateForm(false);
-  };
+    setOpenCreateForm(false)
+  }
 
   return (
     <>
@@ -36,7 +36,7 @@ function ProgramsHead({ count }) {
         />
       </div>
     </>
-  );
+  )
 }
 
-export default ProgramsHead;
+export default ProgramsHead

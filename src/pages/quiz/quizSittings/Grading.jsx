@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import { FormControlLabel, Switch, styled } from '@mui/material';
-import { useState } from 'react';
+import { FormControlLabel, Switch, styled } from '@mui/material'
+import { useState } from 'react'
 
 function Grading({
   passingGrade,
@@ -8,7 +8,7 @@ function Grading({
   hideAnswers,
   setHideAnswers,
 }) {
-  const [showPassingGrade, setshowPassingGrade] = useState(false);
+  const [showPassingGrade, setshowPassingGrade] = useState(false)
 
   return (
     <div className="border-[1.5px] border-[#ddd] rounded-[10px] p-6">
@@ -21,7 +21,7 @@ function Grading({
             control={
               <GradingSwitch
                 checked={showPassingGrade}
-                onChange={(e) => setshowPassingGrade(e.target.checked)}
+                onChange={e => setshowPassingGrade(e.target.checked)}
               />
             }
             label={
@@ -44,7 +44,7 @@ function Grading({
                 <input
                   type="number"
                   value={passingGrade}
-                  onChange={(e) =>
+                  onChange={e =>
                     setPassingGrade(e.target.value > 100 ? 100 : e.target.value)
                   }
                   min={0}
@@ -62,7 +62,7 @@ function Grading({
           control={
             <GradingSwitch
               checked={hideAnswers}
-              onChange={(e) => setHideAnswers(e.target.checked)}
+              onChange={e => setHideAnswers(e.target.checked)}
             />
           }
           label={
@@ -78,10 +78,10 @@ function Grading({
         />
       </div>
     </div>
-  );
+  )
 }
 
-export default Grading;
+export default Grading
 
 const GradingSwitch = styled(Switch)(() => ({
   '& .MuiSwitch-switchBase': {
@@ -100,4 +100,4 @@ const GradingSwitch = styled(Switch)(() => ({
   '& .MuiSwitch-track': {
     backgroundColor: '#777',
   },
-}));
+}))

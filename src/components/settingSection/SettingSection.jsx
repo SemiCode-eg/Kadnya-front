@@ -8,5 +8,5 @@ export default function SettingSection({ link, text, index }) {
     >
       <span className="text-gray-800 font-normal text-sm">{text}</span>
     </a>
-  );
+  )
 }

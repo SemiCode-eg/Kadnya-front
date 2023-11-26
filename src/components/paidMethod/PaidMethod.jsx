@@ -1,6 +1,6 @@
-import { Receipt, ReceiptX } from '@phosphor-icons/react';
-import MainButton from '../mainButton/MainButton';
-import { Typography } from '@mui/material';
+import { Receipt, ReceiptX } from '@phosphor-icons/react'
+import MainButton from '../mainButton/MainButton'
+import { Typography } from '@mui/material'
 
 /* eslint-disable react/prop-types */
 function PaidMethod({
@@ -18,7 +18,7 @@ function PaidMethod({
           isForm
           isPrimary={false}
           handleClick={() => {
-            onChangePricingType('FREE');
+            onChangePricingType('FREE')
           }}
           className={`!rounded-sm text-lg sm:px-8 sm:py-3 !px-5 flex-1 ${
             pricingType !== 'FREE'
@@ -32,7 +32,7 @@ function PaidMethod({
           isForm
           isPrimary={false}
           handleClick={() => {
-            onChangePricingType('PAID');
+            onChangePricingType('PAID')
           }}
           className={`!rounded-sm text-lg sm:px-8 sm:py-3 !px-5 flex-1 ${
             pricingType !== 'PAID'
@@ -60,7 +60,7 @@ function PaidMethod({
         </div>
       )}
     </div>
-  );
+  )
 }
 
-export default PaidMethod;
+export default PaidMethod

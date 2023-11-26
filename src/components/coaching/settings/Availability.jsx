@@ -10,7 +10,7 @@ function Availability() {
         </p>
       </div>
     </div>
-  );
+  )
 }
 
-export default Availability;
+export default Availability

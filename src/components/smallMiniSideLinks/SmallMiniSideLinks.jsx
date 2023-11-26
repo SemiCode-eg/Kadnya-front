@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-import styled from '@emotion/styled';
-import { Menu } from '@mui/material';
-import { CaretRight, List, X } from '@phosphor-icons/react';
-import { useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import styled from '@emotion/styled'
+import { Menu } from '@mui/material'
+import { CaretRight, List, X } from '@phosphor-icons/react'
+import { useState } from 'react'
+import { NavLink, useLocation } from 'react-router-dom'
 
 const MUIMenu = styled(Menu)(() => ({
   '& .MuiList-root': {
@@ -15,26 +15,26 @@ const MUIMenu = styled(Menu)(() => ({
     borderRadius: '10px',
     border: '1px solid #ddd',
   },
-}));
+}))
 
 function SmallMiniSideLinks({ tabs }) {
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null)
 
-  const location = useLocation();
-  const parts = location.pathname.split('/');
+  const location = useLocation()
+  const parts = location.pathname.split('/')
 
   function getLastPartOfPath() {
-    return parts[parts.length - 1];
+    return parts[parts.length - 1]
   }
 
-  const open = Boolean(anchorEl);
-  const handleClickListItem = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const open = Boolean(anchorEl)
+  const handleClickListItem = event => {
+    setAnchorEl(event.currentTarget)
+  }
 
   const handleClose = () => {
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
 
   return (
     <>
@@ -76,7 +76,7 @@ function SmallMiniSideLinks({ tabs }) {
                     ? `bg-gradient-to-r from-violet-200 to-teal-300 
                      text-sky-950`
                     : ``
-                }`;
+                }`
             }}
             onClick={handleClose}
           >
@@ -88,7 +88,7 @@ function SmallMiniSideLinks({ tabs }) {
         ))}
       </MUIMenu>
     </>
-  );
+  )
 }
 
-export default SmallMiniSideLinks;
+export default SmallMiniSideLinks
