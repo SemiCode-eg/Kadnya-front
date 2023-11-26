@@ -1,6 +1,6 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 
-/* eslint-disable react/prop-types */
+
 export default function SortSelect({
   options = [{ value: 'TEST', label: 'Test' }],
   onSelect = () => {},
