@@ -10,6 +10,8 @@ function EditLesson() {
 
   const formRef = useRef(null);
 
+  // TODO Lesson Enhancements: useReducer instead of useState - make the component much smaller
+
   return (
     <CustomCard>
       <div className="flex flex-col gap-10 mt-5">

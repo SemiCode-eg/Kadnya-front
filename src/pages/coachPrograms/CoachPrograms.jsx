@@ -25,7 +25,7 @@ function CoachPrograms() {
       <div className="flex lg:flex-row flex-col lg:gap-5 gap-10 mt-5">
         <div className="flex lg:flex-col flex-row lg:justify-normal items-center justify-between gap-[60px]">
           <div className="flex items-center self-start gap-[9px]">
-            <GoBackBtn />
+            <GoBackBtn path="/products/coaching" />
             <p className="text-sky-950 text-[31px]">Coaching</p>
           </div>
           <MiniSide tabs={tabs} />

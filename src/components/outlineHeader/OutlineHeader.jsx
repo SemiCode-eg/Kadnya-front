@@ -184,6 +184,7 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
 
   return (
     <>
+      {/* TODO make error show like popup also inside each form */}
       {previewedForm()}
       <div className="mb-2 flex gap-5 flex-col lg:flex-row">
         <div className="flex justify-between gap-[35px] flex-1 flex-col lg:flex-row flex-wrap">
