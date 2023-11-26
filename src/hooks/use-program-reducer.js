@@ -14,6 +14,7 @@ const formReducerKeys = {
   SET_TITLE: "TITLE",
   SET_DESCRIPTION: "DESCRIPTION",
   SET_COACH_NAME: "SET_COACH_NAME",
+  SET_COACH_EMAIL: "SET_COACH_EMAIL",
   SET_SESSIONS_COUNT: "SET_SESSIONS_COUNT",
   SET_SCHEDULE_TYPE: "SET_SCHEDULE_TYPE",
   SET_SCHEDULE_URL: "SET_SCHEDULE_URL",
@@ -48,6 +49,11 @@ const createProgramReducer = (state, action) => {
       return {
         ...state,
         coachName: action.payload,
+      };
+    case formReducerKeys.SET_COACH_EMAIL:
+      return {
+        ...state,
+        coachEmail: action.payload,
       };
     case formReducerKeys.SET_SESSIONS_COUNT:
       return {
@@ -111,6 +117,7 @@ const ProgramFormInitialState = {
   title: "",
   description: "",
   coachName: "",
+  coachEmail: "",
   sessionsCount: 1,
   scheduleType: "WEBSITE",
   scheduleURL: "",

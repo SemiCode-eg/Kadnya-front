@@ -63,7 +63,7 @@ function ProgramTimeLocationForm({
           options={scheduleOptions}
           sortKey={scheduleSortKey}
           onSelect={(e) => handleScheduleTypeChange(e.target.value)}
-          selectClasses="!rounded-xl"
+          selectClasses="!rounded-xl !text-left"
           hideLabel={true}
         />
       </div>
@@ -96,7 +96,7 @@ function ProgramTimeLocationForm({
               options={durationOptions}
               sortKey={durationSortKey}
               onSelect={(e) => handleDurationChange(e.target.value)}
-              selectClasses="!rounded-xl"
+              selectClasses="!rounded-xl !text-left"
               hideLabel={true}
             />
           </div>

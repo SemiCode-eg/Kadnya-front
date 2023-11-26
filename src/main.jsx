@@ -22,6 +22,7 @@ import CoachingSittings from "./pages/coaching/coachingSittings/CoachingSittings
 import CoachPrograms from "./pages/coachPrograms/CoachPrograms.jsx";
 import ProgramClients from "./pages/coachPrograms/programClients/ProgramClients.jsx";
 import CustomMuiThemeProvider from "./theme/CustomMuiThemeProvider.jsx";
+import ProgramSettings from "./pages/coachPrograms/programsSettings/ProgramSettings.jsx";
 
 const router = createBrowserRouter([
 	{
@@ -81,6 +82,7 @@ const router = createBrowserRouter([
 				children: [
 					{ index: true, element: <ProgramClients /> },
 					{ path: "clients", element: <ProgramClients /> },
+					{ path: "settings", element: <ProgramSettings /> },
 				],
 			},
 			{ path: "website", element: <Website /> },
