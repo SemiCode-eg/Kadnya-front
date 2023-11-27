@@ -1,7 +1,7 @@
 import { FormLabel } from '@mui/material'
 import SortSelect from '../../../SortSelect'
 import { useState } from 'react'
-import TextField from '../../../forms/TextField'
+import TextField from '../../../customFields/TextField'
 import useProgramReducer from '../../../../hooks/use-program-reducer'
 
 /* eslint-disable react/prop-types */

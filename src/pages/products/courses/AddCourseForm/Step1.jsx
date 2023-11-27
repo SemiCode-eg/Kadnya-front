@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material'
-import TextField from '../../../../components/forms/TextField'
-import TextAriaField from '../../../../components/forms/TextAriaField'
+import TextField from '../../../../components/customFields/TextField'
+import TextAriaField from '../../../../components/customFields/TextAriaField'
 
 /* eslint-disable react/prop-types */
 export default function Step1({
@@ -28,8 +28,7 @@ export default function Step1({
             <Typography
               id="add-course-form-title"
               component="label"
-              variant="subtitle1"
-            >
+              variant="subtitle1">
               Title
             </Typography>
             <TextField
@@ -42,8 +41,7 @@ export default function Step1({
             <Typography
               id="add-course-form-description"
               component="label"
-              variant="subtitle1"
-            >
+              variant="subtitle1">
               Brief Description
             </Typography>
             <TextAriaField

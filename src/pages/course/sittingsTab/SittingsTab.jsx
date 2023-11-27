@@ -112,12 +112,12 @@ function SittingsTab() {
     <HandleErrorLoad loading={loading || postLoading} errorMsg={errorMsg}>
       <OutlineHeader courseData={courseData} showContentBtn={false} />
       <Container>
-        <Typography variant="h5" component="h2" textAlign="start">
+        <Typography variant="h5" component="h2" textAlign="center">
           Details
         </Typography>
 
         <div className="flex flex-col gap-5 ml-3 mt-2">
-          <Typography textAlign="start">
+          <Typography textAlign="center" className="!text-sm text-neutral-500">
             Give your product a title, add a description, and upload a product
             thumbnail image. This image will show in your customer&apos;s
             library of products they have purchased from you

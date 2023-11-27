@@ -1,8 +1,8 @@
 import MainButton from '../../../components/mainButton/MainButton'
 import ImageField from '../../../components/imageField/ImageField'
-import TextField from '../../../components/forms/TextField'
+import TextField from '../../../components/customFields/TextField'
 import { Typography } from '@mui/material'
-import TextAriaField from '../../../components/forms/TextAriaField'
+import TextAriaField from '../../../components/customFields/TextAriaField'
 
 /* eslint-disable react/prop-types */
 export default function SittingsForm({
@@ -17,8 +17,7 @@ export default function SittingsForm({
   return (
     <form
       onSubmit={onSubmit}
-      className="flex flex-col items-center sm:gap-0 gap-6"
-    >
+      className="flex flex-col items-center sm:gap-0 gap-6">
       <div className="flex md:flex-row flex-col gap-4 w-full mt-3">
         <div className="flex flex-col md:w-1/2">
           <ImageField setImageAsset={onImageUpload} imageURL={imageURL} />

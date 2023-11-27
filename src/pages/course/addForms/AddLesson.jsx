@@ -2,7 +2,7 @@
 import { FormLabel } from '@mui/material'
 import MainButton from '../../../components/mainButton/MainButton'
 import { useState } from 'react'
-import TextField from '../../../components/forms/TextField'
+import TextField from '../../../components/customFields/TextField'
 import SortSelect from '../../../components/SortSelect'
 import CustomModal from '../../../components/customModal'
 import useModule from '../../../hooks/use-module'
@@ -101,12 +101,11 @@ function AddLesson({
       open={open}
       onClose={onClose}
       fullWidth
-      maxWidth="md"
-    >
+      maxWidth="md">
       <HandleErrorLoad loading={moduleLoading} errorMsg={moduleErrorMsg}>
         <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-[7px] items-start w-full">
-            <FormLabel className="!text-black !font-[400] !text-xl">
+            <FormLabel className="!text-black !font-[400] !text-md">
               Title
             </FormLabel>
             <TextField
@@ -127,6 +126,12 @@ function AddLesson({
               sortKey={modulesSortKey}
               onSelect={e => setModulesSortKey(e.target.value)}
               selectClasses="!rounded-xl"
+              sx={{
+                '& .MuiSelect-select ': {
+                  paddingTop: '0.7rem',
+                  paddingBottom: '0.7rem',
+                },
+              }}
             />
           </div>
           <div>
@@ -145,6 +150,12 @@ function AddLesson({
                 sortKey={submodulesSortKey}
                 onSelect={e => setSubmodulesSortKey(e.target.value)}
                 selectClasses="!rounded-xl"
+                sx={{
+                  '& .MuiSelect-select ': {
+                    paddingTop: '0.7rem',
+                    paddingBottom: '0.7rem',
+                  },
+                }}
               />
             )}
           </div>

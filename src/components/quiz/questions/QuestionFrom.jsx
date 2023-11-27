@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import TextAriaField from '../../forms/TextAriaField'
+import TextAriaField from '../../customFields/TextAriaField'
 import { newQuestionReducerKeys } from '../../../hooks/use-question-reducer'
 import QuestionTypeSelect from './QuestionTypeSelect'
 import GradSwitch from './GradSwitch'

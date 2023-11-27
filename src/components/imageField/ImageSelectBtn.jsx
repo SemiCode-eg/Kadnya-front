@@ -14,7 +14,7 @@ function ImageSelectBtn({ handleChange }) {
     <>
       <MainButton
         text="Select Image"
-        className="text-teal-500 text-[17px] font-[500] border-[1px] border-teal-500 duration-150 hover:text-white hover:bg-teal-500"
+        className="text-teal-500 text-md font-[500] border-[1px] !px-4 !py-2 border-teal-500 duration-150 hover:text-white hover:bg-teal-500"
         handleClick={handleClick}
         isPrimary={false}
       />

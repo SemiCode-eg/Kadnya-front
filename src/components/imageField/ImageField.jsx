@@ -46,9 +46,8 @@ function ImageField({
       <div>
         {previewedImage ? (
           <div
-            className="rounded-[5px] border-[3px] border-teal-500 flex justify-center items-center h-[332px] w-full"
-            style={{ height: height }}
-          >
+            className="rounded-[5px] border-[3px] border-teal-500 flex justify-center items-center h-[250px] w-full"
+            style={{ height: height }}>
             <img
               src={
                 previewedImage
@@ -62,8 +61,8 @@ function ImageField({
             />
           </div>
         ) : (
-          <div className="rounded-[5px] border-[1px] border-zinc-300 flex justify-center items-center h-auto max-h-[332px] w-full">
-            <div className="bg-white flex justify-center items-center">
+          <div className="rounded-[5px] border-[1px] border-zinc-300 flex justify-center items-center h-[250px] w-full">
+            <div className="bg-white flex justify-center items-center w-full h-full object-cover rounded-[3px]">
               <ImageSquare
                 size={size}
                 className="text-zinc-300"
@@ -72,12 +71,12 @@ function ImageField({
             </div>
           </div>
         )}
-        <p className="text-[18px] font-[400] text-zinc-400 mt-[5px] text-left">
+        <p className="text-sm font-[400] text-zinc-400 mt-[5px] text-left">
           Please use .jpg or .png with non-transparent background
         </p>
       </div>
       <div className="self-start mt-[5px]">
-        <p className="text-[18px] font-[400] text-zinc-400 mb-[5px]">
+        <p className="text-sm font-[400] text-zinc-400 mb-[5px]">
           Recommended dimensions of 1280x720
         </p>
         <div>
@@ -91,7 +90,7 @@ function ImageField({
   ) : (
     <div className="flex gap-[19px] w-full flex-wrap md:flex-nowrap">
       {previewedImage ? (
-        <div className="rounded-[5px] border-[3px] border-teal-500 flex justify-center items-center h-auto max-h-[332px] w-full">
+        <div className="rounded-[5px] border-[3px] border-teal-500 flex justify-center items-center h-[250px] w-full">
           <img
             src={previewedImage}
             alt="uploaded-image"
@@ -99,17 +98,20 @@ function ImageField({
           />
         </div>
       ) : (
-        <div className="rounded-[5px] border-[1px] border-zinc-300 flex justify-center items-center h-auto max-h-[332px] w-full">
+        <div className="rounded-[5px] border-[1px] border-zinc-300 flex justify-center items-center h-[250px] w-full">
           <div className="bg-white flex justify-center items-center">
-            <img src={ImageSquareColored} className="w-[98px] opacity-80" />
+            <img
+              src={ImageSquareColored}
+              className="w-full h-full object-cover rounded-[3px] opacity-80"
+            />
           </div>
         </div>
       )}
       <div className="text-[15px] font-[400] text-zinc-400 mt-[5px] text-left">
-        <p className="mb-[10px]">
+        <p className="mb-[10px] text-sm">
           Please use .jpg or .png with non-transparent background
         </p>
-        <p className="mb-[10px]">Recommended dimensions of 1280x720</p>
+        <p className="mb-[10px] text-sm">Recommended dimensions of 1280x720</p>
         <ImageSelectBtn handleChange={handleImageChange} />
         {imageError && (
           <p className="text-red-500 -mt-5 text-left">{imageError}</p>

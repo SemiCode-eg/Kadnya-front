@@ -1,6 +1,6 @@
 import { FormLabel } from '@mui/material'
-import TextField from '../../../forms/TextField'
-import TextAriaField from '../../../forms/TextAriaField'
+import TextField from '../../../customFields/TextField'
+import TextAriaField from '../../../customFields/TextAriaField'
 import ImageField from '../../../imageField/ImageField'
 import useProgramReducer from '../../../../hooks/use-program-reducer'
 
