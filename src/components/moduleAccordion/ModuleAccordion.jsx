@@ -109,37 +109,34 @@ function ModuleAccordion({
 
       <Accordion className={paperClasses}>
         <AccordionSummary
-          expandIcon={<CaretDown size={25} weight="bold" />}
+          expandIcon={<CaretDown size={20} weight="bold" />}
           aria-controls="panel1a-content"
           id="panel1a-header"
           onClick={() => setIsClicked(prev => !prev)}
-          className={summaryClasses}
-        >
+          className={summaryClasses}>
           <div className="flex justify-between flex-1 mr-2">
-            <div className="flex items-end gap-2">
+            <div className="flex items-center gap-2">
               {isClicked ? (
-                <img src={FolderIcon} alt="folder" className="w-[30px]" />
+                <img src={FolderIcon} alt="folder" className="w-[25px]" />
               ) : (
-                <Icon size={30} className={iconclasses} />
+                <Icon size={24} className={iconclasses} />
               )}
-              <p className="font-[500]">{title}</p>
+              <p className="font-[500] text-sm">{title}</p>
             </div>
             <div className="flex items-center gap-2">
               <button
                 onClick={e => {
                   e.stopPropagation()
                   setIsEditModule(true)
-                }}
-              >
-                <PencilSimple size={20} weight="bold" />
+                }}>
+                <PencilSimple size={15} weight="bold" />
               </button>
               <button
                 onClick={e => {
                   e.stopPropagation()
                   handleClickListItem(e)
-                }}
-              >
-                <Plus size={20} weight="bold" />
+                }}>
+                <Plus size={15} weight="bold" />
               </button>
               <Menu
                 id="plus-add"
@@ -156,8 +153,7 @@ function ModuleAccordion({
                 transformOrigin={{
                   vertical: 'top',
                   horizontal: 'center',
-                }}
-              >
+                }}>
                 <MenuItems
                   items={isSubmodule ? [{ text: 'Lesson' }] : addMenuItems}
                   handlerFunction={handleMenuItemClick}

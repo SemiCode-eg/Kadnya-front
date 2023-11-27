@@ -8,8 +8,8 @@ import {
   updateSubmodule,
 } from '../../../utils/ApiCalls'
 import MainButton from '../../../components/mainButton/MainButton'
-import TextField from '../../../components/forms/TextField'
-import TextAriaField from '../../../components/forms/TextAriaField'
+import TextField from '../../../components/customFields/TextField'
+import TextAriaField from '../../../components/customFields/TextAriaField'
 import CustomModal from '../../../components/customModal'
 import { useParams } from 'react-router-dom'
 
@@ -133,11 +133,10 @@ function AddModule({
       open={open}
       onClose={onClose}
       fullWidth
-      maxWidth="md"
-    >
+      maxWidth="md">
       <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-[7px] items-start w-full">
-          <FormLabel className="!text-black !font-[400] !text-xl">
+          <FormLabel className="!text-black !font-[400] !text-md">
             Title
           </FormLabel>
           <TextField
@@ -151,7 +150,7 @@ function AddModule({
           <p className="text-red-500">{titleErrorMsg}</p>
         </div>
         <div className="flex flex-col gap-[7px] items-start w-full">
-          <FormLabel className="!text-black !font-[400] !text-xl">
+          <FormLabel className="!text-black !font-[400] !text-md">
             Description
           </FormLabel>
           <TextAriaField

@@ -20,11 +20,11 @@ export default function LeftSide({
       </Typography>
       <div className="flex flex-col items-start gap-6 ml-3">
         <div className="flex flex-col gap-2">
-          <Typography textAlign="start">
+          <Typography textAlign="start" className="!text-sm">
             Celebrate your customers by offering them a certificate upon course
             completion.
           </Typography>
-          <Typography textAlign="start">
+          <Typography textAlign="start" className="!text-sm">
             The certificate will be emailed upon course completion. Customize
             the content of the email in Email templates.
           </Typography>

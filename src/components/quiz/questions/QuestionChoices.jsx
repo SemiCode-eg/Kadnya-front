@@ -7,7 +7,7 @@ import {
   Radio,
   RadioGroup,
 } from '@mui/material'
-import TextField from '../../forms/TextField'
+import TextField from '../../customFields/TextField'
 import { PlusCircle } from '@phosphor-icons/react'
 
 export default function QuestionChoices({
@@ -21,8 +21,7 @@ export default function QuestionChoices({
     <FormControl className="w-full flex flex-col items-center">
       <FormLabel
         id="question-radio-buttons-group-label"
-        className="w-full text-left mb-3 !text-black !text-lg"
-      >
+        className="w-full text-left mb-3 !text-black !text-lg">
         Responses
       </FormLabel>
       <RadioGroup
@@ -33,8 +32,7 @@ export default function QuestionChoices({
         value={trueAnswer}
         onChange={event => {
           onTrueAnswerChange(event.target.value)
-        }}
-      >
+        }}>
         {choices.map((choice, index) => (
           <div key={`${index}-${choice}`} className="flex gap-1 w-full ps-2">
             <FormControlLabel

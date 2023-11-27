@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { FormLabel } from '@mui/material'
-import TextField from '../../../components/forms/TextField'
-import TextAriaField from '../../../components/forms/TextAriaField'
+import TextField from '../../../components/customFields/TextField'
+import TextAriaField from '../../../components/customFields/TextAriaField'
 import ImageField from '../../../components/imageField/ImageField'
 
 function Details({

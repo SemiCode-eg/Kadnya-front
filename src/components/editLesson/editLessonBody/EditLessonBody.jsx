@@ -2,7 +2,7 @@
 import { FormLabel } from '@mui/material'
 import { useEffect, useState } from 'react'
 import SortSelect from '../../SortSelect'
-import TextField from '../../forms/TextField'
+import TextField from '../../customFields/TextField'
 import ImageField from '../../imageField/ImageField'
 import { useNavigate, useParams } from 'react-router-dom'
 import useLesson from '../../../hooks/use-lesson'
@@ -194,8 +194,7 @@ function EditLessonBody({
           ) : (
             <form
               className="flex xl:gap-[90px] gap-8 flex-wrap h-full"
-              onSubmit={handleSubmit}
-            >
+              onSubmit={handleSubmit}>
               <div className="flex flex-col gap-6 xl:w-[45%] w-full">
                 <div className="flex flex-col gap-[7px] items-start w-full">
                   <FormLabel className="!text-black !font-[400] !text-lg">
@@ -228,8 +227,7 @@ function EditLessonBody({
                   {submodulesOption?.length > 0 && (
                     <HandleErrorLoad
                       loading={submodulesLoading}
-                      errorMsg={submodulesErrorMsg}
-                    >
+                      errorMsg={submodulesErrorMsg}>
                       <FormLabel className="!text-black !font-[400] !text-lg">
                         Select submodule
                       </FormLabel>
