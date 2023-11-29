@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getSingleLesson } from '../utils/ApiCalls'
+import { getSingleLesson } from '../api/course'
 
 const useLesson = id => {
   const [lessonData, setLessonData] = useState([])

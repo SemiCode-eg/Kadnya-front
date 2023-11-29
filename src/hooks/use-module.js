@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getSingleModule } from '../utils/ApiCalls'
+import { getSingleModule } from '../api/course'
 
 const useModule = id => {
   const [moduleData, setModuleData] = useState([])

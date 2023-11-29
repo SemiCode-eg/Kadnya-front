@@ -1,6 +1,6 @@
-import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { getModules } from '../utils/ApiCalls'
+import { useParams } from 'react-router-dom'
+import { getModules } from '../api/course'
 
 const useModules = () => {
   const [modulesData, setModulesData] = useState([])

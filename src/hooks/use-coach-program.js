@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getCoachProgram } from '../utils/ApiCalls'
+import { getCoachProgram } from '../api/coach'
 
 const useCoachProgram = id => {
   const [programData, setProgramData] = useState([])

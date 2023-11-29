@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getCourses } from '../utils/ApiCalls'
+import { getCourses } from '../api/course'
 
 const useCourse = refetch => {
   const [courses, setCourses] = useState([])
