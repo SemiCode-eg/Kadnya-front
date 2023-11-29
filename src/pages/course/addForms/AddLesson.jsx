@@ -6,8 +6,8 @@ import TextField from '../../../components/customFields/TextField'
 import SortSelect from '../../../components/SortSelect'
 import CustomModal from '../../../components/customModal'
 import useModule from '../../../hooks/use-module'
-import { sendLesson } from '../../../utils/ApiCalls'
 import HandleErrorLoad from '../../../components/handleErrorLoad'
+import { sendLesson } from '../../../api/course'
 
 function AddLesson({
   open,

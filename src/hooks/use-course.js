@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getsingleCourse } from '../utils/ApiCalls'
+import { getSingleCourse } from '../api/course'
 
 const useCourse = (id, refetch) => {
   const [courseData, setCourseData] = useState([])
@@ -8,7 +8,7 @@ const useCourse = (id, refetch) => {
 
   useEffect(() => {
     setLoading(true)
-    getsingleCourse(id).then(data => {
+    getSingleCourse(id).then(data => {
       if (data.status !== 200 || !data.data) {
         if (data.status === 404) {
           setErrorMsg('Not Found!')

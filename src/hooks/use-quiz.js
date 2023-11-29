@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getQuiz } from '../utils/ApiCalls'
+import { getQuiz } from '../api/course'
 
 export default function useQuiz(id) {
   const [quizData, setQuizData] = useState([])

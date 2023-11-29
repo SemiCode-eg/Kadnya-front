@@ -1,4 +1,4 @@
-import api from '../utils/ApiUrl'
+import api from '../api/api'
 import MainButton from './mainButton/MainButton'
 import { useState } from 'react'
 
