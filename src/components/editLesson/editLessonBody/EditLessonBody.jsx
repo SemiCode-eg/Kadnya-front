@@ -22,9 +22,9 @@ import EditLessonLinkCard from '../editLessonLinkCard/EditLessonLinkCard'
 import DraftBtn from '../../draftBtn/DraftBtn'
 import AddFile from '../addFile/AddFile'
 import HandleErrorLoad from '../../handleErrorLoad/index'
-import { updateLesson } from '../../../utils/ApiCalls'
 import useModule from '../../../hooks/use-module'
 import useModules from '../../../hooks/use-modules'
+import { updateLesson } from '../../../api/course'
 
 const toolbar = [
   'heading',

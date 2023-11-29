@@ -2,10 +2,10 @@
 import { useState, useRef } from 'react'
 import CustomModal from '../../customModal'
 import { FormLabel } from '@mui/material'
-import api from '../../../utils/ApiUrl'
 import { FolderOpen } from '@phosphor-icons/react'
 import MainButton from '../../mainButton/MainButton'
 import { CancelToken, isCancel } from 'axios'
+import api from '../../../api/api'
 
 function AddFile({ open, onClose, setFileName, lessonID }) {
   const [error, setError] = useState('')

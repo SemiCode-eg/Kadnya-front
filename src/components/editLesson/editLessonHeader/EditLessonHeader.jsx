@@ -4,9 +4,9 @@ import MainButton from '../../mainButton/MainButton'
 import GoBackBtn from '../../goBackBtn/GoBackBtn'
 import { Link } from 'react-router-dom'
 import DraftBtn from '../../draftBtn/DraftBtn'
-import { deleteLesson } from '../../../utils/ApiCalls'
 import { useParams } from 'react-router-dom'
 import { useState } from 'react'
+import { deleteLesson } from '../../../api/course'
 
 function EditLessonHeader({
   isDraft,

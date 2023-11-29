@@ -1,4 +1,4 @@
-import api from "../ApiUrl"
+import api from "../api"
 
 export const getCourses = async () => {
   try {
