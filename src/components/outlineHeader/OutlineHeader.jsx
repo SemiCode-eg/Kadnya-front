@@ -18,7 +18,7 @@ import AddSubmodule from '../../pages/course/addForms/AddSubmodule'
 import AddLesson from '../../pages/course/addForms/AddLesson'
 import SettingMenu from '../menu'
 import { useNavigate } from 'react-router-dom'
-import { deleteCourse } from '../../utils/ApiCalls'
+import { deleteCourse } from '../../api/course'
 
 const MUIMenu = styled(Menu)(() => ({
   '& .MuiList-root': {

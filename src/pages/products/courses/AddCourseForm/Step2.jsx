@@ -6,11 +6,9 @@ import {
   Typography,
 } from '@mui/material'
 import ImageField from '../../../../components/imageField/ImageField'
-import MainButton from '../../../../components/mainButton/MainButton'
-import { Receipt, ReceiptX } from '@phosphor-icons/react'
 import { useEffect, useState } from 'react'
-import { getCategories } from '../../../../utils/ApiCalls'
 import PaidMethod from '../../../../components/paidMethod/PaidMethod'
+import { getCategories } from '../../../../api/course'
 
 /* eslint-disable react/prop-types */
 export default function Step2({

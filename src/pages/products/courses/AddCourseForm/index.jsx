@@ -5,7 +5,7 @@ import AddCoursePreview from './Preview'
 import CustomModal from '../../../../components/customModal'
 import MainButton from '../../../../components/mainButton/MainButton'
 import HandleErrorLoad from '../../../../components/handleErrorLoad'
-import { createCourse } from '../../../../utils/ApiCalls'
+import { createCourse } from '../../../../api/course'
 
 const formReducerKeys = {
   setTitle: 'setTitle',

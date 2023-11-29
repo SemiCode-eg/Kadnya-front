@@ -5,8 +5,8 @@ import Container from '../Container'
 import { Typography } from '@mui/material'
 import SittingsForm from './SittingsForm'
 import { useEffect, useReducer, useState } from 'react'
-import { updateCourse } from '../../../utils/ApiCalls'
 import HandleErrorLoad from '../../../components/handleErrorLoad/index'
+import { updateCourse } from '../../../api/course'
 
 const initialFormData = {
   title: '',

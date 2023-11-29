@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { addQuestion } from '../utils/ApiCalls'
+import { useState } from 'react'
+import { addQuestion } from '../api/course'
 
 export default function useAddQuestion(quizId, data) {
   const [loading, setLoading] = useState(false)

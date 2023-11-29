@@ -8,7 +8,7 @@ import { useState } from 'react'
 import TextField from '../../../components/customFields/TextField'
 import SortSelect from '../../../components/SortSelect'
 import CustomModal from '../../../components/customModal'
-import { sendSubmodule } from '../../../utils/ApiCalls'
+import { sendSubmodule } from '../../../api/course'
 
 function AddSubmodule({
   open,

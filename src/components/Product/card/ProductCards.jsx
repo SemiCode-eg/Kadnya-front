@@ -1,7 +1,7 @@
 import { Pagination } from '@mui/material'
 import ProductCard from './ProductCard'
-import { deleteCourse } from '../../../utils/ApiCalls'
 import { useResolvedPath } from 'react-router-dom'
+import { deleteCourse } from '../../../api/course'
 
 /* eslint-disable react/prop-types */
 export default function ProductCards({

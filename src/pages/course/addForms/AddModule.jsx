@@ -2,16 +2,12 @@
 import { FormLabel } from '@mui/material'
 import ImageField from '../../../components/imageField/ImageField'
 import { useState } from 'react'
-import {
-  sendModule,
-  updateModule,
-  updateSubmodule,
-} from '../../../utils/ApiCalls'
 import MainButton from '../../../components/mainButton/MainButton'
 import TextField from '../../../components/customFields/TextField'
 import TextAriaField from '../../../components/customFields/TextAriaField'
 import CustomModal from '../../../components/customModal'
 import { useParams } from 'react-router-dom'
+import { sendModule, updateModule, updateSubmodule } from '../../../api/course'
 
 function AddModule({
   open,
