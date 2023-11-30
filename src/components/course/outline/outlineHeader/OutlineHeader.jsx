@@ -7,18 +7,15 @@ import {
   File,
   CheckSquareOffset,
 } from '@phosphor-icons/react'
-import imageSquare from '../../assets/images/courses/ImageSquare.png'
-import MainButton from '../mainButton/MainButton'
 import { Alert, Menu, Snackbar } from '@mui/material'
 import { useMemo, useState } from 'react'
-import MenuItems from '../menu/MenuItems'
 import styled from '@emotion/styled'
-import AddModule from '../../pages/course/addForms/AddModule'
-import AddSubmodule from '../../pages/course/addForms/AddSubmodule'
-import AddLesson from '../../pages/course/addForms/AddLesson'
-import SettingMenu from '../menu'
 import { useNavigate } from 'react-router-dom'
-import { deleteCourse } from '../../api/course'
+import MenuItems from '../../../menu/MenuItems'
+import SettingMenu from '../../../menu'
+import imageSquare from '../../../../assets/images/courses/ImageSquare.png'
+import MainButton from '../../../mainButton/MainButton'
+import { deleteCourse } from '../../../../api/course'
 
 const MUIMenu = styled(Menu)(() => ({
   '& .MuiList-root': {
@@ -55,12 +52,15 @@ const MUIMenu = styled(Menu)(() => ({
   },
 }))
 
-function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
+function OutlineHeader({
+  courseData,
+  showContentBtn = true,
+  setOpenModuleForm = () => {},
+  setOpenSubModuleForm = () => {},
+  setOpenLessonForm = () => {},
+  setOpenQuizForm = () => {},
+}) {
   const [anchorEl, setAnchorEl] = useState(null)
-  const [openModuleForm, setOpenModuleForm] = useState(false)
-  const [opensubModuleForm, setOpensubModuleForm] = useState(false)
-  const [openLessonForm, setOpenLessonForm] = useState(false)
-  const [openQuizForm, setOpenQuizForm] = useState(false)
   const [successSubmit, setSuccessSubmit] = useState('')
   const [deleteLoading, setDeleteLoading] = useState(false)
   const [deleteErrorMsg, setDeleteErrorMsg] = useState('')
@@ -110,7 +110,7 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
         setOpenModuleForm(true)
         break
       case addMenuItems[1].text: // Submodule
-        setOpensubModuleForm(true)
+        setOpenSubModuleForm(true)
         break
       case addMenuItems[2].text: // Lesson
         setOpenLessonForm(true)
@@ -121,50 +121,11 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
       default:
         break
     }
-    setAnchorEl(null)
+    handleClose()
   }
 
   const handleClose = () => {
     setAnchorEl(null)
-  }
-
-  const previewedForm = () => {
-    if (openModuleForm) {
-      return (
-        <AddModule
-          open={openModuleForm}
-          onClose={() => setOpenModuleForm(false)}
-          title="New Module"
-          setRefetch={setRefetch}
-          setSuccessSubmit={setSuccessSubmit}
-        />
-      )
-    } else if (opensubModuleForm) {
-      return (
-        <AddSubmodule
-          open={opensubModuleForm}
-          onClose={() => setOpensubModuleForm(false)}
-          title="New Submodule"
-          modules={courseData?.modules}
-          setRefetch={setRefetch}
-          setSuccessSubmit={setSuccessSubmit}
-        />
-      )
-    } else if (openLessonForm) {
-      return (
-        <AddLesson
-          open={openLessonForm}
-          onClose={() => setOpenLessonForm(false)}
-          title="New Lesson"
-          modules={courseData?.modules}
-          isMainBtn={true}
-          setRefetch={setRefetch}
-          setSuccessSubmit={setSuccessSubmit}
-        />
-      )
-    } else if (openQuizForm) {
-      navigate(`/products/courses/${courseData?.id}/quiz/add`)
-    }
   }
 
   const handleDeleteCourse = id => {
@@ -172,7 +133,6 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
     setDeleteLoading(true)
 
     deleteCourse(id).then(data => {
-      console.log(data)
       setDeleteLoading(false)
       if (data.request.status === 200 || data.status === 204) {
         navigate(`/products/courses`)
@@ -184,8 +144,6 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
 
   return (
     <>
-      {/* TODO make error show like popup also inside each form */}
-      {previewedForm()}
       <div className="mb-2 flex gap-5 flex-col lg:flex-row">
         <div className="flex justify-between gap-[35px] flex-1 flex-col lg:flex-row flex-wrap">
           <div className="flex items-center flex-col sm:flex-row gap-[20px] flex-1">
@@ -206,69 +164,64 @@ function OutlineHeader({ courseData, setRefetch, showContentBtn = true }) {
               </p>
             </div>
           </div>
-          {showContentBtn && (
-            <div className="flex items-center gap-[20px] flex-1 justify-end">
-              <SettingMenu
-                id={courseData?.id}
-                buttonIcon={<DotsThree size={35} weight="bold" />}
-                isPreview={false}
-                handleDelete={handleDeleteCourse}
-                deleteErrorMsg={deleteErrorMsg}
-                deleteLoading={deleteLoading}
-              />
-              <MainButton
-                text="Add Content"
-                icon={
-                  <>
-                    <Stack size={25} weight="fill" />
-                  </>
-                }
-                reverse={true}
-                className={`text-white hover:bg-teal-200 hover:text-sky-950 !px-5 !text-sm ${
-                  anchorEl === null
-                    ? 'bg-sky-950'
-                    : 'bg-gradient-to-b from-[#28ACA6] to-[#28ACA6]'
-                }`}
-                handleClick={handleClickListItem}
-              />
-              <MUIMenu
-                id="add-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                  'aria-labelledby': 'add-menu-button',
-                }}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'center',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'center',
-                }}
-              >
-                <MenuItems
-                  items={addMenuItems}
-                  handlerFunction={handleMenuItemClick}
-                  iconClasses="text-white"
+          <div className="flex items-center gap-[20px] flex-1 justify-end">
+            <SettingMenu
+              id={courseData?.id}
+              buttonIcon={<DotsThree size={35} weight="bold" />}
+              isPreview={false}
+              handleDelete={handleDeleteCourse}
+              deleteErrorMsg={deleteErrorMsg}
+              deleteLoading={deleteLoading}
+            />
+            {showContentBtn && (
+              <>
+                <MainButton
+                  text="Add Content"
+                  icon={
+                    <>
+                      <Stack size={25} weight="fill" />
+                    </>
+                  }
+                  reverse={true}
+                  className={`text-white hover:bg-teal-200 hover:text-sky-950 !px-5 !text-sm ${
+                    anchorEl === null
+                      ? 'bg-sky-950'
+                      : 'bg-gradient-to-b from-[#28ACA6] to-[#28ACA6]'
+                  }`}
+                  handleClick={handleClickListItem}
                 />
-              </MUIMenu>
-            </div>
-          )}
+                <MUIMenu
+                  id="add-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    'aria-labelledby': 'add-menu-button',
+                  }}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                  }}>
+                  <MenuItems
+                    items={addMenuItems}
+                    handlerFunction={handleMenuItemClick}
+                    iconClasses="text-white"
+                  />
+                </MUIMenu>
+              </>
+            )}
+          </div>
         </div>
       </div>
       {!!successSubmit && (
         <Snackbar
           open={!!successSubmit}
           autoHideDuration={6000}
-          onClose={() => setSuccessSubmit('')}
-        >
+          onClose={() => setSuccessSubmit('')}>
           <Alert
             severity="success"
             sx={{ width: '100%' }}
-            onClose={() => setSuccessSubmit('')}
-          >
+            onClose={() => setSuccessSubmit('')}>
             {successSubmit} added successfully!
           </Alert>
         </Snackbar>

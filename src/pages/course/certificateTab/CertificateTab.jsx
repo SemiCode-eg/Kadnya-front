@@ -1,7 +1,7 @@
 import { useReducer } from 'react'
 import { useParams } from 'react-router-dom'
 import useCourse from '../../../hooks/use-course'
-import OutlineHeader from '../../../components/outlineHeader/OutlineHeader'
+import OutlineHeader from '../../../components/course/outline/outlineHeader/OutlineHeader'
 import Container from '../Container'
 import MainButton from '../../../components/mainButton/MainButton'
 import LeftSide from './LeftSide'

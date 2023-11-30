@@ -77,7 +77,7 @@ function AddSubmodule({
         ) {
           setSubmitError(false)
           setRefetch(prev => !prev)
-          setSuccessSubmit('Submodule')
+          setSuccessSubmit('Submodule added successfully!')
           onClose()
         } else {
           setSubmitError(true)

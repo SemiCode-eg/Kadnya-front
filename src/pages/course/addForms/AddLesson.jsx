@@ -86,7 +86,7 @@ function AddLesson({
         ) {
           setSubmitError(false)
           setRefetch(prev => !prev)
-          setSuccessSubmit('Lesson')
+          setSuccessSubmit('Lesson added successfully!')
           onClose()
         } else {
           setSubmitError(true)

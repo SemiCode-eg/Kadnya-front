@@ -1,20 +1,29 @@
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { FolderDashed, FolderSimple } from '@phosphor-icons/react'
 import ModuleAccordion from '../../../components/moduleAccordion/ModuleAccordion'
 import SearchInput from '../../../components/SearchInput'
 import ModuleLesson from '../../../components/moduleAccordion/ModuleLesson'
 import useCourse from '../../../hooks/use-course'
-import OutlineHeader from '../../../components/outlineHeader/OutlineHeader'
+import OutlineHeader from '../../../components/course/outline/outlineHeader/OutlineHeader'
 import Container from '../Container'
 import HandleErrorLoad from '../../../components/handleErrorLoad'
 import { useMemo, useState } from 'react'
 import { Typography } from '@mui/material'
+import AddModule from '../addForms/AddModule'
+import AddSubmodule from '../addForms/AddSubmodule'
+import AddLesson from '../addForms/AddLesson'
 
 function Outline() {
   const [refetch, setRefetch] = useState(false)
   const [searchData, setSearchData] = useState(null)
   const [searchLoading, setSearchLoading] = useState(false)
+  const [openModuleForm, setOpenModuleForm] = useState(false)
+  const [openSubModuleForm, setOpenSubModuleForm] = useState(false)
+  const [openLessonForm, setOpenLessonForm] = useState(false)
+  const [openQuizForm, setOpenQuizForm] = useState(false)
+  const [successSubmit, setSuccessSubmit] = useState('')
   const { id } = useParams()
+  const navigate = useNavigate()
   const { courseData, errorMsg, loading } = useCourse(id, refetch)
 
   const dataToShow = useMemo(
@@ -22,10 +31,63 @@ function Outline() {
     [courseData, searchData],
   )
 
+  const previewedForm = () => {
+    if (openModuleForm) {
+      return (
+        <AddModule
+          open={openModuleForm}
+          onClose={() => setOpenModuleForm(false)}
+          title="New Module"
+          setRefetch={setRefetch}
+          setSuccessSubmit={setSuccessSubmit}
+        />
+      )
+    } else if (openSubModuleForm) {
+      return (
+        <AddSubmodule
+          open={openSubModuleForm}
+          onClose={() => setOpenSubModuleForm(false)}
+          title="New Submodule"
+          modules={courseData?.modules}
+          setRefetch={setRefetch}
+          setSuccessSubmit={setSuccessSubmit}
+        />
+      )
+    } else if (openLessonForm) {
+      return (
+        <AddLesson
+          open={openLessonForm}
+          onClose={() => setOpenLessonForm(false)}
+          title="New Lesson"
+          modules={courseData?.modules}
+          isMainBtn={true}
+          setRefetch={setRefetch}
+          setSuccessSubmit={setSuccessSubmit}
+        />
+      )
+    } else if (openQuizForm) {
+      navigate(`/products/courses/${courseData?.id}/quiz/add`)
+    }
+  }
+
   return (
     <>
-      <OutlineHeader courseData={courseData} setRefetch={setRefetch} />
-      <HandleErrorLoad loading={loading} errorMsg={errorMsg}>
+      {/* TODO make error show like popup also inside each form */}
+      {previewedForm()}
+
+      <OutlineHeader
+        courseData={courseData}
+        setOpenLessonForm={setOpenLessonForm}
+        setOpenModuleForm={setOpenModuleForm}
+        setOpenSubModuleForm={setOpenSubModuleForm}
+        setOpenQuizForm={setOpenQuizForm}
+      />
+
+      <HandleErrorLoad
+        loading={loading}
+        errorMsg={errorMsg}
+        successMsg={successSubmit}
+        setSuccessMsg={setSuccessSubmit}>
         <Container>
           <SearchInput
             placeholder="Find module or lesson"
@@ -52,8 +114,7 @@ function Outline() {
                   moduleID={module.id}
                   modules={[module]}
                   paperClasses="!my-1 !shadow !rounded-lg before:!opacity-0 after:!opacity-0"
-                  setRefetch={setRefetch}
-                >
+                  setRefetch={setRefetch}>
                   {module.lessons?.length > 0 ? (
                     module.lessons?.map((lesson, i) => (
                       <ModuleLesson
@@ -83,8 +144,7 @@ function Outline() {
                       submodule={[submodule]}
                       isSubmodule={true}
                       parentModuleID={module?.id}
-                      setRefetch={setRefetch}
-                    >
+                      setRefetch={setRefetch}>
                       {submodule.lessons?.length > 0 ? (
                         submodule.lessons?.map((lesson, i) => (
                           <ModuleLesson

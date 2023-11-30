@@ -76,7 +76,7 @@ function AddModule({
             ) {
               setSubmitError(false)
               setRefetch(prev => !prev)
-              setSuccessSubmit('Module')
+              setSuccessSubmit('Module added successfully!')
               onClose()
             } else {
               setSubmitError(true)
@@ -94,7 +94,7 @@ function AddModule({
             ) {
               setSubmitError(false)
               setRefetch(prev => !prev)
-              setSuccessSubmit('Module')
+              setSuccessSubmit('Module added successfully!')
               onClose()
             } else {
               setSubmitError(true)
@@ -113,7 +113,7 @@ function AddModule({
           ) {
             setSubmitError(false)
             setRefetch(prev => !prev)
-            setSuccessSubmit('Module')
+            setSuccessSubmit('Module added successfully!')
             onClose()
           } else {
             setSubmitError(true)
