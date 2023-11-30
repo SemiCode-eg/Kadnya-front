@@ -9,14 +9,12 @@ import { CaretDown } from '@phosphor-icons/react'
 import QuestionFrom from './QuestionFrom'
 
 export default function Question({
+  index = 0,
   question = {},
-  onQuestionChange = () => {},
   titlePrefix = 1,
   expanded = true,
   panel,
   toggleExpand = () => {},
-  onAddQuestion,
-  onUpdateQuestion,
 }) {
   return (
     <Accordion
@@ -41,9 +39,7 @@ export default function Question({
       <AccordionDetails>
         <QuestionFrom
           question={question}
-          onQuestionChange={onQuestionChange}
-          onAddQuestion={onAddQuestion}
-          onUpdateQuestion={onUpdateQuestion}
+          index={index}
         />
       </AccordionDetails>
     </Accordion>
