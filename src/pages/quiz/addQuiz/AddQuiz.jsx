@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Typography } from '@mui/material'
-import HandleErrorLoad from '../../../components/handleErrorLoad'
 import useQuiz from '../../../hooks/use-quiz'
+import useQuestionsReducer from '../../../hooks/use-questions-reducer'
+import HandleErrorLoad from '../../../components/handleErrorLoad'
 import Question from '../../../components/quiz/questions/Question'
-import useQuestionReducer from '../../../hooks/use-question-reducer'
+import MainButton from '../../../components/mainButton/MainButton'
 
 const errorTypes = {
   question: 'question',
@@ -16,8 +17,27 @@ function AddQuiz() {
   const { id } = useParams()
   const { quizData, loading, errorMsg, refreshData } = useQuiz(id)
   const [expanded, setExpanded] = useState('NEW')
-  const { newQuestionReducerKeys, newQuestion, dispatchNewQuestion } =
-    useQuestionReducer()
+  const { questionsKeys, questions, dispatchQuestions } = useQuestionsReducer()
+
+  useEffect(() => {
+    if (!quizData?.questions?.length) return
+
+    const preparedQuestions = quizData.questions.map(question => ({
+      id: question.id,
+      questionText: question.question_text,
+      questionType: 'MCQ',
+      isGraded: question.is_graded,
+      image: question.question_image,
+      choices: question.choices.map(choice => ({
+        text: choice.choice_text,
+        image: choice.choice_image,
+        isTrue: choice.is_true,
+      })),
+      error: '',
+    }))
+
+    dispatchQuestions({ type: questionsKeys.SET, payload: preparedQuestions })
+  }, [dispatchQuestions, questionsKeys.SET, quizData])
 
   const handleQuestionExpand = panel => {
     setExpanded(panel)
@@ -25,13 +45,13 @@ function AddQuiz() {
 
   const handleQuestionError = (errorType, questionErrorMessage) => {
     if (errorType === errorTypes.question)
-      dispatchNewQuestion({
-        type: newQuestionReducerKeys.SET_ERROR,
+      dispatchQuestions({
+        type: questionsKeys.SET_ERROR,
         payload: questionErrorMessage,
       })
     else if (errorType === errorTypes.choices)
-      dispatchNewQuestion({
-        type: newQuestionReducerKeys.SET_ERROR,
+      dispatchQuestions({
+        type: questionsKeys.SET_ERROR,
         payload: questionErrorMessage,
       })
 
@@ -51,61 +71,48 @@ function AddQuiz() {
   }
 
   const resetQuiz = () => {
-    dispatchNewQuestion({ type: newQuestionReducerKeys.INIT })
+    dispatchQuestions({ type: questionsKeys.INIT })
     setExpanded('NEW')
     refreshData()
   }
 
-  const handleAddQuestion = questionData => {
-    const isValid = validateQuestion(questionData)
+  const handleSave = () => {
+    const isValid = validateQuestion(questions)
     if (!isValid) return
 
     // TODO handle send question data to API
 
     resetQuiz()
   }
-
-  const handleQuestionUpdate = questionData => {
-    validateQuestion(questionData)
-
-    // TODO handle send question data to API
-
-    resetQuiz()
-  }
+  console.log(questions)
 
   return (
     <HandleErrorLoad
-      errorMsg={newQuestion.error !== '' ? newQuestion.error : errorMsg}
+      errorMsg={errorMsg}
       loading={loading}
-      errorReopen={errorReopen}
-    >
+      errorReopen={errorReopen}>
       <Typography variant="h4" textAlign="start" gutterBottom>
         Questions
       </Typography>
 
-      {quizData.length === 0 &&
-        quizData.map((question, index) => (
+      {questions.length !== 0 &&
+        questions.map((question, index) => (
           <Question
-            key={question.id || index}
+            key={question?.id || `Q${index}`}
+            index={index}
             question={question}
-            onQuestionChange={dispatchNewQuestion}
-            questionNum={index + 1}
+            titlePrefix={question?.id ? `${index + 1}.` : 'New'}
             expanded={expanded}
-            panel={`Q${index}`}
-            toggleExpand={() => handleQuestionExpand(`Q${index}`)}
-            onUpdateQuestion={handleQuestionUpdate}
+            panel={question?.id ? `Q${index}` : 'NEW'}
+            toggleExpand={() =>
+              handleQuestionExpand(question?.id ? `Q${index}` : 'NEW')
+            }
           />
         ))}
 
-      <Question
-        question={newQuestion}
-        onQuestionChange={dispatchNewQuestion}
-        titlePrefix="New"
-        expanded={expanded}
-        panel="NEW"
-        toggleExpand={() => handleQuestionExpand('NEW')}
-        onAddQuestion={handleAddQuestion}
-      />
+      <div className="w-full flex justify-center items-center">
+        <MainButton text="Save" handleClick={handleSave} />
+      </div>
     </HandleErrorLoad>
   )
 }
