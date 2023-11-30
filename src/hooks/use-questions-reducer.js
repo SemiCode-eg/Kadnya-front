@@ -44,7 +44,7 @@ const updateState = (state, newValueIndex, newValue) => {
 const questionsReducer = (state, action) => {
   const questionIndex = action.payload.index
   const newValue = action.payload.value
-  console.log(state)
+  console.log(state) // FIXME state is not the real state that is rendered
 
   switch (action.type) {
     case questionsKeys.SET_QUESTION_TEXT:
