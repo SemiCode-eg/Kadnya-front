@@ -15,14 +15,26 @@ import Quiz from './pages/quiz/Quiz.jsx'
 import AddQuiz from './pages/quiz/addQuiz/AddQuiz.jsx'
 import QuizSittings from './pages/quiz/quizSittings/QuizSittings.jsx'
 import QuizResults from './pages/quiz/quizResults/QuizResults.jsx'
+import EmptyQuizMsg from './pages/quiz/EmptyQuizMsg.jsx'
 import Coaching from './pages/coaching/Coaching.jsx'
 import CoachingDashboard from './pages/coaching/coachingDashboard/CoachingDashboard.jsx'
 import CoachingPrograms from './pages/coaching/coachingPrograms/CoachingPrograms.jsx'
 import CoachingSittings from './pages/coaching/coachingSittings/CoachingSittings.jsx'
 import CoachPrograms from './pages/coachPrograms/CoachPrograms.jsx'
 import ProgramClients from './pages/coachPrograms/programClients/ProgramClients.jsx'
-import CustomMuiThemeProvider from './theme/CustomMuiThemeProvider.jsx'
 import ProgramSettings from './pages/coachPrograms/programsSettings/ProgramSettings.jsx'
+import CustomMuiThemeProvider from './theme/CustomMuiThemeProvider.jsx'
+import ErrorPage from './pages/errorPage/ErrorPage.jsx'
+
+const quizParamHandler = ({ params }) => {
+  if (isNaN(params.quizID)) {
+    throw new Response('Bad Request', {
+      statusText: 'Quiz not found!',
+      status: 404,
+    })
+  }
+  return null
+}
 
 const router = createBrowserRouter([
   {
@@ -32,9 +44,9 @@ const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <div className="text-teal-500 font-bold text-3xl flex justify-center">
+          <p className="text-teal-500 font-bold text-3xl flex justify-center">
             Coming Soon
-          </div>
+          </p>
         ),
       }, // Temporary, it will be dashboard component
       {
@@ -62,9 +74,21 @@ const router = createBrowserRouter([
         path: 'products/courses/:id/quiz',
         element: <Quiz />,
         children: [
+          { index: true, element: <AddQuiz /> },
           { path: 'add', element: <AddQuiz /> },
-          { path: 'settings', element: <QuizSittings /> },
-          { path: 'results', element: <QuizResults /> },
+          {
+            path: ':quizID',
+            errorElement: <ErrorPage />,
+            loader: quizParamHandler,
+            children: [
+              { index: true, element: <AddQuiz /> },
+              { path: 'edit', element: <AddQuiz /> },
+              { path: 'settings', element: <QuizSittings /> },
+              { path: 'results', element: <QuizResults /> },
+            ],
+          },
+          { path: 'settings', element: <EmptyQuizMsg /> },
+          { path: 'results', element: <EmptyQuizMsg /> },
         ],
       },
       {
@@ -89,33 +113,33 @@ const router = createBrowserRouter([
       {
         path: 'sales',
         element: (
-          <div className="text-teal-500 font-bold text-3xl flex justify-center">
+          <p className="text-teal-500 font-bold text-3xl flex justify-center">
             Coming Soon
-          </div>
+          </p>
         ),
       },
       {
         path: 'contacts',
         element: (
-          <div className="text-teal-500 font-bold text-3xl flex justify-center">
+          <p className="text-teal-500 font-bold text-3xl flex justify-center">
             Coming Soon
-          </div>
+          </p>
         ),
       },
       {
         path: 'setting',
         element: (
-          <div className="text-teal-500 font-bold text-3xl flex justify-center">
+          <p className="text-teal-500 font-bold text-3xl flex justify-center">
             Coming Soon
-          </div>
+          </p>
         ),
       },
       {
         path: 'login',
         element: (
-          <div className="text-teal-500 font-bold text-3xl flex justify-center">
+          <p className="text-teal-500 font-bold text-3xl flex justify-center">
             Coming Soon
-          </div>
+          </p>
         ),
       },
     ],

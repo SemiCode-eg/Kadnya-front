@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import Details from './Details'
 import Grading from './Grading'
-import { useOutletContext } from 'react-router-dom'
+import { useOutletContext, useParams } from 'react-router-dom'
+import EmptyQuizMsg from '../EmptyQuizMsg'
 
 function QuizSittings() {
   const [title, setTitle] = useState('')
@@ -12,6 +13,7 @@ function QuizSittings() {
   const [hideAnswers, setHideAnswers] = useState(false)
   const [imageAsset, setImageAsset] = useState(null)
   const [imageAssetErrorMsg, setImageAssetErrorMsg] = useState('')
+  const { quizID } = useParams()
 
   const [
     isDraft,
@@ -46,7 +48,7 @@ function QuizSittings() {
     // Patch function
   }
 
-  return (
+  return quizID ? (
     <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
       <Details
         title={title}
@@ -68,6 +70,8 @@ function QuizSittings() {
       />
       <button hidden ref={formRef} />
     </form>
+  ) : (
+    <EmptyQuizMsg />
   )
 }
 
