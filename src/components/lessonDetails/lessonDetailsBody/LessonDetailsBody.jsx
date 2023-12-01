@@ -1,9 +1,6 @@
 /* eslint-disable react/prop-types */
 import { FormLabel } from '@mui/material'
 import { useEffect, useState } from 'react'
-import SortSelect from '../../SortSelect'
-import TextField from '../../customFields/TextField'
-import ImageField from '../../imageField/ImageField'
 import { useNavigate, useParams } from 'react-router-dom'
 import useLesson from '../../../hooks/use-lesson'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
@@ -18,7 +15,10 @@ import {
   LinkSimple,
   VideoCamera,
 } from '@phosphor-icons/react'
-import EditLessonLinkCard from '../editLessonLinkCard/EditLessonLinkCard'
+import SortSelect from '../../SortSelect'
+import TextField from '../../customFields/TextField'
+import ImageField from '../../imageField/ImageField'
+import LessonDetailsLinkCard from '../lessonDetailsLinkCard/LessonDetailsLinkCard'
 import DraftBtn from '../../draftBtn/DraftBtn'
 import AddFile from '../addFile/AddFile'
 import HandleErrorLoad from '../../handleErrorLoad/index'
@@ -54,7 +54,21 @@ const visibleMenuItems = [
   },
 ]
 
-function EditLessonBody({
+function generateModuleOptions(modulesData) {
+  return modulesData?.map(module => ({
+    value: module.id,
+    label: module.title,
+  })) || [];
+}
+
+function generateSubmoduleOptions(moduleData) {
+  return moduleData?.submodules?.map(submodule => ({
+    value: submodule.id,
+    label: submodule.title,
+  })) || [];
+}
+
+function LessonDetailsBody({
   isDraft,
   setIsDraft,
   formRef,
@@ -74,47 +88,20 @@ function EditLessonBody({
   const [imageAsset, setImageAsset] = useState(lessonData?.image)
   const [isCommentHidden, setIsCommentHidden] = useState(true)
   const [fileName, setFileName] = useState('')
-
-  const [modulesOptions, setModulesOptions] = useState([])
-  const [submodulesOption, setSubmodulesOption] = useState([])
-
   const [submodulesSortKey, setSubmodulesSortKey] = useState('NONE')
   const [modulesSortKey, setModulesSortKey] = useState(1)
-
   const [isVideo, setIsVideo] = useState(false)
   const [openAddFile, setOpenAddFile] = useState(false)
-
   const {
     modulesData,
     errorMsg: modulesErrorMsg,
     loading: modulesLoading,
   } = useModules(id)
-
   const {
     moduleData,
     errorMsg: submodulesErrorMsg,
     loading: submodulesLoading,
   } = useModule(modulesSortKey)
-
-  useEffect(() => {
-    setModulesOptions(
-      modulesData?.map(module => ({
-        value: module.id,
-        label: module.title,
-      })),
-    )
-
-    setSubmodulesOption(
-      moduleData?.submodules?.map(submodule =>
-        submodule
-          ? {
-              value: submodule.id,
-              label: submodule.title,
-            }
-          : [],
-      ),
-    )
-  }, [moduleData?.submodules, modulesData])
 
   useEffect(() => {
     if (lessonData) {
@@ -217,14 +204,14 @@ function EditLessonBody({
                   <SortSelect
                     label="Select Top-level Module"
                     className="!w-full"
-                    options={modulesOptions}
+                    options={generateModuleOptions(modulesData)}
                     sortKey={modulesSortKey}
                     onSelect={e => setModulesSortKey(e.target.value)}
                     selectClasses="!rounded-xl !py-0"
                   />
                 </div>
                 <div className="flex flex-col gap-[10px] items-start w-full">
-                  {submodulesOption?.length > 0 && (
+                  {generateSubmoduleOptions(moduleData)?.length > 0 && (
                     <HandleErrorLoad
                       loading={submodulesLoading}
                       errorMsg={submodulesErrorMsg}>
@@ -236,7 +223,7 @@ function EditLessonBody({
                         className="!w-full"
                         options={[
                           { value: 'NONE', label: 'None' },
-                          ...submodulesOption,
+                          ...generateSubmoduleOptions(moduleData),
                         ]}
                         sortKey={submodulesSortKey}
                         onSelect={e => setSubmodulesSortKey(e.target.value)}
@@ -301,7 +288,7 @@ function EditLessonBody({
                   </div>
                 </div>
                 {isVideo ? (
-                  <EditLessonLinkCard
+                  <LessonDetailsLinkCard
                     text="add link"
                     icon={<Link size={30} className="text-neutral-400" />}
                   />
@@ -327,7 +314,7 @@ function EditLessonBody({
                   </p>
                   {!fileName ? (
                     <>
-                      <EditLessonLinkCard
+                      <LessonDetailsLinkCard
                         text="Add Files"
                         icon={
                           <LinkSimple size={30} className="text-neutral-400" />
@@ -342,7 +329,7 @@ function EditLessonBody({
                       />
                     </>
                   ) : (
-                    <EditLessonLinkCard
+                    <LessonDetailsLinkCard
                       text={
                         <>
                           {fileName}
@@ -372,4 +359,4 @@ function EditLessonBody({
   )
 }
 
-export default EditLessonBody
+export default LessonDetailsBody

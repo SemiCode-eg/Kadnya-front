@@ -1,9 +1,9 @@
 import CustomCard from '../../../components/customCard/CustomCard'
 import { useRef, useState } from 'react'
-import EditLessonHeader from '../../../components/editLesson/editLessonHeader/EditLessonHeader'
-import EditLessonBody from '../../../components/editLesson/editLessonBody/EditLessonBody'
+import LessonDetailsHeader from '../../../components/lessonDetails/lessonDetailsHeader/LessonDetailsHeader'
+import LessonDetailsBody from '../../../components/lessonDetails/lessonDetailsBody/LessonDetailsBody'
 
-function EditLesson() {
+function LessonDetails() {
   const [isDraft, setIsDraft] = useState(true)
   const [submitLoading, setSubmitLoading] = useState(false)
   const [submitError, setSubmitError] = useState(false)
@@ -15,7 +15,7 @@ function EditLesson() {
   return (
     <CustomCard>
       <div className="flex flex-col gap-10 mt-5">
-        <EditLessonHeader
+        <LessonDetailsHeader
           isDraft={isDraft}
           setIsDraft={setIsDraft}
           formRef={formRef}
@@ -23,7 +23,7 @@ function EditLesson() {
           setSubmitError={setSubmitError}
           submitLoading={submitLoading}
         />
-        <EditLessonBody
+        <LessonDetailsBody
           isDraft={isDraft}
           formRef={formRef}
           setIsDraft={setIsDraft}
@@ -35,4 +35,4 @@ function EditLesson() {
   )
 }
 
-export default EditLesson
+export default LessonDetails

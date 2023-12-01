@@ -18,13 +18,14 @@ function MainButton({
   reverse = false,
   isPrimary = true,
   isForm = false,
+  id = '',
 }) {
-  const customclass = `${isForm ? btnFormClasses : btnClasses} ${
+  const customClass = `${isForm ? btnFormClasses : btnClasses} ${
     isPrimary ? primaryClasses : ''
   } ${className}`
 
   return (
-    <button type={type} className={customclass} onClick={handleClick}>
+    <button type={type} className={customClass} onClick={handleClick} id={id}>
       {reverse ? (
         <>
           {text}

@@ -8,7 +8,7 @@ function Grading({
   hideAnswers,
   setHideAnswers,
 }) {
-  const [showPassingGrade, setshowPassingGrade] = useState(false)
+  const [showPassingGrade, setShowPassingGrade] = useState(false)
 
   return (
     <div className="border-[1.5px] border-[#ddd] rounded-[10px] p-6">
@@ -21,13 +21,13 @@ function Grading({
             control={
               <GradingSwitch
                 checked={showPassingGrade}
-                onChange={e => setshowPassingGrade(e.target.checked)}
+                onChange={e => setShowPassingGrade(e.target.checked)}
               />
             }
             label={
               <div className="flex flex-col items-start w-full">
                 <p className="font-[500] text-md">Set a passing grade</p>
-                <p className="text-neutral-400 text-sm text-left">
+                <p className="text-zinc-400 text-sm text-left">
                   Tip: For a non-graded quiz, toggle off passing grade and
                   grading on all questions.
                 </p>
@@ -49,7 +49,7 @@ function Grading({
                   }
                   min={0}
                   max={100}
-                  className="w-full border-[2px] rounded-[10px] border-zinc-200 outline-none pl-1.5 pr-5 py-1 focus:duration-200 focus:ease-in focus:border-neutral-400"
+                  className="w-full border-[2px] rounded-[10px] border-zinc-200 outline-none pl-1.5 pr-5 py-1 focus:duration-200 focus:ease-in focus:border-teal-500"
                 />
                 <span className="text-zinc-400 absolute right-[6px] top-[50%] -translate-y-[50%]">
                   &#37;
@@ -68,7 +68,7 @@ function Grading({
           label={
             <div className="flex flex-col items-start w-full">
               <p className="font-[500] text-md">Hide answers on results page</p>
-              <p className="text-neutral-400 text-sm text-left">
+              <p className="text-zinc-400 text-sm text-left">
                 Members will not be able to view correct answers when they
                 choose an incorrect response.
               </p>
@@ -95,7 +95,7 @@ const GradingSwitch = styled(Switch)(() => ({
     },
   },
   '& .MuiSwitch-thumb': {
-    backgroundColor: '#143545',
+    backgroundColor: 'white',
   },
   '& .MuiSwitch-track': {
     backgroundColor: '#777',

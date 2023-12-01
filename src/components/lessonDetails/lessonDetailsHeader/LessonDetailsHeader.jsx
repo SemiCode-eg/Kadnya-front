@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom'
 import { useState } from 'react'
 import { deleteLesson } from '../../../api/course'
 
-function EditLessonHeader({
+function LessonDetailsHeader({
   isDraft,
   setIsDraft,
   formRef,
@@ -81,4 +81,4 @@ function EditLessonHeader({
   )
 }
 
-export default EditLessonHeader
+export default LessonDetailsHeader
