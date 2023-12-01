@@ -1,30 +1,35 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, useParams } from 'react-router-dom'
 import CustomCard from '../../components/customCard/CustomCard'
 import GoBackBtn from '../../components/goBackBtn/GoBackBtn'
 import MiniSide from '../../components/miniSide/MiniSide'
-import AddQuiz from './addQuiz/AddQuiz'
-import QuizSittings from './quizSittings/QuizSittings'
-import QuizResults from './quizResults/QuizResults'
-import { useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import QuizHeader from '../../components/quiz/quizHeader/QuizHeader'
-
-const tabs = [
-  {
-    title: 'Questions',
-    path: 'add',
-    content: <AddQuiz />,
-  },
-  { title: 'Settings', path: 'settings', content: <QuizSittings /> },
-  { title: 'Results', path: 'results', content: <QuizResults /> },
-]
 
 function Quiz() {
   const [isDraft, setIsDraft] = useState(true)
   const [submitLoading, setSubmitLoading] = useState(false)
   const [successSubmitMsg, setSuccessSubmitMsg] = useState('')
   const [submitErrorMsg, setSubmitErrorMsg] = useState(false)
-
+  const { quizID } = useParams()
   const formRef = useRef(null)
+
+  const tabs = useMemo(
+    () => [
+      {
+        title: 'Questions',
+        path: `${quizID ? `${quizID}/edit` : 'add'}`,
+      },
+      {
+        title: 'Settings',
+        path: `${quizID ? `${quizID}/settings` : 'settings'}`,
+      },
+      {
+        title: 'Results',
+        path: `${quizID ? `${quizID}/results` : 'results'}`,
+      },
+    ],
+    [quizID],
+  )
 
   return (
     <CustomCard>
