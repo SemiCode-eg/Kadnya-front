@@ -4,12 +4,12 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import Typography from '@mui/material/Typography'
 import { CaretDown, PencilSimple, Plus } from '@phosphor-icons/react'
-import FolderIcon from '../../assets/icons/FolderSimple.svg'
+import FolderIcon from '../../../../assets/icons/FolderSimple.svg'
 import { useState } from 'react'
-import AddModule from '../../pages/course/addForms/AddModule'
-import AddSubmodule from '../../pages/course/addForms/AddSubmodule'
-import AddLesson from '../../pages/course/addForms/AddLesson'
-import MenuItems from '../menu/MenuItems'
+import AddModule from '../addForms/AddModule'
+import AddSubmodule from '../addForms/AddSubmodule'
+import AddLesson from '../addForms/AddLesson'
+import MenuItems from '../../../menu/MenuItems'
 import { Menu } from '@mui/material'
 
 function ModuleAccordion({
@@ -20,7 +20,7 @@ function ModuleAccordion({
   Icon,
   summaryClasses = '',
   paperClasses = '',
-  iconclasses = '',
+  iconClasses = '',
   moduleID,
   modules,
   isSubmodule = false,
@@ -119,7 +119,7 @@ function ModuleAccordion({
               {isClicked ? (
                 <img src={FolderIcon} alt="folder" className="w-[25px]" />
               ) : (
-                <Icon size={24} className={iconclasses} />
+                <Icon size={24} className={iconClasses} />
               )}
               <p className="font-[500] text-sm">{title}</p>
             </div>

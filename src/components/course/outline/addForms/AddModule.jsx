@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
 import { FormLabel } from '@mui/material'
-import ImageField from '../../../components/imageField/ImageField'
+import ImageField from '../../../imageField/ImageField'
 import { useState } from 'react'
-import MainButton from '../../../components/mainButton/MainButton'
-import TextField from '../../../components/customFields/TextField'
-import TextAriaField from '../../../components/customFields/TextAriaField'
-import CustomModal from '../../../components/customModal'
+import MainButton from '../../../mainButton/MainButton'
+import TextField from '../../../customFields/TextField'
+import TextAriaField from '../../../customFields/TextAriaField'
+import CustomModal from '../../../customModal'
 import { useParams } from 'react-router-dom'
-import { sendModule, updateModule, updateSubmodule } from '../../../api/course'
+import { sendModule, updateModule, updateSubmodule } from '../../../../api/course'
 
 function AddModule({
   open,

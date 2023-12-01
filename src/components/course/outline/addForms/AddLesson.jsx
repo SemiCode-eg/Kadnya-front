@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
 import { FormLabel } from '@mui/material'
-import MainButton from '../../../components/mainButton/MainButton'
+import MainButton from '../../../mainButton/MainButton'
 import { useState } from 'react'
-import TextField from '../../../components/customFields/TextField'
-import SortSelect from '../../../components/SortSelect'
-import CustomModal from '../../../components/customModal'
-import useModule from '../../../hooks/use-module'
-import HandleErrorLoad from '../../../components/handleErrorLoad'
-import { sendLesson } from '../../../api/course'
+import TextField from '../../../customFields/TextField'
+import SortSelect from '../../../SortSelect'
+import CustomModal from '../../../customModal'
+import useModule from '../../../../hooks/use-module'
+import HandleErrorLoad from '../../../handleErrorLoad'
+import { sendLesson } from '../../../../api/course'
 
 function AddLesson({
   open,
