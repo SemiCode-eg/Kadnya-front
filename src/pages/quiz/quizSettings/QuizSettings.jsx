@@ -4,7 +4,7 @@ import Grading from './Grading'
 import { useOutletContext, useParams } from 'react-router-dom'
 import EmptyQuizMsg from '../EmptyQuizMsg'
 
-function QuizSittings() {
+function QuizSettings() {
   const [title, setTitle] = useState('')
   const [titleErrorMsg, setTitleErrorMsg] = useState('')
   const [description, setDescription] = useState('')
@@ -75,4 +75,4 @@ function QuizSittings() {
   )
 }
 
-export default QuizSittings
+export default QuizSettings

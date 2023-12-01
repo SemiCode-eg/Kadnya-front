@@ -6,7 +6,7 @@ import Container from '../Container'
 import HandleErrorLoad from '../../../components/handleErrorLoad'
 import { useMemo, useState } from 'react'
 import { Typography } from '@mui/material'
-import OutlineBody from '../../../components/course/outline/outlineBody/outlineBody'
+import OutlineBody from '../../../components/course/outline/outlineBody/OutlineBody'
 
 function Outline() {
   const [refetch, setRefetch] = useState(false)

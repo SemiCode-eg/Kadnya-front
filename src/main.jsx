@@ -13,7 +13,7 @@ import CertificateTab from './pages/course/certificateTab/CertificateTab'
 import SittingsTab from './pages/course/sittingsTab/SittingsTab'
 import Quiz from './pages/quiz/Quiz.jsx'
 import AddQuiz from './pages/quiz/addQuiz/AddQuiz.jsx'
-import QuizSittings from './pages/quiz/quizSittings/QuizSittings.jsx'
+import QuizSettings from './pages/quiz/quizSettings/QuizSettings.jsx'
 import QuizResults from './pages/quiz/quizResults/QuizResults.jsx'
 import EmptyQuizMsg from './pages/quiz/EmptyQuizMsg.jsx'
 import Coaching from './pages/coaching/Coaching.jsx'
@@ -83,7 +83,7 @@ const router = createBrowserRouter([
             children: [
               { index: true, element: <AddQuiz /> },
               { path: 'edit', element: <AddQuiz /> },
-              { path: 'settings', element: <QuizSittings /> },
+              { path: 'settings', element: <QuizSettings /> },
               { path: 'results', element: <QuizResults /> },
             ],
           },

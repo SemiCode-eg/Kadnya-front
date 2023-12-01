@@ -2,9 +2,6 @@ import { Outlet, useParams } from 'react-router-dom'
 import CustomCard from '../../components/customCard/CustomCard'
 import GoBackBtn from '../../components/goBackBtn/GoBackBtn'
 import MiniSide from '../../components/miniSide/MiniSide'
-import AddQuiz from './addQuiz/AddQuiz'
-import QuizSittings from './quizSittings/QuizSittings'
-import QuizResults from './quizResults/QuizResults'
 import { useMemo, useRef, useState } from 'react'
 import QuizHeader from '../../components/quiz/quizHeader/QuizHeader'
 
@@ -21,17 +18,14 @@ function Quiz() {
       {
         title: 'Questions',
         path: `${quizID ? `${quizID}/edit` : 'add'}`,
-        content: <AddQuiz />,
       },
       {
         title: 'Settings',
         path: `${quizID ? `${quizID}/settings` : 'settings'}`,
-        content: <QuizSittings />,
       },
       {
         title: 'Results',
         path: `${quizID ? `${quizID}/results` : 'results'}`,
-        content: <QuizResults />,
       },
     ],
     [quizID],
