@@ -2,7 +2,6 @@
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
-import Typography from '@mui/material/Typography'
 import { CaretDown, PencilSimple, Plus } from '@phosphor-icons/react'
 import FolderIcon from '../../../../assets/icons/FolderSimple.svg'
 import { useState } from 'react'
@@ -27,6 +26,7 @@ function ModuleAccordion({
   submodule = [],
   parentModuleID,
   setRefetch = () => {},
+  key,
 }) {
   const [isClicked, setIsClicked] = useState(false)
   const [isEditModule, setIsEditModule] = useState(false)
@@ -107,7 +107,7 @@ function ModuleAccordion({
     <>
       {previewedForm()}
 
-      <Accordion className={paperClasses}>
+      <Accordion className={paperClasses} key={key}>
         <AccordionSummary
           expandIcon={<CaretDown size={20} weight="bold" />}
           aria-controls="panel1a-content"
@@ -164,7 +164,7 @@ function ModuleAccordion({
           </div>
         </AccordionSummary>
         <AccordionDetails className="!bg-gray-50 !border-t-[0.5px] !border-t-[#DDD]">
-          <Typography>{children}</Typography>
+          {children}
         </AccordionDetails>
       </Accordion>
     </>
