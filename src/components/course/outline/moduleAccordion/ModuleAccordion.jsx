@@ -135,7 +135,8 @@ function ModuleAccordion({
                 onClick={e => {
                   e.stopPropagation()
                   handleClickListItem(e)
-                }}>
+                }}
+                id="plus-add-button">
                 <Plus size={15} weight="bold" />
               </button>
               <Menu

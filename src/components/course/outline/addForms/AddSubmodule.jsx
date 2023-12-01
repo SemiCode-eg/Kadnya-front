@@ -4,11 +4,18 @@ import TextAriaField from '../../../customFields/TextAriaField'
 import ImageField from '../../../imageField/ImageField'
 import MainButton from '../../../mainButton/MainButton'
 import { useParams } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import TextField from '../../../customFields/TextField'
 import SortSelect from '../../../SortSelect'
 import CustomModal from '../../../customModal'
 import { sendSubmodule } from '../../../../api/course'
+
+const setModulesSelectOption = modules => {
+  return modules?.map(module => ({
+    value: module.id,
+    label: module.title,
+  }))
+}
 
 function AddSubmodule({
   open,
@@ -23,20 +30,14 @@ function AddSubmodule({
   const [descriptionErrorMsg, setDescriptionErrorMsg] = useState('')
   const [imageAsset, setImageAsset] = useState(null)
   const [imageAssetErrorMsg, setImageAssetErrorMsg] = useState('')
-
   const [submitLoading, setSubmitLoading] = useState(false)
   const [submitError, setSubmitError] = useState(false)
-
+  const [sortKey, setSortKey] = useState('NULL')
   const { id } = useParams()
 
-  const setModulesSelectOption = () => {
-    return modules?.map(module => ({
-      value: module.id,
-      label: module.title,
-    }))
-  }
-
-  const [sortKey, setSortKey] = useState(setModulesSelectOption()[0].value)
+  useEffect(() => {
+    setSortKey(setModulesSelectOption(modules)[0].value)
+  }, [modules])
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -112,7 +113,7 @@ function AddSubmodule({
           <SortSelect
             label="Select Top-level Module"
             className="!w-full"
-            options={setModulesSelectOption()}
+            options={setModulesSelectOption(modules)}
             sortKey={sortKey}
             onSelect={e => setSortKey(e.target.value)}
             selectClasses="!rounded-xl"

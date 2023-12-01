@@ -8,7 +8,7 @@ import Courses from './pages/products/courses/Courses'
 import AllProducts from './pages/products/allProducts/AllProducts'
 import SingleCourse from './pages/course/SingleCourse'
 import Outline from './pages/course/outline/Outline'
-import EditLesson from './pages/course/editLesson/EditLesson'
+import LessonDetails from './pages/course/lessonDetails/LessonDetails.jsx'
 import CertificateTab from './pages/course/certificateTab/CertificateTab'
 import SittingsTab from './pages/course/sittingsTab/SittingsTab'
 import Quiz from './pages/quiz/Quiz.jsx'
@@ -56,7 +56,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'products/courses/:id/edit-lesson/:lessonID',
-        element: <EditLesson />,
+        element: <LessonDetails />,
       },
       {
         path: 'products/courses/:id/quiz',
