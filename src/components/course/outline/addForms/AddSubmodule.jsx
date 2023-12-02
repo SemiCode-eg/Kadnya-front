@@ -1,9 +1,7 @@
-/* eslint-disable react/prop-types */
 import { FormLabel } from '@mui/material'
 import TextAriaField from '../../../customFields/TextAriaField'
 import ImageField from '../../../imageField/ImageField'
 import MainButton from '../../../mainButton/MainButton'
-import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import TextField from '../../../customFields/TextField'
 import SortSelect from '../../../SortSelect'
@@ -33,7 +31,6 @@ function AddSubmodule({
   const [submitLoading, setSubmitLoading] = useState(false)
   const [submitError, setSubmitError] = useState(false)
   const [sortKey, setSortKey] = useState('NULL')
-  const { id } = useParams()
 
   useEffect(() => {
     setSortKey(setModulesSelectOption(modules)[0].value)
@@ -57,25 +54,20 @@ function AddSubmodule({
       return
     }
 
-    const submoduleData = {
-      title,
-      description,
-      imageAsset,
-      id,
-      module: sortKey,
-    }
+    const formData = new FormData()
+    formData.append('title', title)
+    formData.append('description', description)
+    formData.append('image', imageAsset)
+    formData.append('module', sortKey)
 
     setSubmitLoading(true)
     setSubmitError(false)
 
-    sendSubmodule(submoduleData)
+    sendSubmodule(formData)
       .then(data => {
         setSubmitLoading(false)
-        if (
-          !data.request ||
-          data.request.status === 200 ||
-          data.request.status === 201
-        ) {
+
+        if (data.status === 201) {
           setSubmitError(false)
           setRefetch(prev => !prev)
           setSuccessSubmit('Submodule added successfully!')
