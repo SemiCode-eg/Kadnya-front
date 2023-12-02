@@ -1,12 +1,9 @@
-/* eslint-disable react/prop-types */
-import useProgramReducer from '../../../hooks/use-program-reducer'
 import ProgramTimeLocationForm from '../../coaching/programs/createCoachProgramForm/ProgramTimeLocationForm'
 
 function Scheduling({
   programData: { scheduleType, scheduleURL, duration, location },
+  dispatchFormData,
 }) {
-  const { dispatchFormData } = useProgramReducer()
-
   return (
     <div className="border-[1.5px] border-[#ddd] rounded-[10px] p-6">
       <div className="flex flex-col gap-5">
@@ -24,7 +21,7 @@ function Scheduling({
           dispatchFormData={dispatchFormData}
           scheduleTypeValue={scheduleType || 'WEBSITE'}
           scheduleURLValue={scheduleURL}
-          durationValue={duration || 15}
+          durationValue={duration}
           locationValue={location}
         />
       </div>

@@ -23,7 +23,6 @@ const formReducerKeys = {
   SET_IMAGE: 'IMAGE',
   SET_PRICE: 'PRICE',
   SET_PRICING_TYPE: 'SET_PRICING_TYPE',
-  SET_PAYMENT_METHOD: 'SET_PAYMENT_METHOD',
   SET_ERROR: 'ERROR',
   RESET: 'RESET',
 }
@@ -95,11 +94,6 @@ const createProgramReducer = (state, action) => {
         ...state,
         pricingType: action.payload,
       }
-    case formReducerKeys.SET_PAYMENT_METHOD:
-      return {
-        ...state,
-        paymentMethod: action.payload,
-      }
     case formReducerKeys.SET_ERROR:
       return {
         ...state,
@@ -126,6 +120,5 @@ const ProgramFormInitialState = {
   image: null,
   price: 0,
   pricingType: 'FREE',
-  paymentMethod: '',
   error: '',
 }

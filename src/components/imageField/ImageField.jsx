@@ -44,7 +44,7 @@ function ImageField({
   return isVertical ? (
     <div className="flex flex-col gap-[33px] w-full">
       <div>
-        {previewedImage ? (
+        {previewedImage || imageURL ? (
           <div
             className="rounded-[5px] border-[3px] border-teal-500 flex justify-center items-center h-[250px] w-full"
             style={{ height: height }}>
@@ -89,10 +89,14 @@ function ImageField({
     </div>
   ) : (
     <div className="flex gap-[19px] w-full flex-wrap md:flex-nowrap">
-      {previewedImage ? (
+      {previewedImage || imageURL ? (
         <div className="rounded-[5px] border-[3px] border-teal-500 flex justify-center items-center h-[250px] w-full">
           <img
-            src={previewedImage}
+            src={ previewedImage
+              ? previewedImage
+              : imageURL
+                ? imageURL
+                : previewedImage}
             alt="uploaded-image"
             className="w-full h-full object-cover rounded-[3px]"
           />

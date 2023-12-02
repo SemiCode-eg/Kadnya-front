@@ -6,9 +6,10 @@ import TextAriaField from '../../customFields/TextAriaField'
 import ImageField from '../../imageField/ImageField'
 
 function ProgramDetails({
-  programData: { title, description, coachName, coachEmail },
+  programData: { title, description, coachName, coachEmail, image },
+  dispatchFormData,
 }) {
-  const { dispatchFormData, formReducerKeys } = useProgramReducer()
+  const { formReducerKeys } = useProgramReducer()
 
   const handleTitleChange = value => {
     dispatchFormData({
@@ -103,7 +104,11 @@ function ProgramDetails({
         </div>
 
         <div className="w-full">
-          <ImageField isVertical={false} setImageAsset={handleImageChange} />
+          <ImageField
+            isVertical={false}
+            setImageAsset={handleImageChange}
+            imageURL={image}
+          />
         </div>
       </div>
     </div>
