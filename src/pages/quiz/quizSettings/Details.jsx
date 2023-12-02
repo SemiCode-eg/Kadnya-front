@@ -13,8 +13,8 @@ function Details({
   setDescription,
   descriptionErrorMsg,
   setDescriptionErrorMsg,
+  imageAsset,
   setImageAsset,
-  imageAssetErrorMsg,
 }) {
   return (
     <div className="border-[1.5px] border-[#ddd] rounded-[10px] p-6">
@@ -55,8 +55,7 @@ function Details({
           )}
         </div>
         <div>
-          <ImageField setImageAsset={setImageAsset} isVertical={false} />
-          <p className="text-red-500">{imageAssetErrorMsg}</p>
+          <ImageField setImageAsset={setImageAsset} isVertical={false} imageURL={imageAsset}/>
         </div>
       </div>
     </div>

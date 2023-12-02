@@ -1,8 +1,7 @@
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useOutletContext } from 'react-router-dom'
 import { Typography } from '@mui/material'
 import HandleErrorLoad from '../../../components/handleErrorLoad'
-import useQuiz from '../../../hooks/use-quiz'
 import Question from '../../../components/quiz/questions/Question'
 import useQuestionReducer from '../../../hooks/use-question-reducer'
 
@@ -13,8 +12,16 @@ const errorTypes = {
 
 function AddQuiz() {
   const [errorReopen, setErrorOpen] = useState(false)
-  const { id } = useParams()
-  const { quizData, loading, errorMsg, refreshData } = useQuiz(id)
+  const [
+    // isDraft,
+    // submitLoading,
+    // setSubmitLoading,
+    // formRef,
+    quizData,
+    loading,
+    errorMsg,
+    refreshData,
+  ] = useOutletContext()
   const [expanded, setExpanded] = useState('NEW')
   const { newQuestionReducerKeys, newQuestion, dispatchNewQuestion } =
     useQuestionReducer()
@@ -77,8 +84,7 @@ function AddQuiz() {
     <HandleErrorLoad
       errorMsg={newQuestion.error !== '' ? newQuestion.error : errorMsg}
       loading={loading}
-      errorReopen={errorReopen}
-    >
+      errorReopen={errorReopen}>
       <Typography variant="h4" textAlign="start" gutterBottom>
         Questions
       </Typography>
