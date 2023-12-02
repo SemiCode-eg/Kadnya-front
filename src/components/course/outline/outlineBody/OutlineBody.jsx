@@ -4,7 +4,6 @@ import { FolderDashed, FolderSimple } from '@phosphor-icons/react'
 import ModuleQuiz from '../moduleAccordion/ModuleQuiz'
 
 function OutlineBody({ data = [], setRefetch = () => {} }) {
-  console.log(data)
   return (
     <>
       {data?.modules?.map(module => (

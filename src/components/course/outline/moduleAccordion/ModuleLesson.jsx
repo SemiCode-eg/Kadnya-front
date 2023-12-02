@@ -2,12 +2,11 @@
 import { Note, PencilSimple } from '@phosphor-icons/react'
 import { Link, useParams } from 'react-router-dom'
 
-function ModuleLesson({ text, addBorder, lessonID, key }) {
+function ModuleLesson({ text, addBorder, lessonID }) {
   const { id } = useParams()
 
   return (
     <div
-      key={key}
       className={`flex justify-between flex-1 mr-2 py-2.5 ${
         addBorder ? 'border-t border-t-gray-300/80' : 'pt-0'
       }`}>

@@ -13,11 +13,11 @@ export default function Navbar({ toggleSidebar, isSidebarOpen }) {
       <div className="flex flex-col flex-grow z-50 sticky top-0">
         <Disclosure
           as="nav"
-          className="bg-gray-50 border-b border-gray-200 p-4 sm:pr-14"
+          className="bg-gray-50 border-b border-gray-200 p-4 sm:px-14"
         >
           {/* Navbar */}
           <div className="flex items-center justify-between">
-            <Disclosure.Button
+            <Disclosure
               className="text-gray-400 hover:text-white focus:outline-none"
               onClick={() => toggleSidebar()}
             >
@@ -38,7 +38,7 @@ export default function Navbar({ toggleSidebar, isSidebarOpen }) {
                   <List className="h-6 w-6" aria-hidden="true" />
                 </button>
               )}
-            </Disclosure.Button>
+            </Disclosure>
             <div className="flex items-center">
               <button
                 type="button"
