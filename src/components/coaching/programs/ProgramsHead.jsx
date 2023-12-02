@@ -5,7 +5,7 @@ import { Plus } from '@phosphor-icons/react'
 import { useState } from 'react'
 import CreateCoachProgramForm from './createCoachProgramForm/CreateCoachProgramForm'
 
-function ProgramsHead({ count }) {
+function ProgramsHead({ count, setRefetch =() =>{} }) {
   const [openCreateForm, setOpenCreateForm] = useState(false)
 
   const handleOpen = () => {
@@ -18,7 +18,7 @@ function ProgramsHead({ count }) {
 
   return (
     <>
-      <CreateCoachProgramForm open={openCreateForm} onClose={handleClose} />
+      <CreateCoachProgramForm open={openCreateForm} onClose={handleClose} setRefetch={setRefetch} />
 
       <div className="flex sm:flex-row flex-col justify-between items-center w-full gap-5 my-8">
         <Typography

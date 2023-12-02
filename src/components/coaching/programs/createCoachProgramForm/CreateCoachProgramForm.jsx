@@ -42,11 +42,10 @@ const validateStep = (step, formData) => {
   return null
 }
 
-/* eslint-disable react/prop-types */
-function CreateCoachProgramForm({ onClose, open, targetRefetch = () => {} }) {
+function CreateCoachProgramForm({ onClose, open, setRefetch = () => {} }) {
   const [step, setStep] = useState(1)
   const [loading, setLoading] = useState(false)
-  const [successMsg, setSuccessMsg] = useState(false)
+  const [successMsg, setSuccessMsg] = useState('')
   const [errorReopen, setErrorReopen] = useState(false)
   const { programData, dispatchFormData, formReducerKeys } = useProgramReducer()
 
@@ -89,7 +88,8 @@ function CreateCoachProgramForm({ onClose, open, targetRefetch = () => {} }) {
     formData.append('coach_name', programData.coachName)
     formData.append('description', programData.description)
     formData.append('image', programData.image)
-    // formData.append('coach', 0)
+    // TODO send coach ID with the data
+    formData.append('coach', 1)
 
     if (programData.sessionType === 'PACKAGE') {
       formData.append('session_type', 'package')
@@ -117,23 +117,22 @@ function CreateCoachProgramForm({ onClose, open, targetRefetch = () => {} }) {
     createCoachProgram(formData)
       .then(data => {
         setLoading(false)
-        if (data.response.status === 201) {
+        if (data.status === 201) {
           setSuccessMsg('Program created successfully.')
-          resetForm()
-          onClose()
-          targetRefetch()
+          setRefetch(prev => !prev)
+          handleClose()
         } else {
           dispatchFormData({
             type: formReducerKeys.SET_ERROR,
-            payload: 'Error occurred, please try again later',
+            payload: 'Error occurred, please try again later.',
           })
           setErrorReopen(prev => !prev)
         }
       })
-      .catch(err => {
+      .catch(() => {
         dispatchFormData({
           type: formReducerKeys.SET_ERROR,
-          payload: err,
+          payload: 'Server Error, please try again later.',
         })
         setErrorReopen(prev => !prev)
       })
@@ -170,8 +169,6 @@ function CreateCoachProgramForm({ onClose, open, targetRefetch = () => {} }) {
             pricingTypeValue={programData.pricingType}
           />
         )
-      default:
-        return null
     }
   }
 
