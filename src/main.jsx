@@ -101,7 +101,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: 'products/coaching_programs/:programID',
+        path: 'products/coaching_programs/:programId',
         element: <CoachPrograms />,
         children: [
           { index: true, element: <ProgramClients /> },

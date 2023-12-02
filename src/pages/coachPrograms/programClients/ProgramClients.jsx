@@ -49,8 +49,8 @@ function createData(id, name, email, date, progress) {
 
 function ProgramClients() {
   const [value, setValue] = useState(0)
-  const { programID } = useParams()
-  const { programData, loading, errorMsg } = useCoachProgram(programID)
+  const { programId } = useParams()
+  const { programData, loading, errorMsg } = useCoachProgram(programId)
   const navigate = useNavigate()
 
   const location = useLocation()
