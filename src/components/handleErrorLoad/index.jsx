@@ -8,6 +8,8 @@ export default function HandleErrorLoad({
   errorMsg,
   children,
   errorReopen = false,
+  successMsg = '',
+  setSuccessMsg = () => {},
 }) {
   const [errorOpen, setErrorOpen] = useState(false)
 
@@ -27,13 +29,27 @@ export default function HandleErrorLoad({
         <Snackbar
           open={errorOpen}
           autoHideDuration={6000}
-          onClose={handleClose}
-        >
+          onClose={handleClose}>
           <Alert severity="error" sx={{ width: '100%' }} onClose={handleClose}>
             {errorMsg}
           </Alert>
         </Snackbar>
       )}
+
+      {!!successMsg && (
+        <Snackbar
+          open={!!successMsg}
+          autoHideDuration={6000}
+          onClose={() => setSuccessMsg('')}>
+          <Alert
+            severity="success"
+            sx={{ width: '100%' }}
+            onClose={() => setSuccessMsg('')}>
+            {successMsg}
+          </Alert>
+        </Snackbar>
+      )}
+
       {children}
     </>
   )

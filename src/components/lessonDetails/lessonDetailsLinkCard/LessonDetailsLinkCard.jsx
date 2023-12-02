@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-function EditLessonLinkCard({ text = '', icon, handleClick = () => {} }) {
+function LessonDetailsLinkCard({ text = '', icon, handleClick = () => {} }) {
   return (
     <div
       role="button"
@@ -13,4 +13,4 @@ function EditLessonLinkCard({ text = '', icon, handleClick = () => {} }) {
   )
 }
 
-export default EditLessonLinkCard
+export default LessonDetailsLinkCard

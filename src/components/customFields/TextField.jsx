@@ -10,11 +10,13 @@ function TextField({
   type = 'text',
   min = 0,
   max = 100,
+  id = '',
 }) {
   const fieldClasses = `${defaultClasses} ${className}`
 
   return (
     <input
+      id={id}
       type={type}
       placeholder={placeholder}
       className={fieldClasses}

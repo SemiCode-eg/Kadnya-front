@@ -20,10 +20,11 @@ jobs:
       run: npm run build
 
     - name: Copy files to EC2
-      uses: appleboy/scp-action@master
-      with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USERNAME }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        source: "build/*"
-        target: "/home/ubuntu/Kadnya-front/"
+      run: scp -r dist ubuntu@kadnya.com:/home/ubuntu/Kadnya-front
+      # uses: appleboy/ssh-action@master
+      # with:
+      #   host: ${{ secrets.EC2_HOST }}
+      #   username: ${{ secrets.EC2_USERNAME }}
+      #   key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #   source: "build/*"
+      #   target: "/home/ubuntu/Kadnya-front/"

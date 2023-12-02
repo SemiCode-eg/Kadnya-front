@@ -8,6 +8,8 @@ import ProgramInfoForm from './ProgramInfoForm'
 import ProgramTimeLocationForm from './ProgramTimeLocationForm'
 import ProgramPaidMethod from './ProgramPaidMethod'
 import useProgramReducer from '../../../../hooks/use-program-reducer'
+import { createCoachProgram } from '../../../../api/coach/program'
+import { isEmpty, isValidUrl } from '../../../../utils/validations'
 
 const maxSteps = 4
 
@@ -40,20 +42,10 @@ const validateStep = (step, formData) => {
   return null
 }
 
-const isEmpty = target => {
-  return target === ''
-}
-
-function isValidUrl(url) {
-  const urlRegex = /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?$/
-
-  return urlRegex.test(url)
-}
-
-/* eslint-disable react/prop-types */
-function CreateCoachProgramForm({ onClose, open, targetRefetch = () => {} }) {
+function CreateCoachProgramForm({ onClose, open, setRefetch = () => {} }) {
   const [step, setStep] = useState(1)
   const [loading, setLoading] = useState(false)
+  const [successMsg, setSuccessMsg] = useState('')
   const [errorReopen, setErrorReopen] = useState(false)
   const { programData, dispatchFormData, formReducerKeys } = useProgramReducer()
 
@@ -88,14 +80,62 @@ function CreateCoachProgramForm({ onClose, open, targetRefetch = () => {} }) {
 
   const handleSubmit = e => {
     e.preventDefault()
+    dispatchFormData({ type: formReducerKeys.SET_ERROR, payload: '' })
+    setErrorReopen(prev => !prev)
+
+    const formData = new FormData()
+    formData.append('title', programData.title)
+    formData.append('coach_name', programData.coachName)
+    formData.append('description', programData.description)
+    formData.append('image', programData.image)
+    // TODO send coach ID with the data
+    formData.append('coach', 1)
+
+    if (programData.sessionType === 'PACKAGE') {
+      formData.append('session_type', 'package')
+      formData.append('session_count', programData.sessionsCount)
+    } else {
+      formData.append('session_type', 'single')
+    }
+
+    if (programData.scheduleType === 'WEBSITE') {
+      formData.append('scheduling_preference', 'websitebook')
+      formData.append('location', programData.location)
+      formData.append('session_duration', programData.duration)
+    } else {
+      formData.append('scheduling_preference', 'custom')
+      formData.append('schedule_url', programData.scheduleURL)
+    }
+
+    if (programData.pricingType === 'FREE') {
+      formData.append('price', 0)
+    } else {
+      formData.append('price', programData.price)
+    }
+
     setLoading(true)
-
-    console.log('Form Data:', programData)
-
-    resetForm()
-    setLoading(false)
-    onClose()
-    targetRefetch()
+    createCoachProgram(formData)
+      .then(data => {
+        setLoading(false)
+        if (data.status === 201) {
+          setSuccessMsg('Program created successfully.')
+          setRefetch(prev => !prev)
+          handleClose()
+        } else {
+          dispatchFormData({
+            type: formReducerKeys.SET_ERROR,
+            payload: 'Error occurred, please try again later.',
+          })
+          setErrorReopen(prev => !prev)
+        }
+      })
+      .catch(() => {
+        dispatchFormData({
+          type: formReducerKeys.SET_ERROR,
+          payload: 'Server Error, please try again later.',
+        })
+        setErrorReopen(prev => !prev)
+      })
   }
 
   const renderStepContent = () => {
@@ -129,71 +169,68 @@ function CreateCoachProgramForm({ onClose, open, targetRefetch = () => {} }) {
             pricingTypeValue={programData.pricingType}
           />
         )
-      default:
-        return null
     }
   }
 
   return (
-    <CustomModal
-      title="Create New Coaching Program"
-      open={open}
-      onClose={handleClose}
-      onGoBack={handleGoBack}
-      fullWidth
-      maxWidth="md"
-      step={step}
-    >
-      <HandleErrorLoad
-        loading={loading}
-        errorMsg={programData.error}
-        errorReopen={errorReopen}
-      >
-        <form
-          className="flex flex-col gap-6 items-center sm:px-28"
-          onSubmit={handleSubmit}
-        >
-          {step > 1 && (
-            <>
-              <AddCoursePreview
-                title={programData.title}
-                description={programData.description}
-                backgroundColor="#F66A82"
-              />
-              {renderStepContent()}
-            </>
-          )}
+    <HandleErrorLoad successMsg={successMsg} setSuccessMsg={setSuccessMsg}>
+      <CustomModal
+        title="Create New Coaching Program"
+        open={open}
+        onClose={handleClose}
+        onGoBack={handleGoBack}
+        fullWidth
+        maxWidth="md"
+        step={step}>
+        <HandleErrorLoad
+          loading={loading}
+          errorMsg={programData.error}
+          errorReopen={errorReopen}>
+          <form
+            className="flex flex-col gap-6 items-center sm:px-28"
+            onSubmit={handleSubmit}>
+            {step > 1 && (
+              <>
+                <AddCoursePreview
+                  title={programData.title}
+                  description={programData.description}
+                  backgroundColor="#F66A82"
+                />
+                {renderStepContent()}
+              </>
+            )}
 
-          {step === 1 && (
-            <>
-              <SessionType
-                selectedValue={programData.sessionType}
-                reducerType={formReducerKeys.SET_SESSION_TYPE}
-                dispatchFormData={dispatchFormData}
-              />
+            {step === 1 && (
+              <>
+                <SessionType
+                  selectedValue={programData.sessionType}
+                  reducerType={formReducerKeys.SET_SESSION_TYPE}
+                  dispatchFormData={dispatchFormData}
+                />
 
-              <AddCoursePreview
-                title={programData.title}
-                description={programData.description}
-                backgroundColor="#F66A82"
-              />
-            </>
-          )}
+                <AddCoursePreview
+                  title={programData.title}
+                  description={programData.description}
+                  backgroundColor="#F66A82"
+                />
+              </>
+            )}
 
-          <MainButton
-            text={
-              step === maxSteps
-                ? loading
-                  ? 'Submitting...'
-                  : 'Finish'
-                : 'Continue'
-            }
-            className="sm:!px-28 !px-16"
-            handleClick={step === maxSteps ? handleSubmit : handleContinue}
-          />
-        </form>
-      </HandleErrorLoad>
-    </CustomModal>
+            <MainButton
+              text={
+                step === maxSteps
+                  ? loading
+                    ? 'Submitting...'
+                    : 'Finish'
+                  : 'Continue'
+              }
+              className="sm:!px-28 !px-16"
+              handleClick={step === maxSteps ? handleSubmit : handleContinue}
+            />
+          </form>
+        </HandleErrorLoad>
+      </CustomModal>
+    </HandleErrorLoad>
   )
 }
 

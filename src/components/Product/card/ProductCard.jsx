@@ -13,7 +13,7 @@ export default function ProductCard({
   category,
   date,
   subscribersCount,
-  targerCousesRefetch = () => {},
+  setRefetch = () => {},
   endPointDelete = () => {},
   path = '',
   isProgram = false,
@@ -26,26 +26,23 @@ export default function ProductCard({
     setDeleteErrorMsg('')
     setDeleteLoading(true)
 
-    endPointDelete(id).then(data => {
-      setDeleteLoading(false)
-      if (
-        !data.request ||
-        data.request.status === 200 ||
-        data.request.status === 204
-      ) {
-        targerCousesRefetch(prev => !prev)
-      } else {
-        setDeleteErrorMsg('Server error, try again later!')
-      }
-    })
+    endPointDelete(id)
+      .then(data => {
+        setDeleteLoading(false)
+        if (data.status === 204) {
+          setRefetch(prev => !prev)
+        } else {
+          setDeleteErrorMsg('Error Occurred, please try again later.')
+        }
+      })
+      .catch(() => setDeleteErrorMsg('Server error, please try again later.'))
   }
 
   return (
     <li>
       <Link
         to={path}
-        className="bg-white rounded-lg border border-gray-300 sm:p-2 p-2 pb-3 flex sm:flex-row flex-col gap-5 cursor-pointer hover:bg-teal-100 hover:border-gray-200 duration-200 ease-in-out"
-      >
+        className="bg-white rounded-lg border border-gray-300 sm:p-2 p-2 pb-3 flex sm:flex-row flex-col gap-5 cursor-pointer hover:bg-teal-100 hover:border-gray-200 duration-200 ease-in-out">
         <div className="sm:w-1/4 w-full">
           <CardImage image={image} />
         </div>
@@ -66,7 +63,6 @@ export default function ProductCard({
           <div className="ml-auto sm:1/6 justify-self-end">
             <SettingMenu
               id={id}
-              setRefetch={targerCousesRefetch}
               handleDelete={handleDelete}
               deleteErrorMsg={deleteErrorMsg}
               deleteLoading={deleteLoading}

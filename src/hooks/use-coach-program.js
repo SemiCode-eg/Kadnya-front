@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { getCoachProgram } from '../api/coach'
 
-const useCoachProgram = id => {
-  const [programData, setProgramData] = useState([])
+const useCoachProgram = (id, refetch) => {
+  const [programData, setProgramData] = useState(null)
   const [loading, setLoading] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
 
@@ -21,7 +21,7 @@ const useCoachProgram = id => {
         setLoading(false)
       })
     }
-  }, [id])
+  }, [id, refetch])
 
   return { programData, errorMsg, loading }
 }

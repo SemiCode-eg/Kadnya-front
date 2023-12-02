@@ -124,7 +124,7 @@ export default ProgramTimeLocationForm
 
 const scheduleOptions = [
   { value: 'WEBSITE', label: 'Website book' },
-  { value: 'LINK', label: 'Custom link' },
+  // { value: 'LINK', label: 'Custom link' },
 ]
 
 const durationOptions = [
