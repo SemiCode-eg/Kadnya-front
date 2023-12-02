@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { FormLabel } from '@mui/material'
 import ImageField from '../../../imageField/ImageField'
 import { useState } from 'react'
@@ -7,7 +6,11 @@ import TextField from '../../../customFields/TextField'
 import TextAriaField from '../../../customFields/TextAriaField'
 import CustomModal from '../../../customModal'
 import { useParams } from 'react-router-dom'
-import { sendModule, updateModule, updateSubmodule } from '../../../../api/course'
+import {
+  sendModule,
+  updateModule,
+  updateSubmodule,
+} from '../../../../api/course'
 
 function AddModule({
   open,
@@ -54,11 +57,17 @@ function AddModule({
       return
     }
 
-    const moduleData = {
-      title,
-      description,
-      imageAsset,
-      courseID: id,
+    const formData = new FormData()
+    formData.append('title', title)
+    formData.append('description', description)
+    formData.append('course', id)
+
+    if (isSubmodule) {
+      formData.append('module', parentModuleID)
+    }
+
+    if (imageAsset !== moduleImage) {
+      formData.append('image', imageAsset)
     }
 
     setSubmitError(false)
@@ -66,14 +75,11 @@ function AddModule({
 
     if (isEdit) {
       if (isSubmodule) {
-        updateSubmodule({ ...moduleData, module: parentModuleID }, moduleID)
+        updateSubmodule(formData, moduleID)
           .then(data => {
             setSubmitLoading(false)
-            if (
-              !data.request ||
-              data.request.status === 200 ||
-              data.request.status === 201
-            ) {
+
+            if (data.status === 200) {
               setSubmitError(false)
               setRefetch(prev => !prev)
               setSuccessSubmit('Module added successfully!')
@@ -84,14 +90,11 @@ function AddModule({
           })
           .catch(() => setSubmitError(true))
       } else {
-        updateModule(moduleData, moduleID)
+        updateModule(formData, moduleID)
           .then(data => {
             setSubmitLoading(false)
-            if (
-              !data.request ||
-              data.request.status === 200 ||
-              data.request.status === 201
-            ) {
+
+            if (data.status === 200) {
               setSubmitError(false)
               setRefetch(prev => !prev)
               setSuccessSubmit('Module added successfully!')
@@ -103,14 +106,11 @@ function AddModule({
           .catch(() => setSubmitError(true))
       }
     } else {
-      sendModule(moduleData)
+      sendModule(formData)
         .then(data => {
           setSubmitLoading(false)
-          if (
-            !data.request ||
-            data.request.status === 200 ||
-            data.request.status === 201
-          ) {
+
+          if (data.status === 201) {
             setSubmitError(false)
             setRefetch(prev => !prev)
             setSuccessSubmit('Module added successfully!')

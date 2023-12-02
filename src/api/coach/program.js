@@ -32,9 +32,9 @@ export const createCoachProgram = async programData => {
   }
 }
 
-export const updateCoachProgram = async (programData, programID) => {
+export const updateCoachProgram = async (programData, programId) => {
   try {
-    const response = await api.patch(`coach/${programID}/`, programData, {
+    const response = await api.patch(`coach/${programId}/`, programData, {
       headers: { 'content-type': 'multipart/form-data' },
     })
 
@@ -44,9 +44,9 @@ export const updateCoachProgram = async (programData, programID) => {
   }
 }
 
-export const deleteCoachProgram = async programID => {
+export const deleteCoachProgram = async programId => {
   try {
-    const response = await api.delete(`coach/${programID}/`)
+    const response = await api.delete(`coach/${programId}/`)
 
     return response
   } catch (error) {

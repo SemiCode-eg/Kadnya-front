@@ -4,18 +4,16 @@ import { red } from '@mui/material/colors'
 /* eslint-disable react/prop-types */
 export default function MenuItems({ items, handlerFunction, iconClasses }) {
   return items.map(({ text, Icon }, index) => (
-    <>
-      {text === 'Delete' && <Divider key={index} />}
+    <div key={`${text}-${index}`}>
+      {text === 'Delete' && <Divider className="!mb-1" />}
       <MenuItem
-        key={`${text}-${index}`}
         sx={
           text === 'Delete'
             ? { color: red[700], '&:hover': { backgroundColor: red[50] } }
             : undefined
         }
         id={text}
-        onClick={handlerFunction}
-      >
+        onClick={handlerFunction}>
         {Icon && (
           <ListItemIcon>
             <Icon
@@ -27,6 +25,6 @@ export default function MenuItems({ items, handlerFunction, iconClasses }) {
         )}
         {text}
       </MenuItem>
-    </>
+    </div>
   ))
 }

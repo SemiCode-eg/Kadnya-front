@@ -16,7 +16,7 @@ export const sendLesson = async data => {
   try {
     const response = await api.post('lessons/create', data)
 
-    return response.data
+    return response
   } catch (error) {
     return error
   }

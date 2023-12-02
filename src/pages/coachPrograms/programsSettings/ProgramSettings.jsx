@@ -35,8 +35,8 @@ function ProgramSettings() {
   const [successMsg, setSuccessMsg] = useState('')
   const [errorReopen, setErrorReopen] = useState(false)
   const [refetch, setRefetch] = useState(false)
-  const { programID } = useParams()
-  const { programData, loading, errorMsg } = useCoachProgram(programID, refetch)
+  const { programId } = useParams()
+  const { programData, loading, errorMsg } = useCoachProgram(programId, refetch)
   const {
     dispatchFormData,
     formReducerKeys,
@@ -70,7 +70,7 @@ function ProgramSettings() {
     }
 
     setSubmitLoading(true)
-    updateCoachProgram(updatedData, programID)
+    updateCoachProgram(updatedData, programId)
       .then(data => {
         setSubmitLoading(false)
         if (data.status === 200) {
@@ -155,7 +155,7 @@ function ProgramSettings() {
           />
           <ProgramSettingsFooter
             SubmitLoading={submitLoading}
-            programID={programID}
+            programId={programId}
             dispatchFormData={dispatchFormData}
             setErrorReopen={setErrorReopen}
             setSuccessMsg={setSuccessMsg}

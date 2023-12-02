@@ -8,7 +8,7 @@ import useProgramReducer from '../../../hooks/use-program-reducer'
 import { useState } from 'react'
 
 function ProgramSettingsFooter({
-  programID,
+  programId,
   SubmitLoading,
   dispatchFormData,
   setErrorReopen,
@@ -23,7 +23,7 @@ function ProgramSettingsFooter({
     setErrorReopen(prev => !prev)
     setDeleteLoading(true)
 
-    deleteCoachProgram(programID)
+    deleteCoachProgram(programId)
       .then(data => {
         setDeleteLoading(false)
         if (data.status === 204) {
