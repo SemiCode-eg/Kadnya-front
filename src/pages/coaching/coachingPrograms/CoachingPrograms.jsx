@@ -18,7 +18,7 @@ function CoachingPrograms() {
         setData={setSearchData}
         // URL="courses/?q="
         handleLoading={handleSearchLoading}
-        placeholder="Search for program"
+        placeholder="Search for programs"
       />
       <section className="px-3 pb-6">
         <ProgramsHead count={programs.length} />
