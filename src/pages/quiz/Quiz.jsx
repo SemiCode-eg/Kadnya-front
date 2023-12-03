@@ -9,7 +9,7 @@ import useQuiz from '../../hooks/use-quiz'
 function Quiz() {
   const [isDraft, setIsDraft] = useState(true)
   const [submitLoading, setSubmitLoading] = useState(false)
-  const { id, quizID } = useParams()
+  const { id, quizId } = useParams()
   const { quizData, loading, errorMsg, refreshData } = useQuiz(id)
   const formRef = useRef(null)
 
@@ -17,18 +17,18 @@ function Quiz() {
     () => [
       {
         title: 'Questions',
-        path: `${quizID ? `${quizID}/edit` : 'add'}`,
+        path: `${quizId ? `${quizId}/edit` : 'add'}`,
       },
       {
         title: 'Settings',
-        path: `${quizID ? `${quizID}/settings` : 'settings'}`,
+        path: `${quizId ? `${quizId}/settings` : 'settings'}`,
       },
       {
         title: 'Results',
-        path: `${quizID ? `${quizID}/results` : 'results'}`,
+        path: `${quizId ? `${quizId}/results` : 'results'}`,
       },
     ],
-    [quizID],
+    [quizId],
   )
 
   return (

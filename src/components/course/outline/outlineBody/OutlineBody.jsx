@@ -65,7 +65,7 @@ function OutlineBody({ data = [], setRefetch = () => {} }) {
       {data?.quizzes?.map(quiz => (
         <ModuleQuiz
           key={quiz.id}
-          quizID={quiz.id}
+          quizId={quiz.id}
           text={quiz.title || 'untitled quiz'}
         />
       ))}
