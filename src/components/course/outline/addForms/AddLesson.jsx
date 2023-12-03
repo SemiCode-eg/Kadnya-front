@@ -16,22 +16,18 @@ const generateModuleOptions = modules => {
   }))
 }
 
-const generateSubmoduleOptions = (isMainBtn, submodules, moduleData) => {
-  if (!isMainBtn) {
-    return submodules.length === 0 ? [] : submodules
-  } else {
-    return moduleData?.submodules?.map(submodule => ({
-      value: submodule.id,
-      label: submodule.title,
-    }))
-  }
+const generateSubmoduleOptions = moduleData => {
+  return moduleData?.submodules?.map(submodule => ({
+    value: submodule.id,
+    label: submodule.title,
+  }))
 }
 
 function AddLesson({
   open,
   onClose,
   modules,
-  submodules = [],
+  submodule = [],
   isMainBtn = true,
   setRefetch = () => {},
   setSuccessSubmit = () => {},
@@ -41,25 +37,18 @@ function AddLesson({
   const [submitLoading, setSubmitLoading] = useState(false)
   const [submitError, setSubmitError] = useState(false)
   const [submodulesSortKey, setSubmodulesSortKey] = useState(
-    submodules[0]?.value || 'NONE',
+    submodule[0]?.value || 'NONE',
   )
   const [modulesSortKey, setModulesSortKey] = useState(modules[0].id)
   const { moduleData, errorMsg, loading } = useModule(modulesSortKey)
 
   useEffect(() => {
-    const submodulesOptions = generateSubmoduleOptions(
-      isMainBtn,
-      submodules,
-      moduleData,
-    )
-    setSubmodulesSortKey(
-      submodules.length > 0
-        ? submodules[0].value
-        : submodulesOptions && submodulesOptions.length > 0
-          ? submodulesOptions[0].value
-          : 'NONE',
-    )
-  }, [isMainBtn, moduleData, submodules])
+    if (isMainBtn) {
+      setSubmodulesSortKey('NONE')
+    } else {
+      setSubmodulesSortKey(submodule.length > 0 ? submodule[0].value : 'NONE')
+    }
+  }, [isMainBtn, submodule])
 
   useEffect(() => {
     setModulesSortKey(generateModuleOptions(modules)[0].value)
@@ -88,11 +77,7 @@ function AddLesson({
     sendLesson(formData)
       .then(data => {
         setSubmitLoading(false)
-        if (
-          !data.request ||
-          data.request.status === 200 ||
-          data.request.status === 201
-        ) {
+        if (data.status === 201) {
           setSubmitError(false)
           setRefetch(prev => !prev)
           setSuccessSubmit('Lesson added successfully!')
@@ -144,29 +129,18 @@ function AddLesson({
             }}
           />
 
-          <div>
-            {generateSubmoduleOptions(isMainBtn, submodules, moduleData)
-              ?.length > 0 && (
+          {generateSubmoduleOptions(moduleData)?.length > 0 && (
+            <div>
               <SortSelect
                 id="submodule"
                 label="Select Submodule"
                 className="!w-full"
                 options={
-                  submodules.length > 0
-                    ? [
-                        ...generateSubmoduleOptions(
-                          isMainBtn,
-                          submodules,
-                          moduleData,
-                        ),
-                      ]
+                  submodule.length > 0
+                    ? [...generateSubmoduleOptions(moduleData)]
                     : [
                         { value: 'NONE', label: 'None' },
-                        ...generateSubmoduleOptions(
-                          isMainBtn,
-                          submodules,
-                          moduleData,
-                        ),
+                        ...generateSubmoduleOptions(moduleData),
                       ]
                 }
                 sortKey={submodulesSortKey}
@@ -179,8 +153,8 @@ function AddLesson({
                   },
                 }}
               />
-            )}
-          </div>
+            </div>
+          )}
         </HandleErrorLoad>
         {submitError && (
           <p className="text-red-500 font-bold text-lg">

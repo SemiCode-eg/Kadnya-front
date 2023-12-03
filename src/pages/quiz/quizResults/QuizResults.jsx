@@ -53,9 +53,9 @@ const rows = [
 ]
 
 function QuizResults() {
-  const { quizID } = useParams()
+  const { quizId } = useParams()
 
-  return quizID ? (
+  return quizId ? (
     rows.length > 0 ? (
       <CustomTable rows={rows} headCells={headCells} />
     ) : (

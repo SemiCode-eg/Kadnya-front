@@ -1,8 +1,8 @@
-import api from "../api"
+import api from '../api'
 
-export const getModules = async courseID => {
+export const getModules = async courseId => {
   try {
-    const response = await api.get(`courses/${courseID}/modules`)
+    const response = await api.get(`courses/${courseId}/modules`)
 
     return response
   } catch (error) {
@@ -22,17 +22,11 @@ export const getSingleModule = async moduleID => {
 
 export const sendModule = async moduleData => {
   try {
-    const formData = new FormData()
-    formData.append('title', moduleData.title)
-    formData.append('description', moduleData.description)
-    formData.append('course', moduleData.courseID)
-    formData.append('image', moduleData.imageAsset)
-
-    const response = await api.post('modules/create', formData, {
+    const response = await api.post('modules/create', moduleData, {
       headers: { 'content-type': 'multipart/form-data' },
     })
 
-    return response.data
+    return response
   } catch (error) {
     return error
   }
@@ -40,17 +34,11 @@ export const sendModule = async moduleData => {
 
 export const updateModule = async (moduleData, moduleID) => {
   try {
-    const formData = new FormData()
-    formData.append('title', moduleData.title)
-    formData.append('description', moduleData.description)
-    formData.append('course', moduleData.courseID)
-    formData.append('image', moduleData.imageAsset)
-
-    const response = await api.put(`modules/${moduleID}/`, formData, {
+    const response = await api.patch(`modules/${moduleID}/`, moduleData, {
       headers: { 'content-type': 'multipart/form-data' },
     })
 
-    return response.data
+    return response
   } catch (error) {
     return error
   }

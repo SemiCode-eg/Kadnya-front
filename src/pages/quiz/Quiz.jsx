@@ -4,31 +4,31 @@ import GoBackBtn from '../../components/goBackBtn/GoBackBtn'
 import MiniSide from '../../components/miniSide/MiniSide'
 import { useMemo, useRef, useState } from 'react'
 import QuizHeader from '../../components/quiz/quizHeader/QuizHeader'
+import useQuiz from '../../hooks/use-quiz'
 
 function Quiz() {
   const [isDraft, setIsDraft] = useState(true)
   const [submitLoading, setSubmitLoading] = useState(false)
-  const [successSubmitMsg, setSuccessSubmitMsg] = useState('')
-  const [submitErrorMsg, setSubmitErrorMsg] = useState(false)
-  const { quizID } = useParams()
+  const { id, quizId } = useParams()
+  const { quizData, loading, errorMsg, refreshData } = useQuiz(id)
   const formRef = useRef(null)
 
   const tabs = useMemo(
     () => [
       {
         title: 'Questions',
-        path: `${quizID ? `${quizID}/edit` : 'add'}`,
+        path: `${quizId ? `${quizId}/edit` : 'add'}`,
       },
       {
         title: 'Settings',
-        path: `${quizID ? `${quizID}/settings` : 'settings'}`,
+        path: `${quizId ? `${quizId}/settings` : 'settings'}`,
       },
       {
         title: 'Results',
-        path: `${quizID ? `${quizID}/results` : 'results'}`,
+        path: `${quizId ? `${quizId}/results` : 'results'}`,
       },
     ],
-    [quizID],
+    [quizId],
   )
 
   return (
@@ -48,19 +48,20 @@ function Quiz() {
             isDraft={isDraft}
             setIsDraft={setIsDraft}
             formRef={formRef}
-            quizData={null}
+            title={quizData?.title}
+            image={quizData?.image}
             submitLoading={submitLoading}
-            submitErrorMsg={submitErrorMsg}
-            successSubmitMsg={successSubmitMsg}
           />
-
           <Outlet
             context={[
               isDraft,
+              submitLoading,
               setSubmitLoading,
-              setSubmitErrorMsg,
-              setSuccessSubmitMsg,
               formRef,
+              quizData,
+              loading,
+              errorMsg,
+              refreshData,
             ]}
           />
         </div>

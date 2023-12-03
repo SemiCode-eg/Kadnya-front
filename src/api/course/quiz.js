@@ -1,4 +1,4 @@
-import api from "../api"
+import api from '../api'
 
 export const getQuiz = async id => {
   try {
@@ -15,6 +15,18 @@ export const addQuestion = async (quizId, data) => {
       question: data,
       quiz: quizId,
     })
+    return response
+  } catch (error) {
+    return error
+  }
+}
+
+export const updateQuiz = async (quizData, quizId) => {
+  try {
+    const response = await api.patch(`quiz/${quizId}/update/`, quizData, {
+      headers: { 'content-type': 'multipart/form-data' },
+    })
+
     return response
   } catch (error) {
     return error

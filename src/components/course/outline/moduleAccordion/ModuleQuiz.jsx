@@ -1,7 +1,7 @@
 import { NotePencil, PencilSimple } from '@phosphor-icons/react'
 import { Link, useParams } from 'react-router-dom'
 
-function ModuleQuiz({ text, quizID }) {
+function ModuleQuiz({ text, quizId }) {
   const { id } = useParams()
 
   return (
@@ -11,7 +11,7 @@ function ModuleQuiz({ text, quizID }) {
         <p className="text-sm font-[500]">{text}</p>
       </div>
       <div className="flex items-center gap-2">
-        <Link to={`/products/courses/${id}/quiz/${quizID}/edit`}>
+        <Link to={`/products/courses/${id}/quiz/${quizId}/edit`}>
           <PencilSimple size={15} weight="bold" />
         </Link>
       </div>

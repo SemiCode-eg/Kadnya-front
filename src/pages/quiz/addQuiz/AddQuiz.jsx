@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useOutletContext } from 'react-router-dom'
 import { Typography } from '@mui/material'
 import useQuiz from '../../../hooks/use-quiz'
 import useQuestionsReducer from '../../../hooks/use-questions-reducer'
@@ -14,8 +14,16 @@ const errorTypes = {
 
 function AddQuiz() {
   const [errorReopen, setErrorOpen] = useState(false)
-  const { id } = useParams()
-  const { quizData, loading, errorMsg, refreshData } = useQuiz(id)
+  const [
+    // isDraft,
+    // submitLoading,
+    // setSubmitLoading,
+    // formRef,
+    quizData,
+    loading,
+    errorMsg,
+    refreshData,
+  ] = useOutletContext()
   const [expanded, setExpanded] = useState('NEW')
   const { questionsKeys, questions, dispatchQuestions } = useQuestionsReducer()
 

@@ -3,7 +3,7 @@ import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import { CaretDown } from '@phosphor-icons/react'
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import AddModule from '../addForms/AddModule'
 import AddSubmodule from '../addForms/AddSubmodule'
 import AddLesson from '../addForms/AddLesson'
@@ -29,12 +29,6 @@ function ModuleAccordion({
   const [isEditModule, setIsEditModule] = useState(false)
   const [isAddSubmodule, setIsAddSubmodule] = useState(false)
   const [isAddLesson, setIsAddLesson] = useState(false)
-
-  const refactoredSubmodule = useCallback(() => {
-    return submodule.length > 0
-      ? [{ value: submodule[0].id, label: submodule[0].title }]
-      : []
-  }, [submodule])
 
   const previewedForm = () => {
     if (isEditModule) {
@@ -69,8 +63,13 @@ function ModuleAccordion({
           open={isAddLesson}
           onClose={() => setIsAddLesson(false)}
           modules={modules}
-          submodules={refactoredSubmodule(submodule)}
+          submodule={
+            submodule?.length > 0
+              ? [{ value: submodule[0].id, label: submodule[0].title }]
+              : []
+          }
           setRefetch={setRefetch}
+          isMainBtn={false}
         />
       )
     }
