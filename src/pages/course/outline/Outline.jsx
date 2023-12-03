@@ -4,7 +4,7 @@ import useCourse from '../../../hooks/use-course'
 import OutlineHeader from '../../../components/course/outline/outlineHeader/OutlineHeader'
 import Container from '../Container'
 import HandleErrorLoad from '../../../components/handleErrorLoad'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { Typography } from '@mui/material'
 import OutlineBody from '../../../components/course/outline/outlineBody/OutlineBody'
 
@@ -15,11 +15,6 @@ function Outline() {
   const [successSubmit, setSuccessSubmit] = useState('')
   const { id } = useParams()
   const { courseData, errorMsg, loading } = useCourse(id, refetch)
-
-  const dataToShow = useMemo(
-    () => searchData || courseData,
-    [courseData, searchData],
-  )
 
   return (
     <>
@@ -43,13 +38,16 @@ function Outline() {
           <HandleErrorLoad loading={searchLoading} errorMsg={errorMsg}>
             <div className="my-8">
               <p className="text-sky-950 text-[20px] font-semibold text-start">
-                {dataToShow?.modules?.length || 0} Modules
+                {(searchData || courseData)?.modules?.length || 0} Modules
               </p>
             </div>
-            {dataToShow?.modules?.length === 0 ? (
+            {(searchData || courseData)?.modules?.length === 0 ? (
               <Typography>Can&apos;t find these modules</Typography>
             ) : (
-              <OutlineBody data={dataToShow} setRefetch={setRefetch} />
+              <OutlineBody
+                data={searchData || courseData}
+                setRefetch={setRefetch}
+              />
             )}
           </HandleErrorLoad>
         </Container>
