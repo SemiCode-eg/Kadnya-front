@@ -27,7 +27,7 @@ import CustomMuiThemeProvider from './theme/CustomMuiThemeProvider.jsx'
 import ErrorPage from './pages/errorPage/ErrorPage.jsx'
 
 const quizParamHandler = ({ params }) => {
-  if (isNaN(params.quizID)) {
+  if (isNaN(params.quizId)) {
     throw new Response('Bad Request', {
       statusText: 'Quiz not found!',
       status: 404,
@@ -77,7 +77,7 @@ const router = createBrowserRouter([
           { index: true, element: <AddQuiz /> },
           { path: 'add', element: <AddQuiz /> },
           {
-            path: ':quizID',
+            path: ':quizId',
             errorElement: <ErrorPage />,
             loader: quizParamHandler,
             children: [

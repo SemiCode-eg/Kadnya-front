@@ -17,7 +17,7 @@ function QuizSettings() {
   const [imageAsset, setImageAsset] = useState(null)
   const [SubmitErrorMsg, setSubmitErrorMsg] = useState('')
   const [submitSuccessMsg, setSubmitSuccessMsg] = useState('')
-  const { id, quizID } = useParams()
+  const { id, quizId } = useParams()
 
   const [
     isDraft,
@@ -64,7 +64,7 @@ function QuizSettings() {
     }
 
     setSubmitLoading(true)
-    updateQuiz(formData, quizID)
+    updateQuiz(formData, quizId)
       .then(data => {
         setSubmitLoading(false)
         if (data.status === 200) {
@@ -93,7 +93,7 @@ function QuizSettings() {
     }
   }, [quizData])
 
-  return quizID ? (
+  return quizId ? (
     <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
       <HandleErrorLoad
         errorMsg={errorMsg || SubmitErrorMsg}
