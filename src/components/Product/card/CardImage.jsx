@@ -1,17 +1,13 @@
 /* eslint-disable react/prop-types */
-export default function CardImage({ image, height = '24', width = '5/6' }) {
+export default function CardImage({ image }) {
   return (
     <>
       {image ? (
-        <img
-          src={image}
-          className={`sm:w-${width} w-full h-${height} rounded-lg`}
-        />
+        <img src={image} className="rounded-lg object-cover w-full h-32" />
       ) : (
         <div
-          className={`sm:w-${width} w-full h-${height} rounded-lg 
-            bg-gradient-to-r from-violet-200 to-teal-300`}
-        ></div>
+          className=" rounded-lg 
+            bg-gradient-to-r from-violet-200 to-teal-300 w-full h-32"></div>
       )}
     </>
   )
