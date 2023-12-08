@@ -18,9 +18,9 @@ function SessionType({ dispatchFormData, selectedValue, reducerType }) {
         }
         radioValue="SINGLE"
         radioLabel="Single session"
-        radioSublabel="Create a standalone coaching session."
+        radioSubLabel="Create a standalone coaching session."
         radioLabelClasses="text-lg text-slate-700"
-        radioSublabelClasses={`text-sm ${
+        radioSubLabelClasses={`text-sm ${
           selectedValue === 'SINGLE' ? 'text-zinc-100' : 'text-slate-400'
         }`}
         backgroundColor="#F66A82"
@@ -36,12 +36,13 @@ function SessionType({ dispatchFormData, selectedValue, reducerType }) {
         }
         radioValue="PACKAGE"
         radioLabel="Package"
-        radioSublabel="Build a program with multiple coaching sessions."
+        radioSubLabel="Build a program with multiple coaching sessions."
         radioLabelClasses="text-lg text-slate-700"
-        radioSublabelClasses={`text-sm ${
+        radioSubLabelClasses={`text-sm ${
           selectedValue === 'PACKAGE' ? 'text-zinc-100' : 'text-slate-400'
         }`}
         backgroundColor="#F66A82"
+        disable={true}
       />
     </>
   )
