@@ -24,10 +24,10 @@ export default function QuestionFrom({ question, dispatchQuestions, index }) {
 
       <QuestionTypeSelect
         value={questionType}
-        onChange={value => {
+        onChange={newValue => {
           dispatchQuestions({
             type: questionsKeys.SET_QUESTION_TYPE,
-            payload: { index, value },
+            payload: { index, newValue },
           })
         }}
         image={image}
@@ -47,27 +47,37 @@ export default function QuestionFrom({ question, dispatchQuestions, index }) {
         questionType={questionType}
         choices={choices}
         onAdd={() => {
+          if (questionType === 'TF' && choices.length > 1) {
+            dispatchQuestions({
+              TypeError: questionsKeys.SET_ERROR,
+              payload: {
+                newValue:
+                  "can't add more than two choices in true or false questions",
+              },
+            })
+            return
+          }
           dispatchQuestions({
             type: questionsKeys.ADD_CHOICE,
             payload: { index },
           })
         }}
-        onTextEdit={(index, newValue) =>
+        onTextEdit={(choiceIndex, newValue) =>
           dispatchQuestions({
             type: questionsKeys.EDIT_CHOICE_TEXT,
-            payload: { index, newValue },
+            payload: { index, choiceIndex, newValue },
           })
         }
-        onIsTrueEdit={index =>
+        onIsTrueEdit={choiceIndex =>
           dispatchQuestions({
             type: questionsKeys.EDIT_CHOICE_IS_TRUE,
-            payload: { index, questionType },
+            payload: { index, choiceIndex, questionType },
           })
         }
-        onImageEdit={(index, newValue) =>
+        onImageEdit={(choiceIndex, newValue) =>
           dispatchQuestions({
             type: questionsKeys.EDIT_CHOICE_IMAGE,
-            payload: { index, newValue },
+            payload: { index, choiceIndex, newValue },
           })
         }
       />
