@@ -6,9 +6,10 @@ export default function QuestionChoice({
   questionType,
 }) {
   const ChoiceIsTrueComponent = () => {
-    if (questionType === 'MCQ') return <Radio {...choiceIsTrueComponentProps} />
-    else if (questionType === 'TF')
+    if (questionType === 'MCQ')
       return <Checkbox {...choiceIsTrueComponentProps} />
+    else if (questionType === 'TF')
+      return <Radio {...choiceIsTrueComponentProps} />
   }
 
   return (
