@@ -43,6 +43,7 @@ const updateState = (state, newValueIndex, newValue) => {
 
 const questionsReducer = (state, action) => {
   const questionIndex = action.payload.index
+  const choiceIndex = action.payload.choiceIndex
   const newValue = action.payload.newValue
 
   switch (action.type) {
@@ -69,28 +70,31 @@ const questionsReducer = (state, action) => {
     case questionsKeys.EDIT_CHOICE_TEXT:
       return updateState(state, questionIndex, {
         choices: state[questionIndex].choices.map((choice, index) =>
-          index === questionIndex ? { ...choice, text: newValue } : choice,
+          index === choiceIndex ? { ...choice, text: newValue } : choice,
         ),
       })
 
     case questionsKeys.EDIT_CHOICE_IMAGE:
       return updateState(state, questionIndex, {
         choices: state[questionIndex].choices.map((choice, index) =>
-          index === questionIndex ? { ...choice, image: newValue } : choice,
+          index === choiceIndex ? { ...choice, image: newValue } : choice,
         ),
       })
 
     case questionsKeys.EDIT_CHOICE_IS_TRUE:
       return updateState(state, questionIndex, {
-        choices: state[questionIndex].choices.map((choice, index) =>
-          index === questionIndex
-            ? action.payload.questionType === 'TF'
-              ? { ...choice, isTrue: true }
-              : { ...choice, isTrue: !choice.isTrue }
-            : action.payload.questionType === 'TF'
-              ? { ...choice, isTrue: false }
-              : choice,
-        ),
+        choices: state[questionIndex].choices.map((choice, index) => {
+          const questionType = action.payload.questionType
+
+          if (questionType === 'MCQ' && index === choiceIndex)
+            return { ...choice, isTrue: !choice.isTrue }
+          if (questionType === 'MCQ' && index !== choiceIndex) return choice
+
+          if (questionType === 'TF' && index === choiceIndex)
+            return { ...choice, isTrue: true }
+          if (questionType === 'TF' && index !== choiceIndex)
+            return { ...choice, isTrue: false }
+        }),
       })
 
     case questionsKeys.SET_ERROR:
