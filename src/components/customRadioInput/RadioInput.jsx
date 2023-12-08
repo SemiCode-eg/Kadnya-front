@@ -47,13 +47,14 @@ function RadioInput({
   handleSelect = () => {},
   radioValue = '',
   radioLabel = '',
-  radioSublabel = '',
+  radioSubLabel = '',
   radioLabelClasses = '',
-  radioSublabelClasses = '',
+  radioSubLabelClasses = '',
   backgroundColor = '#F66A82',
+  disable = false,
 }) {
   const radioLabelClass = `${radioLabelClasses}`
-  const radioSublabelClass = `${radioSublabelClasses}`
+  const radioSubLabelClass = `${radioSubLabelClasses}`
 
   const handleChange = e => {
     handleSelect(e.target.value)
@@ -61,13 +62,14 @@ function RadioInput({
 
   return (
     <div
-      className="border-2 shadow-sm rounded-[8px] w-full flex items-start py-3.5 cursor-pointer relative duration-150 ease-in"
+      className={`border-2 shadow-sm rounded-[8px] w-full flex items-start py-3.5 cursor-pointer relative duration-150 ease-in ${
+        disable && 'opacity-40'
+      }`}
       style={{
         backgroundColor:
           selectedValue === radioValue ? backgroundColor : 'white',
         borderColor: selectedValue === radioValue ? 'black' : '#d9dce0',
-      }}
-    >
+      }}>
       <Radio
         checked={selectedValue === radioValue}
         onChange={handleChange}
@@ -81,11 +83,12 @@ function RadioInput({
             color: 'black',
           },
         }}
+        disabled={disable}
       />
 
       <label htmlFor={radioValue} className="cursor-pointer">
         <p className={radioLabelClass}>{radioLabel}</p>
-        {radioSublabel && <p className={radioSublabelClass}>{radioSublabel}</p>}
+        {radioSubLabel && <p className={radioSubLabelClass}>{radioSubLabel}</p>}
       </label>
     </div>
   )
