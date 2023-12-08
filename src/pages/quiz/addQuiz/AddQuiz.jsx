@@ -48,7 +48,7 @@ function AddQuiz() {
   }, [dispatchQuestions, questionsKeys.SET, quizData])
 
   const handleQuestionExpand = panel => {
-    setExpanded(panel)
+    setExpanded(prevState => (panel !== prevState ? panel : null))
   }
 
   const handleQuestionError = (errorType, questionErrorMessage) => {
