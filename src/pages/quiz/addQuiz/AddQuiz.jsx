@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useOutletContext } from 'react-router-dom'
 import { Typography } from '@mui/material'
-import useQuiz from '../../../hooks/use-quiz'
 import useQuestionsReducer from '../../../hooks/use-questions-reducer'
 import HandleErrorLoad from '../../../components/handleErrorLoad'
 import Question from '../../../components/quiz/questions/Question'
@@ -26,6 +25,7 @@ function AddQuiz() {
   ] = useOutletContext()
   const [expanded, setExpanded] = useState('NEW')
   const { questionsKeys, questions, dispatchQuestions } = useQuestionsReducer()
+  console.log(questions)
 
   useEffect(() => {
     if (!quizData?.questions?.length) return
@@ -92,7 +92,6 @@ function AddQuiz() {
 
     resetQuiz()
   }
-  console.log(questions)
 
   return (
     <HandleErrorLoad
@@ -109,6 +108,7 @@ function AddQuiz() {
             key={question?.id || `Q${index}`}
             index={index}
             question={question}
+            dispatchQuestions={dispatchQuestions}
             titlePrefix={question?.id ? `${index + 1}.` : 'New'}
             expanded={expanded}
             panel={question?.id ? `Q${index}` : 'NEW'}
