@@ -17,7 +17,7 @@ function ProgramsCards({ data = [], setRefetch = () => {} }) {
             subscribersCount={program.subscribersCount}
             setRefetch={setRefetch}
             path={`/products/coaching_programs/${program.id}`}
-            editPath={`/products/coaching_programs/${program.id}/sittings`}
+            editPath={`/products/coaching_programs/${program.id}/settings`}
             endPointDelete={deleteCoachProgram}
             isProgram={true}
           />

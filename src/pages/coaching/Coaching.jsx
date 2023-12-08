@@ -14,8 +14,8 @@ const tabs = [
     path: 'programs',
   },
   {
-    title: 'Sittings',
-    path: 'sittings',
+    title: 'Settings',
+    path: 'settings',
   },
 ]
 
