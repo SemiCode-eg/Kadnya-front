@@ -98,7 +98,7 @@ function AddQuiz() {
       errorMsg={errorMsg}
       loading={loading}
       errorReopen={errorReopen}>
-      <Typography variant="h4" textAlign="start" gutterBottom>
+      <Typography variant="h4" textAlign="start" marginTop={5} gutterBottom>
         Questions
       </Typography>
 
@@ -118,7 +118,7 @@ function AddQuiz() {
           />
         ))}
 
-      <div className="w-full flex justify-center items-center">
+      <div className="w-full flex justify-center items-center mt-9">
         <MainButton text="Save" handleClick={handleSave} />
       </div>
     </HandleErrorLoad>
