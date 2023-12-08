@@ -1,13 +1,12 @@
 /* eslint-disable react/prop-types */
 import TextAriaField from '../../customFields/TextAriaField'
-import useQuestionsReducer from '../../../hooks/use-questions-reducer'
+import { questionsKeys } from '../../../hooks/use-questions-reducer'
 import QuestionTypeSelect from './QuestionTypeSelect'
 import GradSwitch from './GradSwitch'
 import QuestionChoices from './QuestionChoices'
 
-export default function QuestionFrom({ index, question }) {
+export default function QuestionFrom({ question, dispatchQuestions, index }) {
   const { questionText, questionType, isGraded, image, choices } = question
-  const { dispatchQuestions, questionsKeys } = useQuestionsReducer()
 
   return (
     <form className="flex flex-col gap-4 items-center">
@@ -53,19 +52,19 @@ export default function QuestionFrom({ index, question }) {
             payload: { index },
           })
         }}
-        onTextEdit={newValue =>
+        onTextEdit={(index, newValue) =>
           dispatchQuestions({
             type: questionsKeys.EDIT_CHOICE_TEXT,
             payload: { index, newValue },
           })
         }
-        onIsTrueEdit={() =>
+        onIsTrueEdit={index =>
           dispatchQuestions({
             type: questionsKeys.EDIT_CHOICE_IS_TRUE,
             payload: { index, questionType },
           })
         }
-        onImageEdit={newValue =>
+        onImageEdit={(index, newValue) =>
           dispatchQuestions({
             type: questionsKeys.EDIT_CHOICE_IMAGE,
             payload: { index, newValue },
