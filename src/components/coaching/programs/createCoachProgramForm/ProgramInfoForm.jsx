@@ -11,7 +11,6 @@ function ProgramInfoForm({
   coachNameValue,
   sessionsCountValue,
   dispatchFormData,
-  isPackage = false,
 }) {
   const { formReducerKeys } = useProgramReducer()
 
@@ -64,21 +63,19 @@ function ProgramInfoForm({
           />
         </div>
 
-        {isPackage && (
-          <div className="flex flex-col gap-[7px] items-start w-full">
-            <FormLabel className="!text-sky-950 !font-[400] !text-md">
-              How many sessions are included?
-            </FormLabel>
-            <TextField
-              placeholder="How many sessions are included?"
-              value={sessionsCountValue}
-              handleChange={e => handleSessionsCountChange(e.target.value)}
-              type="number"
-              min={1}
-              max={100}
-            />
-          </div>
-        )}
+        <div className="flex flex-col gap-[7px] items-start w-full">
+          <FormLabel className="!text-sky-950 !font-[400] !text-md">
+            How many sessions are included?
+          </FormLabel>
+          <TextField
+            placeholder="How many sessions are included?"
+            value={sessionsCountValue}
+            handleChange={e => handleSessionsCountChange(e.target.value)}
+            type="number"
+            min={1}
+            max={100}
+          />
+        </div>
       </div>
 
       <div className="flex flex-col gap-[7px] items-start w-full">
