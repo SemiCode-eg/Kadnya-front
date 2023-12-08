@@ -63,7 +63,7 @@ const router = createBrowserRouter([
         children: [
           { path: 'outline', element: <Outline /> },
           { path: 'certificate', element: <CertificateTab /> },
-          { path: 'sittings', element: <SittingsTab /> },
+          { path: 'settings', element: <SittingsTab /> },
         ],
       },
       {
@@ -97,7 +97,7 @@ const router = createBrowserRouter([
         children: [
           { path: 'dashboard', element: <CoachingDashboard /> },
           { path: 'programs', element: <CoachingPrograms /> },
-          { path: 'sittings', element: <CoachingSittings /> },
+          { path: 'settings', element: <CoachingSittings /> },
         ],
       },
       {
