@@ -25,7 +25,6 @@ function AddQuiz() {
   ] = useOutletContext()
   const [expanded, setExpanded] = useState('NEW')
   const { questionsKeys, questions, dispatchQuestions } = useQuestionsReducer()
-  console.log(questions)
 
   useEffect(() => {
     if (!quizData?.questions?.length) return
