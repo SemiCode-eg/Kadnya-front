@@ -1,21 +1,15 @@
 /* eslint-disable react/prop-types */
-import {
-  Button,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Radio,
-  RadioGroup,
-} from '@mui/material'
+import { Button, FormControl, FormLabel } from '@mui/material'
 import TextField from '../../customFields/TextField'
 import { PlusCircle } from '@phosphor-icons/react'
+import QuestionChoice from './QuestionChoice'
 
 export default function QuestionChoices({
+  questionType,
   choices = [],
   onAdd = () => {},
-  onEdit = () => {},
-  trueAnswer = 1,
-  onTrueAnswerChange = () => {},
+  onTextEdit = () => {},
+  onIsTrueEdit = () => {},
 }) {
   return (
     <FormControl className="w-full flex flex-col items-center">
@@ -24,33 +18,25 @@ export default function QuestionChoices({
         className="w-full text-left mb-3 !text-black !text-lg">
         Responses
       </FormLabel>
-      <RadioGroup
-        aria-labelledby="question-radio-buttons-group-label"
-        defaultValue={1}
-        name="radio-buttons-group"
-        className="w-full px-2 mb-3 flex flex-col gap-4"
-        value={trueAnswer}
-        onChange={event => {
-          onTrueAnswerChange(event.target.value)
-        }}>
-        {choices.map((choice, index) => (
-          <div key={`${index}-${choice}`} className="flex gap-1 w-full ps-2">
-            <FormControlLabel
-              value={index + 1}
-              control={<Radio />}
-              className="!mr-0"
-            />
-            <TextField
-              placeholder={`Choice ${index + 1}`}
-              className="w-full"
-              value={choice}
-              handleChange={event => {
-                onEdit(index, event.target.value)
-              }}
-            />
-          </div>
-        ))}
-      </RadioGroup>
+
+      {choices.map((choice, index) => (
+        <QuestionChoice
+          key={`${index}-${choice.text}`}
+          choiceIsTrueComponentProps={{
+            checked: choice.isTrue,
+            onChange: () => onIsTrueEdit(index),
+          }}
+          questionType={questionType}>
+          <TextField
+            placeholder={`Choice ${index + 1}`}
+            className="w-full"
+            value={choice.text}
+            handleChange={event => {
+              onTextEdit(index, event.target.value)
+            }}
+          />
+        </QuestionChoice>
+      ))}
       <Button variant="text" startIcon={<PlusCircle />} onClick={onAdd}>
         Add Choice
       </Button>
