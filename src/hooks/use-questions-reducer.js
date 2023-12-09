@@ -55,6 +55,7 @@ const questionsReducer = (state, action) => {
     case questionsKeys.SET_QUESTION_TYPE:
       return updateState(state, questionIndex, {
         questionType: newValue,
+        choices: initialChoice,
       })
 
     case questionsKeys.TOGGLE_IS_GRADED:
