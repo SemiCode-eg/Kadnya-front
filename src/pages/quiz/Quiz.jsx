@@ -53,7 +53,7 @@ function Quiz() {
             submitLoading={submitLoading}
           />
           <Outlet
-            context={[
+            context={{
               isDraft,
               submitLoading,
               setSubmitLoading,
@@ -62,7 +62,7 @@ function Quiz() {
               loading,
               errorMsg,
               refreshData,
-            ]}
+            }}
           />
         </div>
       </div>

@@ -13,16 +13,7 @@ const errorTypes = {
 
 function AddQuiz() {
   const [errorReopen, setErrorOpen] = useState(false)
-  const [
-    // isDraft,
-    // submitLoading,
-    // setSubmitLoading,
-    // formRef,
-    quizData,
-    loading,
-    errorMsg,
-    refreshData,
-  ] = useOutletContext()
+  const { quizData, loading, errorMsg, refreshData } = useOutletContext()
   const [expanded, setExpanded] = useState('NEW')
   const { questionsKeys, questions, dispatchQuestions } = useQuestionsReducer()
 
@@ -104,7 +95,7 @@ function AddQuiz() {
       {questions.length !== 0 &&
         questions.map((question, index) => (
           <Question
-            key={question?.id || `Q${index}`}
+            key={`Q${question?.id || index}`}
             index={index}
             question={question}
             dispatchQuestions={dispatchQuestions}
