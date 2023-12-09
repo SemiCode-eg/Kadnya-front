@@ -32,6 +32,7 @@ export const questionsKeys = {
   EDIT_CHOICE_IS_TRUE: 'EDIT_CHOICE_IS_TRUE',
   INIT: 'INIT',
   SET: 'SET',
+  ADD: 'ADD',
   SET_ERROR: 'SET_ERROR',
 }
 
@@ -42,9 +43,9 @@ const updateState = (state, newValueIndex, newValue) => {
 }
 
 const questionsReducer = (state, action) => {
-  const questionIndex = action.payload.index
-  const choiceIndex = action.payload.choiceIndex
-  const newValue = action.payload.newValue
+  const questionIndex = action.payload?.index
+  const choiceIndex = action.payload?.choiceIndex
+  const newValue = action.payload?.newValue
 
   switch (action.type) {
     case questionsKeys.SET_QUESTION_TEXT:
@@ -108,6 +109,9 @@ const questionsReducer = (state, action) => {
 
     case questionsKeys.SET:
       return [...action.payload, ...initialQuestion]
+
+    case questionsKeys.ADD:
+      return [...state, ...initialQuestion]
 
     default:
       return state
