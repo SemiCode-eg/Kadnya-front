@@ -26,7 +26,7 @@ export default function SortSelect({
         label={!hideLabel ? label : ''}
         onChange={onSelect}
         className={selectClasses}
-        inputProps={hideLabel && { 'aria-label': 'Without label' }}
+        inputProps={hideLabel ? { 'aria-label': 'Without label' }: null}
         sx={sx}>
         {options.map(option => (
           <MenuItem key={option.value} value={option.value}>
