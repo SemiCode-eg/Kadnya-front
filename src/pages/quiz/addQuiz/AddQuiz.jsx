@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useOutletContext } from 'react-router-dom'
-import { Typography } from '@mui/material'
+import { Button, Typography } from '@mui/material'
 import useQuestionsReducer from '../../../hooks/use-questions-reducer'
 import HandleErrorLoad from '../../../components/handleErrorLoad'
 import Question from '../../../components/quiz/questions/Question'
 import MainButton from '../../../components/mainButton/MainButton'
+import { PlusCircle } from '@phosphor-icons/react'
 
 const errorTypes = {
   question: 'question',
@@ -83,6 +84,10 @@ function AddQuiz() {
     resetQuiz()
   }
 
+  const handleAddQuestion = () => {
+    dispatchQuestions({ type: questionsKeys.ADD })
+  }
+
   return (
     <HandleErrorLoad
       errorMsg={errorMsg}
@@ -99,16 +104,27 @@ function AddQuiz() {
             index={index}
             question={question}
             dispatchQuestions={dispatchQuestions}
-            titlePrefix={question?.id ? `${index + 1}.` : 'New'}
+            titlePrefix={
+              index + 1 !== questions.length ? `${index + 1}.` : 'New'
+            }
             expanded={expanded}
-            panel={question?.id ? `Q${index}` : 'NEW'}
+            panel={index + 1 !== questions.length ? `Q${index}` : 'NEW'}
             toggleExpand={() =>
-              handleQuestionExpand(question?.id ? `Q${index}` : 'NEW')
+              handleQuestionExpand(
+                index + 1 !== questions.length ? `Q${index}` : 'NEW',
+              )
             }
           />
         ))}
 
-      <div className="w-full flex justify-center items-center mt-9">
+      <div className="w-full flex justify-center items-center gap-3 mt-9">
+        <Button
+          variant="outlined"
+          className="!px-8 !py-3"
+          startIcon={<PlusCircle />}
+          onClick={handleAddQuestion}>
+          Add Question
+        </Button>
         <MainButton text="Save" handleClick={handleSave} />
       </div>
     </HandleErrorLoad>
