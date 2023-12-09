@@ -6,7 +6,7 @@ import GradSwitch from './GradSwitch'
 import QuestionChoices from './QuestionChoices'
 
 export default function QuestionFrom({ question, dispatchQuestions, index }) {
-  const { questionText, questionType, isGraded, image, choices } = question
+  const { id, questionText, questionType, isGraded, image, choices } = question
 
   return (
     <form className="flex flex-col gap-4 items-center">
@@ -44,6 +44,7 @@ export default function QuestionFrom({ question, dispatchQuestions, index }) {
       />
 
       <QuestionChoices
+        questionId={id}
         questionType={questionType}
         choices={choices}
         onAdd={() => {
