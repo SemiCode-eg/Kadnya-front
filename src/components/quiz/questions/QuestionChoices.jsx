@@ -5,6 +5,7 @@ import { PlusCircle } from '@phosphor-icons/react'
 import QuestionChoice from './QuestionChoice'
 
 export default function QuestionChoices({
+  questionId,
   questionType,
   choices = [],
   onAdd = () => {},
@@ -21,7 +22,7 @@ export default function QuestionChoices({
 
       {choices.map((choice, index) => (
         <QuestionChoice
-          key={`${index}-${choice.text}`}
+          key={`${index}-${questionId}`}
           choiceIsTrueComponentProps={{
             checked: choice.isTrue,
             onChange: () => onIsTrueEdit(index),
