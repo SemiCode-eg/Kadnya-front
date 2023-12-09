@@ -1,19 +1,12 @@
 import { Outlet } from 'react-router-dom'
-import Outline from './outline/Outline'
 import CustomCard from '../../components/customCard/CustomCard'
 import MiniSide from '../../components/miniSide/MiniSide'
 import GoBackBtn from '../../components/goBackBtn/GoBackBtn'
-import CertificateTab from './certificateTab/CertificateTab'
-import SittingTab from './sittingsTab/SittingsTab'
 
 const tabs = [
-  {
-    title: 'Outline',
-    path: 'outline',
-    content: <Outline />,
-  },
-  { title: 'Certificate', path: 'certificate', content: <CertificateTab /> },
-  { title: 'Sittings', path: 'sittings', content: <SittingTab /> },
+  { title: 'Outline', path: 'outline' },
+  { title: 'Certificate', path: 'certificate' },
+  { title: 'Settings', path: 'settings' },
 ]
 
 function SingleCourse() {

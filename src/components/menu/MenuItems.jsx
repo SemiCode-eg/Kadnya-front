@@ -15,11 +15,12 @@ export default function MenuItems({ items, handlerFunction, iconClasses }) {
         id={text}
         onClick={handlerFunction}>
         {Icon && (
-          <ListItemIcon>
+          <ListItemIcon id={text}>
             <Icon
               size={22}
               color={text === 'Delete' ? red[700] : undefined}
               className={iconClasses}
+              id={text}
             />
           </ListItemIcon>
         )}

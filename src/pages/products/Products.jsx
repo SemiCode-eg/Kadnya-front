@@ -1,18 +1,12 @@
 import MiniSide from '../../components/miniSide/MiniSide'
-import AllProducts from './allProducts/AllProducts'
-import Courses from './courses/Courses'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import SearchInput from '../../components/SearchInput'
 import CustomCard from '../../components/customCard/CustomCard'
 import { useEffect, useState } from 'react'
 
 const tabs = [
-  {
-    title: 'All Products',
-    path: 'all',
-    content: <AllProducts />,
-  },
-  { title: 'Courses', path: 'courses', content: <Courses /> },
+  { title: 'All Products', path: 'all' },
+  { title: 'Courses', path: 'courses' },
   { title: 'coaching', path: 'coaching' },
 ]
 
@@ -36,8 +30,7 @@ export default function Products() {
     <CustomCard
       titleComponent={
         <h1 className="font-bold text-2xl w-full ml-1">Products</h1>
-      }
-    >
+      }>
       <SearchInput
         setData={setSearchData}
         URL="courses/?q="

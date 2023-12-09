@@ -28,7 +28,7 @@ export default function ProductCards({
             targerCousesRefetch={targerCousesRefetch}
             endPointDelete={deleteCourse}
             path={`${pathname}/${item.id}/outline`}
-            editPath={`${pathname}/${item.id}/sittings`}
+            editPath={`${pathname}/${item.id}/settings`}
           />
         ))}
       </ul>

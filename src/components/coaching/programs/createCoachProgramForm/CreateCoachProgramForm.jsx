@@ -88,12 +88,12 @@ function CreateCoachProgramForm({ onClose, open, setRefetch = () => {} }) {
     formData.append('coach_name', programData.coachName)
     formData.append('description', programData.description)
     formData.append('image', programData.image)
+    formData.append('session_count', programData.sessionsCount)
     // TODO send coach ID with the data
     formData.append('coach', 1)
 
     if (programData.sessionType === 'PACKAGE') {
       formData.append('session_type', 'package')
-      formData.append('session_count', programData.sessionsCount)
     } else {
       formData.append('session_type', 'single')
     }
@@ -148,7 +148,6 @@ function CreateCoachProgramForm({ onClose, open, setRefetch = () => {} }) {
             coachNameValue={programData.coachName}
             sessionsCountValue={programData.sessionsCount}
             dispatchFormData={dispatchFormData}
-            isPackage={programData.sessionType === 'SINGLE' ? false : true}
           />
         )
       case 3:

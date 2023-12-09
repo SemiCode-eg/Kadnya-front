@@ -19,14 +19,20 @@ function CoachingPrograms() {
     <div>
       <SearchInput
         setData={setSearchData}
-        // URL="courses/?q="
+        URL="coach/?q="
         handleLoading={handleSearchLoading}
         placeholder="Search for programs"
       />
       <section className="px-3 pb-6">
-        <ProgramsHead count={programsData.length} setRefetch={setRefetch} />
+        <ProgramsHead
+          count={programsData?.length || searchData?.length}
+          setRefetch={setRefetch}
+        />
         <HandleErrorLoad loading={loading || searchLoading} errorMsg={errorMsg}>
-          <ProgramsCards data={programsData} setRefetch={setRefetch} />
+          <ProgramsCards
+            data={programsData || searchData}
+            setRefetch={setRefetch}
+          />
         </HandleErrorLoad>
       </section>
     </div>
