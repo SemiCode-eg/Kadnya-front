@@ -30,10 +30,12 @@ export const questionsKeys = {
   EDIT_CHOICE_TEXT: 'EDIT_CHOICE_TEXT',
   EDIT_CHOICE_IMAGE: 'EDIT_CHOICE_IMAGE',
   EDIT_CHOICE_IS_TRUE: 'EDIT_CHOICE_IS_TRUE',
+  DELETE_CHOICE: 'DELETE_CHOICE',
+  SET_ERROR: 'SET_ERROR',
   INIT: 'INIT',
   SET: 'SET',
   ADD: 'ADD',
-  SET_ERROR: 'SET_ERROR',
+  DELETE: 'DELETE',
 }
 
 const updateState = (state, newValueIndex, newValue) => {
@@ -99,6 +101,13 @@ const questionsReducer = (state, action) => {
         }),
       })
 
+    case questionsKeys.DELETE_CHOICE:
+      return updateState(state, questionIndex, {
+        choices: state
+          .at(questionIndex)
+          .choices.filter((_, index) => index !== choiceIndex),
+      })
+
     case questionsKeys.SET_ERROR:
       return updateState(state, questionIndex, {
         error: newValue,
@@ -112,6 +121,9 @@ const questionsReducer = (state, action) => {
 
     case questionsKeys.ADD:
       return [...state, ...initialQuestion]
+
+    case questionsKeys.DELETE:
+      return state.filter((_, index) => index !== questionIndex)
 
     default:
       return state
