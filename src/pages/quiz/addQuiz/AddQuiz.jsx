@@ -117,15 +117,15 @@ function AddQuiz() {
           />
         ))}
 
-      <div className="w-full flex justify-center items-center gap-3 mt-9">
+      <div className="w-full flex justify-center items-center gap-5 mt-9">
         <Button
           variant="outlined"
-          className="!px-8 !py-3"
+          className="!px-8 !py-3 !normal-case !text-lg"
           startIcon={<PlusCircle />}
           onClick={handleAddQuestion}>
           Add Question
         </Button>
-        <MainButton text="Save" handleClick={handleSave} />
+        <MainButton text="Save" className="text-lg" handleClick={handleSave} />
       </div>
     </HandleErrorLoad>
   )
