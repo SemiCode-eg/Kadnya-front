@@ -31,8 +31,12 @@ export default function AddQuiz() {
   }
 
   const handleSave = () => {
-    const isValid = validateQuestion(questions, setErrorOpen, dispatchQuestions)
-    if (!isValid) return
+    const isQuestionsValid = validateQuestion(
+      questions,
+      setErrorOpen,
+      dispatchQuestions,
+    )
+    if (!isQuestionsValid) return
 
     // TODO handle send question data to API
 
