@@ -70,9 +70,8 @@ function AddQuiz() {
   }
 
   const resetQuiz = () => {
-    dispatchQuestions({ type: questionsKeys.INIT })
-    setExpanded('NEW')
     refreshData()
+    setExpanded('NEW')
   }
 
   const handleSave = () => {
