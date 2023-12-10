@@ -1,4 +1,6 @@
-function SchedulingOptions() {
+import SchedulingOptionsForm from './SchedulingOptionsForm'
+
+function SchedulingOptions({ optionsData }) {
   return (
     <div className="border-[1.5px] border-[#ddd] rounded-[10px] p-6">
       <div className="w-full mx-auto mb-8">
@@ -6,6 +8,9 @@ function SchedulingOptions() {
           Scheduling options
         </p>
         <p className="text-neutral-500">Select your availability window.</p>
+      </div>
+      <div>
+        <SchedulingOptionsForm optionsData={optionsData} />
       </div>
     </div>
   )

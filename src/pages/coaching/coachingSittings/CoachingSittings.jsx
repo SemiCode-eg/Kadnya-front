@@ -8,7 +8,9 @@ function CoachingSittings() {
   return (
     <form className="flex flex-col gap-5">
       <Availability />
-      <SchedulingOptions />
+      <SchedulingOptions
+        optionsData={{ noticePeriodValue: 15, noticePeriodType: 'MIN' }}
+      />
       <button hidden ref={coachingFormRef} />
     </form>
   )
