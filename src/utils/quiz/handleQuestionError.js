@@ -25,8 +25,6 @@ export function handleQuestionError(
       break
 
     default:
-      break
+      throw new Error('Unknown question error type')
   }
-
-  return false
 }
