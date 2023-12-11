@@ -44,7 +44,7 @@ export default function QuestionFrom({ question, dispatchQuestions, index }) {
       />
 
       <QuestionChoices
-        questionId={id}
+        questionId={id || index}
         questionType={questionType}
         choices={choices}
         onAdd={() => {
