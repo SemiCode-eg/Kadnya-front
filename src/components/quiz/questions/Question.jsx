@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import {
   Accordion,
   AccordionDetails,
@@ -7,6 +6,8 @@ import {
 } from '@mui/material'
 import { CaretDown } from '@phosphor-icons/react'
 import QuestionFrom from './QuestionFrom'
+import DeleteButton from '../../deleteBtn/DeleteButton'
+import { questionsKeys } from '../../../hooks/use-questions-reducer'
 
 export default function Question({
   index = 0,
@@ -17,6 +18,14 @@ export default function Question({
   panel,
   toggleExpand = () => {},
 }) {
+  const handleQuestionDelete = event => {
+    event.preventDefault()
+    dispatchQuestions({
+      type: questionsKeys.DELETE,
+      payload: { index },
+    })
+  }
+
   return (
     <Accordion
       expanded={expanded === panel}
@@ -33,6 +42,10 @@ export default function Question({
           sx={{ width: '33%', flexShrink: 0 }}>
           {titlePrefix} Question
         </Typography>
+        <DeleteButton
+          className="!ml-auto !mr-4"
+          onDelete={handleQuestionDelete}
+        />
       </AccordionSummary>
       <AccordionDetails>
         <QuestionFrom
