@@ -13,7 +13,7 @@ export default function QuestionChoice({
   }
 
   return (
-    <div className="flex gap-1 w-full ps-2 mb-3">
+    <div className="relative flex gap-1 w-full ps-2 mb-3">
       <ChoiceIsTrueComponent />
       {children}
     </div>
