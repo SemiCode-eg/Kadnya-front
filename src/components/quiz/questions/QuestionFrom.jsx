@@ -63,6 +63,12 @@ export default function QuestionFrom({ question, dispatchQuestions, index }) {
             payload: { index },
           })
         }}
+        onDelete={choiceIndex => {
+          dispatchQuestions({
+            type: questionsKeys.DELETE_CHOICE,
+            payload: { index, choiceIndex },
+          })
+        }}
         onTextEdit={(choiceIndex, newValue) =>
           dispatchQuestions({
             type: questionsKeys.EDIT_CHOICE_TEXT,
