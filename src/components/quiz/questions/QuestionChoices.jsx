@@ -3,12 +3,14 @@ import { Button, FormControl, FormLabel } from '@mui/material'
 import TextField from '../../customFields/TextField'
 import { PlusCircle } from '@phosphor-icons/react'
 import QuestionChoice from './QuestionChoice'
+import DeleteButton from '../../deleteBtn/DeleteButton'
 
 export default function QuestionChoices({
   questionId,
   questionType,
   choices = [],
   onAdd = () => {},
+  onDelete = () => {},
   onTextEdit = () => {},
   onIsTrueEdit = () => {},
 }) {
@@ -30,11 +32,15 @@ export default function QuestionChoices({
           questionType={questionType}>
           <TextField
             placeholder={`Choice ${index + 1}`}
-            className="w-full"
+            className="w-full pe-11"
             value={choice.text}
             handleChange={event => {
               onTextEdit(index, event.target.value)
             }}
+          />
+          <DeleteButton
+            className="!absolute !top-1 !right-2 !text-xl"
+            onDelete={() => onDelete(index)}
           />
         </QuestionChoice>
       ))}
