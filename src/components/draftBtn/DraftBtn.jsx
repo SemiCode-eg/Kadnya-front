@@ -52,15 +52,14 @@ function DraftBtn({
 
   return (
     <>
-      <div
+      <button
         className="rounded-[15px] cursor-pointer bg-teal-500 text-white font-[500] flex items-center gap-1 py-[4px] px-[9px]"
         onClick={handleClickListItem}
-        role="button"
-      >
+        type="button">
         {draftState ? <EyeSlash weight="bold" /> : <Eye weight="bold" />}
         <span className="capitalize">{title}</span>
         <CaretDown />
-      </div>
+      </button>
       <Menu
         id="draft-menu"
         anchorEl={anchorEl}
@@ -73,8 +72,7 @@ function DraftBtn({
         transformOrigin={{
           vertical: 'top',
           horizontal: 'center',
-        }}
-      >
+        }}>
         <MenuItems
           items={draftMenuItems}
           handlerFunction={handleMenuItemClick}

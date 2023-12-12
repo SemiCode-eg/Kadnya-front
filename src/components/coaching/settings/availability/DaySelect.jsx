@@ -2,8 +2,8 @@ function DaySelect({ activeDay, setActiveDay = () => {} }) {
   return (
     <div className="bg-neutral-200 py-3 pl-2 w-14 h-full rounded-l-[10px] text-xs flex flex-col justify-between items-center gap-2">
       {days.map(day => (
-        <div
-          role="button"
+        <button
+          type="button"
           key={day}
           className={`w-full py-3 text-center rounded-l-2xl 
                       duration-150 ease-in transition-[background-color] 
@@ -18,7 +18,7 @@ function DaySelect({ activeDay, setActiveDay = () => {} }) {
             }`}>
             {day}
           </span>
-        </div>
+        </button>
       ))}
     </div>
   )
