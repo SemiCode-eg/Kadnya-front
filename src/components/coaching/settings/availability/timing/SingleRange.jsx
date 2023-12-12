@@ -12,28 +12,28 @@ function SingleRange({
 }) {
   const handleStartTimeChange = value => {
     dispatchSettingsData({
-      type: settingsReducerKey.SET_START_TIME,
+      type: settingsReducerKey.UPDATE_START_TIME,
       payload: { id, value },
     })
   }
 
   const handleEndTimeChange = value => {
     dispatchSettingsData({
-      type: settingsReducerKey.SET_END_TIME,
+      type: settingsReducerKey.UPDATE_END_TIME,
       payload: { id, value },
     })
   }
 
   const handleBookValue = value => {
     dispatchSettingsData({
-      type: settingsReducerKey.SET_BOOK_VALUE,
+      type: settingsReducerKey.UPDATE_BOOK_VALUE,
       payload: { id, newValue: { value, unit: bookingWindowData.unit } },
     })
   }
 
   const handleBookUnit = unit => {
     dispatchSettingsData({
-      type: settingsReducerKey.SET_BOOK_UNIT,
+      type: settingsReducerKey.UPDATE_BOOK_UNIT,
       payload: {
         id,
         newValue: { value: bookingWindowData.value, unit },

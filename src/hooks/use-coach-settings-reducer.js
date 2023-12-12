@@ -37,40 +37,40 @@ const settingsReducer = (state, action) => {
           action.payload,
         ),
       }
-    case settingsReducerKey.SET_START_TIME:
+    case settingsReducerKey.UPDATE_START_TIME:
       return {
         ...state,
         availability: updateState(state.availability, action.payload.id, {
           startTime: action.payload.value,
         }),
       }
-    case settingsReducerKey.SET_END_TIME:
+    case settingsReducerKey.UPDATE_END_TIME:
       return {
         ...state,
         availability: updateState(state.availability, action.payload.id, {
           endTime: action.payload.value,
         }),
       }
-    case settingsReducerKey.SET_BOOK_VALUE:
+    case settingsReducerKey.UPDATE_BOOK_VALUE:
       return {
         ...state,
         availability: updateState(state.availability, action.payload.id, {
           bookingWindow: action.payload.newValue,
         }),
       }
-    case settingsReducerKey.SET_BOOK_UNIT:
+    case settingsReducerKey.UPDATE_BOOK_UNIT:
       return {
         ...state,
         availability: updateState(state.availability, action.payload.id, {
           bookingWindow: action.payload.newValue,
         }),
       }
-    case settingsReducerKey.SET_NOTICE_PERIOD_VALUE:
+    case settingsReducerKey.UPDATE_NOTICE_PERIOD_VALUE:
       return {
         ...state,
         noticePeriod: { ...state.noticePeriod, value: action.payload },
       }
-    case settingsReducerKey.SET_NOTICE_PERIOD_UNIT:
+    case settingsReducerKey.UPDATE_NOTICE_PERIOD_UNIT:
       return {
         ...state,
         noticePeriod: { ...state.noticePeriod, unit: action.payload },
@@ -80,8 +80,6 @@ const settingsReducer = (state, action) => {
         ...state,
         error: action.payload,
       }
-    case settingsReducerKey.RESET:
-      return settingsInitialState
     default:
       return state
   }
@@ -90,12 +88,12 @@ const settingsReducer = (state, action) => {
 export const settingsReducerKey = {
   ADD_AVAILABILITY: 'ADD_AVAILABILITY',
   DELETE_AVAILABILITY: 'DELETE_AVAILABILITY',
-  SET_START_TIME: 'SET_START_TIME',
-  SET_END_TIME: 'SET_END_TIME',
-  SET_BOOK_VALUE: 'SET_BOOK_VALUE',
-  SET_BOOK_UNIT: 'SET_BOOK_UNIT',
-  SET_NOTICE_PERIOD_VALUE: 'SET_NOTICE_PERIOD_VALUE',
-  SET_NOTICE_PERIOD_UNIT: 'SET_NOTICE_PERIOD_UNIT',
+  UPDATE_START_TIME: 'UPDATE_START_TIME',
+  UPDATE_END_TIME: 'UPDATE_END_TIME',
+  UPDATE_BOOK_VALUE: 'UPDATE_BOOK_VALUE',
+  UPDATE_BOOK_UNIT: 'UPDATE_BOOK_UNIT',
+  UPDATE_NOTICE_PERIOD_VALUE: 'UPDATE_NOTICE_PERIOD_VALUE',
+  UPDATE_NOTICE_PERIOD_UNIT: 'UPDATE_NOTICE_PERIOD_UNIT',
   SET_ERROR: 'ERROR',
 }
 

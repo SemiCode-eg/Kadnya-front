@@ -8,14 +8,14 @@ function SchedulingOptions({
 }) {
   const handlePeriodChange = value => {
     dispatchSettingsData({
-      type: settingsReducerKey.SET_NOTICE_PERIOD_VALUE,
+      type: settingsReducerKey.UPDATE_NOTICE_PERIOD_VALUE,
       payload: value,
     })
   }
 
   const handleUnitChange = value => {
     dispatchSettingsData({
-      type: settingsReducerKey.SET_NOTICE_PERIOD_UNIT,
+      type: settingsReducerKey.UPDATE_NOTICE_PERIOD_UNIT,
       payload: value,
     })
   }
