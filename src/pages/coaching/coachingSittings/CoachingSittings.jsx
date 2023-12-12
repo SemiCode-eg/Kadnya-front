@@ -5,6 +5,7 @@ import useCoachSettingReducer from '../../../hooks/use-coach-settings-reducer'
 
 function CoachingSittings() {
   const { settingsData, dispatchSettingsData } = useCoachSettingReducer()
+  console.log(settingsData)
 
   return (
     <form className="flex flex-col gap-5">

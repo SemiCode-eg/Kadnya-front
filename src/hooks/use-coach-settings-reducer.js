@@ -26,13 +26,44 @@ const settingsReducer = (state, action) => {
         ...state,
         availability: [
           ...state.availability,
-          initialAvailability(action.payload),
+          initialAvailability(action.payload.day, action.payload.id),
         ],
       }
     case settingsReducerKey.DELETE_AVAILABILITY:
       return {
         ...state,
-        availability: availabilityAfterDelete(state, action.payload),
+        availability: availabilityAfterDelete(
+          state.availability,
+          action.payload,
+        ),
+      }
+    case settingsReducerKey.SET_START_TIME:
+      return {
+        ...state,
+        availability: updateState(state.availability, action.payload.id, {
+          startTime: action.payload.value,
+        }),
+      }
+    case settingsReducerKey.SET_END_TIME:
+      return {
+        ...state,
+        availability: updateState(state.availability, action.payload.id, {
+          endTime: action.payload.value,
+        }),
+      }
+    case settingsReducerKey.SET_BOOK_VALUE:
+      return {
+        ...state,
+        availability: updateState(state.availability, action.payload.id, {
+          bookingWindow: action.payload.newValue,
+        }),
+      }
+    case settingsReducerKey.SET_BOOK_UNIT:
+      return {
+        ...state,
+        availability: updateState(state.availability, action.payload.id, {
+          bookingWindow: action.payload.newValue,
+        }),
       }
     case settingsReducerKey.SET_NOTICE_PERIOD_VALUE:
       return {
@@ -68,17 +99,22 @@ export const settingsReducerKey = {
   SET_ERROR: 'ERROR',
 }
 
-const initialAvailability = day => {
+const initialAvailability = (day, id) => {
   return {
-    day: day,
-    timing: {
-      start: defaultStartTime,
-      end: defaultEndTime,
-      bookingWindow: { value: 4, unit: 'WEEK' },
-    },
+    id,
+    day,
+    startTime: defaultStartTime,
+    endTime: defaultEndTime,
+    bookingWindow: { value: 4, unit: 'WEEK' },
   }
 }
 
-const availabilityAfterDelete = (state, targetIndex) => {
-  return state.availability.filter((_, index) => index !== targetIndex)
+const availabilityAfterDelete = (availability, targetId) => {
+  return availability.filter(option => option.id !== targetId)
+}
+
+const updateState = (availability, newValueId, newValue) => {
+  return availability.map(option =>
+    option.id === newValueId ? { ...option, ...newValue } : option,
+  )
 }

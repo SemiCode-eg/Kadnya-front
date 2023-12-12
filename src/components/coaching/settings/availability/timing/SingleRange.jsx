@@ -8,16 +8,43 @@ function SingleRange({
   endTime,
   dispatchSettingsData = () => {},
   bookingWindowData,
-  index,
+  id,
 }) {
-  const handleStartTimeChange = value => {}
+  const handleStartTimeChange = value => {
+    dispatchSettingsData({
+      type: settingsReducerKey.SET_START_TIME,
+      payload: { id, value },
+    })
+  }
 
-  const handleEndTimeChange = value => {}
+  const handleEndTimeChange = value => {
+    dispatchSettingsData({
+      type: settingsReducerKey.SET_END_TIME,
+      payload: { id, value },
+    })
+  }
 
-  const handleDelete = index => {
+  const handleBookValue = value => {
+    dispatchSettingsData({
+      type: settingsReducerKey.SET_BOOK_VALUE,
+      payload: { id, newValue: { value, unit: bookingWindowData.unit } },
+    })
+  }
+
+  const handleBookUnit = unit => {
+    dispatchSettingsData({
+      type: settingsReducerKey.SET_BOOK_UNIT,
+      payload: {
+        id,
+        newValue: { value: bookingWindowData.value, unit },
+      },
+    })
+  }
+
+  const handleDelete = id => {
     dispatchSettingsData({
       type: settingsReducerKey.DELETE_AVAILABILITY,
-      payload: index,
+      payload: id,
     })
   }
 
@@ -47,14 +74,15 @@ function SingleRange({
         subTitle="Set your booking window to up to 3 months in the future."
         optionValue={bookingWindowData.value}
         optionUnit={bookingWindowData.unit}
-        dispatchSettingsData={dispatchSettingsData}
+        onValueChange={handleBookValue}
+        onUnitChange={handleBookUnit}
       />
 
       <button
         type="button"
         className="absolute right-2 bottom-2 duration-150 ease-out hover:bg-red-500/5 p-1 rounded-md"
         title="Delete"
-        onClick={() => handleDelete(index)}>
+        onClick={() => handleDelete(id)}>
         <Trash weight="fill" className="text-red-500" />
       </button>
     </div>
