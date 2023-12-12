@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import {
   Accordion,
   AccordionDetails,
@@ -7,43 +6,52 @@ import {
 } from '@mui/material'
 import { CaretDown } from '@phosphor-icons/react'
 import QuestionFrom from './QuestionFrom'
+import DeleteButton from '../../deleteBtn/DeleteButton'
+import { questionsKeys } from '../../../hooks/use-questions-reducer'
 
 export default function Question({
+  index = 0,
   question = {},
-  onQuestionChange = () => {},
+  dispatchQuestions = () => {},
   titlePrefix = 1,
   expanded = true,
   panel,
   toggleExpand = () => {},
-  onAddQuestion,
-  onUpdateQuestion,
 }) {
+  const handleQuestionDelete = event => {
+    event.preventDefault()
+    dispatchQuestions({
+      type: questionsKeys.DELETE,
+      payload: { index },
+    })
+  }
+
   return (
     <Accordion
       expanded={expanded === panel}
       onChange={toggleExpand}
-      className="px-4"
-    >
+      className="px-4">
       <AccordionSummary
         expandIcon={<CaretDown size={24} />}
         aria-controls="panel1bh-content"
-        id="panel1bh-header"
-      >
+        id="panel1bh-header">
         <Typography
           variant="h6"
           component="h3"
           textAlign="start"
-          sx={{ width: '33%', flexShrink: 0 }}
-        >
+          sx={{ width: '33%', flexShrink: 0 }}>
           {titlePrefix} Question
         </Typography>
+        <DeleteButton
+          className="!ml-auto !mr-4"
+          onDelete={handleQuestionDelete}
+        />
       </AccordionSummary>
       <AccordionDetails>
         <QuestionFrom
           question={question}
-          onQuestionChange={onQuestionChange}
-          onAddQuestion={onAddQuestion}
-          onUpdateQuestion={onUpdateQuestion}
+          dispatchQuestions={dispatchQuestions}
+          index={index}
         />
       </AccordionDetails>
     </Accordion>

@@ -17,7 +17,7 @@ export default function useQuiz(id) {
 
       const res = await getQuiz(id)
 
-      setQuizData(res.data || [])
+      setQuizData(res.data) 
       setLoading(false)
     }
     getQuizData()

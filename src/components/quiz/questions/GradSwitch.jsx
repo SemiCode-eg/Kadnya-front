@@ -57,14 +57,12 @@ export default function GradSwitch({ value, onChange, imageURL }) {
           <p
             className={`flex justify-center items-center px-4 gap-3 rounded-full text-white duration-150 ease-in ${
               value ? 'bg-teal-500' : 'bg-gray-400'
-            }`}
-          >
+            }`}>
             <span
               className={`block ${
                 value ? 'bg-black' : 'bg-white'
-              } rounded-full w-3 h-3 duration-200 ease-out`}
-            ></span>
-            Auto-graded
+              } rounded-full w-3 h-3 duration-200 ease-out`}></span>
+            Auto-Graded
           </p>
 
           <div className="flex-1 text-right">
@@ -72,8 +70,7 @@ export default function GradSwitch({ value, onChange, imageURL }) {
               className="!capitalize !gap-0 !flex-1"
               variant="text"
               startIcon={<Link weight="bold" />}
-              onClick={handleClick}
-            >
+              onClick={handleClick}>
               Attach image
               <input
                 id="image"

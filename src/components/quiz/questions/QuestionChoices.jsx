@@ -1,21 +1,18 @@
 /* eslint-disable react/prop-types */
-import {
-  Button,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Radio,
-  RadioGroup,
-} from '@mui/material'
+import { Button, FormControl, FormLabel } from '@mui/material'
 import TextField from '../../customFields/TextField'
 import { PlusCircle } from '@phosphor-icons/react'
+import QuestionChoice from './QuestionChoice'
+import DeleteButton from '../../deleteBtn/DeleteButton'
 
 export default function QuestionChoices({
+  questionId,
+  questionType,
   choices = [],
   onAdd = () => {},
-  onEdit = () => {},
-  trueAnswer = 1,
-  onTrueAnswerChange = () => {},
+  onDelete = () => {},
+  onTextEdit = () => {},
+  onIsTrueEdit = () => {},
 }) {
   return (
     <FormControl className="w-full flex flex-col items-center">
@@ -24,33 +21,29 @@ export default function QuestionChoices({
         className="w-full text-left mb-3 !text-black !text-lg">
         Responses
       </FormLabel>
-      <RadioGroup
-        aria-labelledby="question-radio-buttons-group-label"
-        defaultValue={1}
-        name="radio-buttons-group"
-        className="w-full px-2 mb-3 flex flex-col gap-4"
-        value={trueAnswer}
-        onChange={event => {
-          onTrueAnswerChange(event.target.value)
-        }}>
-        {choices.map((choice, index) => (
-          <div key={`${index}-${choice}`} className="flex gap-1 w-full ps-2">
-            <FormControlLabel
-              value={index + 1}
-              control={<Radio />}
-              className="!mr-0"
-            />
-            <TextField
-              placeholder={`Choice ${index + 1}`}
-              className="w-full"
-              value={choice}
-              handleChange={event => {
-                onEdit(index, event.target.value)
-              }}
-            />
-          </div>
-        ))}
-      </RadioGroup>
+
+      {choices.map((choice, index) => (
+        <QuestionChoice
+          key={`${index}-${questionId}`}
+          choiceIsTrueComponentProps={{
+            checked: choice.isTrue,
+            onChange: () => onIsTrueEdit(index),
+          }}
+          questionType={questionType}>
+          <TextField
+            placeholder={`Choice ${index + 1}`}
+            className="w-full pe-11"
+            value={choice.text}
+            handleChange={event => {
+              onTextEdit(index, event.target.value)
+            }}
+          />
+          <DeleteButton
+            className="!absolute !top-1 !right-2 !text-xl"
+            onDelete={() => onDelete(index)}
+          />
+        </QuestionChoice>
+      ))}
       <Button variant="text" startIcon={<PlusCircle />} onClick={onAdd}>
         Add Choice
       </Button>

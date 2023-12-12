@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 
-export default function QuestionTypeSelect({ value, onChange }) {
+export default function QuestionTypeSelect({ value = 'MCQ', onChange }) {
   return (
     <FormControl fullWidth>
       <InputLabel id="question-select-label">Question Type</InputLabel>
@@ -11,10 +11,12 @@ export default function QuestionTypeSelect({ value, onChange }) {
         value={value}
         label="Question Type"
         onChange={event => onChange(event.target.value)}
-        sx={{ textAlign: 'left' }}
-      >
+        sx={{ textAlign: 'left' }}>
         <MenuItem value="MCQ" sx={{ textAlign: 'left' }}>
           Multiple choice
+        </MenuItem>
+        <MenuItem value="TF" sx={{ textAlign: 'left' }}>
+          True or false
         </MenuItem>
       </Select>
     </FormControl>
