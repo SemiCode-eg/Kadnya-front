@@ -11,7 +11,7 @@ function OutlineBody({ data = [], setRefetch = () => {} }) {
           title={module.title}
           description={module.description}
           image={module.image}
-          key={module.id}
+          key={`module-${module.id}`}
           Icon={FolderSimple}
           moduleID={module.id}
           modules={[module]}
@@ -21,7 +21,7 @@ function OutlineBody({ data = [], setRefetch = () => {} }) {
             module.lessons?.map((lesson, i) => (
               <ModuleLesson
                 text={lesson.title}
-                key={lesson.id}
+                key={`lesson-${lesson.id}`}
                 addBorder={i !== 0}
                 lessonID={lesson.id}
               />
@@ -31,7 +31,7 @@ function OutlineBody({ data = [], setRefetch = () => {} }) {
           ) : null}
           {module.submodules?.map(submodule => (
             <ModuleAccordion
-              key={submodule.id}
+            key={`submodule-${submodule.id}`}
               title={submodule.title}
               description={submodule.description}
               image={submodule.image}

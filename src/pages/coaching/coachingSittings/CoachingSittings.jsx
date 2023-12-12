@@ -1,15 +1,30 @@
-import { useRef } from 'react'
-import SchedulingOptions from '../../../components/coaching/settings/SchedulingOptions'
-import Availability from '../../../components/coaching/settings/Availability'
+import Availability from '../../../components/coaching/settings/availability/Availability'
+import NoticePeriod from '../../../components/coaching/settings/noticePeriod/NoticePeriod'
+import MainButton from '../../../components/mainButton/MainButton'
+import useCoachSettingReducer from '../../../hooks/use-coach-settings-reducer'
 
 function CoachingSittings() {
-  const coachingFormRef = useRef()
+  const { settingsData, dispatchSettingsData } = useCoachSettingReducer()
+  console.log(settingsData)
 
   return (
     <form className="flex flex-col gap-5">
-      <Availability />
-      <SchedulingOptions />
-      <button hidden ref={coachingFormRef} />
+      <Availability
+        data={settingsData.availability}
+        dispatchSettingsData={dispatchSettingsData}
+      />
+      <NoticePeriod
+        noticePeriodValue={settingsData.noticePeriod.value}
+        noticePeriodUnit={settingsData.noticePeriod.unit}
+        dispatchSettingsData={dispatchSettingsData}
+      />
+      <div>
+        <MainButton
+          text="Save"
+          type="submit"
+          handleClick={e => e.preventDefault()}
+        />
+      </div>
     </form>
   )
 }

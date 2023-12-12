@@ -123,15 +123,15 @@ function AddFile({ open, onClose, setFileName, lessonID }) {
                   onChange={uploadFile}
                   className="w-0 h-0"
                 />
-                <div
+                <button
                   className="border-[1.5px] border-sky-950 rounded-[8px] p-3 flex justify-center items-center flex-col gap-3"
-                  role="button"
+                  type='button'
                 >
                   <div className="flex items-center justify-center self-center bg-sky-950 rounded-full w-[42px] h-[42px]">
                     <FolderOpen size={32} className="text-white" />
                   </div>
                   <p className="font-[600] text-lg text-sky-950">My Device</p>
-                </div>
+                </button>
                 {error.length > 0 && (
                   <p className="text-red-500 text-lg mt-5">{error}</p>
                 )}
