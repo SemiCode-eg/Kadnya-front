@@ -1,16 +1,25 @@
 import { MobileTimePicker } from '@mui/x-date-pickers'
 import OptionsInput from '../../optionsInput'
 import { Trash } from '@phosphor-icons/react'
+import { settingsReducerKey } from '../../../../../hooks/use-coach-settings-reducer'
 
 function SingleRange({
   startTime,
   endTime,
   dispatchSettingsData = () => {},
   bookingWindowData,
+  index,
 }) {
   const handleStartTimeChange = value => {}
 
   const handleEndTimeChange = value => {}
+
+  const handleDelete = index => {
+    dispatchSettingsData({
+      type: settingsReducerKey.DELETE_AVAILABILITY,
+      payload: index,
+    })
+  }
 
   return (
     <div className="border-[1.5px] border-[#ddd] rounded-[10px] p-4 relative">
@@ -40,11 +49,12 @@ function SingleRange({
         optionUnit={bookingWindowData.unit}
         dispatchSettingsData={dispatchSettingsData}
       />
+
       <button
+        type="button"
         className="absolute right-2 bottom-2 duration-150 ease-out hover:bg-red-500/5 p-1 rounded-md"
         title="Delete"
-        // onClick={}
-      >
+        onClick={() => handleDelete(index)}>
         <Trash weight="fill" className="text-red-500" />
       </button>
     </div>

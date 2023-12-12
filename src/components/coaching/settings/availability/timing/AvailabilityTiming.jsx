@@ -27,6 +27,7 @@ function AvailabilityTiming({ data = [], dispatchSettingsData, activeDay }) {
                 endTime={time.timing.end}
                 bookingWindowData={time.timing.bookingWindow}
                 dispatchSettingsData={dispatchSettingsData}
+                index={index}
               />
             ))}
           </div>

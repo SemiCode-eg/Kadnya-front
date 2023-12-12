@@ -29,6 +29,11 @@ const settingsReducer = (state, action) => {
           initialAvailability(action.payload),
         ],
       }
+    case settingsReducerKey.DELETE_AVAILABILITY:
+      return {
+        ...state,
+        availability: availabilityAfterDelete(state, action.payload),
+      }
     case settingsReducerKey.SET_NOTICE_PERIOD_VALUE:
       return {
         ...state,
@@ -72,4 +77,8 @@ const initialAvailability = day => {
       bookingWindow: { value: 4, unit: 'WEEK' },
     },
   }
+}
+
+const availabilityAfterDelete = (state, targetIndex) => {
+  return state.availability.filter((_, index) => index !== targetIndex)
 }
