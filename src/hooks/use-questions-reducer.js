@@ -26,6 +26,7 @@ export const questionsKeys = {
   SET_QUESTION_TEXT: 'SET_QUESTION_TEXT',
   SET_QUESTION_TYPE: 'SET_QUESTION_TYPE',
   TOGGLE_IS_GRADED: 'TOGGLE_IS_GRADED',
+  SET_IMAGE: 'SET_IMAGE',
   ADD_CHOICE: 'ADD_CHOICE',
   EDIT_CHOICE_TEXT: 'EDIT_CHOICE_TEXT',
   EDIT_CHOICE_IMAGE: 'EDIT_CHOICE_IMAGE',
@@ -64,6 +65,11 @@ const questionsReducer = (state, action) => {
     case questionsKeys.TOGGLE_IS_GRADED:
       return updateState(state, questionIndex, {
         isGraded: !state[questionIndex].isGraded,
+      })
+
+    case questionsKeys.SET_IMAGE:
+      return updateState(state, questionIndex, {
+        image: newValue,
       })
 
     case questionsKeys.ADD_CHOICE:
