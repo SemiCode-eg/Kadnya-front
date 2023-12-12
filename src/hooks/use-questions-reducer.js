@@ -64,7 +64,7 @@ const questionsReducer = (state, action) => {
 
     case questionsKeys.TOGGLE_IS_GRADED:
       return updateState(state, questionIndex, {
-        isGraded: !state[questionIndex].isGraded,
+        isGraded: !state.at(questionIndex).isGraded,
       })
 
     case questionsKeys.SET_IMAGE:
@@ -74,26 +74,30 @@ const questionsReducer = (state, action) => {
 
     case questionsKeys.ADD_CHOICE:
       return updateState(state, questionIndex, {
-        choices: [...state[questionIndex].choices, ...initialChoice],
+        choices: [...state.at(questionIndex).choices, ...initialChoice],
       })
 
     case questionsKeys.EDIT_CHOICE_TEXT:
       return updateState(state, questionIndex, {
-        choices: state[questionIndex].choices.map((choice, index) =>
-          index === choiceIndex ? { ...choice, text: newValue } : choice,
-        ),
+        choices: state
+          .at(questionIndex)
+          .choices.map((choice, index) =>
+            index === choiceIndex ? { ...choice, text: newValue } : choice,
+          ),
       })
 
     case questionsKeys.EDIT_CHOICE_IMAGE:
       return updateState(state, questionIndex, {
-        choices: state[questionIndex].choices.map((choice, index) =>
-          index === choiceIndex ? { ...choice, image: newValue } : choice,
-        ),
+        choices: state
+          .at(questionIndex)
+          .choices.map((choice, index) =>
+            index === choiceIndex ? { ...choice, image: newValue } : choice,
+          ),
       })
 
     case questionsKeys.EDIT_CHOICE_IS_TRUE:
       return updateState(state, questionIndex, {
-        choices: state[questionIndex].choices.map((choice, index) => {
+        choices: state.at(questionIndex).choices.map((choice, index) => {
           const questionType = action.payload.questionType
 
           if (questionType === 'MCQ' && index === choiceIndex)
