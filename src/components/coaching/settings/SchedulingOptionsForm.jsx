@@ -9,10 +9,12 @@ function SchedulingOptionsForm({
   dispatchFormData = () => {},
 }) {
   const [noticePeriodKey, setNoticePeriodKey] = useState(noticePeriodType)
+
   return (
     <div className="text-left">
       <FormLabel className="!text-sky-950 !font-[400] !text-md">
-        Minimum notice scheduling <ClockCountdown size={18} className='inline' />
+        Minimum notice scheduling{' '}
+        <ClockCountdown size={18} className="inline" />
       </FormLabel>
 
       <div className="flex gap-4 mt-2 mb-1">
