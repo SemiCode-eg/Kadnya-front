@@ -10,12 +10,12 @@ export default function SaveAddButtonsGroup({
     <div className="w-full flex justify-center items-center gap-5 mt-9">
       <Button
         variant="outlined"
-        className="!px-8 !py-3 !normal-case !text-lg"
+        className="!px-8 !py-3 !rounded-lg !normal-case !text-lg"
         startIcon={<PlusCircle />}
         onClick={onAddQuestion}>
         Add Question
       </Button>
-      <MainButton text="Save" className="text-lg" handleClick={onSave} />
+      <MainButton text="Save" isForm className="text-lg" handleClick={onSave} />
     </div>
   )
 }
