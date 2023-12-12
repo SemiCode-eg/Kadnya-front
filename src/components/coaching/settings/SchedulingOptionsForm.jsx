@@ -2,6 +2,7 @@ import { useState } from 'react'
 import TextField from '../../customFields/TextField'
 import SortSelect from '../../SortSelect'
 import { FormLabel } from '@mui/material'
+import { ClockCountdown } from '@phosphor-icons/react'
 
 function SchedulingOptionsForm({
   optionsData: { noticePeriodValue = 15, noticePeriodType = 'MIN' },
@@ -11,19 +12,19 @@ function SchedulingOptionsForm({
   return (
     <div className="text-left">
       <FormLabel className="!text-sky-950 !font-[400] !text-md">
-        Minimum notice scheduling
+        Minimum notice scheduling <ClockCountdown size={18} className='inline' />
       </FormLabel>
 
       <div className="flex gap-4 mt-2 mb-1">
         <TextField
           placeholder="Minimum notice period"
           type="number"
-          className="flex-[0.25]"
+          className="sm:flex-[0.25]"
           id="notice-period"
           value={noticePeriodValue}
         />
         <SortSelect
-          className="flex-[0.25]"
+          className="sm:flex-[0.25]"
           options={noticePeriodOptions}
           sortKey={noticePeriodKey}
           onSelect={e => setNoticePeriodKey(e.target.value)}
