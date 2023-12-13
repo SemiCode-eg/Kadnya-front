@@ -133,7 +133,7 @@ const questionsReducer = (state, action) => {
       return initialQuestion
 
     case questionsKeys.SET:
-      return [...value, ...initialQuestion]
+      return value
 
     case questionsKeys.ADD:
       return [...state, ...initialQuestion]
