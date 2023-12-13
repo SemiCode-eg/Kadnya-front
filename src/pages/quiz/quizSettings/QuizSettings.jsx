@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import Details from './Details'
-import Grading from './Grading'
 import { useOutletContext, useParams } from 'react-router-dom'
-import EmptyQuizMsg from '../EmptyQuizMsg'
 import { updateQuiz } from '../../../api/course/quiz'
 import HandleErrorLoad from '../../../components/handleErrorLoad'
+import Details from '../../../components/quiz/quizSettings/Details'
+import Grading from '../../../components/quiz/quizSettings/Grading'
+import EmptyQuizMsg from '../../../components/quiz/EmptyQuizMsg'
 
 function QuizSettings() {
   const [title, setTitle] = useState('')
@@ -68,7 +68,7 @@ function QuizSettings() {
       .then(data => {
         setSubmitLoading(false)
         if (data.status === 200) {
-          setSubmitSuccessMsg('Program created successfully.')
+          setSubmitSuccessMsg('Quiz updated successfully.')
           refreshData()
         } else {
           setSubmitErrorMsg('Error occurred, please try again later.')
