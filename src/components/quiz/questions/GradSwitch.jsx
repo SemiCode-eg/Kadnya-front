@@ -57,7 +57,7 @@ export default function GradSwitch({
   }
 
   return (
-    <HandleErrorLoad errorMsg={imageError}>
+    <HandleErrorLoad errorMsg={imageError} setErrorMsg={setImageError}>
       <div className="flex flex-col gap-8 w-full">
         <div className="flex gap-3 w-full flex-wrap">
           <FormControlLabel
