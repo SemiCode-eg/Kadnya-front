@@ -19,7 +19,7 @@ function QuizSettings() {
   const [submitSuccessMsg, setSubmitSuccessMsg] = useState('')
   const { id, quizId } = useParams()
 
-  const [
+  const {
     isDraft,
     submitLoading,
     setSubmitLoading,
@@ -28,7 +28,7 @@ function QuizSettings() {
     loading,
     errorMsg,
     refreshData,
-  ] = useOutletContext()
+  } = useOutletContext()
 
   const handleSubmit = e => {
     e.preventDefault()
