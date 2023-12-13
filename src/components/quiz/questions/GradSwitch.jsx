@@ -5,7 +5,13 @@ import { useRef, useState } from 'react'
 import HandleErrorLoad from '../../handleErrorLoad'
 import QuizImage from '../QuizImage'
 
-export default function GradSwitch({ value, onChange, imageURL }) {
+export default function GradSwitch({
+  isGraded,
+  onGradedChange,
+  imageURL,
+  onImageURLChange,
+  onImageURLDelete,
+}) {
   const [imageError, setImageError] = useState('')
   const [previewedImage, setPreviewedImage] = useState(imageURL || null)
   const imageFieldRef = useRef()
@@ -34,16 +40,23 @@ export default function GradSwitch({ value, onChange, imageURL }) {
         reader.readAsDataURL(e.target.files[0])
 
         setImageError(false)
-        // TODO Here you add the image to the reducer
-        // setImageAsset(e.target.files[0]);
+        onImageURLChange(e.target.files[0])
       } else {
         setImageError('Wrong image type')
       }
     }
   }
 
-  const handleClick = () => {
+  console.log(imageURL)
+  console.log(previewedImage)
+
+  const handleAddImageBtnClick = () => {
     imageFieldRef.current.click()
+  }
+
+  const handleImageDelete = () => {
+    setPreviewedImage(null)
+    onImageURLDelete()
   }
 
   return (
@@ -51,16 +64,16 @@ export default function GradSwitch({ value, onChange, imageURL }) {
       <div className="flex flex-col gap-8 w-full">
         <div className="flex gap-3 w-full flex-wrap">
           <FormControlLabel
-            control={<Switch value={value} onChange={onChange} />}
+            control={<Switch value={isGraded} onChange={onGradedChange} />}
             label="Graded question"
           />
           <p
             className={`flex justify-center items-center px-4 gap-3 rounded-full text-white duration-150 ease-in ${
-              value ? 'bg-teal-500' : 'bg-gray-400'
+              isGraded ? 'bg-teal-500' : 'bg-gray-400'
             }`}>
             <span
               className={`block ${
-                value ? 'bg-black' : 'bg-white'
+                isGraded ? 'bg-black' : 'bg-white'
               } rounded-full w-3 h-3 duration-200 ease-out`}></span>
             Auto-Graded
           </p>
@@ -70,7 +83,7 @@ export default function GradSwitch({ value, onChange, imageURL }) {
               className="!capitalize !gap-0 !flex-1"
               variant="text"
               startIcon={<Link weight="bold" />}
-              onClick={handleClick}>
+              onClick={handleAddImageBtnClick}>
               Attach image
               <input
                 id="image"
@@ -88,6 +101,7 @@ export default function GradSwitch({ value, onChange, imageURL }) {
           <QuizImage
             imageURL={previewedImage.image}
             imageName={previewedImage.name}
+            handleDelete={handleImageDelete}
           />
         )}
       </div>
