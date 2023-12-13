@@ -30,14 +30,26 @@ export default function QuestionFrom({ question, dispatchQuestions, index }) {
             payload: { index, newValue },
           })
         }}
-        image={image}
       />
 
       <GradSwitch
-        value={isGraded}
-        onChange={() => {
+        isGraded={isGraded}
+        onGradedChange={() => {
           dispatchQuestions({
             type: questionsKeys.TOGGLE_IS_GRADED,
+            payload: { index },
+          })
+        }}
+        imageURL={image}
+        onImageURLChange={image => {
+          dispatchQuestions({
+            type: questionsKeys.SET_IMAGE,
+            payload: { index, newValue: image },
+          })
+        }}
+        onImageURLDelete={() => {
+          dispatchQuestions({
+            type: questionsKeys.DELETE_IMAGE,
             payload: { index },
           })
         }}
