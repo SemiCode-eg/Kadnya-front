@@ -10,24 +10,14 @@ const MuiSessionsTabs = styled(Tabs)(() => ({
   },
 }))
 
-function CustomTabs({
-  value,
-  handleChange,
-  a11yProps,
-  tabs = [
-    { id: 0, label: 'Upcoming' },
-    { id: 1, label: 'Past' },
-    { id: 2, label: 'Pending' },
-  ],
-}) {
+function CustomTabs({ value, handleChange, a11yProps, tabs = [] }) {
   return (
     <Box>
       <MuiSessionsTabs
         value={value}
         onChange={handleChange}
         aria-label="basic tabs example"
-        className="!mb-8 !border-b border-b-gray-300"
-      >
+        className="!mb-8 !border-b border-b-gray-300">
         {tabs.map(tab => (
           <Tab
             key={tab.id}

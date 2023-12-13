@@ -1,68 +1,42 @@
-/* eslint-disable react/prop-types */
 import { useLocation, useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import { useEffect, useState } from 'react'
 import SessionCards from './sessionCard/SessionCards'
 import NoEvent from './NoEvent'
 import CustomTabs from '../../../customTabs/CustomTabs'
+import CustomTabPanel from './CustomTabPanel'
+import useCoachSessions from '../../../../hooks/use-coach-sessions'
+import HandleErrorLoad from '../../../handleErrorLoad'
 
-function CustomTabPanel(props) {
-  const { children, value, index, ...other } = props
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box className="!w-full">
-          <div>{children}</div>
-        </Box>
-      )}
-    </div>
-  )
-}
-
-function a11yProps(index) {
+function a11yProps(type) {
   return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    id: `simple-tab-${type}`,
+    'aria-controls': `simple-tabpanel-${type}`,
   }
 }
 
 function DashboardSessions() {
-  const [value, setValue] = useState(0)
+  const [filterValue, setFilterValue] = useState(sessionsType[0].id)
+  const { sessionsData, errorMsg, loading } = useCoachSessions(
+    sessionsType.find(type => type.id === filterValue).label,
+  )
   const navigate = useNavigate()
-
   const location = useLocation()
-  const queryParams = new URLSearchParams(location.search)
-  const filter = queryParams.get('filter')
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue)
-    navigate(
-      newValue === 0
-        ? '?filter=upcoming'
-        : newValue === 1
-          ? '?filter=past'
-          : '?filter=pending',
-    )
+  const handleChange = (_, newValue) => {
+    setFilterValue(newValue)
+    const selectedType = sessionsType.find(type => type.id === newValue)
+    navigate(`?filter=${selectedType.label}`)
   }
 
   useEffect(() => {
-    if (filter === 'upcoming') {
-      setValue(0)
-    } else if (filter === 'past') {
-      setValue(1)
-    } else if (filter === 'pending') {
-      setValue(2)
-    } else {
-      setValue(0)
-    }
-  }, [filter])
+    const queryParams = new URLSearchParams(location.search)
+    const filter = queryParams.get('filter')
+    const defaultFilter = sessionsType[0].id
+
+    const selectedType = sessionsType.find(type => type.label === filter)
+    setFilterValue(selectedType ? selectedType.id : defaultFilter)
+  }, [location.search])
 
   return (
     <div className="flex-[0.75] shadow-sm p-5 rounded-[15px] border">
@@ -71,23 +45,22 @@ function DashboardSessions() {
       </p>
       <Box sx={{ width: '100%' }}>
         <CustomTabs
-          value={value}
+          value={filterValue}
           handleChange={handleChange}
           a11yProps={a11yProps}
+          tabs={sessionsType}
         />
-        <CustomTabPanel value={value} index={0}>
-          {upcomingSessionsData.length > 0 ? (
-            <SessionCards data={upcomingSessionsData} />
-          ) : (
-            <NoEvent title="upcoming" />
-          )}
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
-          <NoEvent title="past" />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={2}>
-          <NoEvent title="pending" />
-        </CustomTabPanel>
+        <HandleErrorLoad loading={loading} errorMsg={errorMsg}>
+          {sessionsType.map(type => (
+            <CustomTabPanel value={filterValue} type={type.id} key={type.id}>
+              {sessionsData.length > 0 ? (
+                <SessionCards data={sessionsData} />
+              ) : (
+                <NoEvent title={type.label} />
+              )}
+            </CustomTabPanel>
+          ))}
+        </HandleErrorLoad>
       </Box>
     </div>
   )
@@ -95,23 +68,8 @@ function DashboardSessions() {
 
 export default DashboardSessions
 
-const upcomingSessionsData = [
-  {
-    id: 1,
-    image: 'dsf',
-    userName: 'Mohamed',
-    sessionTitle: 'Session 1',
-    date: '25/10/2020',
-    time: '4:00 PM',
-    coachingType: 'coaching package 1',
-  },
-  {
-    id: 2,
-    image: 'dsf',
-    userName: 'Mohamed',
-    sessionTitle: 'Session 3',
-    date: '25/10/2020',
-    time: '5:00 PM',
-    coachingType: 'coaching package',
-  },
+const sessionsType = [
+  { id: 0, label: 'upcoming' },
+  { id: 1, label: 'past' },
+  { id: 2, label: 'pending' },
 ]
