@@ -3,7 +3,7 @@ import MainButton from '../../../../mainButton/MainButton'
 
 function TimingFooter({ handleAddAvailability = () => {} }) {
   return (
-    <div className="flex justify-between items-end gap-5">
+    <div className="flex justify-between items-end gap-3 flex-wrap">
       <div>
         <MainButton
           text="Add availability"
@@ -13,7 +13,7 @@ function TimingFooter({ handleAddAvailability = () => {} }) {
           isPrimary={false}
         />
       </div>
-      <p className="text-sm text-neutral-400">
+      <p className="text-xs sm:text-sm text-neutral-400">
         All times are being displayed in Riyadh.
       </p>
     </div>
