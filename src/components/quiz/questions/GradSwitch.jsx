@@ -47,9 +47,6 @@ export default function GradSwitch({
     }
   }
 
-  console.log(imageURL)
-  console.log(previewedImage)
-
   const handleAddImageBtnClick = () => {
     imageFieldRef.current.click()
   }
