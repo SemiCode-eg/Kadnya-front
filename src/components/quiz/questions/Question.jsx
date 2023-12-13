@@ -13,7 +13,7 @@ export default function Question({
   index = 0,
   question = {},
   dispatchQuestions = () => {},
-  titlePrefix = 1,
+  titleSuffix = 1,
   expanded = true,
   panel,
   toggleExpand = () => {},
@@ -34,13 +34,14 @@ export default function Question({
       <AccordionSummary
         expandIcon={<CaretDown size={24} />}
         aria-controls="panel1bh-content"
-        id="panel1bh-header">
+        id="panel1bh-header"
+        sx={{ opacity: !question?.id && 0.7 }}>
         <Typography
           variant="h6"
           component="h3"
           textAlign="start"
           sx={{ width: '33%', flexShrink: 0 }}>
-          {titlePrefix} Question
+          Question {titleSuffix}
         </Typography>
         <DeleteButton
           className="!ml-auto !mr-4"
