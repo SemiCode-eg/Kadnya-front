@@ -8,10 +8,14 @@ import Questions from '../../../components/quiz/questions'
 import SaveAddButtonsGroup from '../../../components/quiz/questions/SaveAddButtonsGroup'
 
 export default function AddQuiz() {
-  const [errorReopen, setErrorOpen] = useState(false)
   const { quizData, loading, errorMsg, refreshData } = useOutletContext()
-  const [expanded, setExpanded] = useState('NEW')
   const { questionsKeys, questions, dispatchQuestions } = useQuestionsReducer()
+  const [expanded, setExpanded] = useState('NEW')
+  const [questionError, setQuestionError] = useState(errorMsg)
+
+  useEffect(() => {
+    setQuestionError(errorMsg)
+  }, [errorMsg])
 
   useEffect(() => {
     if (!quizData?.questions?.length) return
@@ -34,11 +38,7 @@ export default function AddQuiz() {
   }
 
   const handleSave = () => {
-    const isQuestionsValid = validateQuestion(
-      questions,
-      setErrorOpen,
-      dispatchQuestions,
-    )
+    const isQuestionsValid = validateQuestion(questions, dispatchQuestions)
     if (!isQuestionsValid) return
 
     // TODO handle send question data to API
@@ -48,9 +48,9 @@ export default function AddQuiz() {
 
   return (
     <HandleErrorLoad
-      errorMsg={errorMsg}
       loading={loading}
-      errorReopen={errorReopen}>
+      errorMsg={questionError}
+      setErrorMsg={setQuestionError}>
       <Typography variant="h4" textAlign="start" marginTop={5} gutterBottom>
         Questions
       </Typography>
