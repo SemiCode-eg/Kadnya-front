@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import CustomTable from '../../../components/customTable/CustomTable'
-import EmptyQuizMsg from '../EmptyQuizMsg'
+import EmptyQuizMsg from '../../../components/quiz/EmptyQuizMsg'
 
 function createData(id, name, email, date, result) {
   const [day, month, year] = date.split('/')

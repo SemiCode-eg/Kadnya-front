@@ -13,11 +13,11 @@ function SessionCards({ data = [] }) {
             key={session.id}
             id={session.id}
             image={session.image}
-            userName={session.userName}
-            sessionTitle={session.sessionTitle}
+            userName={session.user}
+            sessionTitle={session.title}
             date={session.date}
             time={session.time}
-            coachingType={session.coachingType}
+            coachingType={session.coach_program}
           />
         ))}
       </ul>
