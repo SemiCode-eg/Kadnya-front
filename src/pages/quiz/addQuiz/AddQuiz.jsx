@@ -10,7 +10,7 @@ import SaveAddButtonsGroup from '../../../components/quiz/questions/SaveAddButto
 export default function AddQuiz() {
   const { quizData, loading, errorMsg, refreshData } = useOutletContext()
   const { questionsKeys, questions, dispatchQuestions } = useQuestionsReducer()
-  const [expanded, setExpanded] = useState('NEW')
+  const [expanded, setExpanded] = useState(null)
   const [questionError, setQuestionError] = useState(errorMsg)
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function AddQuiz() {
 
   const resetQuiz = () => {
     refreshData()
-    setExpanded('NEW')
+    setExpanded(null)
   }
 
   const handleAddQuestion = () => {
