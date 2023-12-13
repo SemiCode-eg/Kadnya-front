@@ -173,13 +173,16 @@ export default function AddCouseForm({ open, onClose, targerCousesRefetch }) {
       onGoBack={handleGoBack}
       fullWidth
       maxWidth="md"
-      step={step}
-    >
-      <HandleErrorLoad loading={loading} errorMsg={formData.error}>
+      step={step}>
+      <HandleErrorLoad
+        loading={loading}
+        errorMsg={formData.error}
+        setErrorMsg={value =>
+          dispatchFormData({ type: 'setError', payload: value })
+        }>
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-6 items-center sm:px-28"
-        >
+          className="flex flex-col gap-6 items-center sm:px-28">
           <Step1
             step={step}
             title={formData.title}

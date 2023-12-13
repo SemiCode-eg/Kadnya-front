@@ -96,8 +96,9 @@ function QuizSettings() {
   return quizId ? (
     <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
       <HandleErrorLoad
-        errorMsg={errorMsg || SubmitErrorMsg}
         loading={loading || submitLoading}
+        errorMsg={errorMsg || SubmitErrorMsg}
+        setErrorMsg={setSubmitErrorMsg}
         successMsg={submitSuccessMsg}
         setSuccessMsg={setSubmitSuccessMsg}>
         <Details
