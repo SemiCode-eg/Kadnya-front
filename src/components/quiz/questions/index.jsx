@@ -22,7 +22,7 @@ export default function Questions({
     QUESTIONS_LENGTH !== 0 &&
     questions.map((question, index) => (
       <Question
-        key={`Q${question?.id || index}`}
+        key={`Q${question?.id || 'new'.concat(index)}`}
         index={index}
         question={question}
         dispatchQuestions={dispatchQuestions}
