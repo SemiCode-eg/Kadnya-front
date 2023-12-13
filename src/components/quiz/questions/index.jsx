@@ -8,12 +8,6 @@ export default function Questions({
 }) {
   const QUESTIONS_LENGTH = questions?.length
 
-  const determineQuestionPanel = (index, id) =>
-    index + 1 !== QUESTIONS_LENGTH || id ? `Q${index}` : 'NEW'
-
-  const determineQuestionTitlePrefix = (index, id) =>
-    index + 1 !== QUESTIONS_LENGTH || id ? `${index + 1}.` : 'New'
-
   const handleQuestionExpand = panel => {
     setExpanded(prevState => (panel !== prevState ? panel : null))
   }
@@ -26,12 +20,10 @@ export default function Questions({
         index={index}
         question={question}
         dispatchQuestions={dispatchQuestions}
-        titlePrefix={determineQuestionTitlePrefix(index, question?.id)}
+        titleSuffix={`${index + 1}`}
         expanded={expanded}
-        panel={determineQuestionPanel(index, question?.id)}
-        toggleExpand={() =>
-          handleQuestionExpand(determineQuestionPanel(index, question?.id))
-        }
+        panel={index}
+        toggleExpand={() => handleQuestionExpand(index)}
       />
     ))
   )
