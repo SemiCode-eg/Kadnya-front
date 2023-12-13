@@ -24,10 +24,10 @@ export default function QuestionFrom({ question, dispatchQuestions, index }) {
 
       <QuestionTypeSelect
         value={questionType}
-        onChange={newValue => {
+        onChange={value => {
           dispatchQuestions({
             type: questionsKeys.SET_QUESTION_TYPE,
-            payload: { index, newValue },
+            payload: { index, value },
           })
         }}
       />
@@ -44,7 +44,7 @@ export default function QuestionFrom({ question, dispatchQuestions, index }) {
         onImageURLChange={image => {
           dispatchQuestions({
             type: questionsKeys.SET_IMAGE,
-            payload: { index, newValue: image },
+            payload: { index, value: image },
           })
         }}
         onImageURLDelete={() => {
@@ -64,7 +64,7 @@ export default function QuestionFrom({ question, dispatchQuestions, index }) {
             dispatchQuestions({
               TypeError: questionsKeys.SET_ERROR,
               payload: {
-                newValue:
+                value:
                   "can't add more than two choices in true or false questions",
               },
             })
@@ -81,10 +81,10 @@ export default function QuestionFrom({ question, dispatchQuestions, index }) {
             payload: { index, choiceIndex },
           })
         }}
-        onTextEdit={(choiceIndex, newValue) =>
+        onTextEdit={(choiceIndex, value) =>
           dispatchQuestions({
             type: questionsKeys.EDIT_CHOICE_TEXT,
-            payload: { index, choiceIndex, newValue },
+            payload: { index, choiceIndex, value },
           })
         }
         onIsTrueEdit={choiceIndex =>
@@ -93,10 +93,10 @@ export default function QuestionFrom({ question, dispatchQuestions, index }) {
             payload: { index, choiceIndex, questionType },
           })
         }
-        onImageEdit={(choiceIndex, newValue) =>
+        onImageEdit={(choiceIndex, value) =>
           dispatchQuestions({
             type: questionsKeys.EDIT_CHOICE_IMAGE,
-            payload: { index, choiceIndex, newValue },
+            payload: { index, choiceIndex, value },
           })
         }
       />

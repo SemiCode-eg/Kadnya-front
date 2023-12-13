@@ -49,17 +49,17 @@ const updateState = (state, newValueIndex, newValue) => {
 const questionsReducer = (state, action) => {
   const questionIndex = action.payload?.index
   const choiceIndex = action.payload?.choiceIndex
-  const newValue = action.payload?.newValue
+  const value = action.payload?.value
 
   switch (action.type) {
     case questionsKeys.SET_QUESTION_TEXT:
       return updateState(state, questionIndex, {
-        questionText: newValue,
+        questionText: value,
       })
 
     case questionsKeys.SET_QUESTION_TYPE:
       return updateState(state, questionIndex, {
-        questionType: newValue,
+        questionType: value,
         choices: initialChoice,
       })
 
@@ -70,7 +70,7 @@ const questionsReducer = (state, action) => {
 
     case questionsKeys.SET_IMAGE:
       return updateState(state, questionIndex, {
-        image: newValue,
+        image: value,
       })
 
     case questionsKeys.DELETE_IMAGE:
@@ -88,7 +88,7 @@ const questionsReducer = (state, action) => {
         choices: state
           .at(questionIndex)
           .choices.map((choice, index) =>
-            index === choiceIndex ? { ...choice, text: newValue } : choice,
+            index === choiceIndex ? { ...choice, text: value } : choice,
           ),
       })
 
@@ -97,7 +97,7 @@ const questionsReducer = (state, action) => {
         choices: state
           .at(questionIndex)
           .choices.map((choice, index) =>
-            index === choiceIndex ? { ...choice, image: newValue } : choice,
+            index === choiceIndex ? { ...choice, image: value } : choice,
           ),
       })
 
@@ -126,14 +126,14 @@ const questionsReducer = (state, action) => {
 
     case questionsKeys.SET_ERROR:
       return updateState(state, questionIndex, {
-        error: newValue,
+        error: value,
       })
 
     case questionsKeys.INIT:
       return initialQuestion
 
     case questionsKeys.SET:
-      return [...action.payload, ...initialQuestion]
+      return [...value, ...initialQuestion]
 
     case questionsKeys.ADD:
       return [...state, ...initialQuestion]

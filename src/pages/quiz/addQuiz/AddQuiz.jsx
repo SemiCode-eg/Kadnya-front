@@ -18,7 +18,10 @@ export default function AddQuiz() {
 
     const preparedQuestions = prepareFetchedQuestion(quizData.questions)
 
-    dispatchQuestions({ type: questionsKeys.SET, payload: preparedQuestions })
+    dispatchQuestions({
+      type: questionsKeys.SET,
+      payload: { value: preparedQuestions },
+    })
   }, [quizData, dispatchQuestions, questionsKeys.SET])
 
   const resetQuiz = () => {
