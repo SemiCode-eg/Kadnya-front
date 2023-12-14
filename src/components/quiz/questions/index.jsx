@@ -5,12 +5,10 @@ export default function Questions({
   dispatchQuestions,
   expanded,
   setExpanded,
+  validateExpandedQuestion,
+  setQuestionsError,
 }) {
   const QUESTIONS_LENGTH = questions?.length
-
-  const handleQuestionExpand = panel => {
-    setExpanded(prevState => (panel !== prevState ? panel : null))
-  }
 
   return (
     QUESTIONS_LENGTH !== 0 &&
@@ -21,9 +19,11 @@ export default function Questions({
         question={question}
         dispatchQuestions={dispatchQuestions}
         titleSuffix={`${index + 1}`}
-        expanded={expanded}
         panel={index}
-        toggleExpand={() => handleQuestionExpand(index)}
+        expanded={expanded}
+        setExpanded={setExpanded}
+        validateExpandedQuestion={validateExpandedQuestion}
+        setQuestionsError={setQuestionsError}
       />
     ))
   )

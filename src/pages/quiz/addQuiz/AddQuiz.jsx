@@ -11,11 +11,7 @@ export default function AddQuiz() {
   const { quizData, loading, errorMsg, refreshData } = useOutletContext()
   const { questionsKeys, questions, dispatchQuestions } = useQuestionsReducer()
   const [expanded, setExpanded] = useState(null)
-  const [questionError, setQuestionError] = useState(errorMsg)
-
-  useEffect(() => {
-    setQuestionError(errorMsg)
-  }, [errorMsg])
+  const [questionsError, setQuestionsError] = useState(errorMsg)
 
   useEffect(() => {
     if (!quizData?.questions?.length) return
@@ -33,13 +29,20 @@ export default function AddQuiz() {
     setExpanded(null)
   }
 
+  const validateExpandedQuestion = () => {
+    if (!expanded) return true
+    return validateQuestion(questions.at(expanded), setQuestionsError)
+  }
+
   const handleAddQuestion = () => {
+    if (!validateExpandedQuestion()) return
+
     dispatchQuestions({ type: questionsKeys.ADD })
+    setExpanded(questions.length)
   }
 
   const handleSave = () => {
-    const isQuestionsValid = validateQuestion(questions, dispatchQuestions)
-    if (!isQuestionsValid) return
+    if (!validateExpandedQuestion()) return
 
     // TODO handle send question data to API
 
@@ -49,8 +52,8 @@ export default function AddQuiz() {
   return (
     <HandleErrorLoad
       loading={loading}
-      errorMsg={questionError}
-      setErrorMsg={setQuestionError}>
+      errorMsg={questionsError}
+      setErrorMsg={setQuestionsError}>
       <Typography variant="h4" textAlign="start" marginTop={5} gutterBottom>
         Questions
       </Typography>
@@ -60,6 +63,8 @@ export default function AddQuiz() {
         dispatchQuestions={dispatchQuestions}
         expanded={expanded}
         setExpanded={setExpanded}
+        validateExpandedQuestion={validateExpandedQuestion}
+        setQuestionsError={setQuestionsError}
       />
 
       <SaveAddButtonsGroup

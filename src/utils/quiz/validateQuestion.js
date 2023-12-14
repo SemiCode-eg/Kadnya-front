@@ -1,24 +1,18 @@
-import { handleQuestionError } from './handleQuestionError'
-import { QUESTION_ERROR_TYPES } from './questionErrorTypes'
+import { ERROR_MESSAGES } from './ERROR_MESSAGES'
+import { validateChoiceNotEmpty } from './validateChoicesNotEmpty'
 
-export function validateQuestion(question, setErrorOpen, dispatchQuestions) {
-  if (question.questionText.trim() === '') {
-    handleQuestionError(
-      QUESTION_ERROR_TYPES.QUESTION_TEXT,
-      'Question field is required',
-      dispatchQuestions,
-      setErrorOpen,
-    )
+export function validateQuestion(question, setQuestionsError) {
+  const { questionText, image, choices } = question
+
+  if (questionText.trim() === '' && !image) {
+    setQuestionsError(ERROR_MESSAGES.QUESTION_TEXT_OR_IMAGE_EMPTY)
     return false
   }
 
-  if (!question.choices.find(choice => choice === '')) {
-    handleQuestionError(
-      QUESTION_ERROR_TYPES.CHOICES_TEXT,
-      'Fill the choices',
-      dispatchQuestions,
-      setErrorOpen,
-    )
+  if (!validateChoiceNotEmpty(choices, setQuestionsError)) return false
+
+  if (!choices.find(choice => choice.isTrue)) {
+    setQuestionsError(ERROR_MESSAGES.CHOICES_NO_TRUE_CHOICE)
     return false
   }
 

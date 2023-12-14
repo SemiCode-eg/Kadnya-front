@@ -18,7 +18,6 @@ const initialQuestion = [
     isGraded: false,
     image: null,
     choices: initialChoice,
-    error: '',
   },
 ]
 

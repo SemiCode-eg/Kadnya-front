@@ -4,8 +4,15 @@ import { questionsKeys } from '../../../hooks/use-questions-reducer'
 import QuestionTypeSelect from './QuestionTypeSelect'
 import GradSwitch from './GradSwitch'
 import QuestionChoices from './QuestionChoices'
+import { ERROR_MESSAGES } from '../../../utils/quiz'
+import { validateChoiceNotEmpty } from '../../../utils/quiz/validateChoicesNotEmpty'
 
-export default function QuestionFrom({ question, dispatchQuestions, index }) {
+export default function QuestionFrom({
+  index,
+  question,
+  dispatchQuestions,
+  setQuestionsError,
+}) {
   const { id, questionText, questionType, isGraded, image, choices } = question
 
   return (
@@ -60,6 +67,8 @@ export default function QuestionFrom({ question, dispatchQuestions, index }) {
         questionType={questionType}
         choices={choices}
         onAdd={() => {
+          if (!validateChoiceNotEmpty(choices, setQuestionsError)) return
+
           if (questionType === 'TF' && choices.length > 1) {
             dispatchQuestions({
               TypeError: questionsKeys.SET_ERROR,
@@ -76,6 +85,8 @@ export default function QuestionFrom({ question, dispatchQuestions, index }) {
           })
         }}
         onDelete={choiceIndex => {
+          if (choiceIndex === 0)
+            return setQuestionsError(ERROR_MESSAGES.NO_CHOICES)
           dispatchQuestions({
             type: questionsKeys.DELETE_CHOICE,
             payload: { index, choiceIndex },
