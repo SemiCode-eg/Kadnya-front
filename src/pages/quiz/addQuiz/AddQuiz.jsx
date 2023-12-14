@@ -6,12 +6,18 @@ import useQuestionsReducer from '../../../hooks/use-questions-reducer'
 import HandleErrorLoad from '../../../components/handleErrorLoad'
 import Questions from '../../../components/quiz/questions'
 import SaveAddButtonsGroup from '../../../components/quiz/questions/SaveAddButtonsGroup'
+import useUpdateQuestion from '../../../hooks/use-update-questions'
 
 export default function AddQuiz() {
   const { quizData, loading, errorMsg, refreshData } = useOutletContext()
   const { questionsKeys, questions, dispatchQuestions } = useQuestionsReducer()
   const [expanded, setExpanded] = useState(null)
   const [questionsError, setQuestionsError] = useState(errorMsg)
+  const { updateQuestions, loading: updateLoading } = useUpdateQuestion(
+    quizData.id,
+    questions,
+    setQuestionsError,
+  )
 
   useEffect(() => {
     if (!quizData?.questions?.length) return
@@ -41,17 +47,17 @@ export default function AddQuiz() {
     setExpanded(questions.length)
   }
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!validateExpandedQuestion()) return
 
-    // TODO handle send question data to API
+    await updateQuestions()
 
     resetQuiz()
   }
 
   return (
     <HandleErrorLoad
-      loading={loading}
+      loading={loading || updateLoading}
       errorMsg={questionsError}
       setErrorMsg={setQuestionsError}>
       <Typography variant="h4" textAlign="start" marginTop={5} gutterBottom>
