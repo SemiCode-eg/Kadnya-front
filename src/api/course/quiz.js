@@ -9,6 +9,23 @@ export const getQuiz = async id => {
   }
 }
 
+export const createQuiz = async quizData => {
+  const formData = new FormData()
+  formData.append('title', quizData.title)
+  formData.append('description', quizData.description)
+  formData.append('course', quizData.courseId)
+
+  try {
+    const response = await api.post('quiz/create', formData, {
+      headers: { 'content-type': 'application/json' },
+    })
+
+    return response
+  } catch (error) {
+    return error
+  }
+}
+
 export const addQuestion = async (quizId, data) => {
   try {
     const response = await api.post(`mcq_question/create`, {
