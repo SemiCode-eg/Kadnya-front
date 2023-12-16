@@ -58,6 +58,7 @@ function Quiz() {
               submitLoading,
               setSubmitLoading,
               formRef,
+              quizId,
               quizData,
               loading,
               errorMsg,
