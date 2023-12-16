@@ -9,12 +9,13 @@ import SaveAddButtonsGroup from '../../../components/quiz/questions/SaveAddButto
 import useUpdateQuestion from '../../../hooks/use-update-questions'
 
 export default function AddQuiz() {
-  const { quizData, loading, errorMsg, refreshData } = useOutletContext()
+  const { quizId, quizData, loading, errorMsg, refreshData } =
+    useOutletContext()
   const { questionsKeys, questions, dispatchQuestions } = useQuestionsReducer()
   const [expanded, setExpanded] = useState(null)
   const [questionsError, setQuestionsError] = useState(errorMsg)
   const { updateQuestions, loading: updateLoading } = useUpdateQuestion(
-    quizData.id,
+    quizId,
     questions,
     setQuestionsError,
   )
