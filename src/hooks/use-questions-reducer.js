@@ -1,10 +1,7 @@
 import { useReducer } from 'react'
 
 export default function useQuestionsReducer() {
-  const [questions, dispatchQuestions] = useReducer(
-    questionsReducer,
-    initialQuestion,
-  )
+  const [questions, dispatchQuestions] = useReducer(questionsReducer, [])
 
   return { questionsKeys, questions, dispatchQuestions }
 }
