@@ -5,7 +5,7 @@ function ModuleQuiz({ text, quizId }) {
   const { id } = useParams()
 
   return (
-    <div className="flex justify-between flex-1 py-3 px-[15px] rounded-xl shadow-md bg-white">
+    <div className="flex justify-between flex-1 py-3 px-[15px] rounded-xl shadow bg-white mb-0.5">
       <div className="flex items-end gap-2">
         <NotePencil size={24} />
         <p className="text-sm font-[500]">{text}</p>

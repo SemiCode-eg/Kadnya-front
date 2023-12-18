@@ -4,7 +4,6 @@ import { updateQuiz } from '../../../api/course/quiz'
 import HandleErrorLoad from '../../../components/handleErrorLoad'
 import Details from '../../../components/quiz/quizSettings/Details'
 import Grading from '../../../components/quiz/quizSettings/Grading'
-import EmptyQuizMsg from '../../../components/quiz/EmptyQuizMsg'
 
 function QuizSettings() {
   const [title, setTitle] = useState('')
@@ -46,21 +45,16 @@ function QuizSettings() {
       return
     }
 
-    const formData = new FormData()
-    formData.append('title', title)
-    formData.append('description', description)
-    formData.append('hide_aswers_result_page', hideAnswers)
-    formData.append('draft', isDraft)
-    formData.append('course', id)
-
-    if (imageAsset && imageAsset !== quizData?.image) {
-      formData.append('image', imageAsset)
-    }
-
-    if (showPassingGrade) {
-      formData.append('passing_grade', passingGrade)
-    } else {
-      formData.append('passing_grade', 0)
+    const formData = {
+      title,
+      description,
+      hideAnswers,
+      isDraft,
+      id,
+      showPassingGrade,
+      passingGrade,
+      imageAsset,
+      image: quizData?.image,
     }
 
     setSubmitLoading(true)
@@ -86,14 +80,11 @@ function QuizSettings() {
       setPassingGrade(quizData.passing_grade)
       setHideAnswers(quizData.hide_aswers_result_page)
       setImageAsset(quizData.image)
-
-      if (quizData.passing_grade > 0) {
-        setShowPassingGrade(true)
-      }
+      setShowPassingGrade(quizData.passing_grade > 0)
     }
   }, [quizData])
 
-  return quizId ? (
+  return (
     <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
       <HandleErrorLoad
         loading={loading || submitLoading}
@@ -124,8 +115,6 @@ function QuizSettings() {
         <button hidden ref={formRef} />
       </HandleErrorLoad>
     </form>
-  ) : (
-    <EmptyQuizMsg />
   )
 }
 

@@ -16,6 +16,7 @@ function Details({
   imageAsset,
   setImageAsset,
 }) {
+  console.log(imageAsset)
   return (
     <div className="border-[1.5px] border-[#ddd] rounded-[10px] p-6">
       <p className="w-full mx-auto text-sky-950 font-[600] text-xl tracking-[-0.25px] mb-8">

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ImageSquareColored from '../../assets/icons/ImageSquare.svg'
 import { ImageSquare } from '@phosphor-icons/react'
 import ImageSelectBtn from './ImageSelectBtn'
@@ -13,7 +13,7 @@ function ImageField({
   imageURL,
 }) {
   const [imageError, setImageError] = useState('')
-  const [previewedImage, setPreviewedImage] = useState(imageURL || '')
+  const [previewedImage, setPreviewedImage] = useState('')
 
   const handleImageChange = e => {
     if (e.target.files[0]) {
@@ -41,6 +41,8 @@ function ImageField({
     }
   }
 
+  useEffect(() => setPreviewedImage(imageURL), [imageURL])
+
   return isVertical ? (
     <div className="flex flex-col gap-[33px] w-full">
       <div>
@@ -49,13 +51,7 @@ function ImageField({
             className="rounded-[5px] border-[3px] border-teal-500 flex justify-center items-center h-[250px] w-full"
             style={{ height: height }}>
             <img
-              src={
-                previewedImage
-                  ? previewedImage
-                  : imageURL
-                    ? imageURL
-                    : previewedImage
-              }
+              src={previewedImage || imageURL}
               alt="uploaded-image"
               className="w-full h-full object-cover rounded-[3px]"
             />
@@ -92,11 +88,7 @@ function ImageField({
       {previewedImage || imageURL ? (
         <div className="rounded-[5px] border-[3px] border-teal-500 flex justify-center items-center h-[250px] w-full">
           <img
-            src={ previewedImage
-              ? previewedImage
-              : imageURL
-                ? imageURL
-                : previewedImage}
+            src={previewedImage || imageURL}
             alt="uploaded-image"
             className="w-full h-full object-cover rounded-[3px]"
           />
