@@ -46,7 +46,7 @@ const ProgramSettings = lazy(
   () => import('../pages/coachPrograms/programsSettings/ProgramSettings.jsx'),
 )
 const ErrorPage = lazy(() => import('../pages/errorPage/ErrorPage.jsx'))
-const Session = lazy(() => import('../pages/coaching/session'))
+const Session = lazy(() => import('../pages/coachPrograms/session'))
 
 const quizParamHandler = ({ params }) => {
   if (isNaN(params.quizId)) {
