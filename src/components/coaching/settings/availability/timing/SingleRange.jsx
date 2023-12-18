@@ -1,5 +1,5 @@
 import { MobileTimePicker } from '@mui/x-date-pickers'
-import OptionsInput from '../../optionsInput'
+import OptionsInput from '../../OptionsInput'
 import { Trash } from '@phosphor-icons/react'
 import { settingsReducerKey } from '../../../../../hooks/use-coach-settings-reducer'
 
