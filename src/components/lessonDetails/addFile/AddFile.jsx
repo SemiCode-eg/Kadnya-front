@@ -1,13 +1,12 @@
-/* eslint-disable react/prop-types */
 import { useState, useRef } from 'react'
 import CustomModal from '../../customModal'
 import { FormLabel } from '@mui/material'
-import { FolderOpen } from '@phosphor-icons/react'
-import MainButton from '../../mainButton/MainButton'
 import { CancelToken, isCancel } from 'axios'
 import api from '../../../api/api'
+import Progress from './Progress'
+import AddFileButton from './AddFileButton'
 
-function AddFile({ open, onClose, setFileName, lessonID }) {
+function AddFile({ open, onClose, setFileName, endPointUrl }) {
   const [error, setError] = useState('')
   const [showProgress, setShowProgress] = useState(false)
   const [uploadedFile, setUploadedFile] = useState(null)
@@ -34,7 +33,7 @@ function AddFile({ open, onClose, setFileName, lessonID }) {
 
     // Check file size (in bytes)
     if (file.name.length > 100) {
-      setError('Maximum file name charachters is 100.')
+      setError('Maximum file name characters is 100.')
       return
     }
 
@@ -51,7 +50,7 @@ function AddFile({ open, onClose, setFileName, lessonID }) {
     setShowProgress(true)
 
     api
-      .patch(`lessons/${lessonID}/`, formData, {
+      .patch(endPointUrl, formData, {
         onUploadProgress: ({ loaded, total }) => {
           const loading = Math.floor((loaded / total) * 100)
           setUploadedFile(prev => ({
@@ -68,9 +67,8 @@ function AddFile({ open, onClose, setFileName, lessonID }) {
         ),
         headers: { 'Content-Type': 'application/pdf' },
       })
-      .then(data => {
-        console.log(data)
-        close()
+      .then(() => {
+        onClose()
       })
       .catch(error => {
         setUploadedFile(null)
@@ -88,85 +86,32 @@ function AddFile({ open, onClose, setFileName, lessonID }) {
       })
   }
 
-  const cancelUpload = () => {
+  const handleClose = () => {
+    setShowProgress(false)
+    setError('')
     if (requestCancelRef.current) {
       requestCancelRef.current('Upload canceled.')
     }
+    onClose()
   }
 
   return (
     <CustomModal
       title="Upload file"
       open={open}
-      onClose={() => {
-        setShowProgress(false)
-        setError('')
-        if (requestCancelRef.current) {
-          requestCancelRef.current('Upload canceled.')
-        }
-        onClose()
-      }}
+      onClose={handleClose}
       fullWidth
-      maxWidth="md"
-    >
+      maxWidth="md">
       <div className="flex justify-center items-center flex-col p-20 border-[2px] border-dashed border-black/50 h-full rounded-2xl">
         <FormLabel className="flex flex-col items-center justify-center gap-5 w-full">
           {!showProgress ? (
-            <>
-              <p className="text-center font-[600] text-xl text-black">
-                Drop files here, browse files or import from
-              </p>
-              <form>
-                <input
-                  type="file"
-                  name="upload-file"
-                  onChange={uploadFile}
-                  className="w-0 h-0"
-                />
-                <button
-                  className="border-[1.5px] border-sky-950 rounded-[8px] p-3 flex justify-center items-center flex-col gap-3"
-                  type='button'
-                >
-                  <div className="flex items-center justify-center self-center bg-sky-950 rounded-full w-[42px] h-[42px]">
-                    <FolderOpen size={32} className="text-white" />
-                  </div>
-                  <p className="font-[600] text-lg text-sky-950">My Device</p>
-                </button>
-                {error.length > 0 && (
-                  <p className="text-red-500 text-lg mt-5">{error}</p>
-                )}
-              </form>
-            </>
+            <AddFileButton error={error} uploadFile={uploadFile} />
           ) : (
-            <div className="flex flex-col gap-10 justify-center items-center w-full">
-              {error.length > 0 ? (
-                <p className="text-red-500 text-lg">{error}</p>
-              ) : (
-                <div className="flex flex-col items-center justify-center gap-3 w-full">
-                  <p className="text-center font-[600] text-xl text-black">
-                    Uploading: {uploadedFile?.name}
-                  </p>
-                  <p className="text-teal-500 text-lg">
-                    {uploadedFile?.loading}%
-                  </p>
-                  <div className="relative w-full h-2.5 bg-gray-400 rounded-xl">
-                    <span
-                      className="absolute top-0 left-0 h-full w-auto rounded-lg bg-teal-500"
-                      style={{ width: `${uploadedFile?.loading}%` }}
-                    ></span>
-                  </div>
-                </div>
-              )}
-              <MainButton
-                text="Cancel Upload"
-                className="text-teal-500 text-[17px] !px-5 !mr-0 font-[500] border-[1px] border-teal-500 duration-150 hover:text-white hover:bg-teal-500"
-                isPrimary={false}
-                handleClick={e => {
-                  e.preventDefault()
-                  cancelUpload()
-                }}
-              />
-            </div>
+            <Progress
+              error={error}
+              uploadedFile={uploadedFile}
+              requestCancelRef={requestCancelRef}
+            />
           )}
         </FormLabel>
       </div>

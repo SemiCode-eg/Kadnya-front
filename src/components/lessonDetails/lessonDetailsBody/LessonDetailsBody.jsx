@@ -304,7 +304,7 @@ function LessonDetailsBody({
                         open={openAddFile}
                         onClose={() => setOpenAddFile(false)}
                         setFileName={setFileName}
-                        lessonID={lessonID}
+                        endPointUrl={`lessons/${lessonID}/`}
                       />
                     </>
                   ) : (
