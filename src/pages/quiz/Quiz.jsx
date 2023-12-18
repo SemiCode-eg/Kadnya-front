@@ -9,8 +9,8 @@ import useQuiz from '../../hooks/use-quiz'
 function Quiz() {
   const [isDraft, setIsDraft] = useState(true)
   const [submitLoading, setSubmitLoading] = useState(false)
-  const { id, quizId } = useParams()
-  const { quizData, loading, errorMsg, refreshData } = useQuiz(id)
+  const { quizId } = useParams()
+  const { quizData, loading, errorMsg, refreshData } = useQuiz(quizId)
   const formRef = useRef(null)
 
   const tabs = useMemo(
