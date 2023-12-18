@@ -1,10 +1,7 @@
-/* eslint-disable react/prop-types */
 import { FormLabel } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import useLesson from '../../../hooks/use-lesson'
-import { CKEditor } from '@ckeditor/ckeditor5-react'
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import MainButton from '../../mainButton/MainButton'
 import {
   CheckFat,
@@ -25,23 +22,7 @@ import HandleErrorLoad from '../../handleErrorLoad/index'
 import useModule from '../../../hooks/use-module'
 import useModules from '../../../hooks/use-modules'
 import { updateLesson } from '../../../api/course'
-
-const toolbar = [
-  'heading',
-  '|',
-  'undo',
-  'redo',
-  'bold',
-  'italic',
-  'link',
-  'codeblock',
-  'bulletedList',
-  'numberedList',
-  'blockQuote',
-  'insertTable',
-  'indent',
-  'outdent',
-]
+import RichTextEditor from '../../richTextEditor/RichTextEditor'
 
 const visibleMenuItems = [
   {
@@ -55,17 +36,21 @@ const visibleMenuItems = [
 ]
 
 function generateModuleOptions(modulesData) {
-  return modulesData?.map(module => ({
-    value: module.id,
-    label: module.title,
-  })) || [];
+  return (
+    modulesData?.map(module => ({
+      value: module.id,
+      label: module.title,
+    })) || []
+  )
 }
 
 function generateSubmoduleOptions(moduleData) {
-  return moduleData?.submodules?.map(submodule => ({
-    value: submodule.id,
-    label: submodule.title,
-  })) || [];
+  return (
+    moduleData?.submodules?.map(submodule => ({
+      value: submodule.id,
+      label: submodule.title,
+    })) || []
+  )
 }
 
 function LessonDetailsBody({
@@ -237,23 +222,13 @@ function LessonDetailsBody({
                   setImageAsset={setImageAsset}
                   imageURL={lessonData?.image}
                 />
-                <div>
-                  <CKEditor
-                    editor={ClassicEditor}
-                    data={description}
-                    onChange={(event, editor) => {
-                      const data = editor.getData()
-                      setDescription(data)
-                      setDescriptionErrorMsg('')
-                    }}
-                    config={{
-                      toolbar,
-                    }}
-                  />
-                  <div className="text-red-500 mt-[7px]">
-                    {descriptionErrorMsg}
-                  </div>
-                </div>
+
+                <RichTextEditor
+                  description={description}
+                  descriptionErrorMsg={descriptionErrorMsg}
+                  setDescription={setDescription}
+                  setDescriptionErrorMsg={setDescriptionErrorMsg}
+                />
               </div>
               <div className="flex flex-col gap-6 xl:w-[40%] w-full justify-between">
                 <div className="flex flex-col gap-[7px] items-start w-full">
