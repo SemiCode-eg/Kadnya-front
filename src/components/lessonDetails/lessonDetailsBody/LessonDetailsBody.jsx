@@ -222,13 +222,17 @@ function LessonDetailsBody({
                   setImageAsset={setImageAsset}
                   imageURL={lessonData?.image}
                 />
-
-                <RichTextEditor
-                  description={description}
-                  descriptionErrorMsg={descriptionErrorMsg}
-                  setDescription={setDescription}
-                  setDescriptionErrorMsg={setDescriptionErrorMsg}
-                />
+                <div className="text-start">
+                  <FormLabel className="!text-black !font-[400] !text-lg">
+                    Description
+                  </FormLabel>
+                  <RichTextEditor
+                    description={description}
+                    descriptionErrorMsg={descriptionErrorMsg}
+                    setDescription={setDescription}
+                    setDescriptionErrorMsg={setDescriptionErrorMsg}
+                  />
+                </div>
               </div>
               <div className="flex flex-col gap-6 xl:w-[40%] w-full justify-between">
                 <div className="flex flex-col gap-[7px] items-start w-full">
