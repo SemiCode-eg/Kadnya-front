@@ -1,10 +1,10 @@
 import { useState, useRef } from 'react'
-import CustomModal from '../../customModal'
+import CustomModal from '../customModal'
 import { FormLabel } from '@mui/material'
 import { isCancel } from 'axios'
 import Progress from './Progress'
 import AddFileButton from './AddFileButton'
-import { uploadLessonFile } from '../../../api/course'
+import { uploadLessonFile } from '../../api/course'
 
 function AddFile({
   open = false,

@@ -1,4 +1,4 @@
-import MainButton from '../../mainButton/MainButton'
+import MainButton from '../mainButton/MainButton'
 
 function Progress({ error, uploadedFile, requestCancelRef }) {
   const cancelUpload = () => {

@@ -17,12 +17,12 @@ import TextField from '../../customFields/TextField'
 import ImageField from '../../imageField/ImageField'
 import LessonDetailsLinkCard from '../lessonDetailsLinkCard/LessonDetailsLinkCard'
 import DraftBtn from '../../draftBtn/DraftBtn'
-import AddFile from '../addFile/AddFile'
 import HandleErrorLoad from '../../handleErrorLoad/index'
 import useModule from '../../../hooks/use-module'
 import useModules from '../../../hooks/use-modules'
 import { updateLesson } from '../../../api/course'
 import RichTextEditor from '../../richTextEditor/RichTextEditor'
+import AddFile from '../../addFile/AddFile'
 
 const visibleMenuItems = [
   {
