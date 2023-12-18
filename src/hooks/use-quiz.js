@@ -17,9 +17,18 @@ export default function useQuiz(id) {
 
       const res = await getQuiz(id)
 
-      setQuizData(res.data) 
+      if (res.status !== 200 || !res.data) {
+        if (res.status === 404) {
+          setErrorMsg('Not Found!')
+        }
+        setErrorMsg(res.request.statusText || res.message)
+      } else {
+        setQuizData(res.data)
+      }
+
       setLoading(false)
     }
+
     getQuizData()
   }, [id, refresh])
 
