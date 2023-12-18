@@ -1,62 +1,16 @@
-import { FormLabel } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import useLesson from '../../../hooks/use-lesson'
-import MainButton from '../../mainButton/MainButton'
-import {
-  CheckFat,
-  Eye,
-  EyeClosed,
-  EyeSlash,
-  Link,
-  LinkSimple,
-  VideoCamera,
-} from '@phosphor-icons/react'
-import SortSelect from '../../SortSelect'
-import TextField from '../../customFields/TextField'
-import ImageField from '../../imageField/ImageField'
-import LessonDetailsLinkCard from '../lessonDetailsLinkCard/LessonDetailsLinkCard'
-import DraftBtn from '../../draftBtn/DraftBtn'
 import HandleErrorLoad from '../../handleErrorLoad/index'
-import useModule from '../../../hooks/use-module'
-import useModules from '../../../hooks/use-modules'
 import { updateLesson } from '../../../api/course'
-import RichTextEditor from '../../richTextEditor/RichTextEditor'
-import AddFile from '../../addFile/AddFile'
-
-const visibleMenuItems = [
-  {
-    Icon: EyeSlash,
-    text: 'Hide',
-  },
-  {
-    Icon: Eye,
-    text: 'Visible',
-  },
-]
-
-function generateModuleOptions(modulesData) {
-  return (
-    modulesData?.map(module => ({
-      value: module.id,
-      label: module.title,
-    })) || []
-  )
-}
-
-function generateSubmoduleOptions(moduleData) {
-  return (
-    moduleData?.submodules?.map(submodule => ({
-      value: submodule.id,
-      label: submodule.title,
-    })) || []
-  )
-}
+import LessonInfo from './LessonInfo'
+import LessonMedia from './LessonMedia'
 
 function LessonDetailsBody({
   isDraft,
   setIsDraft,
   formRef,
+  submitError,
   setSubmitError,
   setSubmitLoading,
 }) {
@@ -72,22 +26,47 @@ function LessonDetailsBody({
   const [descriptionErrorMsg, setDescriptionErrorMsg] = useState('')
   const [imageAsset, setImageAsset] = useState(lessonData?.image)
   const [isCommentHidden, setIsCommentHidden] = useState(true)
-  const [fileName, setFileName] = useState('')
   const [submodulesSortKey, setSubmodulesSortKey] = useState('NONE')
   const [modulesSortKey, setModulesSortKey] = useState(1)
-  const [isVideo, setIsVideo] = useState(false)
-  const [openAddFile, setOpenAddFile] = useState(false)
-  const [isFileUpload, setIsFileUploaded] = useState(false)
-  const {
-    modulesData,
-    errorMsg: modulesErrorMsg,
-    loading: modulesLoading,
-  } = useModules(id)
-  const {
-    moduleData,
-    errorMsg: submodulesErrorMsg,
-    loading: submodulesLoading,
-  } = useModule(modulesSortKey)
+
+  function handleSubmit(e) {
+    e.preventDefault()
+
+    if (title === '') {
+      setTitleErrorMsg('This field is required!')
+      return
+    }
+
+    if (description === '') {
+      setDescriptionErrorMsg('This field is required!')
+      return
+    }
+
+    setSubmitError('')
+    setSubmitLoading(true)
+
+    const data = {
+      title,
+      description,
+      modulesSortKey,
+      submodulesSortKey,
+      id,
+      isCommentHidden,
+      isDraft,
+      imageAsset,
+    }
+
+    updateLesson(lessonID, data).then(data => {
+      setSubmitLoading(false)
+      console.log(data)
+      if (data.status === 200 || (data.status === 201 && data.data)) {
+        setSubmitError('')
+        navigate('/products/courses')
+      } else {
+        setSubmitError('Error occurred, please try again later')
+      }
+    })
+  }
 
   useEffect(() => {
     if (lessonData) {
@@ -111,231 +90,49 @@ function LessonDetailsBody({
     }
   }, [lessonData, setIsDraft])
 
-  function handleSubmit(e) {
-    e.preventDefault()
-
-    if (title === '') {
-      setTitleErrorMsg('This field is required!')
-      return
-    }
-
-    if (description === '') {
-      setDescriptionErrorMsg('This field is required!')
-      return
-    }
-
-    setSubmitError(false)
-    setSubmitLoading(true)
-
-    const formData = new FormData()
-    formData.append('title', title)
-    formData.append('description', description)
-
-    if (submodulesSortKey === 'NONE') {
-      formData.append('module', modulesSortKey)
-      formData.append('sub_module', '')
-    } else {
-      formData.append('module', '')
-      formData.append('sub_module', submodulesSortKey)
-    }
-
-    formData.append('course', id)
-    formData.append('hide', isCommentHidden)
-    formData.append('draft', isDraft)
-    imageAsset && formData.append('image', imageAsset)
-
-    updateLesson(lessonID, formData).then(data => {
-      setSubmitLoading(false)
-      if (data.status === 200 || (data.status === 201 && data.data)) {
-        setSubmitError(false)
-        navigate('/products/courses')
-      } else {
-        setSubmitError(true)
-      }
-    })
-  }
-
   return (
-    <HandleErrorLoad loading={loading} errorMsg={errorMsg}>
-      <HandleErrorLoad loading={modulesLoading} errorMsg={modulesErrorMsg}>
-        <div className="border-[1.5px] border-[#ddd] rounded-[10px] p-6">
-          <p className="w-full mx-auto text-sky-950 font-[600] text-2xl tracking-[-0.25px] mb-8">
-            Lesson Details
-          </p>
-          {errorMsg ? (
-            <p className="text-xl text-red-500 font-bold">{errorMsg}</p>
-          ) : (
-            <form
-              className="flex xl:gap-[90px] gap-8 flex-wrap h-full"
-              onSubmit={handleSubmit}>
-              <div className="flex flex-col gap-6 xl:w-[45%] w-full">
-                <div className="flex flex-col gap-[7px] items-start w-full">
-                  <FormLabel className="!text-black !font-[400] !text-lg">
-                    Title
-                  </FormLabel>
-                  <TextField
-                    placeholder="What are the Different Ways to Earn Money?"
-                    value={title}
-                    handleChange={e => {
-                      setTitle(e.target.value)
-                      setTitleErrorMsg('')
-                    }}
-                  />
-                  <div className="text-red-500">{titleErrorMsg}</div>
-                </div>
-                <div className="flex flex-col gap-[10px] items-start w-full">
-                  <FormLabel className="!text-black !font-[400] !text-lg">
-                    Select module
-                  </FormLabel>
-                  <SortSelect
-                    label="Select Top-level Module"
-                    className="!w-full"
-                    options={generateModuleOptions(modulesData)}
-                    sortKey={modulesSortKey}
-                    onSelect={e => setModulesSortKey(e.target.value)}
-                    selectClasses="!rounded-xl !py-0"
-                  />
-                </div>
-                <div className="flex flex-col gap-[10px] items-start w-full">
-                  {generateSubmoduleOptions(moduleData)?.length > 0 && (
-                    <HandleErrorLoad
-                      loading={submodulesLoading}
-                      errorMsg={submodulesErrorMsg}>
-                      <FormLabel className="!text-black !font-[400] !text-lg">
-                        Select submodule
-                      </FormLabel>
-                      <SortSelect
-                        label="Select Submodule"
-                        className="!w-full"
-                        options={[
-                          { value: 'NONE', label: 'None' },
-                          ...generateSubmoduleOptions(moduleData),
-                        ]}
-                        sortKey={submodulesSortKey}
-                        onSelect={e => setSubmodulesSortKey(e.target.value)}
-                        selectClasses="!rounded-xl"
-                      />
-                    </HandleErrorLoad>
-                  )}
-                </div>
-                <ImageField
-                  isVertical={false}
-                  setImageAsset={setImageAsset}
-                  imageURL={lessonData?.image}
-                />
-                <div className="text-start">
-                  <FormLabel className="!text-black !font-[400] !text-lg">
-                    Description
-                  </FormLabel>
-                  <RichTextEditor
-                    description={description}
-                    descriptionErrorMsg={descriptionErrorMsg}
-                    setDescription={setDescription}
-                    setDescriptionErrorMsg={setDescriptionErrorMsg}
-                  />
-                </div>
-              </div>
-              <div className="flex flex-col gap-6 xl:w-[40%] w-full justify-between">
-                <div className="flex flex-col gap-[7px] items-start w-full">
-                  <p className="text-sky-950 font-[600] text-2xl tracking-[-0.25px]">
-                    Media
-                  </p>
-                  <div className="flex items-end gap-4 flex-wrap">
-                    <MainButton
-                      icon={<EyeClosed size={30} />}
-                      text="None"
-                      isPrimary={false}
-                      isForm={!isVideo}
-                      className={
-                        isVideo
-                          ? 'border-[1.5px] border-neutral-400/75 rounded-[5px]'
-                          : null
-                      }
-                      handleClick={() => setIsVideo(false)}
-                    />
-                    <MainButton
-                      icon={<VideoCamera size={30} weight="fill" />}
-                      text="Video"
-                      isPrimary={false}
-                      isForm={isVideo}
-                      className={
-                        !isVideo
-                          ? 'border-[1.5px] border-neutral-400/75 rounded-[5px]'
-                          : null
-                      }
-                      handleClick={() => setIsVideo(true)}
-                    />
-                  </div>
-                </div>
-                {isVideo ? (
-                  <LessonDetailsLinkCard
-                    text="add link"
-                    icon={<Link size={30} className="text-neutral-400" />}
-                  />
-                ) : (
-                  <div className="my-[120px] lg:block hidden" />
-                )}
-                <div className="flex gap-5">
-                  <p className="capitalize font-[500] text-xl text-sky-950">
-                    Comment
-                  </p>
-                  <DraftBtn
-                    draftMenuItems={visibleMenuItems}
-                    draftState={isCommentHidden}
-                    setDraftState={setIsCommentHidden}
-                  />
-                </div>
-                <div className="flex items-start flex-col gap-[22px]">
-                  <p className="capitalize font-[500] text-xl text-sky-950 flex items-end gap-1">
-                    Downloads
-                    <span className="text-zinc-400 font-normal text-sm">
-                      (.pdf)
-                    </span>
-                  </p>
-                  {!isFileUpload ? (
-                    <>
-                      <LessonDetailsLinkCard
-                        text="Add Files"
-                        icon={
-                          <LinkSimple size={30} className="text-neutral-400" />
-                        }
-                        handleClick={() => setOpenAddFile(true)}
-                      />
-                      <AddFile
-                        open={openAddFile}
-                        onClose={() => setOpenAddFile(false)}
-                        setFileName={setFileName}
-                        endPointUrl={`lessons/${lessonID}/`}
-                        setIsFileUploaded={setIsFileUploaded}
-                      />
-                    </>
-                  ) : (
-                    <LessonDetailsLinkCard
-                      text={
-                        <>
-                          {fileName}
-                          <p className="mt-1 text-teal-500">
-                            Saved on the server Successfully
-                          </p>
-                        </>
-                      }
-                      icon={
-                        <CheckFat
-                          size={56}
-                          weight="fill"
-                          className="text-teal-500"
-                        />
-                      }
-                      handleClick={() => setOpenAddFile(true)}
-                    />
-                  )}
-                </div>
-              </div>
-              <button ref={formRef} hidden type="submit" />
-            </form>
-          )}
-        </div>
-      </HandleErrorLoad>
+    <HandleErrorLoad
+      loading={loading}
+      errorMsg={errorMsg || submitError}
+      setErrorMsg={setSubmitError}>
+      <div className="border-[1.5px] border-[#ddd] rounded-[10px] p-6">
+        <p className="w-full mx-auto text-sky-950 font-[600] text-2xl tracking-[-0.25px] mb-8">
+          Lesson Details
+        </p>
+        {errorMsg ? (
+          <p className="text-md text-red-500 font-bold">{errorMsg}</p>
+        ) : (
+          <form
+            className="flex xl:gap-[90px] gap-8 flex-wrap h-full"
+            onSubmit={handleSubmit}>
+            <LessonInfo
+              title={title}
+              setTitle={setTitle}
+              titleErrorMsg={titleErrorMsg}
+              setTitleErrorMsg={setTitleErrorMsg}
+              description={description}
+              setDescription={setDescription}
+              descriptionErrorMsg={descriptionErrorMsg}
+              setDescriptionErrorMsg={setDescriptionErrorMsg}
+              setImageAsset={setImageAsset}
+              modulesSortKey={modulesSortKey}
+              setModulesSortKey={setModulesSortKey}
+              submodulesSortKey={submodulesSortKey}
+              setSubmodulesSortKey={setSubmodulesSortKey}
+              image={lessonData?.image}
+              courseId={id}
+            />
+
+            <LessonMedia
+              lessonID={lessonID}
+              isCommentHidden={isCommentHidden}
+              setIsCommentHidden={setIsCommentHidden}
+            />
+
+            <button ref={formRef} hidden type="submit" />
+          </form>
+        )}
+      </div>
     </HandleErrorLoad>
   )
 }

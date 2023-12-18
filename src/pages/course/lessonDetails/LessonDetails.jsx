@@ -19,7 +19,6 @@ function LessonDetails() {
           isDraft={isDraft}
           setIsDraft={setIsDraft}
           formRef={formRef}
-          submitError={submitError}
           setSubmitError={setSubmitError}
           submitLoading={submitLoading}
         />
@@ -27,6 +26,7 @@ function LessonDetails() {
           isDraft={isDraft}
           formRef={formRef}
           setIsDraft={setIsDraft}
+          submitError={submitError}
           setSubmitError={setSubmitError}
           setSubmitLoading={setSubmitLoading}
         />

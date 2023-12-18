@@ -4,7 +4,7 @@ import { FormLabel } from '@mui/material'
 import { isCancel } from 'axios'
 import Progress from './Progress'
 import AddFileButton from './AddFileButton'
-import { uploadLessonFile } from '../../api/course'
+import { uploadFile } from '../../api/general'
 
 function AddFile({
   open = false,
@@ -19,13 +19,13 @@ function AddFile({
 
   const requestCancelRef = useRef(null)
 
-  const uploadFile = e => {
+  const handleUploadFile = e => {
     setError('')
     const file = e.target.files[0]
 
     setShowProgress(true)
 
-    uploadLessonFile(
+    uploadFile(
       endPointUrl,
       file,
       setUploadedFile,
@@ -74,7 +74,7 @@ function AddFile({
       <div className="flex justify-center items-center flex-col p-20 border-[2px] border-dashed border-black/50 h-full rounded-2xl">
         <FormLabel className="flex flex-col items-center justify-center gap-5 w-full">
           {!showProgress ? (
-            <AddFileButton error={error} uploadFile={uploadFile} />
+            <AddFileButton error={error} uploadFile={handleUploadFile} />
           ) : (
             <Progress
               error={error}

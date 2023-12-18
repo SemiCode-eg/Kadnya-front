@@ -12,7 +12,6 @@ function LessonDetailsHeader({
   isDraft,
   setIsDraft,
   formRef,
-  submitError,
   setSubmitError,
   submitLoading,
 }) {
@@ -22,37 +21,22 @@ function LessonDetailsHeader({
   const handleDeleteLesson = () => {
     setSubmitError('')
     setDeleteLoading(true)
-    deleteLesson(lessonID)
-      .then(data => {
-        console.log(data)
-        setDeleteLoading(false)
-        if (
-          !data.request ||
-          data.request.status === 200 ||
-          data.request.status === 204
-        ) {
-          setTimeout(() => {
-            location.href = `/products/courses/${id}/outline`
-          }, 1500)
-        } else {
-          setSubmitError('Server error, try again later!')
-        }
-      })
-      .catch(() => {
-        setDeleteLoading(false)
-        setSubmitError('Server error, try again later!')
-      })
+    deleteLesson(lessonID).then(data => {
+      setDeleteLoading(false)
+      if (data.status === 204) {
+        setTimeout(() => {
+          location.href = `/products/courses/${id}/outline`
+        }, 1500)
+      } else {
+        setSubmitError('Error occurred, please try again later')
+      }
+    })
   }
 
   return (
     <div className="flex flex-col md:flex-row items-end justify-between gap-10 ">
       <GoBackBtn />
       <div className="self-end flex gap-5 md:gap-3 sm:justify-end justify-center items-center flex-wrap-reverse">
-        {submitError && (
-          <p className="text-red-500 font-bold text-lg">
-            Server Error, please try again later!
-          </p>
-        )}
         <div className="flex gap-3 items-center flex-row-reverse md:flex-row">
           <DraftBtn setDraftState={setIsDraft} draftState={isDraft} />
           <Link title="Preview" to="/">
