@@ -46,21 +46,16 @@ function QuizSettings() {
       return
     }
 
-    const formData = new FormData()
-    formData.append('title', title)
-    formData.append('description', description)
-    formData.append('hide_aswers_result_page', hideAnswers)
-    formData.append('draft', isDraft)
-    formData.append('course', id)
-
-    if (imageAsset && imageAsset !== quizData?.image) {
-      formData.append('image', imageAsset)
-    }
-
-    if (showPassingGrade) {
-      formData.append('passing_grade', passingGrade)
-    } else {
-      formData.append('passing_grade', 0)
+    const formData = {
+      title,
+      description,
+      hideAnswers,
+      isDraft,
+      id,
+      showPassingGrade,
+      passingGrade,
+      imageAsset,
+      image: quizData?.image,
     }
 
     setSubmitLoading(true)
