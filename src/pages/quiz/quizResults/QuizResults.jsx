@@ -1,6 +1,4 @@
-import { useParams } from 'react-router-dom'
 import CustomTable from '../../../components/customTable/CustomTable'
-import EmptyQuizMsg from '../../../components/quiz/EmptyQuizMsg'
 
 function createData(id, name, email, date, result) {
   const [day, month, year] = date.split('/')
@@ -53,23 +51,17 @@ const rows = [
 ]
 
 function QuizResults() {
-  const { quizId } = useParams()
-
-  return quizId ? (
-    rows.length > 0 ? (
-      <CustomTable rows={rows} headCells={headCells} />
-    ) : (
-      <div>
-        <p className="text-teal-500 font-bold text-xl mt-10">
-          No results to show
-        </p>
-        <p className="text-sm">
-          Once your quiz is published, return here to view the results.
-        </p>
-      </div>
-    )
+  return rows.length > 0 ? (
+    <CustomTable rows={rows} headCells={headCells} />
   ) : (
-    <EmptyQuizMsg />
+    <div>
+      <p className="text-teal-500 font-bold text-xl mt-10">
+        No results to show
+      </p>
+      <p className="text-sm">
+        Once your quiz is published, return here to view the results.
+      </p>
+    </div>
   )
 }
 

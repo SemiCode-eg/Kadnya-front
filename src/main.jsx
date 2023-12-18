@@ -15,7 +15,6 @@ import Quiz from './pages/quiz/Quiz.jsx'
 import AddQuiz from './pages/quiz/addQuiz/AddQuiz.jsx'
 import QuizSettings from './pages/quiz/quizSettings/QuizSettings.jsx'
 import QuizResults from './pages/quiz/quizResults/QuizResults.jsx'
-import EmptyQuizMsg from './components/quiz/EmptyQuizMsg.jsx'
 import Coaching from './pages/coaching/Coaching.jsx'
 import CoachingDashboard from './pages/coaching/coachingDashboard/CoachingDashboard.jsx'
 import CoachingPrograms from './pages/coaching/coachingPrograms/CoachingPrograms.jsx'
@@ -71,24 +70,15 @@ const router = createBrowserRouter([
         element: <LessonDetails />,
       },
       {
-        path: 'products/courses/:id/quiz',
+        path: 'products/courses/:id/quiz/:quizId',
         element: <Quiz />,
+        errorElement: <ErrorPage />,
+        loader: quizParamHandler,
         children: [
           { index: true, element: <AddQuiz /> },
-          { path: 'add', element: <AddQuiz /> },
-          {
-            path: ':quizId',
-            errorElement: <ErrorPage />,
-            loader: quizParamHandler,
-            children: [
-              { index: true, element: <AddQuiz /> },
-              { path: 'edit', element: <AddQuiz /> },
-              { path: 'settings', element: <QuizSettings /> },
-              { path: 'results', element: <QuizResults /> },
-            ],
-          },
-          { path: 'settings', element: <EmptyQuizMsg /> },
-          { path: 'results', element: <EmptyQuizMsg /> },
+          { path: 'edit', element: <AddQuiz /> },
+          { path: 'settings', element: <QuizSettings /> },
+          { path: 'results', element: <QuizResults /> },
         ],
       },
       {

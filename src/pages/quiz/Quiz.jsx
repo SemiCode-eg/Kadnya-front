@@ -2,7 +2,7 @@ import { Outlet, useParams } from 'react-router-dom'
 import CustomCard from '../../components/customCard/CustomCard'
 import GoBackBtn from '../../components/goBackBtn/GoBackBtn'
 import MiniSide from '../../components/miniSide/MiniSide'
-import { useMemo, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import QuizHeader from '../../components/quiz/quizHeader/QuizHeader'
 import useQuiz from '../../hooks/use-quiz'
 
@@ -12,24 +12,6 @@ function Quiz() {
   const { quizId } = useParams()
   const { quizData, loading, errorMsg, refreshData } = useQuiz(quizId)
   const formRef = useRef(null)
-
-  const tabs = useMemo(
-    () => [
-      {
-        title: 'Questions',
-        path: `${quizId ? `${quizId}/edit` : 'add'}`,
-      },
-      {
-        title: 'Settings',
-        path: `${quizId ? `${quizId}/settings` : 'settings'}`,
-      },
-      {
-        title: 'Results',
-        path: `${quizId ? `${quizId}/results` : 'results'}`,
-      },
-    ],
-    [quizId],
-  )
 
   return (
     <CustomCard>
@@ -72,3 +54,18 @@ function Quiz() {
 }
 
 export default Quiz
+
+const tabs = [
+  {
+    title: 'Questions',
+    path: 'edit',
+  },
+  {
+    title: 'Settings',
+    path: 'settings',
+  },
+  {
+    title: 'Results',
+    path: 'results',
+  },
+]
