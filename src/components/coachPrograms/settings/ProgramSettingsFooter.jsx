@@ -11,7 +11,6 @@ function ProgramSettingsFooter({
   programId,
   SubmitLoading,
   dispatchFormData,
-  setErrorReopen,
   setSuccessMsg,
 }) {
   const [deleteLoading, setDeleteLoading] = useState(false)
@@ -20,7 +19,6 @@ function ProgramSettingsFooter({
 
   const handleDelete = () => {
     dispatchFormData({ type: formReducerKeys.SET_ERROR, payload: '' })
-    setErrorReopen(prev => !prev)
     setDeleteLoading(true)
 
     deleteCoachProgram(programId)
@@ -34,7 +32,6 @@ function ProgramSettingsFooter({
             type: formReducerKeys.SET_ERROR,
             payload: 'Error occurred, please try again later.',
           })
-          setErrorReopen(prev => !prev)
         }
       })
       .catch(() => {
@@ -42,7 +39,6 @@ function ProgramSettingsFooter({
           type: formReducerKeys.SET_ERROR,
           payload: 'Server Error, please try again later.',
         })
-        setErrorReopen(prev => !prev)
       })
   }
 

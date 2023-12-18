@@ -4,8 +4,15 @@ import { questionsKeys } from '../../../hooks/use-questions-reducer'
 import QuestionTypeSelect from './QuestionTypeSelect'
 import GradSwitch from './GradSwitch'
 import QuestionChoices from './QuestionChoices'
+import { ERROR_MESSAGES } from '../../../utils/quiz'
+import { validateChoiceNotEmpty } from '../../../utils/quiz/validateChoicesNotEmpty'
 
-export default function QuestionFrom({ question, dispatchQuestions, index }) {
+export default function QuestionFrom({
+  index,
+  question,
+  dispatchQuestions,
+  setQuestionsError,
+}) {
   const { id, questionText, questionType, isGraded, image, choices } = question
 
   return (
@@ -24,20 +31,32 @@ export default function QuestionFrom({ question, dispatchQuestions, index }) {
 
       <QuestionTypeSelect
         value={questionType}
-        onChange={newValue => {
+        onChange={value => {
           dispatchQuestions({
             type: questionsKeys.SET_QUESTION_TYPE,
-            payload: { index, newValue },
+            payload: { index, value },
           })
         }}
-        image={image}
       />
 
       <GradSwitch
-        value={isGraded}
-        onChange={() => {
+        isGraded={isGraded}
+        onGradedChange={() => {
           dispatchQuestions({
             type: questionsKeys.TOGGLE_IS_GRADED,
+            payload: { index },
+          })
+        }}
+        imageURL={image}
+        onImageURLChange={image => {
+          dispatchQuestions({
+            type: questionsKeys.SET_IMAGE,
+            payload: { index, value: image },
+          })
+        }}
+        onImageURLDelete={() => {
+          dispatchQuestions({
+            type: questionsKeys.DELETE_IMAGE,
             payload: { index },
           })
         }}
@@ -48,11 +67,13 @@ export default function QuestionFrom({ question, dispatchQuestions, index }) {
         questionType={questionType}
         choices={choices}
         onAdd={() => {
+          if (!validateChoiceNotEmpty(choices, setQuestionsError)) return
+
           if (questionType === 'TF' && choices.length > 1) {
             dispatchQuestions({
               TypeError: questionsKeys.SET_ERROR,
               payload: {
-                newValue:
+                value:
                   "can't add more than two choices in true or false questions",
               },
             })
@@ -64,15 +85,17 @@ export default function QuestionFrom({ question, dispatchQuestions, index }) {
           })
         }}
         onDelete={choiceIndex => {
+          if (choiceIndex === 0)
+            return setQuestionsError(ERROR_MESSAGES.NO_CHOICES)
           dispatchQuestions({
             type: questionsKeys.DELETE_CHOICE,
             payload: { index, choiceIndex },
           })
         }}
-        onTextEdit={(choiceIndex, newValue) =>
+        onTextEdit={(choiceIndex, value) =>
           dispatchQuestions({
             type: questionsKeys.EDIT_CHOICE_TEXT,
-            payload: { index, choiceIndex, newValue },
+            payload: { index, choiceIndex, value },
           })
         }
         onIsTrueEdit={choiceIndex =>
@@ -81,10 +104,10 @@ export default function QuestionFrom({ question, dispatchQuestions, index }) {
             payload: { index, choiceIndex, questionType },
           })
         }
-        onImageEdit={(choiceIndex, newValue) =>
+        onImageEdit={(choiceIndex, value) =>
           dispatchQuestions({
             type: questionsKeys.EDIT_CHOICE_IMAGE,
-            payload: { index, choiceIndex, newValue },
+            payload: { index, choiceIndex, value },
           })
         }
       />

@@ -1,5 +1,5 @@
 import { settingsReducerKey } from '../../../../hooks/use-coach-settings-reducer'
-import OptionsInput from '../optionsInput'
+import OptionsInput from '../OptionsInput'
 
 function SchedulingOptions({
   noticePeriodValue,

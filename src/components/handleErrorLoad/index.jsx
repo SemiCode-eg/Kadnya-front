@@ -1,50 +1,54 @@
 import { Alert, Snackbar } from '@mui/material'
-import { useEffect, useState } from 'react'
 import Loader from './Loader'
 
-/* eslint-disable react/prop-types */
+const RESET_TIME = 5000
+
 export default function HandleErrorLoad({
-  loading,
-  errorMsg,
   children,
-  errorReopen = false,
+  loading = false,
+  errorMsg = '',
+  setErrorMsg = () => {},
   successMsg = '',
   setSuccessMsg = () => {},
 }) {
-  const [errorOpen, setErrorOpen] = useState(false)
+  const isError = Boolean(errorMsg)
+  const isSuccess = Boolean(successMsg)
 
-  useEffect(() => {
-    setErrorOpen(errorMsg === '' ? false : true)
-  }, [errorMsg, errorReopen])
+  const handleCloseError = () => {
+    setErrorMsg('')
+  }
 
-  const handleClose = () => {
-    setErrorOpen(false)
+  const handleSuccessClose = () => {
+    setSuccessMsg('')
   }
 
   if (loading) return <Loader />
 
   return (
     <>
-      {!!errorMsg && (
+      {isError && (
         <Snackbar
-          open={errorOpen}
-          autoHideDuration={6000}
-          onClose={handleClose}>
-          <Alert severity="error" sx={{ width: '100%' }} onClose={handleClose}>
+          open={isError}
+          autoHideDuration={RESET_TIME}
+          onClose={handleCloseError}>
+          <Alert
+            severity="error"
+            sx={{ width: '100%' }}
+            onClose={handleCloseError}>
             {errorMsg}
           </Alert>
         </Snackbar>
       )}
 
-      {!!successMsg && (
+      {isSuccess && (
         <Snackbar
-          open={!!successMsg}
-          autoHideDuration={6000}
-          onClose={() => setSuccessMsg('')}>
+          open={isSuccess}
+          autoHideDuration={RESET_TIME}
+          onClose={handleSuccessClose}>
           <Alert
             severity="success"
             sx={{ width: '100%' }}
-            onClose={() => setSuccessMsg('')}>
+            onClose={handleSuccessClose}>
             {successMsg}
           </Alert>
         </Snackbar>

@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material'
 import Question from './Question'
 
 export default function Questions({
@@ -5,34 +6,29 @@ export default function Questions({
   dispatchQuestions,
   expanded,
   setExpanded,
+  validateExpandedQuestion,
+  setQuestionsError,
 }) {
   const QUESTIONS_LENGTH = questions?.length
 
-  const determineQuestionPanel = (index, id) =>
-    index + 1 !== QUESTIONS_LENGTH || id ? `Q${index}` : 'NEW'
-
-  const determineQuestionTitlePrefix = (index, id) =>
-    index + 1 !== QUESTIONS_LENGTH || id ? `${index + 1}.` : 'New'
-
-  const handleQuestionExpand = panel => {
-    setExpanded(prevState => (panel !== prevState ? panel : null))
-  }
-
-  return (
-    QUESTIONS_LENGTH !== 0 &&
+  return QUESTIONS_LENGTH !== 0 ? (
     questions.map((question, index) => (
       <Question
-        key={`Q${question?.id || index}`}
+        key={`Q${question?.id || 'new'.concat(index)}`}
         index={index}
         question={question}
         dispatchQuestions={dispatchQuestions}
-        titlePrefix={determineQuestionTitlePrefix(index, question?.id)}
+        titleSuffix={`${index + 1}`}
+        panel={index}
         expanded={expanded}
-        panel={determineQuestionPanel(index, question?.id)}
-        toggleExpand={() =>
-          handleQuestionExpand(determineQuestionPanel(index, question?.id))
-        }
+        setExpanded={setExpanded}
+        validateExpandedQuestion={validateExpandedQuestion}
+        setQuestionsError={setQuestionsError}
       />
     ))
+  ) : (
+    <Typography variant="h5" component="p" className="text-red-600">
+      There&apos;s no questions added please add some
+    </Typography>
   )
 }

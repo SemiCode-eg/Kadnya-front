@@ -10,7 +10,6 @@ export function prepareFetchedQuestion(questions) {
       image: choice.choice_image,
       isTrue: choice.is_true,
     })),
-    error: '',
   }))
 
   return preparedQuestions

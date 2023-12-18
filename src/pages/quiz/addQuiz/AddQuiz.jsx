@@ -6,48 +6,61 @@ import useQuestionsReducer from '../../../hooks/use-questions-reducer'
 import HandleErrorLoad from '../../../components/handleErrorLoad'
 import Questions from '../../../components/quiz/questions'
 import SaveAddButtonsGroup from '../../../components/quiz/questions/SaveAddButtonsGroup'
+import useUpdateQuestion from '../../../hooks/use-update-questions'
 
 export default function AddQuiz() {
-  const [errorReopen, setErrorOpen] = useState(false)
-  const { quizData, loading, errorMsg, refreshData } = useOutletContext()
-  const [expanded, setExpanded] = useState('NEW')
+  const { quizId, quizData, loading, errorMsg, refreshData } =
+    useOutletContext()
   const { questionsKeys, questions, dispatchQuestions } = useQuestionsReducer()
+  const [expanded, setExpanded] = useState(null)
+  const [questionsError, setQuestionsError] = useState(errorMsg)
+  const { updateQuestions, loading: updateLoading } = useUpdateQuestion(
+    quizId,
+    questions,
+    setQuestionsError,
+  )
 
   useEffect(() => {
     if (!quizData?.questions?.length) return
 
     const preparedQuestions = prepareFetchedQuestion(quizData.questions)
 
-    dispatchQuestions({ type: questionsKeys.SET, payload: preparedQuestions })
+    dispatchQuestions({
+      type: questionsKeys.SET,
+      payload: { value: preparedQuestions },
+    })
   }, [quizData, dispatchQuestions, questionsKeys.SET])
 
   const resetQuiz = () => {
     refreshData()
-    setExpanded('NEW')
+    setExpanded(null)
+  }
+
+  const validateExpandedQuestion = () => {
+    if (!expanded) return true
+    return validateQuestion(questions.at(expanded), setQuestionsError)
   }
 
   const handleAddQuestion = () => {
+    if (!validateExpandedQuestion()) return
+
     dispatchQuestions({ type: questionsKeys.ADD })
+    setExpanded(questions.length)
   }
 
-  const handleSave = () => {
-    const isQuestionsValid = validateQuestion(
-      questions,
-      setErrorOpen,
-      dispatchQuestions,
-    )
-    if (!isQuestionsValid) return
+  const handleSave = async () => {
+    if (!validateExpandedQuestion()) return
 
-    // TODO handle send question data to API
+    await updateQuestions()
 
     resetQuiz()
   }
 
   return (
     <HandleErrorLoad
-      errorMsg={errorMsg}
-      loading={loading}
-      errorReopen={errorReopen}>
+      loading={loading || updateLoading}
+      errorMsg={questionsError}
+      setErrorMsg={setQuestionsError}>
       <Typography variant="h4" textAlign="start" marginTop={5} gutterBottom>
         Questions
       </Typography>
@@ -57,6 +70,8 @@ export default function AddQuiz() {
         dispatchQuestions={dispatchQuestions}
         expanded={expanded}
         setExpanded={setExpanded}
+        validateExpandedQuestion={validateExpandedQuestion}
+        setQuestionsError={setQuestionsError}
       />
 
       <SaveAddButtonsGroup

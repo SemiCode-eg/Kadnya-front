@@ -13,47 +13,59 @@ export default function Question({
   index = 0,
   question = {},
   dispatchQuestions = () => {},
-  titlePrefix = 1,
-  expanded = true,
+  titleSuffix = 1,
   panel,
-  toggleExpand = () => {},
+  expanded = true,
+  setExpanded,
+  validateExpandedQuestion,
+  setQuestionsError,
 }) {
-  const handleQuestionDelete = event => {
-    event.preventDefault()
+  const isExpanded = expanded === panel
+
+  const toggleExpand = () => {
+    if (!validateExpandedQuestion()) return
+
+    setExpanded(prevState => (panel !== prevState ? panel : null))
+  }
+
+  const handleQuestionDelete = () => {
     dispatchQuestions({
       type: questionsKeys.DELETE,
       payload: { index },
     })
+    setExpanded(null)
   }
 
   return (
-    <Accordion
-      expanded={expanded === panel}
-      onChange={toggleExpand}
-      className="px-4">
-      <AccordionSummary
-        expandIcon={<CaretDown size={24} />}
-        aria-controls="panel1bh-content"
-        id="panel1bh-header">
-        <Typography
-          variant="h6"
-          component="h3"
-          textAlign="start"
-          sx={{ width: '33%', flexShrink: 0 }}>
-          {titlePrefix} Question
-        </Typography>
-        <DeleteButton
-          className="!ml-auto !mr-4"
-          onDelete={handleQuestionDelete}
-        />
-      </AccordionSummary>
-      <AccordionDetails>
-        <QuestionFrom
-          question={question}
-          dispatchQuestions={dispatchQuestions}
-          index={index}
-        />
-      </AccordionDetails>
-    </Accordion>
+    <div className="relative">
+      <Accordion expanded={isExpanded} onChange={toggleExpand} className="px-4">
+        <AccordionSummary
+          expandIcon={<CaretDown size={24} />}
+          sx={{ opacity: !question?.id && 0.7 }}>
+          <Typography
+            variant="h6"
+            component="h4"
+            textAlign="start"
+            sx={{ width: '33%', flexShrink: 0 }}>
+            Question {titleSuffix}
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <QuestionFrom
+            index={index}
+            question={question}
+            dispatchQuestions={dispatchQuestions}
+            setQuestionsError={setQuestionsError}
+          />
+        </AccordionDetails>
+      </Accordion>
+
+      <DeleteButton
+        className={`!absolute top-0 right-16 ${
+          expanded === panel ? 'translate-y-4' : 'translate-y-2'
+        } !transition-transform`}
+        onDelete={handleQuestionDelete}
+      />
+    </div>
   )
 }

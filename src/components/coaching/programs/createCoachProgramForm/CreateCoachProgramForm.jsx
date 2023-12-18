@@ -46,7 +46,6 @@ function CreateCoachProgramForm({ onClose, open, setRefetch = () => {} }) {
   const [step, setStep] = useState(1)
   const [loading, setLoading] = useState(false)
   const [successMsg, setSuccessMsg] = useState('')
-  const [errorReopen, setErrorReopen] = useState(false)
   const { programData, dispatchFormData, formReducerKeys } = useProgramReducer()
 
   const handleGoBack = () => {
@@ -55,7 +54,6 @@ function CreateCoachProgramForm({ onClose, open, setRefetch = () => {} }) {
 
   const handleContinue = () => {
     dispatchFormData({ type: formReducerKeys.SET_ERROR, payload: '' })
-    setErrorReopen(prev => !prev)
 
     const validationError = validateStep(step, programData)
     if (validationError) {
@@ -81,7 +79,6 @@ function CreateCoachProgramForm({ onClose, open, setRefetch = () => {} }) {
   const handleSubmit = e => {
     e.preventDefault()
     dispatchFormData({ type: formReducerKeys.SET_ERROR, payload: '' })
-    setErrorReopen(prev => !prev)
 
     const formData = new FormData()
     formData.append('title', programData.title)
@@ -126,7 +123,6 @@ function CreateCoachProgramForm({ onClose, open, setRefetch = () => {} }) {
             type: formReducerKeys.SET_ERROR,
             payload: 'Error occurred, please try again later.',
           })
-          setErrorReopen(prev => !prev)
         }
       })
       .catch(() => {
@@ -134,7 +130,6 @@ function CreateCoachProgramForm({ onClose, open, setRefetch = () => {} }) {
           type: formReducerKeys.SET_ERROR,
           payload: 'Server Error, please try again later.',
         })
-        setErrorReopen(prev => !prev)
       })
   }
 
@@ -184,7 +179,12 @@ function CreateCoachProgramForm({ onClose, open, setRefetch = () => {} }) {
         <HandleErrorLoad
           loading={loading}
           errorMsg={programData.error}
-          errorReopen={errorReopen}>
+          setErrorMsg={value =>
+            dispatchFormData({
+              type: formReducerKeys.SET_ERROR,
+              payload: value,
+            })
+          }>
           <form
             className="flex flex-col gap-6 items-center sm:px-28"
             onSubmit={handleSubmit}>

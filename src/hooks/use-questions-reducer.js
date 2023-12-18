@@ -1,10 +1,7 @@
 import { useReducer } from 'react'
 
 export default function useQuestionsReducer() {
-  const [questions, dispatchQuestions] = useReducer(
-    questionsReducer,
-    initialQuestion,
-  )
+  const [questions, dispatchQuestions] = useReducer(questionsReducer, [])
 
   return { questionsKeys, questions, dispatchQuestions }
 }
@@ -18,7 +15,6 @@ const initialQuestion = [
     isGraded: false,
     image: null,
     choices: initialChoice,
-    error: '',
   },
 ]
 
@@ -26,6 +22,8 @@ export const questionsKeys = {
   SET_QUESTION_TEXT: 'SET_QUESTION_TEXT',
   SET_QUESTION_TYPE: 'SET_QUESTION_TYPE',
   TOGGLE_IS_GRADED: 'TOGGLE_IS_GRADED',
+  SET_IMAGE: 'SET_IMAGE',
+  DELETE_IMAGE: 'DELETE_IMAGE',
   ADD_CHOICE: 'ADD_CHOICE',
   EDIT_CHOICE_TEXT: 'EDIT_CHOICE_TEXT',
   EDIT_CHOICE_IMAGE: 'EDIT_CHOICE_IMAGE',
@@ -47,47 +45,61 @@ const updateState = (state, newValueIndex, newValue) => {
 const questionsReducer = (state, action) => {
   const questionIndex = action.payload?.index
   const choiceIndex = action.payload?.choiceIndex
-  const newValue = action.payload?.newValue
+  const value = action.payload?.value
 
   switch (action.type) {
     case questionsKeys.SET_QUESTION_TEXT:
       return updateState(state, questionIndex, {
-        questionText: newValue,
+        questionText: value,
       })
 
     case questionsKeys.SET_QUESTION_TYPE:
       return updateState(state, questionIndex, {
-        questionType: newValue,
+        questionType: value,
         choices: initialChoice,
       })
 
     case questionsKeys.TOGGLE_IS_GRADED:
       return updateState(state, questionIndex, {
-        isGraded: !state[questionIndex].isGraded,
+        isGraded: !state.at(questionIndex).isGraded,
+      })
+
+    case questionsKeys.SET_IMAGE:
+      return updateState(state, questionIndex, {
+        image: value,
+      })
+
+    case questionsKeys.DELETE_IMAGE:
+      return updateState(state, questionIndex, {
+        image: null,
       })
 
     case questionsKeys.ADD_CHOICE:
       return updateState(state, questionIndex, {
-        choices: [...state[questionIndex].choices, ...initialChoice],
+        choices: [...state.at(questionIndex).choices, ...initialChoice],
       })
 
     case questionsKeys.EDIT_CHOICE_TEXT:
       return updateState(state, questionIndex, {
-        choices: state[questionIndex].choices.map((choice, index) =>
-          index === choiceIndex ? { ...choice, text: newValue } : choice,
-        ),
+        choices: state
+          .at(questionIndex)
+          .choices.map((choice, index) =>
+            index === choiceIndex ? { ...choice, text: value } : choice,
+          ),
       })
 
     case questionsKeys.EDIT_CHOICE_IMAGE:
       return updateState(state, questionIndex, {
-        choices: state[questionIndex].choices.map((choice, index) =>
-          index === choiceIndex ? { ...choice, image: newValue } : choice,
-        ),
+        choices: state
+          .at(questionIndex)
+          .choices.map((choice, index) =>
+            index === choiceIndex ? { ...choice, image: value } : choice,
+          ),
       })
 
     case questionsKeys.EDIT_CHOICE_IS_TRUE:
       return updateState(state, questionIndex, {
-        choices: state[questionIndex].choices.map((choice, index) => {
+        choices: state.at(questionIndex).choices.map((choice, index) => {
           const questionType = action.payload.questionType
 
           if (questionType === 'MCQ' && index === choiceIndex)
@@ -110,14 +122,14 @@ const questionsReducer = (state, action) => {
 
     case questionsKeys.SET_ERROR:
       return updateState(state, questionIndex, {
-        error: newValue,
+        error: value,
       })
 
     case questionsKeys.INIT:
       return initialQuestion
 
     case questionsKeys.SET:
-      return [...action.payload, ...initialQuestion]
+      return value
 
     case questionsKeys.ADD:
       return [...state, ...initialQuestion]

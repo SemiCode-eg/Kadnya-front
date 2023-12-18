@@ -33,7 +33,6 @@ const validateFields = formData => {
 function ProgramSettings() {
   const [submitLoading, setSubmitLoading] = useState(false)
   const [successMsg, setSuccessMsg] = useState('')
-  const [errorReopen, setErrorReopen] = useState(false)
   const [refetch, setRefetch] = useState(false)
   const { programId } = useParams()
   const { programData, loading, errorMsg } = useCoachProgram(programId, refetch)
@@ -46,7 +45,6 @@ function ProgramSettings() {
   const handleSubmit = e => {
     e.preventDefault()
     dispatchFormData({ type: formReducerKeys.SET_ERROR, payload: '' })
-    setErrorReopen(prev => !prev)
 
     const validationError = validateFields(formData)
     if (validationError) {
@@ -81,7 +79,6 @@ function ProgramSettings() {
             type: formReducerKeys.SET_ERROR,
             payload: 'Error occurred, please try again later.',
           })
-          setErrorReopen(prev => !prev)
         }
       })
       .catch(() => {
@@ -89,7 +86,6 @@ function ProgramSettings() {
           type: formReducerKeys.SET_ERROR,
           payload: 'Server Error, please try again later.',
         })
-        setErrorReopen(prev => !prev)
       })
   }
 
@@ -142,7 +138,12 @@ function ProgramSettings() {
         <HandleErrorLoad
           loading={loading}
           errorMsg={formData.error}
-          errorReopen={errorReopen}
+          setErrorMsg={value =>
+            dispatchFormData({
+              type: formReducerKeys.SET_ERROR,
+              payload: value,
+            })
+          }
           successMsg={successMsg}
           setSuccessMsg={setSuccessMsg}>
           <ProgramDetails
@@ -157,7 +158,6 @@ function ProgramSettings() {
             SubmitLoading={submitLoading}
             programId={programId}
             dispatchFormData={dispatchFormData}
-            setErrorReopen={setErrorReopen}
             setSuccessMsg={setSuccessMsg}
           />
         </HandleErrorLoad>
