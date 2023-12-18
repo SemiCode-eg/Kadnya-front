@@ -12,9 +12,9 @@ export default function useUpdateQuestion(
     setLoading(true)
 
     const res = await updateQuizQuestions(quizId, questions)
-    console.log(res)
 
-    if (res.error) setQuestionsError(res.error.message)
+    if (res.status !== 200 || res.status !== 201)
+      setQuestionsError('Some thing went wrong. Please, try again later')
 
     setLoading(false)
   }
