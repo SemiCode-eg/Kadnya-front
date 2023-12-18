@@ -77,6 +77,7 @@ function LessonDetailsBody({
   const [modulesSortKey, setModulesSortKey] = useState(1)
   const [isVideo, setIsVideo] = useState(false)
   const [openAddFile, setOpenAddFile] = useState(false)
+  const [isFileUpload, setIsFileUploaded] = useState(false)
   const {
     modulesData,
     errorMsg: modulesErrorMsg,
@@ -291,7 +292,7 @@ function LessonDetailsBody({
                       (.pdf)
                     </span>
                   </p>
-                  {!fileName ? (
+                  {!isFileUpload ? (
                     <>
                       <LessonDetailsLinkCard
                         text="Add Files"
@@ -305,6 +306,7 @@ function LessonDetailsBody({
                         onClose={() => setOpenAddFile(false)}
                         setFileName={setFileName}
                         endPointUrl={`lessons/${lessonID}/`}
+                        setIsFileUploaded={setIsFileUploaded}
                       />
                     </>
                   ) : (
