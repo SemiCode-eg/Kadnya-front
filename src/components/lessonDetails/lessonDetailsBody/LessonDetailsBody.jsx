@@ -27,7 +27,7 @@ function LessonDetailsBody({
   const [imageAsset, setImageAsset] = useState(lessonData?.image)
   const [isCommentHidden, setIsCommentHidden] = useState(true)
   const [submodulesSortKey, setSubmodulesSortKey] = useState('NONE')
-  const [modulesSortKey, setModulesSortKey] = useState(1)
+  const [modulesSortKey, setModulesSortKey] = useState(lessonData?.module || lessonData?.sub_module)
 
   function handleSubmit(e) {
     e.preventDefault()
