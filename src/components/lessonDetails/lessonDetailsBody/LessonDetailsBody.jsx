@@ -20,9 +20,7 @@ function LessonDetailsBody({
 
   const [title, setTitle] = useState('')
   const [titleErrorMsg, setTitleErrorMsg] = useState('')
-  const [description, setDescription] = useState(
-    '<p>Add a description for your lesson</p>',
-  )
+  const [description, setDescription] = useState('')
   const [descriptionErrorMsg, setDescriptionErrorMsg] = useState('')
   const [imageAsset, setImageAsset] = useState(lessonData?.image)
   const [isCommentHidden, setIsCommentHidden] = useState(true)
