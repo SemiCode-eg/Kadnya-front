@@ -23,6 +23,7 @@ function AddFile({
   const handleUploadFile = e => {
     setError('')
     setShowProgress(true)
+    setSuccess('')
     const file = e.target.files[0]
 
     uploadFile(
