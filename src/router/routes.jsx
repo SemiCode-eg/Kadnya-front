@@ -1,26 +1,52 @@
-import RootLayout from '../RootLayout.jsx'
-import Products from '../pages/products/Products.jsx'
-import Website from '../pages/website/Website.jsx'
-import Courses from '../pages/products/courses/Courses.jsx'
-import AllProducts from '../pages/products/allProducts/AllProducts.jsx'
-import SingleCourse from '../pages/course/SingleCourse.jsx'
-import Outline from '../pages/course/outline/Outline.jsx'
-import LessonDetails from '../pages/course/lessonDetails/LessonDetails.jsx'
-import CertificateTab from '../pages/course/certificateTab/CertificateTab.jsx'
-import SittingsTab from '../pages/course/sittingsTab/SittingsTab.jsx'
-import Quiz from '../pages/quiz/Quiz.jsx'
-import AddQuiz from '../pages/quiz/addQuiz/AddQuiz.jsx'
-import QuizSettings from '../pages/quiz/quizSettings/QuizSettings.jsx'
-import QuizResults from '../pages/quiz/quizResults/QuizResults.jsx'
-import Coaching from '../pages/coaching/Coaching.jsx'
-import CoachingDashboard from '../pages/coaching/coachingDashboard/CoachingDashboard.jsx'
-import CoachingPrograms from '../pages/coaching/coachingPrograms/CoachingPrograms.jsx'
-import CoachingSittings from '../pages/coaching/coachingSittings/CoachingSittings.jsx'
-import CoachPrograms from '../pages/coachPrograms/CoachPrograms.jsx'
-import ProgramClients from '../pages/coachPrograms/programClients/ProgramClients.jsx'
-import ProgramSettings from '../pages/coachPrograms/programsSettings/ProgramSettings.jsx'
-import ErrorPage from '../pages/errorPage/ErrorPage.jsx'
+import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
+const RootLayout = lazy(() => import('../RootLayout.jsx'))
+const Products = lazy(() => import('../pages/products/Products.jsx'))
+const Website = lazy(() => import('../pages/website/Website.jsx'))
+const Courses = lazy(() => import('../pages/products/courses/Courses.jsx'))
+const AllProducts = lazy(
+  () => import('../pages/products/allProducts/AllProducts.jsx'),
+)
+const SingleCourse = lazy(() => import('../pages/course/SingleCourse.jsx'))
+const Outline = lazy(() => import('../pages/course/outline/Outline.jsx'))
+const LessonDetails = lazy(
+  () => import('../pages/course/lessonDetails/LessonDetails.jsx'),
+)
+const CertificateTab = lazy(
+  () => import('../pages/course/certificateTab/CertificateTab.jsx'),
+)
+const SittingsTab = lazy(
+  () => import('../pages/course/sittingsTab/SittingsTab.jsx'),
+)
+const Quiz = lazy(() => import('../pages/quiz/Quiz.jsx'))
+const AddQuiz = lazy(() => import('../pages/quiz/addQuiz/AddQuiz.jsx'))
+const QuizSettings = lazy(
+  () => import('../pages/quiz/quizSettings/QuizSettings.jsx'),
+)
+const QuizResults = lazy(
+  () => import('../pages/quiz/quizResults/QuizResults.jsx'),
+)
+const Coaching = lazy(() => import('../pages/coaching/Coaching.jsx'))
+const CoachingDashboard = lazy(
+  () => import('../pages/coaching/coachingDashboard/CoachingDashboard.jsx'),
+)
+const CoachingPrograms = lazy(
+  () => import('../pages/coaching/coachingPrograms/CoachingPrograms.jsx'),
+)
+const CoachingSittings = lazy(
+  () => import('../pages/coaching/coachingSittings/CoachingSittings.jsx'),
+)
+const CoachPrograms = lazy(
+  () => import('../pages/coachPrograms/CoachPrograms.jsx'),
+)
+const ProgramClients = lazy(
+  () => import('../pages/coachPrograms/programClients/ProgramClients.jsx'),
+)
+const ProgramSettings = lazy(
+  () => import('../pages/coachPrograms/programsSettings/ProgramSettings.jsx'),
+)
+const ErrorPage = lazy(() => import('../pages/errorPage/ErrorPage.jsx'))
+const Session = lazy(() => import('../pages/coachPrograms/session'))
 
 const quizParamHandler = ({ params }) => {
   if (isNaN(params.quizId)) {
@@ -94,6 +120,11 @@ export const router = createBrowserRouter([
         children: [
           { index: true, element: <ProgramClients /> },
           { path: 'clients', element: <ProgramClients /> },
+          {
+            path: 'outline',
+            element: '',
+            children: [{ path: 'session/:sessionId', element: <Session /> }],
+          },
           { path: 'settings', element: <ProgramSettings /> },
         ],
       },

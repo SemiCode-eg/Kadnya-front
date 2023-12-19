@@ -10,7 +10,7 @@ const tabs = [
   },
   {
     title: 'Package outline',
-    path: 'sessions',
+    path: 'outline',
   },
   {
     title: 'Settings',
