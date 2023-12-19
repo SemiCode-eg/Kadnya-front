@@ -14,15 +14,8 @@ function DownloadsSection({ lessonID, file, setRefetch }) {
       </p>
 
       <LessonDetailsLinkCard
-        text={
-          <>
-            Add Files
-            <span className="text-xs normal-case inline-block mt-2 text-neutral-400 font-normal">
-              Note, if you already have a file it will be replace with the new
-              one
-            </span>
-          </>
-        }
+        text="Add Files"
+        noteMsg='Note, if you already have a file it will be replace with the new one'
         icon={<LinkSimple size={30} className="text-neutral-400" />}
         handleClick={() => setOpenAddFile(true)}
       />
