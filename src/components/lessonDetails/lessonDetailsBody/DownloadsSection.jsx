@@ -13,18 +13,6 @@ function DownloadsSection({ lessonID, file, setRefetch }) {
         <span className="text-zinc-400 font-normal text-xs">(.pdf)</span>
       </p>
 
-      <LessonDetailsLinkCard
-        text="Add Files"
-        noteMsg='Note, if you already have a file it will be replace with the new one'
-        icon={<LinkSimple size={30} className="text-neutral-400" />}
-        handleClick={() => setOpenAddFile(true)}
-      />
-      <AddFile
-        open={openAddFile}
-        onClose={() => setOpenAddFile(false)}
-        endPointUrl={`lessons/${lessonID}/update/`}
-        setRefetch={setRefetch}
-      />
       {file?.link && (
         <a
           href={file.link}
@@ -35,6 +23,19 @@ function DownloadsSection({ lessonID, file, setRefetch }) {
           {file.name}
         </a>
       )}
+
+      <LessonDetailsLinkCard
+        text="Add Files"
+        noteMsg='Note, if you added new file it will replace the existing one.'
+        icon={<LinkSimple size={30} className="text-neutral-400" />}
+        handleClick={() => setOpenAddFile(true)}
+      />
+      <AddFile
+        open={openAddFile}
+        onClose={() => setOpenAddFile(false)}
+        endPointUrl={`lessons/${lessonID}/update/`}
+        setRefetch={setRefetch}
+      />
     </div>
   )
 }
