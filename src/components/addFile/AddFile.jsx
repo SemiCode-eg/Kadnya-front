@@ -5,6 +5,7 @@ import { isCancel } from 'axios'
 import Progress from './Progress'
 import AddFileButton from './AddFileButton'
 import { uploadFile } from '../../api/general'
+import HandleErrorLoad from '../handleErrorLoad'
 
 function AddFile({
   open = false,
@@ -13,6 +14,7 @@ function AddFile({
   setRefetch = () => {},
 }) {
   const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
   const [showProgress, setShowProgress] = useState(false)
   const [uploadedFile, setUploadedFile] = useState(null)
 
@@ -21,6 +23,7 @@ function AddFile({
   const handleUploadFile = e => {
     setError('')
     setShowProgress(true)
+    setSuccess('')
     const file = e.target.files[0]
 
     uploadFile(
@@ -34,8 +37,11 @@ function AddFile({
       setShowProgress(false)
       if (data) {
         if (data?.status === 200 || data?.status === 201) {
-          onClose()
-          setRefetch(prev => !prev)
+          setSuccess('File uploaded successfully.')
+          setTimeout(() => {
+            handleClose()
+            setRefetch(prev => !prev)
+          }, 600)
         } else {
           if (isCancel(data)) {
             setError('Upload canceled.')
@@ -67,18 +73,24 @@ function AddFile({
       onClose={handleClose}
       fullWidth
       maxWidth="md">
-      <div className="flex justify-center items-center flex-col p-20 border-[2px] border-dashed border-black/50 h-full rounded-2xl">
-        <FormLabel className="flex flex-col items-center justify-center gap-5 w-full">
-          {!showProgress ? (
-            <AddFileButton error={error} uploadFile={handleUploadFile} />
-          ) : (
-            <Progress
-              uploadedFile={uploadedFile}
-              requestCancelRef={requestCancelRef}
-            />
-          )}
-        </FormLabel>
-      </div>
+      <HandleErrorLoad
+        errorMsg={error}
+        setErrorMsg={setError}
+        successMsg={success}
+        setSuccessMsg={setSuccess}>
+        <div className="flex justify-center items-center flex-col p-20 border-[2px] border-dashed border-black/50 h-full rounded-2xl">
+          <FormLabel className="flex flex-col items-center justify-center gap-5 w-full">
+            {!showProgress ? (
+              <AddFileButton error={error} uploadFile={handleUploadFile} />
+            ) : (
+              <Progress
+                uploadedFile={uploadedFile}
+                requestCancelRef={requestCancelRef}
+              />
+            )}
+          </FormLabel>
+        </div>
+      </HandleErrorLoad>
     </CustomModal>
   )
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import useLesson from '../../../hooks/use-lesson'
 import HandleErrorLoad from '../../handleErrorLoad/index'
 import { updateLesson } from '../../../api/course'
@@ -16,8 +16,7 @@ function LessonDetailsBody({
 }) {
   const { id, lessonID } = useParams()
   const { lessonData, errorMsg, loading, setRefetch } = useLesson(lessonID)
-  const navigate = useNavigate()
-
+  const [success, setSuccess] = useState('')
   const [title, setTitle] = useState('')
   const [titleErrorMsg, setTitleErrorMsg] = useState('')
   const [description, setDescription] = useState('')
@@ -45,6 +44,7 @@ function LessonDetailsBody({
 
     setSubmitError('')
     setSubmitLoading(true)
+    setSuccess('')
 
     const data = {
       title,
@@ -58,10 +58,11 @@ function LessonDetailsBody({
     }
 
     updateLesson(lessonID, data).then(data => {
+      setSubmitError('')
       setSubmitLoading(false)
       if (data.status === 200 || (data.status === 201 && data.data)) {
-        setSubmitError('')
-        navigate('/products/courses')
+        setSuccess('Lesson Data updated successfully.')
+        setRefetch(prev => !prev)
       } else {
         setSubmitError('Error occurred, please try again later')
       }
@@ -99,8 +100,11 @@ function LessonDetailsBody({
   return (
     <HandleErrorLoad
       loading={loading}
+      success
       errorMsg={errorMsg || submitError}
-      setErrorMsg={setSubmitError}>
+      setErrorMsg={setSubmitError}
+      successMsg={success}
+      setSuccessMsg={setSuccess}>
       <div className="border-[1.5px] border-[#ddd] rounded-[10px] p-6">
         <p className="w-full mx-auto text-sky-950 font-[600] text-2xl tracking-[-0.25px] mb-8">
           Lesson Details
