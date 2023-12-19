@@ -32,7 +32,7 @@ function DownloadsSection({ lessonID, file, setRefetch }) {
         endPointUrl={`lessons/${lessonID}/update/`}
         setRefetch={setRefetch}
       />
-      {file.link && (
+      {file?.link && (
         <a
           href={file.link}
           target="_blank"
