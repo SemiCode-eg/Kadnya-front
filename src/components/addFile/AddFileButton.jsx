@@ -3,10 +3,10 @@ import { FolderOpen } from '@phosphor-icons/react'
 function AddFileButton({ uploadFile, error }) {
   return (
     <>
-      <p className="text-center font-[600] text-xl text-black">
+      <p className="text-center font-[500] text-lg text-black">
         Drop files here, browse files or import from
       </p>
-      <form>
+      <form className="flex flex-col items-center gap-2">
         <input
           type="file"
           name="upload-file"
@@ -20,7 +20,7 @@ function AddFileButton({ uploadFile, error }) {
           <p className="font-[600] text-lg text-sky-950">My Device</p>
         </div>
         {error.length > 0 && (
-          <p className="text-red-500 text-lg mt-5">{error}</p>
+          <p className="text-red-500 text-md">{error}</p>
         )}
       </form>
     </>

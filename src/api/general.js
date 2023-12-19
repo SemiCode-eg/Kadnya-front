@@ -5,7 +5,6 @@ export const uploadFile = async (
   endPointUrl,
   file,
   setUploadedFile,
-  setFileName,
   setError,
   requestCancelRef,
 ) => {
@@ -47,10 +46,6 @@ export const uploadFile = async (
           ...prev,
           loading: loading,
         }))
-
-        if (loaded === total) {
-          setFileName(fileName)
-        }
       },
       cancelToken: new CancelToken(
         cancel => (requestCancelRef.current = cancel),

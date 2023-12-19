@@ -10,8 +10,7 @@ function AddFile({
   open = false,
   endPointUrl = '',
   onClose = () => {},
-  setFileName = () => {},
-  setIsFileUploaded = () => {},
+  setRefetch = () => {},
 }) {
   const [error, setError] = useState('')
   const [showProgress, setShowProgress] = useState(false)
@@ -21,35 +20,32 @@ function AddFile({
 
   const handleUploadFile = e => {
     setError('')
-    const file = e.target.files[0]
-
     setShowProgress(true)
+    const file = e.target.files[0]
 
     uploadFile(
       endPointUrl,
       file,
       setUploadedFile,
-      setFileName,
       setError,
       requestCancelRef,
     ).then(data => {
-      if (data.status === 200 || data.status === 201) {
-        setIsFileUploaded(true)
-        onClose()
-      } else {
-        setIsFileUploaded(false)
-        setUploadedFile(null)
-        setFileName('')
-        setShowProgress(false)
-
-        if (isCancel(data)) {
-          setError('Upload canceled.')
+      setUploadedFile(null)
+      setShowProgress(false)
+      if (data) {
+        if (data?.status === 200 || data?.status === 201) {
+          onClose()
+          setRefetch(prev => !prev)
         } else {
-          setError(
-            data.response?.statusText
-              ? 'Server error, please try again later'
-              : 'Please, check your network and try again later',
-          )
+          if (isCancel(data)) {
+            setError('Upload canceled.')
+          } else {
+            setError(
+              data?.response?.statusText
+                ? 'Server error, please try again later'
+                : 'Please, check your network and try again later',
+            )
+          }
         }
       }
     })
@@ -77,7 +73,6 @@ function AddFile({
             <AddFileButton error={error} uploadFile={handleUploadFile} />
           ) : (
             <Progress
-              error={error}
               uploadedFile={uploadedFile}
               requestCancelRef={requestCancelRef}
             />
