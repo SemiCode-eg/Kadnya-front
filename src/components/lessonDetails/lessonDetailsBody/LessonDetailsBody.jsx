@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import useLesson from '../../../hooks/use-lesson'
 import HandleErrorLoad from '../../handleErrorLoad/index'
 import { updateLesson } from '../../../api/course'
@@ -15,19 +15,19 @@ function LessonDetailsBody({
   setSubmitLoading,
 }) {
   const { id, lessonID } = useParams()
-  const { lessonData, errorMsg, loading } = useLesson(lessonID)
-  const navigate = useNavigate()
-
+  const { lessonData, errorMsg, loading, setRefetch } = useLesson(lessonID)
+  const [success, setSuccess] = useState('')
   const [title, setTitle] = useState('')
   const [titleErrorMsg, setTitleErrorMsg] = useState('')
-  const [description, setDescription] = useState(
-    '<p>Add a description for your lesson</p>',
-  )
+  const [description, setDescription] = useState('')
   const [descriptionErrorMsg, setDescriptionErrorMsg] = useState('')
   const [imageAsset, setImageAsset] = useState(lessonData?.image)
   const [isCommentHidden, setIsCommentHidden] = useState(true)
+  const [file, setFile] = useState(null)
   const [submodulesSortKey, setSubmodulesSortKey] = useState('NONE')
-  const [modulesSortKey, setModulesSortKey] = useState(1)
+  const [modulesSortKey, setModulesSortKey] = useState(
+    lessonData?.module || lessonData?.sub_module?.module?.id,
+  )
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -44,6 +44,7 @@ function LessonDetailsBody({
 
     setSubmitError('')
     setSubmitLoading(true)
+    setSuccess('')
 
     const data = {
       title,
@@ -57,11 +58,11 @@ function LessonDetailsBody({
     }
 
     updateLesson(lessonID, data).then(data => {
+      setSubmitError('')
       setSubmitLoading(false)
-      console.log(data)
       if (data.status === 200 || (data.status === 201 && data.data)) {
-        setSubmitError('')
-        navigate('/products/courses')
+        setSuccess('Lesson Data updated successfully.')
+        setRefetch(prev => !prev)
       } else {
         setSubmitError('Error occurred, please try again later')
       }
@@ -70,6 +71,11 @@ function LessonDetailsBody({
 
   useEffect(() => {
     if (lessonData) {
+      const fileName = lessonData?.file?.split('/').pop()
+      const refactoredFileName = fileName
+        ? `${fileName.substring(0, 13)}... .${fileName.split('.')[1]}`
+        : ''
+
       setTitle(lessonData.title)
       setImageAsset(lessonData.image)
       setModulesSortKey(
@@ -82,6 +88,7 @@ function LessonDetailsBody({
       )
       setIsCommentHidden(lessonData?.hide)
       setIsDraft(lessonData?.draft)
+      setFile({ name: refactoredFileName, link: lessonData?.file })
       if (lessonData.description !== 'undefined') {
         if (lessonData.description !== null) {
           setDescription(lessonData.description)
@@ -93,8 +100,11 @@ function LessonDetailsBody({
   return (
     <HandleErrorLoad
       loading={loading}
+      success
       errorMsg={errorMsg || submitError}
-      setErrorMsg={setSubmitError}>
+      setErrorMsg={setSubmitError}
+      successMsg={success}
+      setSuccessMsg={setSuccess}>
       <div className="border-[1.5px] border-[#ddd] rounded-[10px] p-6">
         <p className="w-full mx-auto text-sky-950 font-[600] text-2xl tracking-[-0.25px] mb-8">
           Lesson Details
@@ -127,6 +137,9 @@ function LessonDetailsBody({
               lessonID={lessonID}
               isCommentHidden={isCommentHidden}
               setIsCommentHidden={setIsCommentHidden}
+              file={file}
+              setFile={setFile}
+              setRefetch={setRefetch}
             />
 
             <button ref={formRef} hidden type="submit" />

@@ -38,11 +38,8 @@ const toolbar = [
   'bold',
   'italic',
   'link',
-  'codeblock',
   'bulletedList',
   'numberedList',
   'blockQuote',
   'insertTable',
-  'indent',
-  'outdent',
 ]

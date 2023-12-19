@@ -5,6 +5,7 @@ const useLesson = id => {
   const [lessonData, setLessonData] = useState([])
   const [loading, setLoading] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
+  const [refetch, setRefetch] = useState(false)
 
   useEffect(() => {
     if (id) {
@@ -21,9 +22,9 @@ const useLesson = id => {
         setLoading(false)
       })
     }
-  }, [id])
+  }, [id, refetch])
 
-  return { lessonData, errorMsg, loading }
+  return { lessonData, errorMsg, loading, setRefetch }
 }
 
 export default useLesson
