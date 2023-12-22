@@ -1,7 +1,7 @@
-import { MobileTimePicker } from '@mui/x-date-pickers'
-import OptionsInput from '../../OptionsInput'
+import OptionsInput from '../../../OptionsInput'
 import { Trash } from '@phosphor-icons/react'
-import { settingsReducerKey } from '../../../../../hooks/use-coach-settings-reducer'
+import { settingsReducerKey } from '../../../../../../hooks/use-coach-settings-reducer'
+import TimeRange from './TimeRange'
 
 function SingleRange({
   startTime,
@@ -10,20 +10,6 @@ function SingleRange({
   bookingWindowData,
   id,
 }) {
-  const handleStartTimeChange = value => {
-    dispatchSettingsData({
-      type: settingsReducerKey.UPDATE_START_TIME,
-      payload: { id, value },
-    })
-  }
-
-  const handleEndTimeChange = value => {
-    dispatchSettingsData({
-      type: settingsReducerKey.UPDATE_END_TIME,
-      payload: { id, value },
-    })
-  }
-
   const handleBookValue = value => {
     dispatchSettingsData({
       type: settingsReducerKey.UPDATE_BOOK_VALUE,
@@ -50,23 +36,13 @@ function SingleRange({
 
   return (
     <div className="border-[1.5px] border-[#ddd] rounded-[10px] p-4 relative">
-      <div className="flex gap-4 flex-col sm:flex-row w-full mb-2">
-        <MobileTimePicker
-          label="Start time"
-          value={startTime}
-          onChange={newValue => handleStartTimeChange(newValue)}
-          className="sm:flex-[0.5]"
-          sx={timePickerSx}
-        />
-
-        <MobileTimePicker
-          label="End time"
-          value={endTime}
-          onChange={newValue => handleEndTimeChange(newValue)}
-          className="sm:flex-[0.5]"
-          sx={timePickerSx}
-        />
-      </div>
+      <TimeRange
+        id={id}
+        dispatchSettingsData={dispatchSettingsData}
+        settingsReducerKey={settingsReducerKey}
+        startTime={startTime}
+        endTime={endTime}
+      />
 
       <OptionsInput
         sortData={bookingWindowOptions}
@@ -96,15 +72,3 @@ const bookingWindowOptions = [
   { value: 'WEEK', label: 'weeks' },
   { value: 'MONTH', label: 'months' },
 ]
-
-const timePickerSx = {
-  '& .MuiInputBase-input': {
-    paddingTop: '0.5rem',
-    paddingBottom: '0.5rem',
-    borderRadius: '100%',
-    fontSize: '0.8rem',
-  },
-  '& .MuiFormLabel-root': {
-    fontSize: '0.8rem',
-  },
-}

@@ -1,6 +1,6 @@
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import SingleRange from './SingleRange'
+import SingleRange from './singleRange/SingleRange'
 import { settingsReducerKey } from '../../../../../hooks/use-coach-settings-reducer'
 import TimingFooter from './TimingFooter'
 import EmptyAvailability from './EmptyAvailability'
