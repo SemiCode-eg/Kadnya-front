@@ -1,4 +1,4 @@
-import ProgramTimeLocationForm from '../../coaching/programs/createCoachProgramForm/ProgramTimeLocationForm'
+import ProgramTimeLocationForm from '../../coaching/programs/createProgramForm/ProgramTimeLocationForm'
 
 function Scheduling({
   programData: { scheduleType, scheduleURL, duration, location },

@@ -3,7 +3,7 @@ import { Typography } from '@mui/material'
 import MainButton from '../../mainButton/MainButton'
 import { Plus } from '@phosphor-icons/react'
 import { useState } from 'react'
-import CreateCoachProgramForm from './createCoachProgramForm/CreateCoachProgramForm'
+import CreateProgramForm from './createProgramForm/CreateProgramForm'
 
 function ProgramsHead({ count, setRefetch = () => {} }) {
   const [openCreateForm, setOpenCreateForm] = useState(false)
@@ -18,7 +18,7 @@ function ProgramsHead({ count, setRefetch = () => {} }) {
 
   return (
     <>
-      <CreateCoachProgramForm
+      <CreateProgramForm
         open={openCreateForm}
         onClose={handleClose}
         setRefetch={setRefetch}
