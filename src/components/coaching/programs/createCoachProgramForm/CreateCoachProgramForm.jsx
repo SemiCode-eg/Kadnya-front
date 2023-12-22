@@ -9,7 +9,7 @@ import ProgramTimeLocationForm from './ProgramTimeLocationForm'
 import ProgramPaidMethod from './ProgramPaidMethod'
 import useProgramReducer from '../../../../hooks/use-program-reducer'
 import { createCoachProgram } from '../../../../api/coach/program'
-import { isEmpty, isValidUrl } from '../../../../utils/validations'
+import { isEmpty, isValidUrl } from '../../../../utils/generalValidations'
 
 const maxSteps = 4
 
