@@ -3,7 +3,7 @@ import NoticePeriod from '../../../components/coaching/settings/noticePeriod/Not
 import MainButton from '../../../components/mainButton/MainButton'
 import useCoachSettingReducer from '../../../hooks/use-coach-settings-reducer'
 
-function CoachingSittings() {
+function CoachingSettings() {
   const { settingsData, dispatchSettingsData } = useCoachSettingReducer()
   console.log(settingsData)
 
@@ -29,4 +29,4 @@ function CoachingSittings() {
   )
 }
 
-export default CoachingSittings
+export default CoachingSettings
