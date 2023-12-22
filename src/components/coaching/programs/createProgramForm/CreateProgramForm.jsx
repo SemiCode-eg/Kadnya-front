@@ -3,13 +3,13 @@ import CustomModal from '../../../customModal'
 import MainButton from '../../../mainButton/MainButton'
 import AddCoursePreview from '../../../../pages/products/courses/AddCourseForm/Preview'
 import SessionType from './SessionType'
-import HandleErrorLoad from '../../../../components/handleErrorLoad/index'
+import HandleErrorLoad from '../../../handleErrorLoad/index'
 import ProgramInfoForm from './ProgramInfoForm'
 import ProgramTimeLocationForm from './ProgramTimeLocationForm'
 import ProgramPaidMethod from './ProgramPaidMethod'
 import useProgramReducer from '../../../../hooks/use-program-reducer'
 import { createCoachProgram } from '../../../../api/coach/program'
-import { isEmpty, isValidUrl } from '../../../../utils/validations'
+import { isEmpty, isValidUrl } from '../../../../utils/generalValidations'
 
 const maxSteps = 4
 
@@ -42,7 +42,7 @@ const validateStep = (step, formData) => {
   return null
 }
 
-function CreateCoachProgramForm({ onClose, open, setRefetch = () => {} }) {
+function CreateProgramForm({ onClose, open, setRefetch = () => {} }) {
   const [step, setStep] = useState(1)
   const [loading, setLoading] = useState(false)
   const [successMsg, setSuccessMsg] = useState('')
@@ -233,4 +233,4 @@ function CreateCoachProgramForm({ onClose, open, setRefetch = () => {} }) {
   )
 }
 
-export default CreateCoachProgramForm
+export default CreateProgramForm

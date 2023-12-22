@@ -33,8 +33,8 @@ const CoachingDashboard = lazy(
 const CoachingPrograms = lazy(
   () => import('../pages/coaching/coachingPrograms/CoachingPrograms.jsx'),
 )
-const CoachingSittings = lazy(
-  () => import('../pages/coaching/coachingSittings/CoachingSittings.jsx'),
+const CoachingSettings = lazy(
+  () => import('../pages/coaching/coachingSettings/CoachingSettings.jsx'),
 )
 const CoachPrograms = lazy(
   () => import('../pages/coachPrograms/CoachPrograms.jsx'),
@@ -111,7 +111,7 @@ export const router = createBrowserRouter([
         children: [
           { path: 'dashboard', element: <CoachingDashboard /> },
           { path: 'programs', element: <CoachingPrograms /> },
-          { path: 'settings', element: <CoachingSittings /> },
+          { path: 'settings', element: <CoachingSettings /> },
         ],
       },
       {
