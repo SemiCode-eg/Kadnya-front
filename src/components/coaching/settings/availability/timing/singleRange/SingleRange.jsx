@@ -1,7 +1,7 @@
 import OptionsInput from '../../../OptionsInput'
-import { Trash } from '@phosphor-icons/react'
 import { settingsReducerKey } from '../../../../../../hooks/use-coach-settings-reducer'
 import TimeRange from './TimeRange'
+import DeleteRange from './DeleteRange'
 
 function SingleRange({
   startTime,
@@ -27,13 +27,6 @@ function SingleRange({
     })
   }
 
-  const handleDelete = id => {
-    dispatchSettingsData({
-      type: settingsReducerKey.DELETE_AVAILABILITY,
-      payload: id,
-    })
-  }
-
   return (
     <div className="border-[1.5px] border-[#ddd] rounded-[10px] p-4 relative">
       <TimeRange
@@ -54,13 +47,11 @@ function SingleRange({
         onUnitChange={handleBookUnit}
       />
 
-      <button
-        type="button"
-        className="absolute right-2 bottom-2 duration-150 ease-out hover:bg-red-500/5 p-1 rounded-md"
-        title="Delete"
-        onClick={() => handleDelete(id)}>
-        <Trash weight="fill" className="text-red-500" />
-      </button>
+      <DeleteRange
+        id={id}
+        dispatchSettingsData={dispatchSettingsData}
+        settingsReducerKey={settingsReducerKey}
+      />
     </div>
   )
 }
