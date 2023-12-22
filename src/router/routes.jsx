@@ -1,5 +1,6 @@
-import { lazy } from 'react'
+import { Suspense, lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
+import Loader from '../components/handleErrorLoad/Loader.jsx'
 const RootLayout = lazy(() => import('../RootLayout.jsx'))
 const Products = lazy(() => import('../pages/products/Products.jsx'))
 const Website = lazy(() => import('../pages/website/Website.jsx'))
@@ -61,7 +62,11 @@ const quizParamHandler = ({ params }) => {
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <RootLayout />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <RootLayout />
+      </Suspense>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {
