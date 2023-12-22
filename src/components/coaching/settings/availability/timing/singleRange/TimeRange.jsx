@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import TimeField from '../../../../../timeField/TimeField'
+import CustomTimeField from '../../../../../customTimeField/CustomTimeField'
 
 const modifiedTime = time => {
   return time
@@ -25,6 +25,7 @@ function TimeRange({
   }
 
   const handleEndTimeChange = value => {
+    // console.log(value['$H'])
     dispatchSettingsData({
       type: settingsReducerKey.UPDATE_END_TIME,
       payload: { id, value: modifiedTime(value) },
@@ -33,19 +34,19 @@ function TimeRange({
 
   return (
     <div className="flex gap-4 flex-col sm:flex-row w-full mb-2">
-      <TimeField
+      <CustomTimeField
         label="Start time"
         value={startTime}
         onChange={newValue => setTimeValue(newValue)}
-        onClose={() => handleStartTimeChange(timeValue)}
+        onBlur={() => handleStartTimeChange(timeValue)}
         className="sm:flex-[0.5]"
       />
 
-      <TimeField
+      <CustomTimeField
         label="End time"
         value={endTime}
         onChange={newValue => setTimeValue(newValue)}
-        onClose={() => handleEndTimeChange(timeValue)}
+        onBlur={() => handleEndTimeChange(timeValue)}
         className="sm:flex-[0.5]"
       />
     </div>

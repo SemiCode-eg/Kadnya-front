@@ -1,19 +1,19 @@
-import { MobileTimePicker } from '@mui/x-date-pickers'
+import { TimeField } from '@mui/x-date-pickers'
 
-function TimeField({ label, value, onChange, onClose, className }) {
+function CustomTimeField({ label, value, onChange, onBlur, className }) {
   return (
-    <MobileTimePicker
+    <TimeField
       label={label}
       value={value}
       onChange={onChange}
-      onClose={onClose}
+      onBlur={onBlur}
       className={className}
       sx={timePickerSx}
     />
   )
 }
 
-export default TimeField
+export default CustomTimeField
 
 const timePickerSx = {
   '& .MuiInputBase-input': {
