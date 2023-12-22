@@ -9,6 +9,7 @@ function SingleRange({
   dispatchSettingsData = () => {},
   bookingWindowData,
   id,
+  isOverlapped = false,
 }) {
   const handleBookValue = value => {
     dispatchSettingsData({
@@ -28,7 +29,10 @@ function SingleRange({
   }
 
   return (
-    <div className="border-[1.5px] border-[#ddd] rounded-[10px] p-4 relative">
+    <div
+      className={`border-[1.5px] ${
+        isOverlapped ? 'border-red-500' : 'border-[#ddd]'
+      } rounded-[10px] p-4 relative`}>
       <TimeRange
         id={id}
         dispatchSettingsData={dispatchSettingsData}

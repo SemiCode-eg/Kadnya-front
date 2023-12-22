@@ -1,12 +1,9 @@
 import { useState } from 'react'
 import CustomTimeField from '../../../../../customTimeField/CustomTimeField'
-
-const modifiedTime = time => {
-  return time
-    .set('minute', Math.round(time.minute() / 15) * 15)
-    .set('second', 0)
-    .set('millisecond', 0)
-}
+import {
+  isValidRange,
+  roundTimeTo15Minutes,
+} from '../../../../../../utils/coach'
 
 function TimeRange({
   id,
@@ -18,18 +15,39 @@ function TimeRange({
   const [timeValue, setTimeValue] = useState(null)
 
   const handleStartTimeChange = value => {
-    dispatchSettingsData({
-      type: settingsReducerKey.UPDATE_START_TIME,
-      payload: { id, value: modifiedTime(value) },
-    })
+    if (isValidRange(roundTimeTo15Minutes(value), endTime)) {
+      dispatchSettingsData({
+        type: settingsReducerKey.UPDATE_START_TIME,
+        payload: { id, value: roundTimeTo15Minutes(value) },
+      })
+    } else {
+      dispatchSettingsData({
+        type: settingsReducerKey.SET_ERROR,
+        payload: 'End time should be after start time.',
+      })
+      dispatchSettingsData({
+        type: settingsReducerKey.UPDATE_START_TIME,
+        payload: { id, value: endTime.set('hour', endTime['$H'] - 1) },
+      })
+    }
   }
 
   const handleEndTimeChange = value => {
-    // console.log(value['$H'])
-    dispatchSettingsData({
-      type: settingsReducerKey.UPDATE_END_TIME,
-      payload: { id, value: modifiedTime(value) },
-    })
+    if (isValidRange(startTime, roundTimeTo15Minutes(value))) {
+      dispatchSettingsData({
+        type: settingsReducerKey.UPDATE_END_TIME,
+        payload: { id, value: roundTimeTo15Minutes(value) },
+      })
+    } else {
+      dispatchSettingsData({
+        type: settingsReducerKey.SET_ERROR,
+        payload: 'End time should be after start time.',
+      })
+      dispatchSettingsData({
+        type: settingsReducerKey.UPDATE_END_TIME,
+        payload: { id, value: startTime.set('hour', startTime['$H'] + 1) },
+      })
+    }
   }
 
   return (

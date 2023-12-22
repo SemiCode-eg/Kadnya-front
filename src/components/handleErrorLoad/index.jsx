@@ -10,6 +10,7 @@ export default function HandleErrorLoad({
   setErrorMsg = () => {},
   successMsg = '',
   setSuccessMsg = () => {},
+  closeByClickAway = true,
 }) {
   const isError = Boolean(errorMsg)
   const isSuccess = Boolean(successMsg)
@@ -30,6 +31,9 @@ export default function HandleErrorLoad({
         <Snackbar
           open={isError}
           autoHideDuration={RESET_TIME}
+          ClickAwayListenerProps={
+            !closeByClickAway && { onClickAway: () => null }
+          }
           onClose={handleCloseError}>
           <Alert
             severity="error"

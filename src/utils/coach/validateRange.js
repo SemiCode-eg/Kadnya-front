@@ -1,0 +1,1 @@
+export const isValidRange = (startTime, endTime) => endTime.isAfter(startTime)
