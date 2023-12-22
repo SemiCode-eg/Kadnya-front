@@ -5,7 +5,12 @@ import { settingsReducerKey } from '../../../../../hooks/use-coach-settings-redu
 import TimingFooter from './TimingFooter'
 import EmptyAvailability from './EmptyAvailability'
 
-function AvailabilityTiming({ data = [], dispatchSettingsData, activeDay }) {
+function AvailabilityTiming({
+  data = [],
+  dispatchSettingsData,
+  activeDay,
+  overlappedAvailability,
+}) {
   const handleAddAvailability = () => {
     dispatchSettingsData({
       type: settingsReducerKey.ADD_AVAILABILITY,
@@ -31,6 +36,7 @@ function AvailabilityTiming({ data = [], dispatchSettingsData, activeDay }) {
                 bookingWindowData={option.bookingWindow}
                 dispatchSettingsData={dispatchSettingsData}
                 id={option.id}
+                isOverlapped={overlappedAvailability?.id === option.id}
               />
             ))}
           </div>

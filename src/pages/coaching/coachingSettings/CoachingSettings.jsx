@@ -1,30 +1,62 @@
+import { useState } from 'react'
 import Availability from '../../../components/coaching/settings/availability/Availability'
 import NoticePeriod from '../../../components/coaching/settings/noticePeriod/NoticePeriod'
+import HandleErrorLoad from '../../../components/handleErrorLoad'
 import MainButton from '../../../components/mainButton/MainButton'
 import useCoachSettingReducer from '../../../hooks/use-coach-settings-reducer'
+import { checkOverlapping } from '../../../utils/coach'
 
 function CoachingSettings() {
-  const { settingsData, dispatchSettingsData } = useCoachSettingReducer()
+  const [overlappedAvailability, setOverlappedAvailability] = useState(null)
+  const { settingsData, dispatchSettingsData, settingsReducerKey } =
+    useCoachSettingReducer()
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    dispatchSettingsData({ type: settingsReducerKey.SET_ERROR, payload: '' })
+    setOverlappedAvailability(null)
+
+    if (
+      !checkOverlapping(
+        settingsData.availability,
+        dispatchSettingsData,
+        setOverlappedAvailability,
+        settingsReducerKey.SET_ERROR,
+      )
+    ) {
+      return
+    } else {
+      // console.log('Not overlapping')
+    }
+  }
 
   return (
-    <form className="flex flex-col gap-5">
-      <Availability
-        data={settingsData.availability}
-        dispatchSettingsData={dispatchSettingsData}
-      />
-      <NoticePeriod
-        noticePeriodValue={settingsData.noticePeriod.value}
-        noticePeriodUnit={settingsData.noticePeriod.unit}
-        dispatchSettingsData={dispatchSettingsData}
-      />
-      <div>
-        <MainButton
-          text="Save"
-          type="submit"
-          handleClick={e => e.preventDefault()}
+    <HandleErrorLoad
+      errorMsg={settingsData.error}
+      setErrorMsg={error =>
+        dispatchSettingsData({
+          type: settingsReducerKey.SET_ERROR,
+          payload: error,
+        })
+
+      }
+      closeByClickAway={false}>
+      <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
+        <Availability
+          data={settingsData.availability}
+          dispatchSettingsData={dispatchSettingsData}
+          overlappedAvailability={overlappedAvailability}
         />
-      </div>
-    </form>
+        <NoticePeriod
+          noticePeriodValue={settingsData.noticePeriod.value}
+          noticePeriodUnit={settingsData.noticePeriod.unit}
+          dispatchSettingsData={dispatchSettingsData}
+        />
+        <div>
+          <MainButton text="Save" type="submit" />
+        </div>
+      </form>
+    </HandleErrorLoad>
   )
 }
 
