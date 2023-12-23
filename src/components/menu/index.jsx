@@ -11,11 +11,15 @@ import MenuItems from './MenuItems'
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-/* eslint-disable react/prop-types */
+const createMenuItem = (Icon, text) => ({ Icon, text })
+
 export default function SettingMenu({
   buttonIcon = <DotsThreeOutlineVertical size={28} />,
   id,
   isPreview = true,
+  isComment = true,
+  isDuplicate = true,
+  isEdit = true,
   handleDelete = () => {},
   deleteLoading,
   deleteErrorMsg,
@@ -40,37 +44,30 @@ export default function SettingMenu({
   }
 
   const settingMenuItems = useMemo(() => {
-    const menuItems = [
-      {
-        Icon: PencilSimple,
-        text: 'Edit',
-      },
-      {
-        Icon: ChatCircle,
-        text: 'Manage Comments',
-      },
-      {
-        Icon: CopySimple,
-        text: 'Duplicate',
-      },
-      {
-        Icon: TrashSimple,
-        text: deleteLoading ? 'Deleting...' : 'Delete',
-      },
-    ]
+    const menuItems = []
 
     if (isPreview) {
-      return [
-        {
-          Icon: Eye,
-          text: 'Preview',
-        },
-        ...menuItems,
-      ]
-    } else {
-      return [...menuItems]
+      menuItems.push(createMenuItem(Eye, 'Preview'))
     }
-  }, [deleteLoading, isPreview])
+
+    if (isEdit) {
+      menuItems.push(createMenuItem(PencilSimple, 'Edit'))
+    }
+
+    if (isDuplicate) {
+      menuItems.push(createMenuItem(CopySimple, 'Duplicate'))
+    }
+
+    if (isComment) {
+      menuItems.push(createMenuItem(ChatCircle, 'Manage Comments'))
+    }
+
+    menuItems.push(
+      createMenuItem(TrashSimple, deleteLoading ? 'Deleting...' : 'Delete'),
+    )
+
+    return menuItems
+  }, [deleteLoading, isComment, isDuplicate, isEdit, isPreview])
 
   const handleMenuItemClick = event => {
     event.preventDefault()
@@ -109,8 +106,7 @@ export default function SettingMenu({
         aria-controls={open ? 'setting-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
-        onClick={handleOpenMenu}
-      >
+        onClick={handleOpenMenu}>
         {buttonIcon}
       </IconButton>
       <Menu
@@ -128,8 +124,7 @@ export default function SettingMenu({
         transformOrigin={{
           vertical: 'top',
           horizontal: 'right',
-        }}
-      >
+        }}>
         <MenuItems
           items={settingMenuItems}
           handlerFunction={handleMenuItemClick}
@@ -140,13 +135,11 @@ export default function SettingMenu({
         <Snackbar
           open={deleteErrorOpen}
           autoHideDuration={6000}
-          onClose={() => setDeleteErrorOpen(false)}
-        >
+          onClose={() => setDeleteErrorOpen(false)}>
           <Alert
             severity="error"
             sx={{ width: '100%' }}
-            onClose={() => setDeleteErrorOpen(false)}
-          >
+            onClose={() => setDeleteErrorOpen(false)}>
             {deleteErrorMsg}
           </Alert>
         </Snackbar>
