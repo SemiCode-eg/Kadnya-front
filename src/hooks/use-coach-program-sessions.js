@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getCoachProgram } from '../api/coach'
+import { getCoachProgramSession } from '../api/coachProgram'
 
 const useCoachProgramSessions = id => {
   const [sessionsData, setSessionsData] = useState(null)
@@ -10,7 +10,7 @@ const useCoachProgramSessions = id => {
   useEffect(() => {
     if (id) {
       setLoading(true)
-      getCoachProgram(id).then(data => {
+      getCoachProgramSession(id).then(data => {
         if (data.status !== 200 || !data.data) {
           if (data.status === 404) {
             setErrorMsg('Not Found!')

@@ -11,3 +11,13 @@ export const addSessionTitle = async data => {
     return error
   }
 }
+
+export const getCoachProgramSession = async id => {
+  try {
+    const response = await api.get(`coach/${id}/sessions`)
+
+    return response
+  } catch (error) {
+    return error
+  }
+}

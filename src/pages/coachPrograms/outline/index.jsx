@@ -6,7 +6,7 @@ import SessionsCount from '../../../components/coachPrograms/outline/SessionsCou
 import SessionsContainer from '../../../components/coachPrograms/outline/SessionsContainer'
 
 function ProgramOutline() {
-  const { programId } = useParams
+  const { programId } = useParams()
   const { sessionsData, loading, errorMsg, setRefetch } =
     useCoachProgramSessions(programId)
 
