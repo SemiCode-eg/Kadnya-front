@@ -4,20 +4,24 @@ export const checkOverlapping = (
   setOverlappedAvailability,
   dispatchType,
 ) => {
-  for (let day of ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']) {
+  for (let day of days) {
     const dayAvailabilities = availability.filter(item => item.day === day)
 
     for (let i = 0; i < dayAvailabilities.length - 1; i++) {
       for (let j = i + 1; j < dayAvailabilities.length; j++) {
-        const startI = dayAvailabilities[i].startTime['$H']
-        const endI = dayAvailabilities[i].endTime['$H']
-        const startJ = dayAvailabilities[j].startTime['$H']
-        const endJ = dayAvailabilities[j].endTime['$H']
+        const startI = dayAvailabilities[i].startTime
+        const endI = dayAvailabilities[i].endTime
+        const startJ = dayAvailabilities[j].startTime
+        const endJ = dayAvailabilities[j].endTime
 
-        if (!(startI >= endJ || endI <= startJ)) {
+        /**
+         * The reason why i made this !endI.isAfter(startJ) not endI.isBefore(startJ)
+         * is to have the equal state !endI.isAfter(startJ) is the same as endI <= startJ
+         */
+        if (!(!startI.isBefore(endJ) || !endI.isAfter(startJ))) {
           dispatchSettingsData({
             type: dispatchType,
-            payload: `Overlapping availability is not allowed.`,
+            payload: 'Overlapping availability is not allowed.',
           })
 
           setOverlappedAvailability({
@@ -31,3 +35,5 @@ export const checkOverlapping = (
   }
   return true
 }
+
+const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
