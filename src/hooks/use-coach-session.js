@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { getSession } from '../api/coach/dashboard'
 import { prepareFetchedSession } from '../utils/coach/prepareFetchedSession'
+import { getSession } from '../api/coachProgram'
 
 export default function useCoachSession(id) {
   const [sessionData, setSessionData] = useState([])

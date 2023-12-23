@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { deleteSession, updateSession } from '../../../api/coach'
 import { Container, Typography } from '@mui/material'
 import EditForm from '../../../components/coachPrograms/session/editForm'
 import useCoachSession from '../../../hooks/use-coach-session'
 import HandleErrorLoad from '../../../components/handleErrorLoad'
 import useCoachSessionReducer from '../../../hooks/use-coach-session-reducer'
+import { deleteSession, updateSession } from '../../../api/coachProgram'
 
 export default function Session() {
   const { sessionId } = useParams()

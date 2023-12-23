@@ -3,7 +3,7 @@ import SettingMenu from '../../../menu'
 import SessionDetails from './sessionDetails'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
-import { deleteSession } from '../../../../api/coach/dashboard'
+import { deleteSession } from '../../../../api/coachProgram'
 
 function SessionCard({ session, setRefetch }) {
   const [deleteErrMsg, setDeleteErrMsg] = useState('')
