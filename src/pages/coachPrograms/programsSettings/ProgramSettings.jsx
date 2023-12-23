@@ -1,14 +1,12 @@
-import { useParams } from 'react-router-dom'
 import ProgramDetails from '../../../components/coachPrograms/settings/ProgramDetails'
 import HandleErrorLoad from '../../../components/handleErrorLoad'
-import useCoachProgram from '../../../hooks/use-coach-program'
 import Scheduling from '../../../components/coachPrograms/settings/Scheduling'
 import useProgramReducer from '../../../hooks/use-program-reducer'
 import ProgramSettingsFooter from '../../../components/coachPrograms/settings/ProgramSettingsFooter'
 import { isEmpty, isValidUrl } from '../../../utils/generalValidations'
 import { useEffect, useState } from 'react'
 import { updateCoachProgram } from '../../../api/coach'
-import ProgramHeader from '../../../components/coachPrograms/ProgramHeader'
+import { useOutletContext } from 'react-router-dom'
 
 const validateFields = formData => {
   if (isEmpty(formData.title)) {
@@ -33,9 +31,8 @@ const validateFields = formData => {
 function ProgramSettings() {
   const [submitLoading, setSubmitLoading] = useState(false)
   const [successMsg, setSuccessMsg] = useState('')
-  const [refetch, setRefetch] = useState(false)
-  const { programId } = useParams()
-  const { programData, loading, errorMsg } = useCoachProgram(programId, refetch)
+  const { programData, programId, setRefetch } = useOutletContext()
+
   const {
     dispatchFormData,
     formReducerKeys,
@@ -119,50 +116,37 @@ function ProgramSettings() {
         type: formReducerKeys.SET_LOCATION,
         payload: programData.location,
       })
-    } else {
-      dispatchFormData({
-        type: formReducerKeys.SET_ERROR,
-        payload: errorMsg,
-      })
     }
-  }, [dispatchFormData, programData, formReducerKeys, errorMsg])
+  }, [dispatchFormData, programData, formReducerKeys])
 
   return (
-    <>
-      <ProgramHeader
-        title={programData?.title}
-        ReleaseDate={programData?.ReleaseDate}
-        image={programData?.image}
-      />
-      <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
-        <HandleErrorLoad
-          loading={loading}
-          errorMsg={formData.error}
-          setErrorMsg={value =>
-            dispatchFormData({
-              type: formReducerKeys.SET_ERROR,
-              payload: value,
-            })
-          }
-          successMsg={successMsg}
-          setSuccessMsg={setSuccessMsg}>
-          <ProgramDetails
-            programData={formData}
-            dispatchFormData={dispatchFormData}
-          />
-          <Scheduling
-            programData={formData}
-            dispatchFormData={dispatchFormData}
-          />
-          <ProgramSettingsFooter
-            SubmitLoading={submitLoading}
-            programId={programId}
-            dispatchFormData={dispatchFormData}
-            setSuccessMsg={setSuccessMsg}
-          />
-        </HandleErrorLoad>
-      </form>
-    </>
+    <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
+      <HandleErrorLoad
+        errorMsg={formData.error}
+        setErrorMsg={value =>
+          dispatchFormData({
+            type: formReducerKeys.SET_ERROR,
+            payload: value,
+          })
+        }
+        successMsg={successMsg}
+        setSuccessMsg={setSuccessMsg}>
+        <ProgramDetails
+          programData={formData}
+          dispatchFormData={dispatchFormData}
+        />
+        <Scheduling
+          programData={formData}
+          dispatchFormData={dispatchFormData}
+        />
+        <ProgramSettingsFooter
+          SubmitLoading={submitLoading}
+          programId={programId}
+          dispatchFormData={dispatchFormData}
+          setSuccessMsg={setSuccessMsg}
+        />
+      </HandleErrorLoad>
+    </form>
   )
 }
 

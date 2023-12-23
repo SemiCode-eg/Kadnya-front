@@ -1,6 +1,7 @@
 import { Suspense, lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 import Loader from '../components/handleErrorLoad/Loader.jsx'
+import ProgramOutline from '../pages/coachPrograms/outline/index.jsx'
 const RootLayout = lazy(() => import('../RootLayout.jsx'))
 const Products = lazy(() => import('../pages/products/Products.jsx'))
 const Website = lazy(() => import('../pages/website/Website.jsx'))
@@ -127,7 +128,7 @@ export const router = createBrowserRouter([
           { path: 'clients', element: <ProgramClients /> },
           {
             path: 'outline',
-            element: '',
+            element: <ProgramOutline />,
             children: [{ path: 'session/:sessionId', element: <Session /> }],
           },
           { path: 'settings', element: <ProgramSettings /> },

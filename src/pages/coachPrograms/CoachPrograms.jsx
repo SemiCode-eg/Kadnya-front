@@ -1,7 +1,10 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, useParams } from 'react-router-dom'
 import CustomCard from '../../components/customCard/CustomCard'
 import GoBackBtn from '../../components/goBackBtn/GoBackBtn'
 import MiniSide from '../../components/miniSide/MiniSide'
+import useCoachProgram from '../../hooks/use-coach-program'
+import HandleErrorLoad from '../../components/handleErrorLoad'
+import ProgramHeader from '../../components/coachPrograms/ProgramHeader'
 
 const tabs = [
   {
@@ -19,6 +22,10 @@ const tabs = [
 ]
 
 function CoachPrograms() {
+  const { programId } = useParams()
+  const { programData, loading, errorMsg, setRefetch } =
+    useCoachProgram(programId)
+
   return (
     <CustomCard>
       <div className="flex lg:flex-row flex-col lg:gap-5 gap-10 mt-5">
@@ -30,7 +37,14 @@ function CoachPrograms() {
           <MiniSide tabs={tabs} />
         </div>
         <div className="w-full">
-          <Outlet />
+          <ProgramHeader
+            title={programData?.title}
+            ReleaseDate={programData?.ReleaseDate}
+            image={programData?.image}
+          />
+          <HandleErrorLoad errorMsg={errorMsg} loading={loading}>
+            <Outlet context={{ programData, programId, setRefetch }} />
+          </HandleErrorLoad>
         </div>
       </div>
     </CustomCard>

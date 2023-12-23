@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { getCoachProgram } from '../api/coach'
 
-const useCoachProgram = (id, refetch) => {
+const useCoachProgram = id => {
   const [programData, setProgramData] = useState(null)
   const [loading, setLoading] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
+  const [refetch, setRefetch] = useState(false)
 
   useEffect(() => {
     if (id) {
@@ -23,7 +24,7 @@ const useCoachProgram = (id, refetch) => {
     }
   }, [id, refetch])
 
-  return { programData, errorMsg, loading }
+  return { programData, errorMsg, loading, setRefetch }
 }
 
 export default useCoachProgram

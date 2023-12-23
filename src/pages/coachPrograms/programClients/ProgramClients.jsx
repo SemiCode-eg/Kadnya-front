@@ -1,12 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import { useEffect, useState } from 'react'
 import CustomTable from '../../../components/customTable/CustomTable'
 import CustomTabs from '../../../components/customTabs/CustomTabs'
-import useCoachProgram from '../../../hooks/use-coach-program'
-import ProgramHeader from '../../../components/coachPrograms/ProgramHeader'
-import HandleErrorLoad from '../../../components/handleErrorLoad'
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props
@@ -49,8 +46,6 @@ function createData(id, name, email, date, progress) {
 
 function ProgramClients() {
   const [value, setValue] = useState(0)
-  const { programId } = useParams()
-  const { programData, loading, errorMsg } = useCoachProgram(programId)
   const navigate = useNavigate()
 
   const location = useLocation()
@@ -73,41 +68,28 @@ function ProgramClients() {
   }, [filter])
 
   return (
-    <>
-      <ProgramHeader
-        title={programData?.title}
-        ReleaseDate={programData?.ReleaseDate}
-        image={programData?.image}
+    <Box sx={{ width: '100%' }}>
+      <CustomTabs
+        value={value}
+        handleChange={handleChange}
+        a11yProps={a11yProps}
+        tabs={tabs}
       />
-      <HandleErrorLoad loading={loading} errorMsg={errorMsg}>
-        <Box sx={{ width: '100%' }}>
-          <CustomTabs
-            value={value}
-            handleChange={handleChange}
-            a11yProps={a11yProps}
-            tabs={tabs}
-          />
-          <CustomTabPanel value={value} index={0}>
-            {rows.length > 0 ? (
-              <CustomTable
-                rows={rows}
-                headCells={headCells}
-                title="your clients"
-              />
-            ) : (
-              <p className="mt-10 text-center text-neutral-500 text-lg italic">
-                No active clients.
-              </p>
-            )}
-          </CustomTabPanel>
-          <CustomTabPanel value={value} index={1}>
-            <p className="mt-10 text-center text-neutral-500 text-lg italic">
-              No past clients.
-            </p>
-          </CustomTabPanel>
-        </Box>
-      </HandleErrorLoad>
-    </>
+      <CustomTabPanel value={value} index={0}>
+        {rows.length > 0 ? (
+          <CustomTable rows={rows} headCells={headCells} title="your clients" />
+        ) : (
+          <p className="mt-10 text-center text-neutral-500 text-lg italic">
+            No active clients.
+          </p>
+        )}
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={1}>
+        <p className="mt-10 text-center text-neutral-500 text-lg italic">
+          No past clients.
+        </p>
+      </CustomTabPanel>
+    </Box>
   )
 }
 
