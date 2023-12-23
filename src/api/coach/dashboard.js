@@ -34,9 +34,24 @@ export const updateSession = async (id, session) => {
   try {
     const formData = new FormData()
 
-    // TODO append data to the FormData class
+    formData.append('title', session.title)
+    formData.append('description', session.description)
 
-    const response = await api.put(`session/${id}update/`, formData)
+    session.agendas?.forEach((agenda, index) => {
+      formData.append(`agendas[${index}]`, agenda)
+    })
+
+    const response = await api.put(`session/${id}/update/`, formData)
+
+    return response
+  } catch (error) {
+    return error
+  }
+}
+
+export const deleteSession = async id => {
+  try {
+    const response = await api.delete(`session/${id}/delete/`)
 
     return response
   } catch (error) {
