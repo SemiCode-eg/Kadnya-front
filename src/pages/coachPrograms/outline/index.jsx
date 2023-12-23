@@ -12,7 +12,7 @@ function ProgramOutline() {
 
   return (
     <div className="flex flex-col gap-5 items-start min-h-[45vh]">
-      <ProgramOutlineHeader />
+      <ProgramOutlineHeader setRefetch={setRefetch} />
       <HandleErrorLoad errorMsg={errorMsg} loading={loading}>
         <SessionsCount count={sessionsData?.length} />
         <SessionsContainer sessionsData={sessionsData} />
