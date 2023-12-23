@@ -21,7 +21,7 @@ export default function MiniSide({ tabs }) {
               to={tab.path}
               className={({ isActive }) => {
                 return `cursor-pointer px-3 py-2 flex justify-between
-                font-medium rounded-r-lg w-40 transition-all duration-300 ease-in
+                font-medium rounded-r-lg w-40 transition-all duration-300 ease-in whitespace-nowrap
                 hover:bg-gradient-to-r hover:from-violet-200 hover:to-teal-300 ${
                   isActive
                     ? `bg-gradient-to-r from-violet-200 to-teal-300 
