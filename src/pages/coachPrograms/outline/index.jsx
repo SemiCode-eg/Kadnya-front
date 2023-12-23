@@ -2,7 +2,7 @@ import { useOutletContext } from 'react-router-dom'
 
 function ProgramOutline() {
   const {
-    programData: { sessions },
+    // programData: { sessions },
     programId,
     setRefetch,
   } = useOutletContext()

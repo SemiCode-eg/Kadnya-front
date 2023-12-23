@@ -124,7 +124,7 @@ export const router = createBrowserRouter([
         path: 'products/coaching_programs/:programId',
         element: <CoachPrograms />,
         children: [
-          { index: true, element: <ProgramClients /> },
+          { index: true, element: <ProgramOutline /> },
           { path: 'clients', element: <ProgramClients /> },
           {
             path: 'outline',
