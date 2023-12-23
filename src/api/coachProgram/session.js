@@ -12,7 +12,7 @@ export const addSessionTitle = async data => {
   }
 }
 
-export const getCoachProgramSession = async id => {
+export const getCoachProgramSessions = async id => {
   try {
     const response = await api.get(`coach/${id}/sessions`)
 
