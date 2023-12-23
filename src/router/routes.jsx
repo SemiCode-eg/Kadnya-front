@@ -129,10 +129,13 @@ export const router = createBrowserRouter([
           {
             path: 'outline',
             element: <ProgramOutline />,
-            children: [{ path: 'session/:sessionId', element: <Session /> }],
           },
           { path: 'settings', element: <ProgramSettings /> },
         ],
+      },
+      {
+        path: 'products/coaching_programs/:programId/session/:sessionId',
+        element: <Session />,
       },
       { path: 'website', element: <Website /> },
       {

@@ -1,14 +1,16 @@
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 
+// TODO Change the colors to our identity
 function RichTextEditor({
   description = '',
   descriptionErrorMsg = '',
   setDescription = () => {},
   setDescriptionErrorMsg = () => {},
+  containerClass = '',
 }) {
   return (
-    <div>
+    <div className={containerClass}>
       <CKEditor
         editor={ClassicEditor}
         data={description}
