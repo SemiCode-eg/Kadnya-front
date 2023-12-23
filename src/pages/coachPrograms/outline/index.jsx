@@ -15,7 +15,7 @@ function ProgramOutline() {
       <ProgramOutlineHeader setRefetch={setRefetch} />
       <HandleErrorLoad errorMsg={errorMsg} loading={loading}>
         <SessionsCount count={sessionsData?.length} />
-        <SessionsContainer sessionsData={sessionsData} />
+        <SessionsContainer sessionsData={sessionsData} setRefetch={setRefetch}/>
       </HandleErrorLoad>
     </div>
   )

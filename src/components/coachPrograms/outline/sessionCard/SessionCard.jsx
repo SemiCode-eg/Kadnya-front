@@ -2,8 +2,27 @@ import { DotsThreeOutline } from '@phosphor-icons/react'
 import SettingMenu from '../../../menu'
 import SessionDetails from './sessionDetails'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { deleteSession } from '../../../../api/coach/dashboard'
 
-function SessionCard({ session }) {
+function SessionCard({ session, setRefetch }) {
+  const [deleteErrMsg, setDeleteErrMsg] = useState('')
+  const [deleteLoading, setDeleteLoading] = useState(false)
+
+  const handleDelete = () => {
+    setDeleteErrMsg('')
+    setDeleteLoading(true)
+
+    deleteSession(session.id).then(data => {
+      setDeleteLoading(false)
+      if (data.status === 204) {
+        setRefetch()
+      } else {
+        setDeleteErrMsg('Something went wrong, please try again later')
+      }
+    })
+  }
+
   return (
     <Link
       to={`/products/coaching_programs/5/session/${session.id}`}
@@ -19,6 +38,9 @@ function SessionCard({ session }) {
         isComment={false}
         isEdit={false}
         isDuplicate={false}
+        handleDelete={handleDelete}
+        deleteErrorMsg={deleteErrMsg}
+        deleteLoading={deleteLoading}
       />
     </Link>
   )
