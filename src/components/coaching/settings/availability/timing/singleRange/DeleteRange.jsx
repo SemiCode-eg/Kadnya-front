@@ -11,7 +11,7 @@ function DeleteRange({id, dispatchSettingsData, settingsReducerKey}) {
   return (
     <button
       type="button"
-      className="absolute right-2 bottom-2 duration-150 ease-out hover:bg-red-500/5 p-1 rounded-md"
+      className="absolute right-1 bottom-1 duration-150 ease-out hover:bg-red-500/5 p-1 rounded-md"
       title="Delete"
       onClick={() => handleDelete(id)}>
       <Trash weight="fill" className="text-red-500" />

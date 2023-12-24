@@ -8,7 +8,7 @@ function TimingFooter({ handleAddAvailability = () => {} }) {
         <MainButton
           text="Add availability"
           icon={<Plus size={20} />}
-          className="text-teal-500 !px-3.5 text-sm font-[500] border-[1px] border-teal-500 duration-150 hover:text-white hover:bg-teal-500"
+          className="text-teal-500 !px-3.5 sm:text-sm text-xs font-[500] border-[1px] border-teal-500 duration-150 hover:text-white hover:bg-teal-500 whitespace-nowrap"
           handleClick={handleAddAvailability}
           isPrimary={false}
         />
