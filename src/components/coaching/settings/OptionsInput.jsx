@@ -21,11 +21,11 @@ function OptionsInput({
 
   return (
     <div className="text-left">
-      <FormLabel className="!text-sky-950 !font-[400] !text-sm">
+      <FormLabel className="!text-sky-950 !font-[400] sm:!text-sm !text-xs">
         {title}
       </FormLabel>
 
-      <div className="flex gap-4 mt-2 mb-1">
+      <div className="flex gap-3 mt-2 mb-1 sm:flex-row flex-col">
         <TextField
           placeholder="Minimum notice period"
           type="number"
@@ -45,8 +45,8 @@ function OptionsInput({
           hideLabel={true}
           sx={{
             '& .MuiSelect-select ': {
-              paddingTop: '0.5rem',
-              paddingBottom: '0.5rem',
+              paddingTop: '0.3rem',
+              paddingBottom: '0.3rem',
               fontSize: '0.8rem',
             },
             textAlign: 'left',

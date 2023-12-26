@@ -17,7 +17,7 @@ function AvailabilityForm({
   }, [overlappedAvailability?.day])
 
   return (
-    <div className="text-start border-[1.5px] border-[#ddd] rounded-[10px] flex gap-7 h-[60dvh]">
+    <div className="text-start border-[1.5px] border-[#ddd] rounded-[10px] flex sm:gap-7 gap-2 h-[60dvh]">
       <DaySelect activeDay={activeDay} setActiveDay={setActiveDay} />
       <AvailabilityTiming
         data={dayData}
