@@ -5,9 +5,11 @@ import HandleErrorLoad from '../../../components/handleErrorLoad'
 import MainButton from '../../../components/mainButton/MainButton'
 import useCoachSettingReducer from '../../../hooks/use-coach-settings-reducer'
 import { checkOverlapping } from '../../../utils/coach'
+import useCoachSettings from '../../../hooks/use-coach-settings'
 
 function CoachingSettings() {
   const [overlappedAvailability, setOverlappedAvailability] = useState(null)
+  const { coachSettings, loading, errorMsg, setRefetch } = useCoachSettings(1)
   const { settingsData, dispatchSettingsData, settingsReducerKey } =
     useCoachSettingReducer()
 
