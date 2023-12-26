@@ -5,25 +5,26 @@ import HandleErrorLoad from '../../../components/handleErrorLoad'
 import MainButton from '../../../components/mainButton/MainButton'
 import useCoachSettingReducer from '../../../hooks/use-coach-settings-reducer'
 import { checkOverlapping } from '../../../utils/coach'
+import useCoachSettings from '../../../hooks/use-coach-settings'
 
 function CoachingSettings() {
   const [overlappedAvailability, setOverlappedAvailability] = useState(null)
+  const { coachSettings, loading, errorMsg, setRefetch } = useCoachSettings(1)
   const { settingsData, dispatchSettingsData, settingsReducerKey } =
     useCoachSettingReducer()
 
   const handleSubmit = e => {
     e.preventDefault()
-    dispatchSettingsData({ type: settingsReducerKey.SET_ERROR, payload: '' })
     setOverlappedAvailability(null)
 
     if (
-      !checkOverlapping(
-        settingsData.availability,
-        dispatchSettingsData,
-        setOverlappedAvailability,
-        settingsReducerKey.SET_ERROR,
-      )
+      !checkOverlapping(settingsData.availability, setOverlappedAvailability)
     ) {
+      dispatchSettingsData({
+        type: settingsReducerKey.SET_ERROR,
+        payload: 'Overlapping availability is not allowed.',
+      })
+
       return
     } else {
       // console.log('Not overlapping')
@@ -38,7 +39,6 @@ function CoachingSettings() {
           type: settingsReducerKey.SET_ERROR,
           payload: error,
         })
-
       }
       closeByClickAway={false}>
       <form className="flex flex-col gap-5" onSubmit={handleSubmit}>

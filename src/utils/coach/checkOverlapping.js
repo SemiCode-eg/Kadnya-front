@@ -1,9 +1,4 @@
-export const checkOverlapping = (
-  availability,
-  dispatchSettingsData,
-  setOverlappedAvailability,
-  dispatchType,
-) => {
+export const checkOverlapping = (availability, setOverlappedAvailability) => {
   for (let day of days) {
     const dayAvailabilities = availability.filter(item => item.day === day)
 
@@ -19,11 +14,6 @@ export const checkOverlapping = (
          * is to have the equal state !endI.isAfter(startJ) is the same as endI <= startJ
          */
         if (!(!startI.isBefore(endJ) || !endI.isAfter(startJ))) {
-          dispatchSettingsData({
-            type: dispatchType,
-            payload: 'Overlapping availability is not allowed.',
-          })
-
           setOverlappedAvailability({
             id: dayAvailabilities[j].id,
             day: dayAvailabilities[j].day,
