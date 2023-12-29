@@ -12,7 +12,7 @@ export default function Agendas({
     <div className="flex flex-col gap-4 items-start">
       <Typography variant="h6">Agenda</Typography>
 
-      {!!agendas?.length && (
+      {agendas?.length ? (
         <ul className="w-full flex flex-col gap-3 ml-3">
           {agendas?.map((agenda, index) => (
             <Agenda
@@ -24,6 +24,8 @@ export default function Agendas({
             />
           ))}
         </ul>
+      ) : (
+        <p className="ml-3">No agendas added yet!</p>
       )}
 
       <Button
