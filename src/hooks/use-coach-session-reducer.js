@@ -15,6 +15,10 @@ export const sessionKeys = {
   EDIT_AGENDA: 'EDIT_AGENDA',
   ADD_FILE_RESOURCE: 'ADD_FILE_RESOURCE',
   REMOVE_FILE_RESOURCE: 'REMOVE_FILE_RESOURCE',
+  EDIT_FILE_RESOURCE: 'EDIT_FILE_RESOURCE',
+  ADD_LINK_RESOURCE: 'ADD_LINK_RESOURCE',
+  REMOVE_LINK_RESOURCE: 'REMOVE_LINK_RESOURCE',
+  EDIT_LINK_RESOURCE: 'EDIT_LINK_RESOURCE',
 }
 
 const initialSession = {
@@ -22,6 +26,7 @@ const initialSession = {
   description: '',
   agendas: [],
   fileResource: [],
+  linkResources: [],
 }
 
 const reducer = (state, action) => {
@@ -42,7 +47,7 @@ const reducer = (state, action) => {
     case sessionKeys.REMOVE_AGENDA:
       return {
         ...state,
-        agendas: state.agendas.filter((agenda, index) => index != payload),
+        agendas: state.agendas.filter((_, index) => index != payload),
       }
 
     case sessionKeys.EDIT_AGENDA:
@@ -60,7 +65,34 @@ const reducer = (state, action) => {
       return {
         ...state,
         fileResources: state.fileResources.filter(
-          fileResource => fileResource != payload,
+          (_, index) => index != payload,
+        ),
+      }
+
+    case sessionKeys.EDIT_FILE_RESOURCE:
+      return {
+        ...state,
+        fileResources: state.fileResources.map((fileResource, index) =>
+          index === payload.index ? payload.fileResource : fileResource,
+        ),
+      }
+
+    case sessionKeys.ADD_LINK_RESOURCE:
+      return { ...state, linkResources: [...state.linkResources, payload] }
+
+    case sessionKeys.REMOVE_LINK_RESOURCE:
+      return {
+        ...state,
+        linkResources: state.linkResources.filter(
+          (_, index) => index != payload,
+        ),
+      }
+
+    case sessionKeys.EDIT_LINK_RESOURCE:
+      return {
+        ...state,
+        linkResources: state.linkResources.map((linkResource, index) =>
+          index === payload.index ? payload.linkResource : linkResource,
         ),
       }
   }
