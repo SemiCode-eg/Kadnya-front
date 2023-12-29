@@ -27,6 +27,13 @@ export default function Session() {
       return setError('Please, type session title')
     if (session.description.trim() === '')
       return setError('Please, type session description')
+    if (session.agendas.length === 0)
+      return setError("Please, add session's agendas")
+    if (
+      session.fileResources.length === 0 &&
+      session.linkResources.length === 0
+    )
+      return setError("Please, add session's Resources")
 
     setSessionLoading(true)
     await updateSession(sessionId, session)
