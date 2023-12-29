@@ -40,7 +40,7 @@ export default function Session() {
   }
 
   return (
-    <Container maxWidth="sm">
+    <Container className="!max-w-3xl">
       <HandleErrorLoad
         loading={loading || sessionLoading}
         errorMsg={error}
