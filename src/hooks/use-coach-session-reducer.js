@@ -69,16 +69,8 @@ const reducer = (state, action) => {
         ),
       }
 
-    case sessionKeys.EDIT_FILE_RESOURCE:
-      return {
-        ...state,
-        fileResources: state.fileResources.map((fileResource, index) =>
-          index === payload.index ? payload.fileResource : fileResource,
-        ),
-      }
-
     case sessionKeys.ADD_LINK_RESOURCE:
-      return { ...state, linkResources: [...state.linkResources, payload] }
+      return { ...state, linkResources: [...state.linkResources, ''] }
 
     case sessionKeys.REMOVE_LINK_RESOURCE:
       return {
