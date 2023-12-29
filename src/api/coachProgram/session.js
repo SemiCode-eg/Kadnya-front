@@ -43,7 +43,19 @@ export const updateSession = async (id, session) => {
       formData.append(`agendas[${index}]`, agenda)
     })
 
-    const response = await api.put(`session/${id}/update/`, formData)
+    session.fileResources?.forEach((fileResource, index) => {
+      formData.append(`file_resourses[${index}]`, fileResource)
+    })
+
+    session.agendas?.forEach((linkResource, index) => {
+      formData.append(`link_resourses[${index}]`, linkResource)
+    })
+
+    const response = await api.put(`session/${id}/update/`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
 
     return response
   } catch (error) {
