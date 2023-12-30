@@ -3,9 +3,9 @@ import AddFile from '../../addFile/AddFile'
 import LessonDetailsLinkCard from '../lessonDetailsLinkCard/LessonDetailsLinkCard'
 import { useState } from 'react'
 
-function DownloadsSection({ lessonID, file, setRefetch }) {
+function DownloadsSection({ lessonID, file, setFile = () => {} }) {
   const [openAddFile, setOpenAddFile] = useState(false)
-
+console.log(file)
   return (
     <div className="flex items-start flex-col gap-[10px]">
       <p className="capitalize font-[500] text-lg text-sky-950 flex items-end gap-1">
@@ -26,7 +26,7 @@ function DownloadsSection({ lessonID, file, setRefetch }) {
 
       <LessonDetailsLinkCard
         text="Add Files"
-        noteMsg='Note, if you added new file it will replace the existing one.'
+        noteMsg="Note, if you added new file it will replace the existing one."
         icon={<LinkSimple size={30} className="text-neutral-400" />}
         handleClick={() => setOpenAddFile(true)}
       />
@@ -34,7 +34,7 @@ function DownloadsSection({ lessonID, file, setRefetch }) {
         open={openAddFile}
         onClose={() => setOpenAddFile(false)}
         endPointUrl={`lessons/${lessonID}/update/`}
-        setRefetch={setRefetch}
+        setFile={setFile}
       />
     </div>
   )
