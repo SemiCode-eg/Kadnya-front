@@ -139,7 +139,6 @@ function LessonDetailsBody({
               setIsCommentHidden={setIsCommentHidden}
               file={file}
               setFile={setFile}
-              setRefetch={setRefetch}
             />
 
             <button ref={formRef} hidden type="submit" />

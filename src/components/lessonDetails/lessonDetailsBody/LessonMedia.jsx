@@ -8,7 +8,6 @@ function LessonMedia({
   setIsCommentHidden,
   file = '',
   setFile = () => {},
-  setRefetch= () => {}
 }) {
   return (
     <div className="flex flex-col gap-6 xl:w-[40%] w-full justify-between">
@@ -23,7 +22,6 @@ function LessonMedia({
         lessonID={lessonID}
         file={file}
         setFile={setFile}
-        setRefetch={setRefetch}
       />
     </div>
   )

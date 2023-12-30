@@ -11,7 +11,7 @@ function AddFile({
   open = false,
   endPointUrl = '',
   onClose = () => {},
-  setRefetch = () => {},
+  setFile = () => {},
 }) {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
@@ -36,12 +36,16 @@ function AddFile({
       setUploadedFile(null)
       setShowProgress(false)
       if (data) {
-        if (data?.status === 200 || data?.status === 201) {
+        if (data.status === 200 || data.status === 201) {
           setSuccess('File uploaded successfully.')
-          setTimeout(() => {
-            handleClose()
-            setRefetch(prev => !prev)
-          }, 600)
+
+          const fileName = data.data.file?.split('/').pop()
+          const refactoredFileName = fileName
+            ? `${fileName.substring(0, 13)}... .${fileName.split('.')[1]}`
+            : ''
+
+          setFile({ name: refactoredFileName, link: data.data.file })
+          handleClose()
         } else {
           if (isCancel(data)) {
             setError('Upload canceled.')
