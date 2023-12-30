@@ -70,7 +70,45 @@ export default function EditForm({
           }
         />
 
-        <Resources />
+        <Resources
+          fileResources={session.fileResources}
+          addFileResource={fileResource => {
+            dispatchSession({
+              type: sessionKeys.ADD_FILE_RESOURCE,
+              payload: fileResource,
+            })
+          }}
+          deleteFileResource={index =>
+            dispatchSession({
+              type: sessionKeys.REMOVE_FILE_RESOURCE,
+              payload: index,
+            })
+          }
+          linkResources={session.linkResources}
+          addLinkResources={() => {
+            if (
+              session.linkResources?.at(-1)?.trim() === '' &&
+              session.linkResources?.length !== 0
+            )
+              return setError('Please, fill the resource link you added!')
+            dispatchSession({
+              type: sessionKeys.ADD_LINK_RESOURCE,
+            })
+          }}
+          deleteLinkResource={index =>
+            dispatchSession({
+              type: sessionKeys.REMOVE_LINK_RESOURCE,
+              payload: index,
+            })
+          }
+          editLinkResource={(index, linkResource) =>
+            dispatchSession({
+              type: sessionKeys.EDIT_LINK_RESOURCE,
+              payload: { index, linkResource },
+            })
+          }
+          setError={setError}
+        />
 
         <ButtonGroup onSave={onSave} onDelete={onDelete} />
       </Card>
