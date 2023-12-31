@@ -40,17 +40,21 @@ function CoachingSettings() {
           payload: refactoredAvailability(coachSettings.availabilities),
         })
       }
-      dispatchSettingsData({
-        type: settingsReducerKey.UPDATE_NOTICE_PERIOD_VALUE,
-        payload:
-          coachSettings.minimum_notice_scheduling < 60
-            ? coachSettings.minimum_notice_scheduling
-            : coachSettings.minimum_notice_scheduling / 60,
-      })
-      dispatchSettingsData({
-        type: settingsReducerKey.UPDATE_NOTICE_PERIOD_UNIT,
-        payload: coachSettings.minimum_notice_scheduling < 60 ? 'MIN' : 'HOUR',
-      })
+      
+      if (coachSettings.minimum_notice_scheduling) {
+        dispatchSettingsData({
+          type: settingsReducerKey.UPDATE_NOTICE_PERIOD_VALUE,
+          payload:
+            coachSettings.minimum_notice_scheduling < 60
+              ? coachSettings.minimum_notice_scheduling
+              : coachSettings.minimum_notice_scheduling / 60,
+        })
+        dispatchSettingsData({
+          type: settingsReducerKey.UPDATE_NOTICE_PERIOD_UNIT,
+          payload:
+            coachSettings.minimum_notice_scheduling < 60 ? 'MIN' : 'HOUR',
+        })
+      }
     }
   }, [coachSettings, dispatchSettingsData, settingsReducerKey])
 
