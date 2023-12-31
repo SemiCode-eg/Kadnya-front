@@ -7,9 +7,11 @@ import useCoachSettingReducer from '../../../hooks/use-coach-settings-reducer'
 import { checkOverlapping } from '../../../utils/coach'
 import useCoachSettings from '../../../hooks/use-coach-settings'
 import { refactoredAvailability } from '../../../utils/coach/refactorAvailability'
+import { sendCoachSettingsData } from '../../../api/coach'
 
 function CoachingSettings() {
   const [overlappedAvailability, setOverlappedAvailability] = useState(null)
+  const [successMsg, setSuccessMsg] = useState('')
   const { coachSettings, loading, errorMsg, setRefetch } = useCoachSettings(1)
   const { settingsData, dispatchSettingsData, settingsReducerKey } =
     useCoachSettingReducer()
@@ -28,7 +30,17 @@ function CoachingSettings() {
 
       return
     } else {
-      console.log('Not overlapping')
+      sendCoachSettingsData(settingsData, 1).then(data => {
+        if (data.status === 201) {
+          setSuccessMsg('Availability updated Successfully.')
+          setRefetch(prev => !prev)
+        } else {
+          dispatchSettingsData({
+            type: settingsReducerKey.SET_ERROR,
+            payload: 'Something went wrong, please try again later.',
+          })
+        }
+      })
     }
   }
 
@@ -44,15 +56,11 @@ function CoachingSettings() {
       if (coachSettings.minimum_notice_scheduling) {
         dispatchSettingsData({
           type: settingsReducerKey.UPDATE_NOTICE_PERIOD_VALUE,
-          payload:
-            coachSettings.minimum_notice_scheduling < 60
-              ? coachSettings.minimum_notice_scheduling
-              : coachSettings.minimum_notice_scheduling / 60,
+          payload: coachSettings.minimum_notice_scheduling,
         })
         dispatchSettingsData({
           type: settingsReducerKey.UPDATE_NOTICE_PERIOD_UNIT,
-          payload:
-            coachSettings.minimum_notice_scheduling < 60 ? 'MIN' : 'HOUR',
+          payload: 'MIN',
         })
       }
     }
@@ -68,6 +76,8 @@ function CoachingSettings() {
           payload: error,
         })
       }
+      successMsg={successMsg}
+      setSuccessMsg={setSuccessMsg}
       closeByClickAway={false}>
       <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
         <Availability

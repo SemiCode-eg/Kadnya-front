@@ -1,7 +1,15 @@
 import dayjs from 'dayjs'
 
 export const refactoredAvailability = availability => {
-  const result = initialAvailability
+  const result = {
+    sun: [],
+    mon: [],
+    tue: [],
+    wed: [],
+    thu: [],
+    fri: [],
+    sat: [],
+  }
 
   Object.keys(availability).forEach(day => {
     result[day] = availability[day].map((option, i) => {
@@ -17,30 +25,10 @@ export const refactoredAvailability = availability => {
         id: i,
         startTime,
         endTime,
-        bookingWindow: parseBookingWindow(option.period),
+        bookingWindow: { value: option.period, unit: 'DAY' },
       }
     })
   })
 
   return result
-}
-
-const parseBookingWindow = period => {
-  if (period < 7) {
-    return { value: period, unit: 'DAY' }
-  } else if (period < 30) {
-    return { value: period / 7, unit: 'WEEK' }
-  } else {
-    return { value: period / 30, unit: 'MONTH' }
-  }
-}
-
-const initialAvailability = {
-  Sun: [],
-  Mon: [],
-  Tue: [],
-  Wed: [],
-  Thu: [],
-  Fri: [],
-  Sat: [],
 }
