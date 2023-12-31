@@ -1,6 +1,6 @@
 export const checkOverlapping = (availability, setOverlappedAvailability) => {
   for (let day of days) {
-    const dayAvailabilities = availability.filter(item => item.day === day)
+    const dayAvailabilities = availability[day]
 
     for (let i = 0; i < dayAvailabilities.length - 1; i++) {
       for (let j = i + 1; j < dayAvailabilities.length; j++) {
@@ -16,7 +16,7 @@ export const checkOverlapping = (availability, setOverlappedAvailability) => {
         if (!(!startI.isBefore(endJ) || !endI.isAfter(startJ))) {
           setOverlappedAvailability({
             id: dayAvailabilities[j].id,
-            day: dayAvailabilities[j].day,
+            day,
           })
           return false
         }
@@ -26,4 +26,4 @@ export const checkOverlapping = (availability, setOverlappedAvailability) => {
   return true
 }
 
-const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']

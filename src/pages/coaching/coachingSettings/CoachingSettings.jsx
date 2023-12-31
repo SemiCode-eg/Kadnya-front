@@ -28,7 +28,7 @@ function CoachingSettings() {
 
       return
     } else {
-      // console.log('Not overlapping')
+      console.log('Not overlapping')
     }
   }
 
@@ -40,7 +40,7 @@ function CoachingSettings() {
           payload: refactoredAvailability(coachSettings.availabilities),
         })
       }
-      
+
       if (coachSettings.minimum_notice_scheduling) {
         dispatchSettingsData({
           type: settingsReducerKey.UPDATE_NOTICE_PERIOD_VALUE,
