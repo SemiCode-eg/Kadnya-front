@@ -64,7 +64,7 @@ export const router = createBrowserRouter([
   {
     path: '/',
     element: (
-      <Suspense fallback={<Loader />}>
+      <Suspense fallback={<Loader fullHeight={true} />}>
         <RootLayout />
       </Suspense>
     ),
