@@ -15,7 +15,15 @@ const defaultEndTime = dayjs().set('hour', 17).set('minute', 0)
 
 const settingsInitialState = {
   noticePeriod: { value: 15, unit: 'MIN' },
-  availability: [],
+  availability: {
+    Sun: [],
+    Mon: [],
+    Tue: [],
+    Wed: [],
+    Thu: [],
+    Fri: [],
+    Sat: [],
+  },
   error: '',
 }
 
@@ -24,46 +32,71 @@ const settingsReducer = (state, action) => {
     case settingsReducerKey.ADD_AVAILABILITY:
       return {
         ...state,
-        availability: [
+        availability: {
           ...state.availability,
-          initialAvailability(action.payload.day, action.payload.id),
-        ],
+          [action.payload.day]: [
+            ...(state.availability[action.payload.day] || []),
+            initialAvailability(action.payload.id),
+          ],
+        },
       }
     case settingsReducerKey.DELETE_AVAILABILITY:
       return {
         ...state,
-        availability: availabilityAfterDelete(
-          state.availability,
-          action.payload,
-        ),
+        availability: {
+          ...state.availability,
+          [action.payload.day]: [
+            ...availabilityAfterDelete(state.availability, action.payload),
+          ],
+        },
       }
     case settingsReducerKey.UPDATE_START_TIME:
       return {
         ...state,
-        availability: updateState(state.availability, action.payload.id, {
-          startTime: action.payload.value,
-        }),
+        availability: {
+          ...state.availability,
+          [action.payload.day]: [
+            ...updateState(state.availability, action.payload, {
+              startTime: action.payload.value,
+            }),
+          ],
+        },
       }
     case settingsReducerKey.UPDATE_END_TIME:
       return {
         ...state,
-        availability: updateState(state.availability, action.payload.id, {
-          endTime: action.payload.value,
-        }),
+        availability: {
+          ...state.availability,
+          [action.payload.day]: [
+            ...updateState(state.availability, action.payload, {
+              endTime: action.payload.value,
+            }),
+          ],
+        },
       }
     case settingsReducerKey.UPDATE_BOOK_VALUE:
       return {
         ...state,
-        availability: updateState(state.availability, action.payload.id, {
-          bookingWindow: action.payload.newValue,
-        }),
+        availability: {
+          ...state.availability,
+          [action.payload.day]: [
+            ...updateState(state.availability, action.payload, {
+              bookingWindow: action.payload.newValue,
+            }),
+          ],
+        },
       }
     case settingsReducerKey.UPDATE_BOOK_UNIT:
       return {
         ...state,
-        availability: updateState(state.availability, action.payload.id, {
-          bookingWindow: action.payload.newValue,
-        }),
+        availability: {
+          ...state.availability,
+          [action.payload.day]: [
+            ...updateState(state.availability, action.payload, {
+              bookingWindow: action.payload.newValue,
+            }),
+          ],
+        },
       }
     case settingsReducerKey.UPDATE_NOTICE_PERIOD_VALUE:
       return {
@@ -97,22 +130,21 @@ export const settingsReducerKey = {
   SET_ERROR: 'ERROR',
 }
 
-const initialAvailability = (day, id) => {
+const initialAvailability = id => {
   return {
     id,
-    day,
     startTime: defaultStartTime,
     endTime: defaultEndTime,
     bookingWindow: { value: 4, unit: 'WEEK' },
   }
 }
 
-const availabilityAfterDelete = (availability, targetId) => {
-  return availability.filter(option => option.id !== targetId)
+const availabilityAfterDelete = (availability, target) => {
+  return availability[target.day].filter(option => option.id !== target.id)
 }
 
-const updateState = (availability, newValueId, newValue) => {
-  return availability.map(option =>
-    option.id === newValueId ? { ...option, ...newValue } : option,
+const updateState = (availability, newValueData, updatedValue) => {
+  return availability[newValueData.day].map(option =>
+    option.id === newValueData.id ? { ...option, ...updatedValue } : option,
   )
 }

@@ -1,10 +1,15 @@
-import { Trash } from "@phosphor-icons/react"
+import { Trash } from '@phosphor-icons/react'
 
-function DeleteRange({id, dispatchSettingsData, settingsReducerKey}) {
+function DeleteRange({
+  id,
+  dispatchSettingsData,
+  settingsReducerKey,
+  activeDay,
+}) {
   const handleDelete = id => {
     dispatchSettingsData({
       type: settingsReducerKey.DELETE_AVAILABILITY,
-      payload: id,
+      payload: { day: activeDay, id },
     })
   }
 
