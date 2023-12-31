@@ -37,6 +37,7 @@ function AvailabilityTiming({
                 dispatchSettingsData={dispatchSettingsData}
                 id={option.id}
                 isOverlapped={overlappedAvailability?.id === option.id}
+                activeDay={activeDay}
               />
             ))}
           </div>

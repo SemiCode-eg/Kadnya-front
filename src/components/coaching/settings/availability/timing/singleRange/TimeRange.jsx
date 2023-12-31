@@ -11,6 +11,7 @@ function TimeRange({
   settingsReducerKey,
   startTime,
   endTime,
+  activeDay,
 }) {
   const [timeValue, setTimeValue] = useState(null)
 
@@ -18,7 +19,7 @@ function TimeRange({
     if (isValidRange(roundTimeTo15Minutes(value), endTime)) {
       dispatchSettingsData({
         type: settingsReducerKey.UPDATE_START_TIME,
-        payload: { id, value: roundTimeTo15Minutes(value) },
+        payload: { day: activeDay, id, value: roundTimeTo15Minutes(value) },
       })
     } else {
       dispatchSettingsData({
@@ -27,7 +28,11 @@ function TimeRange({
       })
       dispatchSettingsData({
         type: settingsReducerKey.UPDATE_START_TIME,
-        payload: { id, value: endTime.set('hour', endTime['$H'] - 1) },
+        payload: {
+          day: activeDay,
+          id,
+          value: endTime.set('hour', endTime['$H'] - 1),
+        },
       })
     }
   }
@@ -36,7 +41,7 @@ function TimeRange({
     if (isValidRange(startTime, roundTimeTo15Minutes(value))) {
       dispatchSettingsData({
         type: settingsReducerKey.UPDATE_END_TIME,
-        payload: { id, value: roundTimeTo15Minutes(value) },
+        payload: { day: activeDay, id, value: roundTimeTo15Minutes(value) },
       })
     } else {
       dispatchSettingsData({
@@ -45,7 +50,11 @@ function TimeRange({
       })
       dispatchSettingsData({
         type: settingsReducerKey.UPDATE_END_TIME,
-        payload: { id, value: startTime.set('hour', startTime['$H'] + 1) },
+        payload: {
+          day: activeDay,
+          id,
+          value: startTime.set('hour', startTime['$H'] + 1),
+        },
       })
     }
   }

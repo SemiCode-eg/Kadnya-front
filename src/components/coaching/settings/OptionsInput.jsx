@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import TextField from '../../customFields/TextField'
 import SortSelect from '../../SortSelect'
 import { FormLabel } from '@mui/material'
@@ -6,7 +6,7 @@ import { FormLabel } from '@mui/material'
 function OptionsInput({
   sortData = [],
   optionValue = 0,
-  optionUnit = '',
+  optionUnit = 'DAY',
   onValueChange = () => {},
   onUnitChange = () => {},
   title = '',
@@ -18,6 +18,10 @@ function OptionsInput({
     setSortKey(value)
     onUnitChange(value)
   }
+
+  useEffect(() => {
+    setSortKey(optionUnit)
+  }, [optionUnit])
 
   return (
     <div className="text-left">

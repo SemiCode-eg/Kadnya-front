@@ -1,6 +1,6 @@
 import { DotsThreeOutline } from '@phosphor-icons/react'
 import SettingMenu from '../../../menu'
-import SessionDetails from './sessionDetails'
+import SessionDetails from './SessionDetails'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { deleteSession } from '../../../../api/coachProgram'

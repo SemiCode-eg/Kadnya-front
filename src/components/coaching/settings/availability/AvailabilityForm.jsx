@@ -7,8 +7,7 @@ function AvailabilityForm({
   dispatchSettingsData,
   overlappedAvailability,
 }) {
-  const [activeDay, setActiveDay] = useState('Sun')
-  const dayData = data.filter(option => option.day === activeDay)
+  const [activeDay, setActiveDay] = useState('sun')
 
   useEffect(() => {
     if (overlappedAvailability?.day) {
@@ -20,7 +19,7 @@ function AvailabilityForm({
     <div className="text-start border-[1.5px] border-[#ddd] rounded-[10px] flex sm:gap-7 gap-2 h-[60dvh]">
       <DaySelect activeDay={activeDay} setActiveDay={setActiveDay} />
       <AvailabilityTiming
-        data={dayData}
+        data={data[activeDay]}
         dispatchSettingsData={dispatchSettingsData}
         activeDay={activeDay}
         overlappedAvailability={overlappedAvailability}

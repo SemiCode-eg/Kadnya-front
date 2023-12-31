@@ -10,11 +10,16 @@ function SingleRange({
   bookingWindowData,
   id,
   isOverlapped = false,
+  activeDay,
 }) {
   const handleBookValue = value => {
     dispatchSettingsData({
       type: settingsReducerKey.UPDATE_BOOK_VALUE,
-      payload: { id, newValue: { value, unit: bookingWindowData.unit } },
+      payload: {
+        day: activeDay,
+        id,
+        newValue: { value, unit: bookingWindowData.unit },
+      },
     })
   }
 
@@ -22,6 +27,7 @@ function SingleRange({
     dispatchSettingsData({
       type: settingsReducerKey.UPDATE_BOOK_UNIT,
       payload: {
+        day: activeDay,
         id,
         newValue: { value: bookingWindowData.value, unit },
       },
@@ -39,6 +45,7 @@ function SingleRange({
         settingsReducerKey={settingsReducerKey}
         startTime={startTime}
         endTime={endTime}
+        activeDay={activeDay}
       />
 
       <OptionsInput
@@ -55,6 +62,7 @@ function SingleRange({
         id={id}
         dispatchSettingsData={dispatchSettingsData}
         settingsReducerKey={settingsReducerKey}
+        activeDay={activeDay}
       />
     </div>
   )
