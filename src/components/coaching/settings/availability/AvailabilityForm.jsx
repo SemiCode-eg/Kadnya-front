@@ -7,7 +7,7 @@ function AvailabilityForm({
   dispatchSettingsData,
   overlappedAvailability,
 }) {
-  const [activeDay, setActiveDay] = useState('Sun')
+  const [activeDay, setActiveDay] = useState('sun')
 
   useEffect(() => {
     if (overlappedAvailability?.day) {

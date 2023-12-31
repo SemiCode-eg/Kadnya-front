@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Availability from '../../../components/coaching/settings/availability/Availability'
 import NoticePeriod from '../../../components/coaching/settings/noticePeriod/NoticePeriod'
 import HandleErrorLoad from '../../../components/handleErrorLoad'
@@ -6,6 +6,7 @@ import MainButton from '../../../components/mainButton/MainButton'
 import useCoachSettingReducer from '../../../hooks/use-coach-settings-reducer'
 import { checkOverlapping } from '../../../utils/coach'
 import useCoachSettings from '../../../hooks/use-coach-settings'
+import { refactoredAvailability } from '../../../utils/coach/refactorAvailability'
 
 function CoachingSettings() {
   const [overlappedAvailability, setOverlappedAvailability] = useState(null)
@@ -31,9 +32,32 @@ function CoachingSettings() {
     }
   }
 
+  useEffect(() => {
+    if (coachSettings) {
+      if (coachSettings.availabilities) {
+        dispatchSettingsData({
+          type: settingsReducerKey.ADD_AVAILABILITIES,
+          payload: refactoredAvailability(coachSettings.availabilities),
+        })
+      }
+      dispatchSettingsData({
+        type: settingsReducerKey.UPDATE_NOTICE_PERIOD_VALUE,
+        payload:
+          coachSettings.minimum_notice_scheduling < 60
+            ? coachSettings.minimum_notice_scheduling
+            : coachSettings.minimum_notice_scheduling / 60,
+      })
+      dispatchSettingsData({
+        type: settingsReducerKey.UPDATE_NOTICE_PERIOD_UNIT,
+        payload: coachSettings.minimum_notice_scheduling < 60 ? 'MIN' : 'HOUR',
+      })
+    }
+  }, [coachSettings, dispatchSettingsData, settingsReducerKey])
+
   return (
     <HandleErrorLoad
-      errorMsg={settingsData.error}
+      loading={loading}
+      errorMsg={errorMsg || settingsData.error}
       setErrorMsg={error =>
         dispatchSettingsData({
           type: settingsReducerKey.SET_ERROR,

@@ -5,7 +5,7 @@ function DaySelect({ activeDay, setActiveDay = () => {} }) {
         <button
           type="button"
           key={day}
-          className={`w-full py-3 text-center rounded-l-2xl 
+          className={`w-full py-3 text-center rounded-l-2xl capitalize
                       duration-150 ease-in transition-[background-color] 
                       ${
                         activeDay === day &&
@@ -26,4 +26,4 @@ function DaySelect({ activeDay, setActiveDay = () => {} }) {
 
 export default DaySelect
 
-const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']

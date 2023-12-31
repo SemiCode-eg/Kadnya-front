@@ -16,13 +16,13 @@ const defaultEndTime = dayjs().set('hour', 17).set('minute', 0)
 const settingsInitialState = {
   noticePeriod: { value: 15, unit: 'MIN' },
   availability: {
-    Sun: [],
-    Mon: [],
-    Tue: [],
-    Wed: [],
-    Thu: [],
-    Fri: [],
-    Sat: [],
+    sun: [],
+    mon: [],
+    tue: [],
+    wed: [],
+    thu: [],
+    fri: [],
+    sat: [],
   },
   error: '',
 }
@@ -39,6 +39,11 @@ const settingsReducer = (state, action) => {
             initialAvailability(action.payload.id),
           ],
         },
+      }
+    case settingsReducerKey.ADD_AVAILABILITIES:
+      return {
+        ...state,
+        availability: action.payload,
       }
     case settingsReducerKey.DELETE_AVAILABILITY:
       return {
@@ -120,6 +125,7 @@ const settingsReducer = (state, action) => {
 
 export const settingsReducerKey = {
   ADD_AVAILABILITY: 'ADD_AVAILABILITY',
+  ADD_AVAILABILITIES: 'ADD_AVAILABILITIES',
   DELETE_AVAILABILITY: 'DELETE_AVAILABILITY',
   UPDATE_START_TIME: 'UPDATE_START_TIME',
   UPDATE_END_TIME: 'UPDATE_END_TIME',
@@ -135,7 +141,7 @@ const initialAvailability = id => {
     id,
     startTime: defaultStartTime,
     endTime: defaultEndTime,
-    bookingWindow: { value: 4, unit: 'WEEK' },
+    bookingWindow: { value: 7, unit: 'DAY' },
   }
 }
 
