@@ -56,11 +56,17 @@ function CoachingSettings() {
       if (coachSettings.minimum_notice_scheduling) {
         dispatchSettingsData({
           type: settingsReducerKey.UPDATE_NOTICE_PERIOD_VALUE,
-          payload: coachSettings.minimum_notice_scheduling,
+          payload:
+            coachSettings.minimum_notice_scheduling > 120
+              ? parseFloat(
+                  (coachSettings.minimum_notice_scheduling / 60).toFixed(1),
+                )
+              : coachSettings.minimum_notice_scheduling,
         })
         dispatchSettingsData({
           type: settingsReducerKey.UPDATE_NOTICE_PERIOD_UNIT,
-          payload: 'MIN',
+          payload:
+            coachSettings.minimum_notice_scheduling > 120 ? 'HOUR' : 'MIN',
         })
       }
     }

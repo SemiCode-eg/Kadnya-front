@@ -9,7 +9,7 @@ function TextField({
   className = '',
   type = 'text',
   min = 0,
-  max = 100,
+  max,
   id = '',
 }) {
   const fieldClasses = `${defaultClasses} ${className}`

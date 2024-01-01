@@ -37,7 +37,7 @@ export const sendCoachSettingsData = async (data, coachId) => {
     'minimum_notice_scheduling',
     parseInt(
       data.noticePeriod.unit === 'HOUR'
-        ? data.noticePeriod.value / 60
+        ? data.noticePeriod.value * 60
         : data.noticePeriod.value,
     ),
   )
